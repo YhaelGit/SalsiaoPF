@@ -1,16 +1,390 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.salsiaopf.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.salsiaopf.HelloController"
+            styleClass="root">
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+    <fx:define>
+        <ToggleGroup fx:id="segments"/>
+    </fx:define>
+
+    <top>
+        <VBox>
+            <!-- Header -->
+            <HBox spacing="14" alignment="CENTER_LEFT" styleClass="brandBox">
+                <StackPane styleClass="logoCircle">
+                    <ImageView fx:id="logoImage"
+                               fitWidth="78" fitHeight="78"
+                               preserveRatio="true" smooth="true"/>
+                </StackPane>
+
+                <VBox spacing="2">
+                    <Label text="Salsiao" styleClass="brandScript"/>
+                    <Label text="Proceso de Compra" styleClass="brandSub"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <TextField promptText="Buscador" styleClass="search"/>
+            </HBox>
+
+            <HBox spacing="8" styleClass="segmentBar" alignment="CENTER_LEFT">
+                <ToggleButton fx:id="segOrder"      text="Orden"       toggleGroup="$segments" onAction="#showOrder"      styleClass="segBtn"/>
+                <ToggleButton fx:id="segSupplier"   text="Proveedor"   toggleGroup="$segments" onAction="#showSupplier"   styleClass="segBtn"/>
+                <ToggleButton fx:id="segReception"  text="Recepción"   toggleGroup="$segments" onAction="#showReception"  styleClass="segBtn"/>
+                <ToggleButton fx:id="segIngredient" text="Ingrediente" toggleGroup="$segments" onAction="#showIngredient" styleClass="segBtn"/>
+                <ToggleButton fx:id="segPayment"    text="Pago"        toggleGroup="$segments" onAction="#showPayment"    styleClass="segBtn"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <StackPane styleClass="content">
+            <padding>
+                <Insets top="18" right="18" bottom="18" left="18"/>
+            </padding>
+
+            <!-- ORDEN_COMPRA (mejorado) -->
+            <VBox fx:id="viewOrder" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Orden de Compra" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Acciones coherentes -->
+                    <Button text="Nueva orden" styleClass="primary"/>
+                    <Button text="Enviar al proveedor" styleClass="accent"/>
+                </HBox>
+
+                <!-- Datos generales de la orden -->
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="No. Orden:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="OC-000123" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Fecha:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <DatePicker GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Proveedor:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <ComboBox promptText="Seleccionar proveedor" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="ID Proveedor:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="Ej: 1" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Nombre:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField promptText="Orden semanal" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Tipo productos:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <TextField promptText="Ingredientes / Empaques..." GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                </GridPane>
+
+                <!-- Producto a agregar (lógico antes del detalle) -->
+                <VBox spacing="10" styleClass="cardInner">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Producto a agregar" styleClass="h2"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Agregar producto" styleClass="primary"/>
+                        <Button text="Quitar producto" styleClass="ghost"/>
+                    </HBox>
+
+                    <GridPane hgap="10" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints prefWidth="150"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints prefWidth="150"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+
+                        <Label text="ID Producto:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField promptText="Ej: ING-001" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Cantidad:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <TextField promptText="Ej: 25" prefWidth="120" styleClass="qtyField"
+                                   GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                        <Label text="Descripción:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <TextField promptText="Nombre del ingrediente / empaque..." GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                    </GridPane>
+                </VBox>
+
+                <!-- Detalle -->
+                <VBox spacing="8">
+                    <Label text="Detalle" styleClass="h2"/>
+                    <TableView styleClass="table" prefHeight="320">
+                        <columns>
+                            <TableColumn text="ID Producto" prefWidth="160"/>
+                            <TableColumn text="Descripción" prefWidth="420"/>
+                            <TableColumn text="Cantidad" prefWidth="140"/>
+                            <TableColumn text="Precio" prefWidth="160"/>
+                            <TableColumn text="Importe" prefWidth="180"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <TextArea promptText="Observaciones de la orden..." prefRowCount="3"/>
+
+            </VBox>
+
+            <!-- PROVEEDOR -->
+            <!-- PROVEEDOR (RESTAURANTE) -->
+            <VBox fx:id="viewSupplier" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Proveedor" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Acciones coherentes para el RESTAURANTE -->
+                    <Button text="Nuevo proveedor" styleClass="primary"/>
+                    <Button text="Editar" styleClass="accent"/>
+                    <Button text="Desactivar" styleClass="danger"/>
+                    <Button text="Ver historial" styleClass="ghost"/>
+                    <Button text="Asignar a orden" styleClass="accent"/>
+                </HBox>
+
+                <!-- Datos del proveedor (según diagrama: codigo, nombre, telefono, tipo_productos) -->
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Código:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="PRV-001" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Nombre:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField promptText="Proveedor X" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Teléfono:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField promptText="+1 (809) ..." GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Tipo productos:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="Carnes / Vegetales / Lácteos..." GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <!-- Cantidad (como tu ejemplo, input) -->
+                    <Label text="Cantidad:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField promptText="Ej: 25" prefWidth="120" styleClass="qtyField"
+                               GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <!-- Bloque útil para RESTAURANTE: lo que recibe del proveedor -->
+                <VBox spacing="8">
+                    <Label text="Recepciones recientes" styleClass="h2"/>
+                    <TableView styleClass="table" prefHeight="280">
+                        <columns>
+                            <TableColumn text="Fecha" prefWidth="180"/>
+                            <TableColumn text="Orden" prefWidth="180"/>
+                            <TableColumn text="Cant. recibida" prefWidth="160"/>
+                            <TableColumn text="Estado" prefWidth="180"/>
+                            <TableColumn text="Observaciones" prefWidth="320"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </VBox>
+
+
+            <!-- RECEPCIÓN -->
+            <!-- RECEPCIÓN (mejorado) -->
+            <VBox fx:id="viewReception" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Recepción" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Acciones coherentes (restaurante) -->
+                    <Button text="Verificar especificaciones" styleClass="ghost"/>
+                    <Button text="Registrar recibido" styleClass="primary"/>
+                    <Button text="Reportar incidencia" styleClass="danger"/>
+                    <Button text="Confirmar recepción" styleClass="accent"/>
+                    <Button text="Actualizar inventario" styleClass="accent"/>
+                </HBox>
+
+                <!-- Datos generales de la recepción (según diagrama) + referencia de orden -->
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="160"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="160"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <!-- Referencia a la orden -->
+                    <Label text="No. Orden:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="OC-000123" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Proveedor:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <ComboBox promptText="Seleccionar proveedor" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <!-- Datos de recepción -->
+                    <Label text="Fecha recepción:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <DatePicker GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Responsable:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="Nombre" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Estado producto:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <ComboBox promptText="Conforme / Dañado / Incompleto"
+                              GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <!-- Cantidad recibida como resumen (opcional, para que no “flote” raro) -->
+                    <Label text="Cant. recibida (resumen):" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <TextField promptText="Ej: 25" prefWidth="120" styleClass="qtyField"
+                               GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                    <Label text="Observaciones:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField promptText="Notas rápidas..." GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+                </GridPane>
+
+                <!-- Ítems recibidos: aquí debe ir el recibido por producto -->
+                <VBox spacing="8">
+                    <Label text="Ítems recibidos (boceto)" styleClass="h2"/>
+
+                    <TableView styleClass="table" prefHeight="320">
+                        <columns>
+                            <TableColumn text="ID Producto" prefWidth="160"/>
+                            <TableColumn text="Ingrediente" prefWidth="320"/>
+                            <TableColumn text="Ordenado" prefWidth="140"/>
+                            <TableColumn text="Recibido" prefWidth="140"/>
+                            <TableColumn text="Verificación" prefWidth="220"/>
+                            <TableColumn text="Incidencia" prefWidth="260"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- Notas internas (lo que pediste antes) -->
+                <TextArea promptText="Notas de recepción (lo recibido, diferencias, daños, faltantes)..."
+                          prefRowCount="3"/>
+
+            </VBox>
+
+            <!-- INGREDIENTE -->
+            <!-- INGREDIENTE (RESTAURANTE) -->
+            <VBox fx:id="viewIngredient" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Ingrediente" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Acciones coherentes para el RESTAURANTE -->
+                    <Button text="Nuevo ingrediente" styleClass="primary"/>
+                    <Button text="Editar" styleClass="accent"/>
+                    <Button text="Desactivar" styleClass="danger"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="160"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="160"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <!-- Fila 0 -->
+                    <Label text="Código:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="ING-001" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Nombre:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField promptText="Queso mozzarella" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <!-- Fila 1 -->
+                    <Label text="Categoría:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField promptText="Lácteos" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Unidad medida:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="Kg / Lb / Unidad" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <!-- Fila 2 (Cantidad debajo de Categoría) -->
+                    <Label text="Cantidad:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField promptText="Ej: 25" prefWidth="120" styleClass="qtyField"
+                               GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Vencimiento:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <DatePicker GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                    <!-- Fila 3 -->
+                    <Label text="Precio unitario:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <Label text="Notas:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                    <TextField promptText="Marca, lote, condiciones..." GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+                </GridPane>
+
+                <!-- Tabla: catálogo de ingredientes -->
+                <VBox spacing="8">
+                    <Label text="Catálogo de ingredientes" styleClass="h2"/>
+                    <TableView styleClass="table" prefHeight="280">
+                        <columns>
+                            <TableColumn text="Código" prefWidth="160"/>
+                            <TableColumn text="Nombre" prefWidth="360"/>
+                            <TableColumn text="Categoría" prefWidth="200"/>
+                            <TableColumn text="Unidad" prefWidth="160"/>
+                            <TableColumn text="Precio" prefWidth="160"/>
+                            <TableColumn text="Vence" prefWidth="180"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </VBox>
+
+
+            <!-- PAGO -->
+            <VBox fx:id="viewPayment" spacing="14" styleClass="cardWide">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Pago" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Procesar pago" styleClass="primary"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Método pago:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="Transferencia / Efectivo / Tarjeta" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Fecha pago:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <DatePicker GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Monto:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="ITBIS:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Referencia:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField promptText="No. transacción" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+                </GridPane>
+
+                <TableView styleClass="table" prefHeight="280">
+                    <columns>
+                        <TableColumn text="Fecha" prefWidth="200"/>
+                        <TableColumn text="Método" prefWidth="240"/>
+                        <TableColumn text="Monto" prefWidth="200"/>
+                        <TableColumn text="ITBIS" prefWidth="200"/>
+                        <TableColumn text="Referencia" prefWidth="280"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>
