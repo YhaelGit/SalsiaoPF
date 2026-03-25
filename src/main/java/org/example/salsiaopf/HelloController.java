@@ -6,6 +6,11 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 
 import org.example.salsiaopf.database.Conexion;
 
@@ -29,7 +34,6 @@ public class HelloController implements Initializable {
     @FXML private VBox viewIngredient;
     @FXML private VBox viewPayment;
 
-    // 🔥 conexión global
     private Connection conexion;
 
     @Override
@@ -40,27 +44,33 @@ public class HelloController implements Initializable {
         iniciarVista();
     }
 
-    // ✅ MÉTODO PARA CARGAR LOGO (más limpio)
     private void cargarLogo() {
         try {
             if (logoImage != null) {
-                Image logo = new Image(
-                        getClass().getResourceAsStream("/org/example/imagenes/logo-salsiao.jpeg")
-                );
+                var stream = getClass().getResourceAsStream("/imagenes/logo-salsiao.jpeg");
+
+                if (stream == null) {
+                    System.out.println("❌ No se encontró la imagen");
+                    return;
+                }
+
+                Image logo = new Image(stream);
                 logoImage.setImage(logo);
+
+                Circle clip = new Circle(39, 39, 39);
+                logoImage.setClip(clip);
             }
         } catch (Exception e) {
             System.out.println("❌ Error cargando imagen: " + e.getMessage());
         }
     }
 
-    // ✅ MÉTODO PARA CONECTAR BD
     private void conectarBD() {
         try {
             conexion = Conexion.conectar();
 
             if (conexion != null) {
-                System.out.println("🔥 Conectado a SQL Server correctamente");
+                System.out.println("Conectado a SQL Server correctamente");
             } else {
                 System.out.println("❌ No se pudo conectar a la BD");
             }
@@ -70,7 +80,6 @@ public class HelloController implements Initializable {
         }
     }
 
-    // ✅ INICIAR VISTA
     private void iniciarVista() {
         if (segOrder != null) {
             segOrder.setSelected(true);
@@ -78,7 +87,6 @@ public class HelloController implements Initializable {
         showOnly(viewOrder);
     }
 
-    // 🔁 CONTROL DE VISTAS
     private void showOnly(VBox target) {
         VBox[] all = { viewOrder, viewSupplier, viewReception, viewIngredient, viewPayment };
 
@@ -91,22 +99,42 @@ public class HelloController implements Initializable {
         }
     }
 
-    // 🎛️ BOTONES DE NAVEGACIÓN
+    @FXML
+    private void volverMenu(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("main.fxml"));
+
+            Scene scene = new Scene(loader.load(), 1200, 800);
+            scene.getStylesheets().add(
+                    getClass().getResource("styles.css").toExternalForm()
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Salsiao - Sistema Principal");
+            stage.show();
+
+        } catch (Exception e) {
+            System.out.println("Error volviendo al menú: " + e.getMessage());
+        }
+    }
+
     @FXML private void showOrder() { showOnly(viewOrder); }
     @FXML private void showSupplier() { showOnly(viewSupplier); }
     @FXML private void showReception() { showOnly(viewReception); }
     @FXML private void showIngredient() { showOnly(viewIngredient); }
     @FXML private void showPayment() { showOnly(viewPayment); }
 
-    // 🔥 BOTÓN PARA PROBAR CONEXIÓN
     @FXML
     private void probarConexion() {
         Connection con = Conexion.conectar();
 
         if (con != null) {
-            System.out.println("✅ Conexión manual exitosa");
+            System.out.println("Conexión manual exitosa");
         } else {
             System.out.println("❌ Error en conexión manual");
         }
     }
 }
+
