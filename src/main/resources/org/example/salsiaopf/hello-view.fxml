@@ -20,16 +20,21 @@
             <HBox spacing="14" alignment="CENTER_LEFT" styleClass="brandBox">
                 <StackPane styleClass="logoCircle">
                     <ImageView fx:id="logoImage"
-                               fitWidth="78" fitHeight="78"
-                               preserveRatio="true" smooth="true"/>
+                               fitWidth="78"
+                               fitHeight="78"
+                               preserveRatio="false"
+                               smooth="true"/>
                 </StackPane>
-
                 <VBox spacing="2">
                     <Label text="Salsiao" styleClass="brandScript"/>
                     <Label text="Proceso de Compra" styleClass="brandSub"/>
                 </VBox>
 
                 <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="Menú"
+                        onAction="#volverMenu"
+                        styleClass="ghost"/>
 
                 <TextField promptText="Buscador" styleClass="search"/>
             </HBox>

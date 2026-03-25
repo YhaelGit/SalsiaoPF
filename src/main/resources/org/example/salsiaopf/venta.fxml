@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.salsiaopf.VentaController"
+            styleClass="root">
+
+    <fx:define>
+        <ToggleGroup fx:id="segments"/>
+    </fx:define>
+
+    <!-- HEADER -->
+    <top>
+        <VBox>
+            <HBox spacing="14" alignment="CENTER_LEFT" styleClass="brandBox">
+
+                <StackPane styleClass="logoCircle">
+                    <ImageView fx:id="logoImage"
+                               fitWidth="70"
+                               fitHeight="70"
+                               preserveRatio="true"
+                               smooth="true"/>
+                </StackPane>
+
+                <VBox spacing="0" alignment="CENTER_LEFT">
+                    <Label text="Salsiao" styleClass="brandScript"/>
+                    <Label text="Gestión de Ventas" styleClass="brandSub"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="Menú"
+                        onAction="#volverMenu"
+                        styleClass="ghost"/>
+
+                <TextField promptText="Buscar venta..." styleClass="search"/>
+            </HBox>
+
+            <!-- SEGMENTOS -->
+            <HBox spacing="8" styleClass="segmentBar" alignment="CENTER_LEFT">
+                <ToggleButton fx:id="segVenta"
+                              text="Venta"
+                              toggleGroup="$segments"
+                              onAction="#showVenta"
+                              styleClass="segBtn"/>
+
+                <ToggleButton fx:id="segDetalle"
+                              text="Detalle"
+                              toggleGroup="$segments"
+                              onAction="#showDetalle"
+                              styleClass="segBtn"/>
+
+                <ToggleButton fx:id="segPago"
+                              text="Pago"
+                              toggleGroup="$segments"
+                              onAction="#showPago"
+                              styleClass="segBtn"/>
+
+                <ToggleButton fx:id="segHistorial"
+                              text="Historial"
+                              toggleGroup="$segments"
+                              onAction="#showHistorial"
+                              styleClass="segBtn"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- CONTENIDO -->
+    <center>
+        <StackPane styleClass="content">
+            <padding>
+                <Insets top="18" right="18" bottom="18" left="18"/>
+            </padding>
+
+            <!-- VENTA -->
+            <VBox fx:id="viewVenta" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Registro de Venta" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Nueva Venta" styleClass="primary"/>
+                </HBox>
+
+                <!-- DATOS PRINCIPALES -->
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Número Venta:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="Ej: V-0001" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Fecha:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <DatePicker GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Hora:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField promptText="08:30 PM" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Cliente:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <ComboBox promptText="Seleccionar cliente" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                </GridPane>
+
+                <!-- DETALLE DENTRO DE VENTA -->
+                <VBox spacing="8">
+                    <Label text="Detalle de productos" styleClass="h2"/>
+
+                    <TableView styleClass="table" prefHeight="260">
+                        <columns>
+                            <TableColumn text="Producto" prefWidth="320"/>
+                            <TableColumn text="Cantidad" prefWidth="140"/>
+                            <TableColumn text="Precio" prefWidth="180"/>
+                            <TableColumn text="Subtotal" prefWidth="180"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- TOTALES -->
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Subtotal:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="ITBIS:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Total:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Observaciones:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="Notas generales de la venta" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                </GridPane>
+
+                <!-- BOTONES -->
+                <HBox spacing="10">
+                    <Button text="Agregar Producto" styleClass="primary"/>
+                    <Button text="Eliminar Producto" styleClass="danger"/>
+                    <Button text="Guardar Venta" styleClass="accent"/>
+                    <Button text="Ir a Pago" styleClass="ghost"/>
+                </HBox>
+
+            </VBox>
+
+            <!-- DETALLE -->
+            <VBox fx:id="viewDetalle" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Detalle de Venta" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Agregar" styleClass="primary"/>
+                    <Button text="Eliminar" styleClass="danger"/>
+                    <Button text="Actualizar" styleClass="accent"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Producto:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <ComboBox promptText="Seleccionar producto" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Cantidad:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField promptText="1" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Precio:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Subtotal:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                </GridPane>
+
+                <TableView styleClass="table" prefHeight="320">
+                    <columns>
+                        <TableColumn text="Producto" prefWidth="320"/>
+                        <TableColumn text="Cantidad" prefWidth="140"/>
+                        <TableColumn text="Precio" prefWidth="180"/>
+                        <TableColumn text="Subtotal" prefWidth="180"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
+
+            <!-- PAGO -->
+            <VBox fx:id="viewPago" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Registro de Pago" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Registrar Pago" styleClass="primary"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Número Pago:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="Ej: P-0001" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Fecha Pago:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <DatePicker GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Método Pago:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <ComboBox promptText="Efectivo / Tarjeta / Transferencia" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Monto:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Cambio:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
+
+            </VBox>
+
+            <!-- HISTORIAL -->
+            <VBox fx:id="viewHistorial" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Historial de Ventas" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Actualizar" styleClass="accent"/>
+                </HBox>
+
+                <TableView styleClass="table" prefHeight="420">
+                    <columns>
+                        <TableColumn text="Número Venta" prefWidth="150"/>
+                        <TableColumn text="Fecha" prefWidth="180"/>
+                        <TableColumn text="Cliente" prefWidth="260"/>
+                        <TableColumn text="Total" prefWidth="160"/>
+                        <TableColumn text="Método Pago" prefWidth="180"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

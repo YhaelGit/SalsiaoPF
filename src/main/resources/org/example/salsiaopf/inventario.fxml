@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.salsiaopf.InventarioController"
+            styleClass="root">
+
+    <fx:define>
+        <ToggleGroup fx:id="segments"/>
+    </fx:define>
+
+    <!-- HEADER -->
+    <top>
+        <VBox>
+            <HBox spacing="14" alignment="CENTER_LEFT" styleClass="brandBox">
+
+                <StackPane styleClass="logoCircle">
+                    <ImageView fx:id="logoImage"
+                               fitWidth="70"
+                               fitHeight="70"
+                               preserveRatio="true"/>
+                </StackPane>
+
+                <VBox spacing="0" alignment="CENTER_LEFT">
+                    <Label text="Salsiao" styleClass="brandScript"/>
+                    <Label text="Inventario" styleClass="brandSub"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="Menú"
+                        onAction="#volverMenu"
+                        styleClass="ghost"/>
+
+                <TextField promptText="Buscar ingrediente..." styleClass="search"/>
+            </HBox>
+
+            <!-- SEGMENTOS -->
+            <HBox spacing="8" styleClass="segmentBar" alignment="CENTER_LEFT">
+                <ToggleButton fx:id="segIngredientes" text="Ingredientes"
+                              toggleGroup="$segments"
+                              onAction="#showIngredientes"
+                              styleClass="segBtn"/>
+
+                <ToggleButton fx:id="segStock" text="Stock"
+                              toggleGroup="$segments"
+                              onAction="#showStock"
+                              styleClass="segBtn"/>
+
+                <ToggleButton fx:id="segReportes" text="Reportes"
+                              toggleGroup="$segments"
+                              onAction="#showReportes"
+                              styleClass="segBtn"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- CONTENIDO -->
+    <center>
+        <StackPane styleClass="content">
+            <padding>
+                <Insets top="18" right="18" bottom="18" left="18"/>
+            </padding>
+
+            <!-- INGREDIENTES -->
+            <VBox fx:id="viewIngredientes" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10">
+                    <Label text="Ingredientes" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Nuevo" styleClass="primary"/>
+                    <Button text="Editar" styleClass="accent"/>
+                    <Button text="Eliminar" styleClass="danger"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Código:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Categoría:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Unidad:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Proveedor:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Fecha vencimiento:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <DatePicker GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                    <Label text="Estado:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <TableView prefHeight="300">
+                    <columns>
+                        <TableColumn text="Código" prefWidth="120"/>
+                        <TableColumn text="Nombre" prefWidth="200"/>
+                        <TableColumn text="Categoría" prefWidth="180"/>
+                        <TableColumn text="Unidad" prefWidth="120"/>
+                        <TableColumn text="Proveedor" prefWidth="200"/>
+                        <TableColumn text="Vencimiento" prefWidth="160"/>
+                        <TableColumn text="Estado" prefWidth="120"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
+
+            <!-- STOCK -->
+            <VBox fx:id="viewStock" spacing="14" styleClass="cardWide">
+
+                <HBox spacing="10">
+                    <Label text="Stock Actual" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Actualizar" styleClass="primary"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Ingrediente:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Disponible:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Mínimo:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Máximo:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <TableView prefHeight="300">
+                    <columns>
+                        <TableColumn text="Ingrediente" prefWidth="220"/>
+                        <TableColumn text="Disponible" prefWidth="120"/>
+                        <TableColumn text="Mínimo" prefWidth="120"/>
+                        <TableColumn text="Máximo" prefWidth="120"/>
+                        <TableColumn text="Estado" prefWidth="160"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
+
+            <!-- REPORTES -->
+            <VBox fx:id="viewReportes" spacing="14" styleClass="cardWide">
+                <Label text="Reportes de Inventario" styleClass="h1"/>
+
+                <Button text="Ingredientes próximos a vencer" styleClass="accent"/>
+                <Button text="Stock bajo" styleClass="accent"/>
+                <Button text="Stock agotado" styleClass="danger"/>
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

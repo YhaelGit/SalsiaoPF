@@ -9,13 +9,15 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(loader.load(), 1180, 720);
-        scene.getStylesheets().add(HelloApplication.class.getResource("styles.css").toExternalForm());
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                HelloApplication.class.getResource("main.fxml"));
 
-        stage.setTitle("Salsiao · Proceso de Compra");
-        stage.setMinWidth(1060);
-        stage.setMinHeight(650);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        scene.getStylesheets().add(
+                HelloApplication.class.getResource("styles.css").toExternalForm()
+        );
+
+        stage.setTitle("Salsiao - Sistema Principal");
         stage.setScene(scene);
         stage.show();
     }
