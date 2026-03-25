@@ -5,25 +5,33 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 public class ClienteController {
 
     @FXML private ImageView logoImage;
 
+    // botones de navegación
     @FXML private ToggleButton segCliente;
     @FXML private ToggleButton segHistorial;
+    @FXML private ToggleButton segRecepcion;
 
+    // vistas
     @FXML private VBox viewCliente;
     @FXML private VBox viewHistorial;
-
-    @FXML private ToggleButton segRecepcion;
     @FXML private VBox viewRecepcion;
 
+    // campos de cliente
+    @FXML private TextField txtNombre;
+    @FXML private TextField txtTelefono;
 
     @FXML
     private void initialize() {
@@ -36,6 +44,7 @@ public class ClienteController {
         showOnly(viewCliente);
     }
 
+    // ================= LOGO =================
     private void cargarLogo() {
         try {
             var stream = getClass().getResourceAsStream("/imagenes/logo-salsiao.jpeg");
@@ -48,6 +57,7 @@ public class ClienteController {
         }
     }
 
+    // ================= VISTAS =================
     private void showOnly(VBox target) {
         VBox[] all = { viewCliente, viewHistorial, viewRecepcion };
 
@@ -57,7 +67,6 @@ public class ClienteController {
             v.setManaged(active);
         }
     }
-
 
     @FXML
     private void showCliente() {
@@ -74,6 +83,46 @@ public class ClienteController {
         showOnly(viewRecepcion);
     }
 
+    // ================= BASE DE DATOS =================
+    @FXML
+    private void guardarCliente() {
+
+        String nombre = txtNombre.getText();
+        String telefono = txtTelefono.getText();
+
+        if (nombre.isEmpty() || telefono.isEmpty()) {
+            System.out.println("Campos vacíos");
+            return;
+        }
+
+        try {
+            Connection conn = ConexionBD.conectar();
+
+            if (conn == null) {
+                System.out.println("No hay conexión a la BD");
+                return;
+            }
+
+            String sql = "INSERT INTO Clientes (nombre, telefono) VALUES (?, ?)";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.setString(2, telefono);
+
+            ps.executeUpdate();
+
+            System.out.println("Clientes guardado correctamente");
+
+            // limpiar campos
+            txtNombre.clear();
+            txtTelefono.clear();
+
+        } catch (Exception e) {
+            System.out.println("Error al guardar: " + e.getMessage());
+        }
+    }
+
+    // ================= NAVEGACIÓN =================
     @FXML
     private void volverMenu(ActionEvent event) {
         try {

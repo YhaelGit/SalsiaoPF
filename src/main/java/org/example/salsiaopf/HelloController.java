@@ -12,8 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 
-import org.example.salsiaopf.database.Conexion;
-
+import org.example.salsiaopf.ConexionBD;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.ResourceBundle;
@@ -67,8 +66,7 @@ public class HelloController implements Initializable {
 
     private void conectarBD() {
         try {
-            conexion = Conexion.conectar();
-
+            conexion = ConexionBD.conectar();
             if (conexion != null) {
                 System.out.println("Conectado a SQL Server correctamente");
             } else {
@@ -128,8 +126,7 @@ public class HelloController implements Initializable {
 
     @FXML
     private void probarConexion() {
-        Connection con = Conexion.conectar();
-
+        Connection con = ConexionBD.conectar();
         if (con != null) {
             System.out.println("Conexión manual exitosa");
         } else {

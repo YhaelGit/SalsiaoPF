@@ -22,11 +22,10 @@
                     <ImageView fx:id="logoImage"
                                fitWidth="70"
                                fitHeight="70"
-                               preserveRatio="true"
-                               smooth="true"/>
+                               preserveRatio="true"/>
                 </StackPane>
 
-                <VBox spacing="0" alignment="CENTER_LEFT">
+                <VBox>
                     <Label text="Salsiao" styleClass="brandScript"/>
                     <Label text="Gestión de Clientes" styleClass="brandSub"/>
                 </VBox>
@@ -40,193 +39,81 @@
                 <TextField promptText="Buscar cliente..." styleClass="search"/>
             </HBox>
 
-            <HBox spacing="8" styleClass="segmentBar" alignment="CENTER_LEFT">
+            <HBox spacing="8" styleClass="segmentBar">
                 <ToggleButton fx:id="segCliente"
                               text="Cliente"
                               toggleGroup="$segments"
-                              onAction="#showCliente"
-                              styleClass="segBtn"/>
+                              onAction="#showCliente"/>
 
                 <ToggleButton fx:id="segHistorial"
                               text="Historial"
                               toggleGroup="$segments"
-                              onAction="#showHistorial"
-                              styleClass="segBtn"/>
+                              onAction="#showHistorial"/>
             </HBox>
         </VBox>
     </top>
 
     <center>
-        <StackPane styleClass="content">
+        <StackPane>
             <padding>
                 <Insets top="18" right="18" bottom="18" left="18"/>
             </padding>
 
-            <!-- CLIENTE -->
-            <VBox fx:id="viewCliente" spacing="14" styleClass="cardWide">
+            <!-- ================= CLIENTE ================= -->
+            <VBox fx:id="viewCliente" spacing="14">
 
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Label text="Cliente" styleClass="h1"/>
+                <HBox spacing="10">
+                    <Label text="Cliente"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="Nuevo cliente" styleClass="primary"/>
-                    <Button text="Editar" styleClass="accent"/>
-                    <Button text="Desactivar" styleClass="danger"/>
+
+                    <Button text="Guardar" onAction="#guardarCliente"/>
                 </HBox>
 
                 <GridPane hgap="10" vgap="10">
-                    <columnConstraints>
-                        <ColumnConstraints prefWidth="150"/>
-                        <ColumnConstraints hgrow="ALWAYS"/>
-                        <ColumnConstraints prefWidth="150"/>
-                        <ColumnConstraints hgrow="ALWAYS"/>
-                    </columnConstraints>
 
-                    <Label text="ID Cliente:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                    <TextField promptText="Ej: 1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtNombre" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                    <Label text="Nombre:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                    <TextField promptText="Nombre del cliente" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                    <Label text="Teléfono:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtTelefono" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                    <Label text="Teléfono:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                    <TextField promptText="+1 (809) ..." GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                    <Label text="Correo:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                    <TextField promptText="correo@cliente.com" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                    <Label text="Dirección:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                    <TextField promptText="Dirección principal" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
-
-                    <Label text="Sector:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                    <TextField promptText="Sector" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                    <Label text="Ciudad:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                    <TextField promptText="Ciudad" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-
-                    <Label text="Referencia:" styleClass="muted" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                    <TextField promptText="Punto de referencia para entrega" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
-
-                    <Label text="Observaciones:" styleClass="muted" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                    <TextField promptText="Indicaciones o preferencias del cliente" GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
-
-                    <Label text="Estado:" styleClass="muted" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                    <ComboBox promptText="Activo / Inactivo / Suspendido" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
                 </GridPane>
 
-                <TableView styleClass="table" prefHeight="280">
+                <TableView fx:id="tablaClientes" prefHeight="300">
                     <columns>
-                        <TableColumn text="ID" prefWidth="90"/>
-                        <TableColumn text="Nombre" prefWidth="240"/>
-                        <TableColumn text="Teléfono" prefWidth="180"/>
-                        <TableColumn text="Correo" prefWidth="220"/>
-                        <TableColumn text="Sector" prefWidth="180"/>
-                        <TableColumn text="Ciudad" prefWidth="180"/>
-                        <TableColumn text="Estado" prefWidth="140"/>
+                        <TableColumn text="ID"/>
+                        <TableColumn text="Nombre"/>
+                        <TableColumn text="Teléfono"/>
                     </columns>
                 </TableView>
 
             </VBox>
 
-            <!-- HISTORIAL -->
-            <VBox fx:id="viewHistorial" spacing="14" styleClass="cardWide">
+            <!-- ================= HISTORIAL ================= -->
+            <VBox fx:id="viewHistorial" spacing="14">
 
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Label text="Historial del Cliente" styleClass="h1"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="Ver detalle" styleClass="ghost"/>
-                    <Button text="Actualizar" styleClass="accent"/>
-                </HBox>
+                <Label text="Historial del Cliente"/>
 
-                <GridPane hgap="10" vgap="10">
-                    <columnConstraints>
-                        <ColumnConstraints prefWidth="150"/>
-                        <ColumnConstraints hgrow="ALWAYS"/>
-                        <ColumnConstraints prefWidth="150"/>
-                        <ColumnConstraints hgrow="ALWAYS"/>
-                    </columnConstraints>
-
-                    <Label text="Cliente:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                    <ComboBox promptText="Seleccionar cliente" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                    <Label text="Teléfono:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                    <TextField promptText="Teléfono del cliente" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                    <Label text="Dirección frecuente:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                    <TextField promptText="Dirección usada con frecuencia" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
-                </GridPane>
-
-                <TableView styleClass="table" prefHeight="360">
+                <TableView prefHeight="300">
                     <columns>
-                        <TableColumn text="No. Pedido" prefWidth="120"/>
-                        <TableColumn text="Fecha" prefWidth="150"/>
-                        <TableColumn text="Tipo" prefWidth="140"/>
-                        <TableColumn text="Total" prefWidth="140"/>
-                        <TableColumn text="Estado" prefWidth="160"/>
-                        <TableColumn text="Método pago" prefWidth="180"/>
-                        <TableColumn text="Dirección entrega" prefWidth="260"/>
-                        <TableColumn text="Observación pedido" prefWidth="240"/>
+                        <TableColumn text="Pedido"/>
+                        <TableColumn text="Fecha"/>
+                        <TableColumn text="Total"/>
                     </columns>
                 </TableView>
 
             </VBox>
 
-            <!-- RECEPCIÓN / RESERVAS -->
-            <VBox fx:id="viewRecepcion" spacing="14" styleClass="cardWide">
+            <!-- ================= RECEPCIÓN ================= -->
+            <VBox fx:id="viewRecepcion" spacing="14">
 
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Label text="Recepción / Reservas" styleClass="h1"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="Consultar reserva" styleClass="ghost"/>
-                    <Button text="Confirmar llegada" styleClass="primary"/>
-                    <Button text="Asignar mesa" styleClass="accent"/>
-                    <Button text="Marcar asistencia" styleClass="accent"/>
-                    <Button text="Cancelar reserva" styleClass="danger"/>
-                </HBox>
+                <Label text="Recepción / Reservas"/>
 
-                <GridPane hgap="10" vgap="10">
-                    <columnConstraints>
-                        <ColumnConstraints prefWidth="150"/>
-                        <ColumnConstraints hgrow="ALWAYS"/>
-                        <ColumnConstraints prefWidth="150"/>
-                        <ColumnConstraints hgrow="ALWAYS"/>
-                    </columnConstraints>
-
-                    <Label text="No. Reserva:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                    <TextField promptText="Ej: R-0001" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                    <Label text="Cliente:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                    <ComboBox promptText="Seleccionar cliente" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                    <Label text="Fecha reserva:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                    <DatePicker GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                    <Label text="Hora reserva:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                    <TextField promptText="07:30 PM" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                    <Label text="Cantidad personas:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                    <TextField promptText="Ej: 4" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                    <Label text="Mesa asignada:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                    <ComboBox promptText="Seleccionar mesa" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                    <Label text="Canal:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                    <ComboBox promptText="Teléfono / WhatsApp / Presencial" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                    <Label text="Estado:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                    <ComboBox promptText="Pendiente / Confirmada / Asistió / Cancelada" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-
-                    <Label text="Observaciones:" styleClass="muted" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                    <TextField promptText="Notas de la reserva" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
-                </GridPane>
-
-                <TableView styleClass="table" prefHeight="320">
+                <TableView prefHeight="300">
                     <columns>
-                        <TableColumn text="No. Reserva" prefWidth="140"/>
-                        <TableColumn text="Cliente" prefWidth="240"/>
-                        <TableColumn text="Fecha" prefWidth="160"/>
-                        <TableColumn text="Hora" prefWidth="140"/>
-                        <TableColumn text="Personas" prefWidth="120"/>
-                        <TableColumn text="Mesa" prefWidth="120"/>
-                        <TableColumn text="Estado" prefWidth="180"/>
+                        <TableColumn text="Reserva"/>
+                        <TableColumn text="Cliente"/>
+                        <TableColumn text="Fecha"/>
                     </columns>
                 </TableView>
 

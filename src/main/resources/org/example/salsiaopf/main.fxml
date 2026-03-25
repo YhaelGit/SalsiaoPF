@@ -56,7 +56,7 @@
                 <Button text="Inventario"
                         onAction="#abrirInventario"
                         prefWidth="220" prefHeight="72"
-                        styleClass="mainBtnOrange"
+                        styleClass="mainBtnBlue"
                         GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
                 <Button text="Cliente"
