@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.salsiaopf.ClienteController"
+            styleClass="root">
+
+    <fx:define>
+        <ToggleGroup fx:id="segments"/>
+    </fx:define>
+
+    <top>
+        <VBox>
+            <HBox spacing="14" alignment="CENTER_LEFT" styleClass="brandBox">
+
+                <StackPane styleClass="logoCircle">
+                    <ImageView fx:id="logoImage"
+                               fitWidth="70"
+                               fitHeight="70"
+                               preserveRatio="true"/>
+                </StackPane>
+
+                <VBox>
+                    <Label text="Salsiao" styleClass="brandScript"/>
+                    <Label text="Gestión de Clientes" styleClass="brandSub"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="Menú"
+                        onAction="#volverMenu"
+                        styleClass="ghost"/>
+
+                <TextField promptText="Buscar cliente..." styleClass="search"/>
+            </HBox>
+
+            <HBox spacing="8" styleClass="segmentBar">
+                <ToggleButton fx:id="segCliente"
+                              text="Cliente"
+                              toggleGroup="$segments"
+                              onAction="#showCliente"/>
+
+                <ToggleButton fx:id="segHistorial"
+                              text="Historial"
+                              toggleGroup="$segments"
+                              onAction="#showHistorial"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <StackPane>
+            <padding>
+                <Insets top="18" right="18" bottom="18" left="18"/>
+            </padding>
+
+            <!-- ================= CLIENTE ================= -->
+            <VBox fx:id="viewCliente" spacing="14">
+
+                <HBox spacing="10">
+                    <Label text="Cliente"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <Button text="Guardar" onAction="#guardarCliente" styleClass="primary"/>
+                    <Button text="Eliminar" onAction="#eliminarCliente" styleClass="danger"/>
+                    <Button text="Limpiar" onAction="#limpiarCamposCliente" styleClass="ghost"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+
+                    <Label text="ID Cliente:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtIdCliente" GridPane.rowIndex="0" GridPane.columnIndex="1" editable="false"/>
+
+                    <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField fx:id="txtNombre" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Teléfono:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtTelefono" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField fx:id="txtEmail" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Dirección:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtDireccion" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+                </GridPane>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Buscar:"/>
+                    <TextField fx:id="txtBuscarCliente" promptText="Nombre, teléfono o email..." prefWidth="250"/>
+                    <Button text="Buscar" onAction="#buscarCliente" styleClass="accent"/>
+                </HBox>
+
+                <TableView fx:id="tablaClientes" prefHeight="300">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                        <TableColumn fx:id="colNombre" text="Nombre" prefWidth="200"/>
+                        <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="150"/>
+                        <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+                        <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
+
+            <!-- ================= HISTORIAL ================= -->
+            <VBox fx:id="viewHistorial" spacing="14">
+
+                <Label text="Historial del Cliente"/>
+
+                <TableView prefHeight="300">
+                    <columns>
+                        <TableColumn text="Pedido"/>
+                        <TableColumn text="Fecha"/>
+                        <TableColumn text="Total"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
+
+            <!-- ================= RECEPCIÓN ================= -->
+            <VBox fx:id="viewRecepcion" spacing="14">
+
+                <Label text="Recepción / Reservas"/>
+
+                <TableView prefHeight="300">
+                    <columns>
+                        <TableColumn text="Reserva"/>
+                        <TableColumn text="Cliente"/>
+                        <TableColumn text="Fecha"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

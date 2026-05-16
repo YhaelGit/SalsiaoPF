@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.salsiaopf.MantenimientoController"
+            styleClass="root">
+
+    <fx:define>
+        <ToggleGroup fx:id="segments"/>
+    </fx:define>
+
+    <top>
+        <VBox>
+            <HBox spacing="14" alignment="CENTER_LEFT" styleClass="brandBox">
+                <StackPane styleClass="logoCircle">
+                    <ImageView fx:id="logoImage"
+                               fitWidth="70"
+                               fitHeight="70"
+                               preserveRatio="true"
+                               smooth="true"/>
+                </StackPane>
+
+                <VBox spacing="2">
+                    <Label text="Salsiao" styleClass="brandScript"/>
+                    <Label text="Mantenimiento del Local" styleClass="brandSub"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="Menú"
+                        onAction="#volverMenu"
+                        styleClass="ghost"/>
+
+                <TextField promptText="Buscador" styleClass="search"/>
+            </HBox>
+
+            <HBox spacing="8" styleClass="segmentBar" alignment="CENTER_LEFT">
+                <ToggleButton fx:id="segLocal" text="Local" toggleGroup="$segments" onAction="#showLocal" styleClass="segBtn"/>
+                <ToggleButton fx:id="segArea" text="Área" toggleGroup="$segments" onAction="#showArea" styleClass="segBtn"/>
+                <ToggleButton fx:id="segEquipo" text="Equipo" toggleGroup="$segments" onAction="#showEquipo" styleClass="segBtn"/>
+                <ToggleButton fx:id="segTecnico" text="Técnico" toggleGroup="$segments" onAction="#showTecnico" styleClass="segBtn"/>
+                <ToggleButton fx:id="segConserje" text="Conserje" toggleGroup="$segments" onAction="#showConserje" styleClass="segBtn"/>
+                <ToggleButton fx:id="segLimpieza" text="Limpieza" toggleGroup="$segments" onAction="#showLimpieza" styleClass="segBtn"/>
+                <ToggleButton fx:id="segMantenimiento" text="Mantenimiento" toggleGroup="$segments" onAction="#showMantenimiento" styleClass="segBtn"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <StackPane styleClass="content">
+            <padding>
+                <Insets top="18" right="18" bottom="18" left="18"/>
+            </padding>
+
+            <!-- LOCAL -->
+            <VBox fx:id="viewLocal" spacing="14" styleClass="cardWide">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Local" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Guardar" onAction="#guardarLocal" styleClass="primary"/>
+                    <Button text="Eliminar" onAction="#eliminarLocal" styleClass="danger"/>
+                    <Button text="Limpiar" onAction="#limpiarLocal" styleClass="ghost"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="ID:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtLocalId" promptText="Auto" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Nombre:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField fx:id="txtLocalNombre" promptText="Local Principal" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Dirección:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtLocalDireccion" promptText="Dirección del local" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+                    <Label text="Estado:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="cbLocalEstado" promptText="Activo / Inactivo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <TableView fx:id="tablaLocales" styleClass="table" prefHeight="320">
+                    <columns>
+                        <TableColumn text="ID" prefWidth="120"/>
+                        <TableColumn text="Nombre" prefWidth="300"/>
+                        <TableColumn text="Dirección" prefWidth="500"/>
+                        <TableColumn text="Estado" prefWidth="180"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- AREA -->
+            <VBox fx:id="viewArea" spacing="14" styleClass="cardWide">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Área" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Nueva área" onAction="#guardarArea" styleClass="primary"/>
+                    <Button text="Editar" styleClass="accent"/>
+                    <Button text="Desactivar" styleClass="danger"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="ID:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtAreaId" promptText="Ej: 1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Nombre:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField fx:id="txtAreaNombre" promptText="Cocina" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Tipo:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtAreaTipo" promptText="Producción / Servicio / Almacén..." GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Tamaño:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField fx:id="txtAreaTamano" promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Estado:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="cbAreaEstado" promptText="Activo / Inactivo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Local:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <ComboBox fx:id="cbAreaLocal" promptText="Seleccionar local" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                </GridPane>
+
+                <TableView fx:id="tablaAreas" styleClass="table" prefHeight="320">
+                    <columns>
+                        <TableColumn text="ID" prefWidth="100"/>
+                        <TableColumn text="Nombre" prefWidth="260"/>
+                        <TableColumn text="Tipo" prefWidth="220"/>
+                        <TableColumn text="Tamaño" prefWidth="160"/>
+                        <TableColumn text="Estado" prefWidth="160"/>
+                        <TableColumn text="Local" prefWidth="220"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- EQUIPO -->
+            <VBox fx:id="viewEquipo" spacing="14" styleClass="cardWide">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Equipo" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Nuevo equipo" onAction="#guardarEquipo" styleClass="primary"/>
+                    <Button text="Editar" styleClass="accent"/>
+                    <Button text="Actualizar info" styleClass="ghost"/>
+                    <Button text="Verificar estado" styleClass="accent"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="ID:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtEquipoId" promptText="Ej: 1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Nombre:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField fx:id="txtEquipoNombre" promptText="Nevera Industrial" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Tipo:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtEquipoTipo" promptText="Refrigeración / Cocina..." GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Marca:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField fx:id="txtEquipoMarca" promptText="Marca" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Fecha compra:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <DatePicker fx:id="dpEquipoFechaCompra" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Estado:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <ComboBox fx:id="cbEquipoEstado" promptText="Operativo / Dañado / Inactivo" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                    <Label text="Ubicación:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtEquipoUbicacion" promptText="Cocina / Barra / Almacén..." GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <Label text="Área:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                    <ComboBox fx:id="cbEquipoArea" promptText="Seleccionar área" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+                </GridPane>
+
+                <TableView fx:id="tablaEquipos" styleClass="table" prefHeight="320">
+                    <columns>
+                        <TableColumn text="ID" prefWidth="90"/>
+                        <TableColumn text="Nombre" prefWidth="220"/>
+                        <TableColumn text="Tipo" prefWidth="180"/>
+                        <TableColumn text="Marca" prefWidth="160"/>
+                        <TableColumn text="Fecha compra" prefWidth="150"/>
+                        <TableColumn text="Estado" prefWidth="160"/>
+                        <TableColumn text="Ubicación" prefWidth="180"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- TECNICO -->
+            <VBox fx:id="viewTecnico" spacing="14" styleClass="cardWide">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Técnico" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Nuevo técnico" onAction="#guardarTecnico" styleClass="primary"/>
+                    <Button text="Editar" styleClass="accent"/>
+                    <Button text="Desactivar" styleClass="danger"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="ID:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtTecnicoId" promptText="Ej: 1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Nombre:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField fx:id="txtTecnicoNombre" promptText="Nombre del técnico" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Empresa:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtTecnicoEmpresa" promptText="Empresa" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Especialidad:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField fx:id="txtTecnicoEspecialidad" promptText="Refrigeración / Electricidad..." GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Teléfono:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtTecnicoTelefono" promptText="+1 (809) ..." GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <TableView fx:id="tablaTecnicos" styleClass="table" prefHeight="320">
+                    <columns>
+                        <TableColumn text="ID" prefWidth="100"/>
+                        <TableColumn text="Nombre" prefWidth="280"/>
+                        <TableColumn text="Empresa" prefWidth="260"/>
+                        <TableColumn text="Especialidad" prefWidth="260"/>
+                        <TableColumn text="Teléfono" prefWidth="200"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- CONSERJE -->
+            <VBox fx:id="viewConserje" spacing="14" styleClass="cardWide">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Conserje" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Nuevo conserje" styleClass="primary"/>
+                    <Button text="Editar" styleClass="accent"/>
+                    <Button text="Desactivar" styleClass="danger"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Cédula:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="000-0000000-0" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Nombre:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField promptText="Nombre del conserje" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Tipo:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField promptText="Fijo / Temporal" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Tamaño:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Estado:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <ComboBox promptText="Activo / Inactivo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <TableView styleClass="table" prefHeight="320">
+                    <columns>
+                        <TableColumn text="Cédula" prefWidth="180"/>
+                        <TableColumn text="Nombre" prefWidth="320"/>
+                        <TableColumn text="Tipo" prefWidth="200"/>
+                        <TableColumn text="Tamaño" prefWidth="180"/>
+                        <TableColumn text="Estado" prefWidth="180"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- LIMPIEZA -->
+            <VBox fx:id="viewLimpieza" spacing="14" styleClass="cardWide">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Limpieza" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Programar limpieza" styleClass="primary"/>
+                    <Button text="Iniciar limpieza" styleClass="accent"/>
+                    <Button text="Completar limpieza" styleClass="ghost"/>
+                    <Button text="Registrar tarea" styleClass="accent"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="ID:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="Ej: 1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Fecha:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <DatePicker GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Turno:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <ComboBox promptText="Mañana / Tarde / Noche" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Tipo limpieza:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="General / Profunda / Especial..." GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Estado:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <ComboBox promptText="Pendiente / En proceso / Completada" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Conserje:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <ComboBox promptText="Seleccionar conserje" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                    <Label text="Área:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <ComboBox promptText="Seleccionar área" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <Label text="Local:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                    <ComboBox promptText="Seleccionar local" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+                </GridPane>
+
+                <TextArea promptText="Tareas / observaciones de limpieza..." prefRowCount="3"/>
+
+                <TableView styleClass="table" prefHeight="260">
+                    <columns>
+                        <TableColumn text="Fecha" prefWidth="160"/>
+                        <TableColumn text="Turno" prefWidth="160"/>
+                        <TableColumn text="Tipo limpieza" prefWidth="220"/>
+                        <TableColumn text="Estado" prefWidth="180"/>
+                        <TableColumn text="Conserje" prefWidth="220"/>
+                        <TableColumn text="Área" prefWidth="220"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- MANTENIMIENTO -->
+            <VBox fx:id="viewMantenimiento" spacing="14" styleClass="cardWide">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Mantenimiento" styleClass="h1"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Programar" styleClass="primary"/>
+                    <Button text="Ejecutar" styleClass="accent"/>
+                </HBox>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="ID:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField promptText="Ej: 1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Fecha:" styleClass="muted" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <DatePicker GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Tipo:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField promptText="Preventivo / Correctivo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Descripción:" styleClass="muted" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField promptText="Descripción del mantenimiento" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Costo:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField promptText="0.00" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Estado:" styleClass="muted" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <ComboBox promptText="Pendiente / En proceso / Finalizado" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                    <Label text="Próxima revisión:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <Label text="Equipo:" styleClass="muted" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                    <ComboBox promptText="Seleccionar equipo" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+                    <Label text="Técnico:" styleClass="muted" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <ComboBox promptText="Seleccionar técnico" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <TableView styleClass="table" prefHeight="280">
+                    <columns>
+                        <TableColumn text="Fecha" prefWidth="150"/>
+                        <TableColumn text="Tipo" prefWidth="180"/>
+                        <TableColumn text="Descripción" prefWidth="360"/>
+                        <TableColumn text="Costo" prefWidth="140"/>
+                        <TableColumn text="Estado" prefWidth="180"/>
+                        <TableColumn text="Próxima revisión" prefWidth="180"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

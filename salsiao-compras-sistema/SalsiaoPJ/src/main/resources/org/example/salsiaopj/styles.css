@@ -1,0 +1,76 @@
+.segmentBar {
+    -fx-padding: 10 18;
+    -fx-background-color: #0b1220;
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-width: 0 0 1 0;
+}
+
+.segBtn {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: #e9eefc;
+    -fx-background-radius: 999;
+    -fx-padding: 8 14;
+    -fx-font-weight: 700;
+}
+
+.segBtn:selected {
+    -fx-background-color: rgba(99, 102, 241, 0.95);
+    -fx-text-fill: white;
+}
+
+.cardWide {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-background-radius: 18;
+    -fx-padding: 16;
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-radius: 18;
+}
+
+.logoWrap {
+    -fx-background-color: rgba(99, 102, 241, 0.14);
+    -fx-border-color: rgba(99, 102, 241, 0.35);
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-padding: 8;
+}
+
+.topbar {
+    -fx-background-color: transparent;
+    -fx-padding: 12 18;
+}
+
+.brandBox {
+    -fx-background-color: #F28C28;
+    -fx-background-radius: 0;
+    -fx-padding: 12 18;
+    -fx-border-color: rgba(0,0,0,0.10);
+    -fx-border-radius: 16;
+}
+
+.brandSub {
+    -fx-text-fill: rgba(20,20,20,0.82);
+    -fx-font-size: 12px;
+}
+
+.logoCircle {
+    -fx-background-color: rgba(255,255,255,0.70);
+    -fx-background-radius: 999;
+    -fx-padding: 9;
+    -fx-border-color: rgba(0,0,0,0.12);
+    -fx-border-radius: 999;
+}
+
+}
+
+.brandScript {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+
+    -fx-text-fill: #C2413A;
+
+    -fx-effect:
+        dropshadow(gaussian, rgba(255,255,255,0.85), 10, 0.35, 0, 0),
+        dropshadow(gaussian, rgba(0,0,0,0.40), 12, 0.25, 0, 2);
+}
+
