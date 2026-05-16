@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="SalsiaoPF (1)" />
-        <module name="SalsiaoPF" />
-        <module name="SalsiaoPJ" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SalsiaoPF" target="24" />
+      <module name="SalsiaoPJ" target="24" />
+    </bytecodeTargetLevel>
   </component>
 </project>

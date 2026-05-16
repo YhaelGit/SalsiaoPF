@@ -1,0 +1,219 @@
+.segmentBar {
+    -fx-padding: 10 18;
+    -fx-background-color: #0b1220;
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-width: 0 0 1 0;
+}
+
+.segBtn {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: #e9eefc;
+    -fx-background-radius: 999;
+    -fx-padding: 8 14;
+    -fx-font-weight: 700;
+}
+
+.segBtn:selected {
+    -fx-background-color: rgba(99, 102, 241, 0.95);
+    -fx-text-fill: white;
+}
+
+.cardWide {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-background-radius: 18;
+    -fx-padding: 16;
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-radius: 18;
+}
+
+.logoWrap {
+    -fx-background-color: rgba(99, 102, 241, 0.14);
+    -fx-border-color: rgba(99, 102, 241, 0.35);
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-padding: 8;
+}
+
+.topbar {
+    -fx-background-color: transparent;
+    -fx-padding: 12 18;
+}
+
+.brandBox {
+    -fx-background-color: #f28c28;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 10 18;
+}
+
+.logoCircle {
+    -fx-background-color: white;
+    -fx-background-radius: 50;
+    -fx-padding: 5;
+}
+
+.brandScript {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #c2413a;
+}
+
+.brandSub {
+    -fx-text-fill: rgba(20,20,20,0.85);
+    -fx-font-size: 12px;
+}
+
+.segmentBar {
+    -fx-padding: 10 18;
+    -fx-background-color: #071227;
+}
+
+.segBtn {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: #e9eefc;
+    -fx-background-radius: 999;
+    -fx-padding: 8 14;
+    -fx-font-weight: 700;
+}
+
+.segBtn:hover {
+    -fx-background-color: rgba(255,255,255,0.12);
+}
+
+.segBtn:selected {
+    -fx-background-color: rgba(99, 102, 241, 0.95);
+    -fx-text-fill: white;
+}
+
+.qtyField {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #cfcfcf;
+    -fx-background-color: white;
+    -fx-padding: 6 10 6 10;
+}
+
+.mainRoot {
+    -fx-background-color: linear-gradient(to bottom, #f4f5f8, #e9edf3);
+}
+
+.mainWrapper {
+    -fx-padding: 20;
+}
+
+.mainLogoWrap {
+    -fx-background-color: #f28c28;
+    -fx-background-radius: 999;
+    -fx-padding: 10;
+    -fx-min-width: 170;
+    -fx-min-height: 170;
+    -fx-max-width: 170;
+    -fx-max-height: 170;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 18, 0.22, 0, 5);
+}
+
+.mainBrand {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
+    -fx-font-size: 44px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #c2413a;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.75), 10, 0.30, 0, 0),
+                dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.18, 0, 2);
+}
+
+.mainTitle {
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #172033;
+}
+
+.mainSubtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #5d6575;
+    -fx-max-width: 520;
+    -fx-alignment: center;
+}
+
+.mainBtnBlue {
+    -fx-background-color: linear-gradient(to right, #5f6ae8, #7a6cf0);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(95,106,232,0.28), 14, 0.20, 0, 5);
+}
+
+.mainBtnBlue:hover {
+    -fx-background-color: linear-gradient(to right, #505cdb, #6b5fe7);
+}
+
+.mainBtnGreen {
+    -fx-background-color: linear-gradient(to right, #74c69d, #52b788);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(82,183,136,0.28), 14, 0.20, 0, 5);
+}
+
+.mainBtnGreen:hover {
+    -fx-background-color: linear-gradient(to right, #63ba8e, #45aa7b);
+}
+
+.mainBtnOrange {
+    -fx-background-color: linear-gradient(to right, #f39c12, #f08c00);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(240,140,0,0.28), 14, 0.20, 0, 5);
+}
+
+.mainBtnOrange:hover {
+    -fx-background-color: linear-gradient(to right, #e9900d, #e07f00);
+}
+
+.mainBtnPurple {
+    -fx-background-color: linear-gradient(to right, #7b2cbf, #9d4edd);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(123,44,191,0.28), 14, 0.20, 0, 5);
+}
+
+.mainBtnPurple:hover {
+    -fx-background-color: linear-gradient(to right, #6f22b2, #9144d1);
+}
+
+.mainBtnExit {
+    -fx-background-color: linear-gradient(to right, #495057, #343a40);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(52,58,64,0.28), 14, 0.20, 0, 5);
+}
+
+.mainBtnExit:hover {
+    -fx-background-color: linear-gradient(to right, #3f464d, #2d3237);
+}
+
+.mainTopPanel {
+    -fx-background-color: #f28c28;
+    -fx-background-radius: 40;
+    -fx-padding: 20 30 20 30;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 18, 0.20, 0, 5);
+}
