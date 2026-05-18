@@ -1,109 +1,363 @@
+/* ═══════════════════════════════════════════════════════════════
+   SALSIAO LIGHT CULINARY DESIGN SYSTEM - STYLES.CSS (VERSIÓN CLARA)
+   - Estilo claro, de máxima visibilidad y legibilidad
+   - Inspirado directamente en los colores del logo: Naranja (#f28c28) y Rojo (#c2413a)
+   - Tipografía de alto contraste en Café Espresso (#2d1b10)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. CONFIGURACIÓN RAÍZ Y ESTRUCTURA DE CONTRASTE CLARO ───────── */
+.root {
+    -fx-font-family: "Segoe UI", "Outfit", "Lexend", sans-serif;
+    -fx-background-color: #faf7f2; /* Fondo Marfil Gourmet claro */
+    -fx-text-fill: #2d1b10; /* Letras Espresso oscuro para lectura perfecta */
+}
+
+/* Forzar letras legibles a todas las etiquetas y textos */
+.label {
+    -fx-text-fill: #2d1b10;
+    -fx-font-weight: 700; /* Texto bien definido */
+}
+
+.text {
+    -fx-fill: #2d1b10;
+}
+
+/* Scrollbars personalizadas corporativas claras */
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.scroll-bar .thumb {
+    -fx-background-color: rgba(242, 140, 40, 0.25);
+    -fx-background-radius: 10;
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: rgba(242, 140, 40, 0.45);
+}
+
+/* ── 2. ESTILOS DE LA BARRA DE MARCA (TOPBAR COLOR LOGO CLARO) ── */
+.brandBox {
+    -fx-background-color: #ffffff; /* Barra blanca pura y limpia */
+    -fx-padding: 12 24;
+    -fx-border-color: #f28c28; /* Línea naranja de tu logo */
+    -fx-border-width: 0 0 3 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.08), 10, 0, 0, 3);
+}
+
+.logoCircle {
+    -fx-background-color: #fdf6ee;
+    -fx-background-radius: 999;
+    -fx-padding: 6;
+    -fx-border-color: #f28c28;
+    -fx-border-width: 1.5;
+}
+
+.brandScript {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI", sans-serif;
+    -fx-font-size: 32px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #c2413a; /* Rojo de tu logo */
+    -fx-effect: dropshadow(three-pass-box, rgba(194, 65, 58, 0.15), 5, 0, 0, 1);
+}
+
+.brandSub {
+    -fx-font-size: 13px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #f28c28; /* Naranja de tu logo */
+    -fx-letter-spacing: 1px;
+}
+
+/* ── 3. NAVEGACIÓN Y TABS (SEGMENTBAR) ────────────────────────── */
 .segmentBar {
-    -fx-padding: 10 18;
-    -fx-background-color: #0b1220;
-    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-background-color: #ffffff;
+    -fx-padding: 10 24;
+    -fx-spacing: 10;
+    -fx-border-color: #eedec8;
     -fx-border-width: 0 0 1 0;
 }
 
 .segBtn {
-    -fx-background-color: rgba(255,255,255,0.06);
-    -fx-text-fill: #e9eefc;
-    -fx-background-radius: 999;
-    -fx-padding: 8 14;
+    -fx-background-color: #faf6f0;
+    -fx-text-fill: #8a735b;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #eedec8;
+    -fx-border-width: 1.5;
+    -fx-padding: 8 16;
     -fx-font-weight: 700;
-}
-
-.segBtn:selected {
-    -fx-background-color: rgba(99, 102, 241, 0.95);
-    -fx-text-fill: white;
-}
-
-.cardWide {
-    -fx-background-color: rgba(255,255,255,0.05);
-    -fx-background-radius: 18;
-    -fx-padding: 16;
-    -fx-border-color: rgba(255,255,255,0.08);
-    -fx-border-radius: 18;
-}
-
-.logoWrap {
-    -fx-background-color: rgba(99, 102, 241, 0.14);
-    -fx-border-color: rgba(99, 102, 241, 0.35);
-    -fx-border-radius: 14;
-    -fx-background-radius: 14;
-    -fx-padding: 8;
-}
-
-.topbar {
-    -fx-background-color: transparent;
-    -fx-padding: 12 18;
-}
-
-.brandBox {
-    -fx-background-color: #f28c28;
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
-    -fx-padding: 10 18;
-}
-
-.logoCircle {
-    -fx-background-color: white;
-    -fx-background-radius: 50;
-    -fx-padding: 5;
-}
-
-.brandScript {
-    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
-    -fx-font-size: 28px;
-    -fx-font-weight: 900;
-    -fx-text-fill: #c2413a;
-}
-
-.brandSub {
-    -fx-text-fill: rgba(20,20,20,0.85);
-    -fx-font-size: 12px;
-}
-
-.segmentBar {
-    -fx-padding: 10 18;
-    -fx-background-color: #071227;
-}
-
-.segBtn {
-    -fx-background-color: rgba(255,255,255,0.06);
-    -fx-text-fill: #e9eefc;
-    -fx-background-radius: 999;
-    -fx-padding: 8 14;
-    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
 }
 
 .segBtn:hover {
-    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-background-color: rgba(242, 140, 40, 0.1);
+    -fx-text-fill: #c2413a;
+    -fx-border-color: #f28c28;
+    -fx-translate-y: -1.5;
 }
 
 .segBtn:selected {
-    -fx-background-color: rgba(99, 102, 241, 0.95);
-    -fx-text-fill: white;
+    -fx-background-color: #f28c28; /* Seleccionado Naranja */
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #c2413a;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.25), 8, 0, 0, 2);
 }
 
-.qtyField {
-    -fx-background-radius: 8;
+/* ── 4. CARDS Y CONTENEDORES (GOURMET WHITE CARDS) ─────────────── */
+.cardWide {
+    -fx-background-color: #ffffff; /* Tarjeta blanca impecable */
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #f5e9d9; /* Borde crema ultra suave */
+    -fx-border-width: 1.5;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(three-pass-box, rgba(45, 27, 16, 0.04), 15, 0, 0, 5);
+}
+
+.cardWide:hover {
+    -fx-border-color: #e5d5c0;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.08), 20, 0, 0, 6);
+}
+
+/* ── 5. FORMULARIOS, INPUTS Y BUSCADORES CLAROS ───────────────── */
+.search, .qtyField, .text-field, .combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #eedec8;
     -fx-border-radius: 8;
-    -fx-border-color: #cfcfcf;
-    -fx-background-color: white;
-    -fx-padding: 6 10 6 10;
+    -fx-background-radius: 8;
+    -fx-border-width: 1.5;
+    -fx-padding: 10 14;
+    -fx-text-fill: #2d1b10; /* Texto escrito oscuro e impecable */
+    -fx-font-size: 13.5px;
 }
 
+.search:focused, .qtyField:focused, .text-field:focused, .combo-box:focused {
+    -fx-border-color: #f28c28; /* Naranja al hacer foco */
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.15), 8, 0, 0, 0);
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #2d1b10;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f28c28;
+    -fx-border-radius: 8;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #fdf0df;
+    -fx-text-fill: #c2413a;
+}
+
+.loginFieldLabel {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #4b3621;
+}
+
+/* ── 6. TABLAS DE DATOS CLARAS (ELEGANCIA Y CONTRASTE) ────────── */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #eedec8;
+    -fx-border-width: 1.5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #faf6f0;
+    -fx-background-radius: 12 12 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 40;
+    -fx-border-color: #eedec8;
+    -fx-border-width: 0 1 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #c2413a; /* Cabeceras en Rojo del Logo */
+    -fx-font-weight: 800;
+    -fx-font-size: 13px;
+}
+
+.table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #2d1b10;
+    -fx-border-color: #faf5ee;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #fdfcf9;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: rgba(242, 140, 40, 0.08); /* Brillo naranja al pasar cursor */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #fdf0df; /* Fondo seleccionado melocotón suave */
+    -fx-text-fill: #c2413a;
+}
+
+.table-cell {
+    -fx-text-fill: #2d1b10; /* Datos legibles */
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-alignment: CENTER-LEFT;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: #c2413a; /* Datos seleccionados en Rojo */
+    -fx-font-weight: 800;
+}
+
+/* ── 7. LISTAS Y SELECTORES ──────────────────────────────────── */
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #eedec8;
+    -fx-background-radius: 8;
+}
+
+.list-cell {
+    -fx-text-fill: #2d1b10;
+    -fx-background-color: transparent;
+    -fx-padding: 8 12;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgba(242, 140, 40, 0.1);
+    -fx-text-fill: #c2413a;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #f28c28;
+    -fx-text-fill: #ffffff;
+}
+
+/* ── 8. BOTONES E INTERACTIVOS DE ALTA CATEGORÍA (LOGO COLORS) ──── */
+
+/* Botón Primario: Naranja Vibrante del Logo (Success/Agregar/Guardar) */
+.primary, .mainBtnGreen {
+    -fx-background-color: linear-gradient(to right, #f28c28, #e57a16); /* Naranja Oficial */
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: 800;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 12 24;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.2), 10, 0, 0, 3);
+}
+.primary:hover, .mainBtnGreen:hover {
+    -fx-background-color: linear-gradient(to right, #ff9b3d, #f28c28);
+    -fx-translate-y: -2.5;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.35), 14, 0, 0, 5);
+}
+
+/* Botón Acento: Crema Melocotón Suave (Edit/Search/Special Action) */
+.accent, .mainBtnOrange {
+    -fx-background-color: linear-gradient(to right, #fdf0df, #fbe3cb); /* Crema del logo */
+    -fx-text-fill: #d86a07; /* Letra naranja para contraste excelente */
+    -fx-font-weight: 800;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 12 24;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(242, 140, 40, 0.3);
+    -fx-border-width: 1.5;
+}
+.accent:hover, .mainBtnOrange:hover {
+    -fx-background-color: linear-gradient(to right, #fbe3cb, #f7d4b2);
+    -fx-translate-y: -2.5;
+}
+
+/* Botón Peligro: Rojo Chili del Logo (Cerrar Sesión / Cancelar / Delete) */
+.danger, .btnCerrarSesion {
+    -fx-background-color: linear-gradient(to right, #c2413a, #a52d27); /* Rojo Oficial */
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: 800;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 12 24;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(194, 65, 58, 0.2), 10, 0, 0, 3);
+}
+.danger:hover, .btnCerrarSesion:hover {
+    -fx-background-color: linear-gradient(to right, #dc564f, #c2413a);
+    -fx-translate-y: -2;
+    -fx-effect: dropshadow(three-pass-box, rgba(194, 65, 58, 0.35), 14, 0, 0, 5);
+}
+
+/* Botón Transparente (Ghost) */
+.ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: #c2413a;
+    -fx-border-color: rgba(194, 65, 58, 0.4);
+    -fx-border-radius: 10;
+    -fx-border-width: 1.5;
+    -fx-font-weight: 800;
+    -fx-font-size: 14px;
+    -fx-padding: 11 23;
+    -fx-cursor: hand;
+}
+.ghost:hover {
+    -fx-background-color: rgba(194, 65, 58, 0.05);
+    -fx-border-color: #c2413a;
+    -fx-translate-y: -1.5;
+}
+
+/* Botones del Dashboard Principal (Rojo y Naranja Logo) */
+.mainBtnBlue {
+    -fx-background-color: linear-gradient(to right, #c2413a, #a52d27); /* Rojo del Logo */
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(194, 65, 58, 0.2), 12, 0, 0, 4);
+}
+.mainBtnBlue:hover {
+    -fx-background-color: linear-gradient(to right, #dc564f, #c2413a);
+    -fx-translate-y: -3.5;
+    -fx-effect: dropshadow(three-pass-box, rgba(194, 65, 58, 0.35), 18, 0, 0, 6);
+}
+
+.mainBtnExit {
+    -fx-background-color: linear-gradient(to right, #f28c28, #e57a16); /* Naranja del Logo */
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.2), 12, 0, 0, 4);
+}
+.mainBtnExit:hover {
+    -fx-background-color: linear-gradient(to right, #ff9b3d, #f28c28);
+    -fx-translate-y: -3;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.35), 18, 0, 0, 6);
+}
+
+/* ── 9. PANTALLA PRINCIPAL DE BIENVENIDA (MAIN DASHBOARD CLARO) ──── */
 .mainRoot {
-    -fx-background-color: linear-gradient(to bottom, #f4f5f8, #e9edf3);
+    -fx-background-color: #faf7f2;
 }
 
 .mainWrapper {
-    -fx-padding: 20;
+    -fx-padding: 30;
 }
 
 .mainLogoWrap {
-    -fx-background-color: #f28c28;
+    -fx-background-color: #ffffff;
     -fx-background-radius: 999;
     -fx-padding: 10;
     -fx-min-width: 170;
@@ -111,109 +365,187 @@
     -fx-max-width: 170;
     -fx-max-height: 170;
     -fx-alignment: center;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 18, 0.22, 0, 5);
+    -fx-border-color: #f28c28;
+    -fx-border-width: 3;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.15), 20, 0, 0, 4);
 }
 
 .mainBrand {
-    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
-    -fx-font-size: 44px;
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI", sans-serif;
+    -fx-font-size: 48px;
     -fx-font-weight: 900;
-    -fx-text-fill: #c2413a;
-    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.75), 10, 0.30, 0, 0),
-                dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.18, 0, 2);
+    -fx-text-fill: #c2413a; /* Rojo Logo */
+    -fx-effect: dropshadow(three-pass-box, rgba(194, 65, 58, 0.25), 10, 0, 0, 2);
 }
 
 .mainTitle {
-    -fx-font-size: 22px;
+    -fx-text-fill: #2d1b10;
+    -fx-font-size: 26px;
     -fx-font-weight: 800;
-    -fx-text-fill: #172033;
 }
 
 .mainSubtitle {
-    -fx-font-size: 13px;
-    -fx-text-fill: #5d6575;
+    -fx-font-size: 15px;
+    -fx-text-fill: #705e4d;
     -fx-max-width: 520;
     -fx-alignment: center;
 }
 
-.mainBtnBlue {
-    -fx-background-color: linear-gradient(to right, #5f6ae8, #7a6cf0);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(95,106,232,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnBlue:hover {
-    -fx-background-color: linear-gradient(to right, #505cdb, #6b5fe7);
-}
-
-.mainBtnGreen {
-    -fx-background-color: linear-gradient(to right, #74c69d, #52b788);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(82,183,136,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnGreen:hover {
-    -fx-background-color: linear-gradient(to right, #63ba8e, #45aa7b);
-}
-
-.mainBtnOrange {
-    -fx-background-color: linear-gradient(to right, #f39c12, #f08c00);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(240,140,0,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnOrange:hover {
-    -fx-background-color: linear-gradient(to right, #e9900d, #e07f00);
-}
-
-.mainBtnPurple {
-    -fx-background-color: linear-gradient(to right, #7b2cbf, #9d4edd);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(123,44,191,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnPurple:hover {
-    -fx-background-color: linear-gradient(to right, #6f22b2, #9144d1);
-}
-
-.mainBtnExit {
-    -fx-background-color: linear-gradient(to right, #495057, #343a40);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(52,58,64,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnExit:hover {
-    -fx-background-color: linear-gradient(to right, #3f464d, #2d3237);
-}
-
 .mainTopPanel {
+    -fx-background-color: #ffffff; /* Tarjeta blanca superior */
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #f5e9d9;
+    -fx-border-width: 1.5;
+    -fx-padding: 24 40;
+    -fx-effect: dropshadow(three-pass-box, rgba(45, 27, 16, 0.04), 20, 0, 0, 5);
+}
+
+/* ── 10. PANTALLA DE INICIO DE SESIÓN CLARA (LOGIN SPLIT CLARO) ───── */
+.loginRoot {
+    -fx-background-color: #faf7f2;
+}
+
+.loginBrandPanel {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #faf0e4); /* Fondo claro muy premium */
+    -fx-padding: 60 50;
+    -fx-min-width: 440;
+    -fx-max-width: 520;
+    -fx-border-color: #f28c28;
+    -fx-border-width: 0 4 0 0;
+}
+
+.loginBrandEmoji {
+    -fx-font-size: 80px;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.25), 25, 0, 0, 0);
+}
+
+.loginBrandName {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI", sans-serif;
+    -fx-font-size: 56px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #c2413a; /* Rojo Logo */
+    -fx-effect: dropshadow(three-pass-box, rgba(194, 65, 58, 0.2), 15, 0, 0, 2);
+}
+
+.loginBrandTagline {
+    -fx-font-size: 15px;
+    -fx-text-fill: #f28c28; /* Naranja Logo */
+    -fx-font-weight: bold;
+}
+
+.loginBrandDivider {
     -fx-background-color: #f28c28;
-    -fx-background-radius: 40;
-    -fx-padding: 20 30 20 30;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 18, 0.20, 0, 5);
+    -fx-pref-height: 3;
+    -fx-min-height: 3;
+}
+
+.loginRoleCard {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-color: #eedec8;
+    -fx-border-radius: 12;
+    -fx-padding: 12 18;
+}
+
+.loginRoleCard:hover {
+    -fx-background-color: #fdf6ee;
+    -fx-border-color: #f28c28;
+}
+
+.loginRoleTitle {
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #c2413a; /* Rojo Logo */
+}
+
+.loginRoleDesc {
+    -fx-font-size: 11px;
+    -fx-text-fill: #705e4d;
+}
+
+.loginFormPanel {
+    -fx-background-color: #ffffff; /* Panel del login blanco puro */
+    -fx-padding: 60;
+    -fx-effect: dropshadow(three-pass-box, rgba(45,27,16,0.04), 30, 0, 0, 0);
+}
+
+.loginFormTitle {
+    -fx-font-size: 32px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #c2413a; /* Rojo Logo */
+}
+
+.loginFormSubtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #8a735b;
+}
+
+.loginBtnPrimary {
+    -fx-background-color: linear-gradient(to right, #f28c28, #e57a16); /* Botón Naranja */
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+    -fx-font-size: 16px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 14 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.2), 12, 0, 0, 4);
+}
+
+.loginBtnPrimary:hover {
+    -fx-background-color: linear-gradient(to right, #ff9b3d, #f28c28);
+    -fx-translate-y: -2.5;
+    -fx-effect: dropshadow(three-pass-box, rgba(242, 140, 40, 0.35), 18, 0, 0, 6);
+}
+
+.loginErrorLabel {
+    -fx-background-color: #fdf0ef;
+    -fx-border-color: #c2413a;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 1.5;
+    -fx-padding: 12 16;
+    -fx-text-fill: #c2413a;
+    -fx-font-size: 13.5px;
+    -fx-font-weight: 700;
+}
+
+/* ── 11. CHIP DE SESIÓN ACTIVA (SESSION CHIP) ───────────────────── */
+.sessionChip {
+    -fx-background-color: #faf5ee;
+    -fx-background-radius: 30;
+    -fx-border-color: #f28c28;
+    -fx-border-radius: 30;
+    -fx-padding: 8 18;
+}
+
+.sessionName {
+    -fx-font-size: 13px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #c2413a; /* Nombre en Rojo */
+}
+
+.sessionRole {
+    -fx-font-size: 12px;
+    -fx-text-fill: #f28c28; /* Rol destacado en Naranja */
+    -fx-font-weight: 800;
+}
+
+/* ── 12. ETIQUETAS DE TEXTO GENERALES (HEADINGS & DESTAQUES) ──────── */
+.h1 {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #c2413a; /* Títulos en Rojo */
+}
+
+.h2 {
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #f28c28; /* Subtítulos en Naranja */
+}
+
+.muted {
+    -fx-text-fill: #8a735b; /* Títulos de campos en marrón cálido */
+    -fx-font-weight: 700;
 }

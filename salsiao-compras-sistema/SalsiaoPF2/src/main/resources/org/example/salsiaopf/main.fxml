@@ -6,18 +6,36 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.example.salsiaopf.MainController"
             styleClass="mainRoot">
 
+    <!-- ═══ BARRA SUPERIOR DE SESIÓN ═══ -->
+    <top>
+        <HBox alignment="CENTER_RIGHT" spacing="12" style="-fx-padding: 10 24; -fx-background-color: rgba(0,0,0,0.06);">
+            <!-- Chip usuario / rol -->
+            <HBox styleClass="sessionChip" spacing="10" alignment="CENTER">
+                <Label fx:id="lblUsuarioNombre" text="—" styleClass="sessionName"/>
+                <Label text="|" style="-fx-text-fill: #d1d5db;"/>
+                <Label fx:id="lblUsuarioRol"    text="—" styleClass="sessionRole"/>
+            </HBox>
+            <!-- Botón cerrar sesión -->
+            <Button text="🔓  Cerrar Sesión"
+                    onAction="#cerrarSesion"
+                    styleClass="btnCerrarSesion"/>
+        </HBox>
+    </top>
+
     <center>
         <VBox alignment="CENTER" spacing="26" styleClass="mainWrapper">
             <padding>
-                <Insets top="40" right="40" bottom="40" left="40"/>
+                <Insets top="30" right="40" bottom="40" left="40"/>
             </padding>
 
             <!-- Logo y bienvenida -->
@@ -31,47 +49,54 @@
                 </StackPane>
 
                 <Label text="Bienvenidos a Salsiao" styleClass="mainBrand"/>
+                <Label text="Selecciona el módulo que deseas gestionar" styleClass="mainSubtitle"/>
             </VBox>
 
-            <!-- Botones -->
+            <!-- Botones de módulos (con fx:id para control de visibilidad por rol) -->
             <GridPane hgap="18" vgap="18" alignment="CENTER">
-                <Button text="Compras"
+                <Button fx:id="btnCompras"
+                        text="🛒  Compras"
                         onAction="#abrirCompras"
                         prefWidth="220" prefHeight="72"
                         styleClass="mainBtnBlue"
                         GridPane.rowIndex="0" GridPane.columnIndex="0"/>
 
-                <Button text="Mantenimiento"
+                <Button fx:id="btnMantenimiento"
+                        text="🔧  Mantenimiento"
                         onAction="#abrirMantenimiento"
                         prefWidth="220" prefHeight="72"
                         styleClass="mainBtnBlue"
                         GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Button text="Empleados"
+                <Button fx:id="btnEmpleados"
+                        text="👤  Empleados"
                         onAction="#abrirEmpleados"
                         prefWidth="220" prefHeight="72"
-                        styleClass="mainBtnBlue"
+                        styleClass="mainBtnGreen"
                         GridPane.rowIndex="1" GridPane.columnIndex="0"/>
 
-                <Button text="Inventario"
+                <Button fx:id="btnInventario"
+                        text="📦  Inventario"
                         onAction="#abrirInventario"
                         prefWidth="220" prefHeight="72"
-                        styleClass="mainBtnBlue"
+                        styleClass="mainBtnGreen"
                         GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <Button text="Cliente"
+                <Button fx:id="btnClientes"
+                        text="🧑  Clientes"
                         onAction="#abrirClientes"
                         prefWidth="220" prefHeight="72"
-                        styleClass="mainBtnBlue"
+                        styleClass="mainBtnOrange"
                         GridPane.rowIndex="2" GridPane.columnIndex="0"/>
 
-                <Button text="Ventas"
+                <Button fx:id="btnVentas"
+                        text="💳  Ventas"
                         onAction="#abrirVentas"
                         prefWidth="220" prefHeight="72"
-                        styleClass="mainBtnBlue"
+                        styleClass="mainBtnOrange"
                         GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-                <Button text="Salir"
+                <Button text="⏻  Salir del Sistema"
                         onAction="#salirSistema"
                         prefWidth="458" prefHeight="68"
                         styleClass="mainBtnExit"
@@ -81,4 +106,4 @@
         </VBox>
     </center>
 
-</BorderPane>
+</BorderPane>
