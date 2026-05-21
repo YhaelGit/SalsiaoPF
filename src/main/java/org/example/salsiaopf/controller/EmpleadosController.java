@@ -1,26 +1,29 @@
 package org.example.salsiaopf.controller;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import org.example.salsiaopf.dao.EmpleadoDAO;
+import org.example.salsiaopf.model.Empleado;
+import org.example.salsiaopf.util.Alertas;
 import org.example.salsiaopf.util.Navegacion;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
 public class EmpleadosController {
 
     @FXML private ImageView logoImage;
-
     @FXML private VBox viewRegistroEmpleado;
     @FXML private VBox viewNomina;
     @FXML private VBox viewUsuariosSistema;
@@ -31,44 +34,57 @@ public class EmpleadosController {
     @FXML private Label lblFechaActual;
     @FXML private Label lblHoraActual;
     @FXML private Button btnNotificaciones;
-
     @FXML private TextField txtNombreEmpleado;
     @FXML private TextField txtApellidoEmpleado;
     @FXML private TextField txtCedulaEmpleado;
     @FXML private TextField txtTelefonoEmpleado;
     @FXML private TextField txtCorreoEmpleado;
     @FXML private TextField txtDireccionEmpleado;
+    @FXML private TableView<Empleado> tablaEmpleados;
 
     @FXML
     private void initialize() {
         cargarLogo();
         iniciarReloj();
+        configurarTabla();
         mostrarRegistroEmpleado();
+        cargarEmpleados();
+    }
+
+    private void configurarTabla() {
+        if (tablaEmpleados == null) return;
+        configurarColumna(0, e -> String.valueOf(e.getId()));
+        configurarColumna(1, e -> (e.getNombre() + " " + e.getApellido()).trim());
+        configurarColumna(2, Empleado::getCedula);
+        configurarColumna(3, Empleado::getTelefono);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void configurarColumna(int indice, Function<Empleado, String> extractor) {
+        if (tablaEmpleados.getColumns().size() <= indice) return;
+        TableColumn<Empleado, String> columna =
+                (TableColumn<Empleado, String>) tablaEmpleados.getColumns().get(indice);
+        columna.setCellValueFactory(cd -> {
+            Empleado empleado = cd.getValue();
+            String valor = empleado == null ? "" : extractor.apply(empleado);
+            return new SimpleStringProperty(valor);
+        });
     }
 
     private void cargarLogo() {
         try {
-
             var stream = getClass().getResourceAsStream("/imagenes/logo-salsiao.jpeg");
-
             if (stream != null && logoImage != null) {
-
                 logoImage.setImage(new Image(stream));
-
                 logoImage.setFitWidth(82);
                 logoImage.setFitHeight(82);
                 logoImage.setPreserveRatio(true);
-
                 javafx.scene.shape.Circle clip = new javafx.scene.shape.Circle();
-
                 clip.setRadius(41);
-
                 clip.setCenterX(41);
                 clip.setCenterY(41);
-
                 logoImage.setClip(clip);
             }
-
         } catch (Exception e) {
             System.out.println("Error cargando logo: " + e.getMessage());
         }
@@ -85,27 +101,20 @@ public class EmpleadosController {
                 }),
                 new KeyFrame(Duration.seconds(1))
         );
-
         reloj.setCycleCount(Timeline.INDEFINITE);
         reloj.play();
     }
 
     @FXML
     private void mostrarNotificaciones() {
-        System.out.println("Notificaciones pendientes de conexión a base de datos.");
+        Alertas.advertencia("Notificaciones", "Módulo de notificaciones en desarrollo.");
     }
 
     private void ocultarTodas() {
         VBox[] vistas = {
-                viewRegistroEmpleado,
-                viewNomina,
-                viewUsuariosSistema,
-                viewRolesPermisos,
-                viewAsistencia,
-                viewHorarios,
-                viewHistorialEmpleados
+                viewRegistroEmpleado, viewNomina, viewUsuariosSistema,
+                viewRolesPermisos, viewAsistencia, viewHorarios, viewHistorialEmpleados
         };
-
         for (VBox vista : vistas) {
             if (vista != null) {
                 vista.setVisible(false);
@@ -114,54 +123,13 @@ public class EmpleadosController {
         }
     }
 
-    @FXML
-    private void mostrarRegistroEmpleado() {
-        ocultarTodas();
-        viewRegistroEmpleado.setVisible(true);
-        viewRegistroEmpleado.setManaged(true);
-    }
-
-    @FXML
-    private void mostrarNomina() {
-        ocultarTodas();
-        viewNomina.setVisible(true);
-        viewNomina.setManaged(true);
-    }
-
-    @FXML
-    private void mostrarUsuariosSistema() {
-        ocultarTodas();
-        viewUsuariosSistema.setVisible(true);
-        viewUsuariosSistema.setManaged(true);
-    }
-
-    @FXML
-    private void mostrarRolesPermisos() {
-        ocultarTodas();
-        viewRolesPermisos.setVisible(true);
-        viewRolesPermisos.setManaged(true);
-    }
-
-    @FXML
-    private void mostrarAsistencia() {
-        ocultarTodas();
-        viewAsistencia.setVisible(true);
-        viewAsistencia.setManaged(true);
-    }
-
-    @FXML
-    private void mostrarHorarios() {
-        ocultarTodas();
-        viewHorarios.setVisible(true);
-        viewHorarios.setManaged(true);
-    }
-
-    @FXML
-    private void mostrarHistorialEmpleados() {
-        ocultarTodas();
-        viewHistorialEmpleados.setVisible(true);
-        viewHistorialEmpleados.setManaged(true);
-    }
+    @FXML private void mostrarRegistroEmpleado() { ocultarTodas(); viewRegistroEmpleado.setVisible(true); viewRegistroEmpleado.setManaged(true); }
+    @FXML private void mostrarNomina() { ocultarTodas(); viewNomina.setVisible(true); viewNomina.setManaged(true); }
+    @FXML private void mostrarUsuariosSistema() { ocultarTodas(); viewUsuariosSistema.setVisible(true); viewUsuariosSistema.setManaged(true); }
+    @FXML private void mostrarRolesPermisos() { ocultarTodas(); viewRolesPermisos.setVisible(true); viewRolesPermisos.setManaged(true); }
+    @FXML private void mostrarAsistencia() { ocultarTodas(); viewAsistencia.setVisible(true); viewAsistencia.setManaged(true); }
+    @FXML private void mostrarHorarios() { ocultarTodas(); viewHorarios.setVisible(true); viewHorarios.setManaged(true); }
+    @FXML private void mostrarHistorialEmpleados() { ocultarTodas(); viewHistorialEmpleados.setVisible(true); viewHistorialEmpleados.setManaged(true); }
 
     @FXML
     private void volverMenu(ActionEvent event) {
@@ -175,25 +143,46 @@ public class EmpleadosController {
 
     @FXML
     private void guardarRegistroEmpleado() {
-        boolean exito = org.example.salsiaopf.dao.EmpleadoDAO.guardarEmpleado(
-                txtNombreEmpleado != null ? txtNombreEmpleado.getText() : "",
-                txtApellidoEmpleado != null ? txtApellidoEmpleado.getText() : "",
-                txtCedulaEmpleado != null ? txtCedulaEmpleado.getText() : "",
-                txtTelefonoEmpleado != null ? txtTelefonoEmpleado.getText() : "",
-                txtCorreoEmpleado != null ? txtCorreoEmpleado.getText() : "",
-                txtDireccionEmpleado != null ? txtDireccionEmpleado.getText() : ""
+        String nombre = txtNombreEmpleado != null ? txtNombreEmpleado.getText().trim() : "";
+        String apellido = txtApellidoEmpleado != null ? txtApellidoEmpleado.getText().trim() : "";
+        String cedula = txtCedulaEmpleado != null ? txtCedulaEmpleado.getText().trim() : "";
+
+        if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty()) {
+            Alertas.advertencia("Validación", "Complete al menos nombre, apellido y cédula.");
+            return;
+        }
+
+        boolean exito = EmpleadoDAO.guardarEmpleado(
+                nombre,
+                apellido,
+                cedula,
+                txtTelefonoEmpleado != null ? txtTelefonoEmpleado.getText().trim() : "",
+                txtCorreoEmpleado != null ? txtCorreoEmpleado.getText().trim() : "",
+                txtDireccionEmpleado != null ? txtDireccionEmpleado.getText().trim() : ""
         );
 
         if (exito) {
-            System.out.println("Empleado guardado exitosamente.");
-            if (txtNombreEmpleado != null) txtNombreEmpleado.clear();
-            if (txtApellidoEmpleado != null) txtApellidoEmpleado.clear();
-            if (txtCedulaEmpleado != null) txtCedulaEmpleado.clear();
-            if (txtTelefonoEmpleado != null) txtTelefonoEmpleado.clear();
-            if (txtCorreoEmpleado != null) txtCorreoEmpleado.clear();
-            if (txtDireccionEmpleado != null) txtDireccionEmpleado.clear();
+            Alertas.exito("Empleado", "Empleado guardado correctamente en SQL Server.");
+            limpiarRegistroEmpleado();
+            cargarEmpleados();
         } else {
-            System.out.println("Error al guardar empleado.");
+            Alertas.error("Empleado", "No se pudo guardar. Verifique tbl_EMPLEADO en la base de datos.");
+        }
+    }
+
+    @FXML
+    private void limpiarRegistroEmpleado() {
+        if (txtNombreEmpleado != null) txtNombreEmpleado.clear();
+        if (txtApellidoEmpleado != null) txtApellidoEmpleado.clear();
+        if (txtCedulaEmpleado != null) txtCedulaEmpleado.clear();
+        if (txtTelefonoEmpleado != null) txtTelefonoEmpleado.clear();
+        if (txtCorreoEmpleado != null) txtCorreoEmpleado.clear();
+        if (txtDireccionEmpleado != null) txtDireccionEmpleado.clear();
+    }
+
+    private void cargarEmpleados() {
+        if (tablaEmpleados != null) {
+            tablaEmpleados.setItems(FXCollections.observableArrayList(EmpleadoDAO.listar()));
         }
     }
 }

@@ -1,102 +1,105 @@
 package org.example.salsiaopf.controller;
 
-import org.example.salsiaopf.dao.ClienteDAO;
-import org.example.salsiaopf.model.Cliente;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.example.salsiaopf.database.ConexionBD;
-import java.net.URL;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
+import org.example.salsiaopf.dao.ClienteDAO;
+import org.example.salsiaopf.model.Cliente;
+import org.example.salsiaopf.util.Alertas;
+import org.example.salsiaopf.util.Navegacion;
+import org.example.salsiaopf.util.SessionManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class ClienteController {
 
-    @FXML
-    private ImageView logoImage;
-
-    @FXML
-    private ToggleButton segCliente;
-    @FXML
-    private ToggleButton segHistorial;
-    @FXML
-    private ToggleButton segRecepcion;
-
-    @FXML
-    private VBox viewCliente;
-    @FXML
-    private VBox viewHistorial;
-    @FXML
-    private VBox viewRecepcion;
-
-    @FXML
-    private TextField txtNombre;
-    @FXML
-    private TextField txtApellido;
-    @FXML
-    private TextField txtTelefono;
-    @FXML
-    private TextField txtDireccion;
-
-    @FXML
-    private VBox viewRegistro;
-
-    @FXML
-    private VBox viewReservas;
-
-    @FXML
-    private VBox viewReclamaciones;
-
+    @FXML private ImageView logoImage;
+    @FXML private ToggleButton segCliente;
+    @FXML private ToggleButton segHistorial;
+    @FXML private ToggleButton segRecepcion;
+    @FXML private VBox viewCliente;
+    @FXML private VBox viewHistorial;
+    @FXML private VBox viewRecepcion;
+    @FXML private TextField txtNombre;
+    @FXML private TextField txtApellido;
+    @FXML private TextField txtTelefono;
+    @FXML private TextField txtDireccion;
+    @FXML private VBox viewRegistro;
+    @FXML private VBox viewReservas;
+    @FXML private VBox viewReclamaciones;
     @FXML private Label lblFechaActual;
     @FXML private Label lblHoraActual;
     @FXML private Button btnNotificaciones;
+    @FXML private TableView<Cliente> tablaClientes;
+    @FXML private TableColumn<Cliente, String> colIdCliente;
+    @FXML private TableColumn<Cliente, String> colNombre;
+    @FXML private TableColumn<Cliente, String> colApellido;
+    @FXML private TableColumn<Cliente, String> colTelefono;
+
+    private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @FXML
     private void initialize() {
         cargarLogo();
         iniciarReloj();
+        configurarTabla();
         mostrarSolo(viewRegistro);
+        cargarClientes();
+        actualizarUsuarioSesion();
 
         if (segCliente != null) {
             segCliente.setSelected(true);
         }
-
         showOnly(viewCliente);
+    }
 
+    private void configurarTabla() {
+        if (tablaClientes == null) return;
+
+        if (colIdCliente != null) {
+            colIdCliente.setCellValueFactory(cd ->
+                    new SimpleStringProperty(String.valueOf(cd.getValue().getIdCliente())));
+        }
+        if (colNombre != null) {
+            colNombre.setCellValueFactory(cd ->
+                    new SimpleStringProperty(cd.getValue().getNombre()));
+        }
+        if (colApellido != null) {
+            colApellido.setCellValueFactory(cd ->
+                    new SimpleStringProperty(cd.getValue().getApellido()));
+        }
+        if (colTelefono != null) {
+            colTelefono.setCellValueFactory(cd ->
+                    new SimpleStringProperty(cd.getValue().getTelefono()));
+        }
+    }
+
+    private void actualizarUsuarioSesion() {
+        var usuario = SessionManager.getInstance().getUsuarioActivo();
+        if (usuario != null) {
+            System.out.println("[Clientes] Sesión: " + usuario.getNombre() + " (" + usuario.getRol() + ")");
+        }
     }
 
     private void mostrarSolo(VBox vistaActiva) {
-
-        VBox[] vistas = {
-                viewRegistro,
-                viewReservas,
-                viewReclamaciones,
-                viewHistorial
-        };
-
+        VBox[] vistas = {viewRegistro, viewReservas, viewReclamaciones, viewHistorial};
         for (VBox vista : vistas) {
-
             boolean activa = (vista == vistaActiva);
-
             vista.setVisible(activa);
             vista.setManaged(activa);
         }
@@ -113,14 +116,13 @@ public class ClienteController {
                 }),
                 new KeyFrame(Duration.seconds(1))
         );
-
         reloj.setCycleCount(Timeline.INDEFINITE);
         reloj.play();
     }
 
     @FXML
     private void mostrarNotificaciones() {
-        System.out.println("Notificaciones pendientes.");
+        Alertas.advertencia("Notificaciones", "Módulo de notificaciones en desarrollo.");
     }
 
     @FXML
@@ -145,40 +147,31 @@ public class ClienteController {
 
     @FXML
     private void salirSistema(ActionEvent event) {
+        SessionManager.getInstance().cerrarSesion();
         System.exit(0);
     }
 
     private void cargarLogo() {
         try {
-
             var stream = getClass().getResourceAsStream("/imagenes/logo-salsiao.jpeg");
-
             if (stream != null && logoImage != null) {
-
                 logoImage.setImage(new Image(stream));
-
                 logoImage.setFitWidth(82);
                 logoImage.setFitHeight(82);
                 logoImage.setPreserveRatio(true);
-
                 javafx.scene.shape.Circle clip = new javafx.scene.shape.Circle();
-
                 clip.setRadius(41);
-
                 clip.setCenterX(41);
                 clip.setCenterY(41);
-
                 logoImage.setClip(clip);
             }
-
         } catch (Exception e) {
             System.out.println("Error cargando logo: " + e.getMessage());
         }
     }
 
     private void showOnly(VBox target) {
-        VBox[] all = { viewCliente, viewHistorial, viewRecepcion };
-
+        VBox[] all = {viewCliente, viewHistorial, viewRecepcion};
         for (VBox v : all) {
             if (v != null) {
                 boolean active = (v == target);
@@ -205,78 +198,53 @@ public class ClienteController {
 
     @FXML
     private void guardarCliente() {
-        String sql = """
-                INSERT INTO tbl_CLIENTE
-                (nombre, apellido, telefono)
-                VALUES (?, ?, ?)
-                """;
-
-        try (Connection conn = ConexionBD.conectar();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setString(1, txtNombre.getText());
-            ps.setString(2, txtApellido.getText());
-            ps.setString(3, txtTelefono.getText());
-
-            ps.executeUpdate();
-
-            guardarDireccionCliente();
-
-            txtNombre.clear();
-            txtApellido.clear();
-            txtTelefono.clear();
-            txtDireccion.clear();
-
-            System.out.println("Cliente guardado correctamente");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (txtNombre == null || txtApellido == null || txtTelefono == null) {
+            Alertas.error("Error", "Formulario no vinculado correctamente.");
+            return;
         }
-    }
 
-    private void guardarDireccionCliente() {
-        String sql = """
-                INSERT INTO tbl_DIRECCION
-                (nombre, fk_ID_cliente)
-                VALUES (?, IDENT_CURRENT('tbl_CLIENTE'))
-                """;
+        String nombre = txtNombre.getText().trim();
+        String apellido = txtApellido.getText().trim();
+        String telefono = txtTelefono.getText().trim();
 
-        try (Connection conn = ConexionBD.conectar();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+        if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty()) {
+            Alertas.advertencia("Validación", "Complete nombre, apellido y teléfono.");
+            return;
+        }
 
-            ps.setString(1, txtDireccion.getText());
-            ps.executeUpdate();
+        Cliente cliente = new Cliente();
+        cliente.setNombre(nombre);
+        cliente.setApellido(apellido);
+        cliente.setTelefono(telefono);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (clienteDAO.guardar(cliente)) {
+            if (txtDireccion != null && !txtDireccion.getText().trim().isEmpty()) {
+                clienteDAO.guardarDireccion(txtDireccion.getText().trim());
+            }
+            Alertas.exito("Cliente", "Cliente guardado correctamente en SQL Server.");
+            limpiarRegistroCliente();
+            cargarClientes();
+        } else {
+            Alertas.error("Cliente", "No se pudo guardar. Verifique la conexión y la tabla tbl_CLIENTE.");
         }
     }
 
     @FXML
+    private void limpiarRegistroCliente() {
+        if (txtNombre != null) txtNombre.clear();
+        if (txtApellido != null) txtApellido.clear();
+        if (txtTelefono != null) txtTelefono.clear();
+        if (txtDireccion != null) txtDireccion.clear();
+    }
+
+    @FXML
+    private void cargarClientes() {
+        if (tablaClientes == null) return;
+        tablaClientes.setItems(FXCollections.observableArrayList(clienteDAO.listar()));
+    }
+
+    @FXML
     private void volverMenu(ActionEvent event) {
-        try {
-            URL fxml = getClass().getResource("/org/example/salsiaopf/centrosistema.fxml");
-
-            if (fxml == null) {
-                throw new IllegalStateException(
-                        "No se encontró el archivo centrosistema.fxml en /org/example/salsiaopf/centrosistema.fxml");
-            }
-
-            FXMLLoader loader = new FXMLLoader(fxml);
-            Scene scene = new Scene(loader.load(), 1200, 800);
-
-            URL css = getClass().getResource("/org/example/salsiaopf/styles.css");
-            if (css != null) {
-                scene.getStylesheets().add(css.toExternalForm());
-            }
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Salsiao - Centro del Sistema");
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navegacion.volverCentroSistema(event);
     }
 }

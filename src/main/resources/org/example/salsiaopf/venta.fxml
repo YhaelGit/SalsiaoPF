@@ -60,7 +60,7 @@
         <VBox styleClass="sideBar" spacing="12">
             <Label text="VENTAS" styleClass="sideTitle"/>
 
-            <Button fx:id="btnControlVenta" text="🛒  Control de venta" onAction="#mostrarControlVenta" styleClass="sideButtonActive"/>
+            <Button fx:id="btnControlVenta" text="🍔  Menú digital" onAction="#mostrarControlVenta" styleClass="sideButtonActive"/>
             <Button fx:id="btnOrdenActual" text="🧺  Orden actual" onAction="#mostrarOrdenActual" styleClass="sideButton"/>
             <Button fx:id="btnPago" text="💳  Pago" onAction="#mostrarPago" styleClass="sideButton"/>
             <Button fx:id="btnFacturacion" text="🧾  Facturación electrónica" onAction="#mostrarFacturacion" styleClass="sideButton"/>
@@ -247,115 +247,67 @@
 
             </VBox>
 
-            <!-- CONTROL DE VENTA -->
-            <VBox fx:id="viewControlVenta" styleClass="content" spacing="16">
+            <!-- MENÚ DIGITAL — Control de venta premium -->
+            <VBox fx:id="viewControlVenta" styleClass="ventasMenuRoot" spacing="0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
 
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Control de venta" styleClass="pageTitle"/>
-                        <Label text="Selecciona productos, cliente, mesa y arma la orden actual." styleClass="pageSubtitle"/>
+                <HBox spacing="0" VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308">
+
+                    <!-- Categorías -->
+                    <VBox styleClass="ventasSideCategorias" prefWidth="210" minWidth="190">
+                        <Label text="SALSIAO" styleClass="ventasBrandMini"/>
+                        <Label text="MENÚ" styleClass="ventasSideTitle"/>
+                        <ScrollPane fitToWidth="true" styleClass="ventasScrollCat" VBox.vgrow="ALWAYS">
+                            <VBox fx:id="panelCategorias" spacing="6"/>
+                        </ScrollPane>
                     </VBox>
 
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nueva venta" styleClass="actionBlue"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
-                    <Button text="⏸ Guardar pendiente" styleClass="actionOrange"/>
-                    <Button text="Continuar a pago" styleClass="actionGreen"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <!-- PANEL IZQUIERDO PRODUCTOS -->
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                            <Label text="Productos disponibles" styleClass="cardTitle"/>
+                    <!-- Grid de productos -->
+                    <VBox styleClass="ventasCentro" spacing="14" HBox.hgrow="ALWAYS">
+                        <HBox styleClass="ventasHeaderBar" alignment="CENTER_LEFT" spacing="16">
+                            <VBox spacing="4">
+                                <Label fx:id="lblCategoriaActiva" text="Todos los productos" styleClass="ventasTituloSeccion"/>
+                                <Label text="Menú digital · Venta rápida" styleClass="ventasSubtitulo"/>
+                            </VBox>
                             <Region HBox.hgrow="ALWAYS"/>
-                            <ComboBox promptText="Categoría" prefWidth="170"/>
-                            <TextField promptText="Buscar producto..." prefWidth="260"/>
-                            <Button text="🔍" styleClass="actionNeutral"/>
+                            <TextField fx:id="txtBuscarMenu" promptText="🔍  Buscar producto..." styleClass="ventasBuscar" prefWidth="280"/>
                         </HBox>
-
-                        <GridPane hgap="12" vgap="12">
-                            <Button text="🍗 Pollo frito&#10;RD$ 250.00" styleClass="productButton" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <Button text="🍛 Moro con carne&#10;RD$ 300.00" styleClass="productButton" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                            <Button text="🥤 Jugo natural&#10;RD$ 100.00" styleClass="productButton" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <Button text="🍔 Hamburguesa&#10;RD$ 280.00" styleClass="productButton" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Button text="🍟 Tostones&#10;RD$ 120.00" styleClass="productButton" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <Button text="🥩 Churrasco&#10;RD$ 650.00" styleClass="productButton" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                            <Button text="🍝 Pasta&#10;RD$ 350.00" styleClass="productButton" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <Button text="🍰 Postre&#10;RD$ 180.00" styleClass="productButton" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-                        </GridPane>
-
-                        <Region VBox.vgrow="ALWAYS"/>
-
-                        <!-- PAGINACIÓN -->
-                        <HBox alignment="CENTER" spacing="10">
-
-                            <Button text="&lt;&lt;" styleClass="actionNeutral"/>
-                            <Button text="&lt;" styleClass="actionNeutral"/>
-
-                            <Button text="1" styleClass="actionBlue"/>
-                            <Button text="2" styleClass="actionNeutral"/>
-                            <Button text="3" styleClass="actionNeutral"/>
-
-                            <Button text="&gt;" styleClass="actionNeutral"/>
-                            <Button text="&gt;&gt;" styleClass="actionNeutral"/>
-
-                        </HBox>
-
+                        <ScrollPane fx:id="scrollMenuProductos" fitToWidth="true" styleClass="ventasScrollProductos" VBox.vgrow="ALWAYS">
+                            <FlowPane fx:id="gridProductos" hgap="18" vgap="18" styleClass="ventasFlowGrid"/>
+                        </ScrollPane>
                     </VBox>
 
-                    <!-- PANEL DERECHO ORDEN -->
-                    <VBox styleClass="cardPanel" spacing="14" prefWidth="470">
-
-                        <Label text="Orden actual" styleClass="cardTitle"/>
-
-                        <GridPane hgap="12" vgap="10">
-                            <Label text="Cliente:" minWidth="100" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbClienteVenta" promptText="Cliente general" prefWidth="300" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Tipo venta:" minWidth="100" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbTipoVenta" promptText="Salón / Delivery" prefWidth="300" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Mesa:" minWidth="100" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbMesaVenta" promptText="Mesa" prefWidth="300" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Personas:" minWidth="100" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <Spinner fx:id="spnPersonasVenta" prefWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                        </GridPane>
-
-                        <TableView fx:id="tablaOrdenActual" prefHeight="300">
-                            <columns>
-                                <TableColumn text="Producto" prefWidth="170"/>
-                                <TableColumn text="Cant." prefWidth="70"/>
-                                <TableColumn text="Precio" prefWidth="110"/>
-                            </columns>
-                        </TableView>
-
-                        <GridPane hgap="12" vgap="10">
-                            <Label text="Subtotal:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <Label text="RD$ 0.00" styleClass="metricSub" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="ITBIS:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <Label text="RD$ 0.00" styleClass="metricSub" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Descuento:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField promptText="0.00" prefWidth="120" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Total:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <Label text="RD$ 0.00" styleClass="metricValueSmall" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                        </GridPane>
-
-                        <HBox spacing="10">
-                            <Button text="Quitar producto" styleClass="actionRed" HBox.hgrow="ALWAYS"/>
-                            <Button text="Vaciar orden" styleClass="actionNeutral" HBox.hgrow="ALWAYS"/>
+                    <!-- Carrito lateral -->
+                    <VBox styleClass="ventasCarritoPanel" prefWidth="400" minWidth="340">
+                        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="ventasCarritoHeader">
+                            <Label text="🛒" styleClass="ventasCarritoIcon"/>
+                            <VBox spacing="2">
+                                <Label text="Orden actual" styleClass="ventasCarritoTitulo"/>
+                                <Label fx:id="lblContadorItems" text="0 productos" styleClass="ventasCarritoSub"/>
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblTotalCarritoHeader" text="RD$ 0" styleClass="ventasTotalBadge"/>
                         </HBox>
-
-                        <Button text="Ir a pago" styleClass="actionGreen" prefHeight="48"/>
-
+                        <ScrollPane fx:id="scrollCarrito" fitToWidth="true" styleClass="ventasScrollCarrito" VBox.vgrow="ALWAYS">
+                            <VBox fx:id="panelItemsCarrito" spacing="10"/>
+                        </ScrollPane>
+                        <VBox styleClass="ventasCarritoFooter" spacing="10">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Subtotal" styleClass="ventasResumenLabel"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="lblSubtotalCarrito" text="RD$ 0.00" styleClass="ventasResumenValor"/>
+                            </HBox>
+                            <Separator styleClass="ventasSeparador"/>
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="TOTAL" styleClass="ventasTotalLabel"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="lblTotalCarrito" text="RD$ 0.00" styleClass="ventasTotalValor"/>
+                            </HBox>
+                            <Button text="💳  PROCESAR PAGO" onAction="#procesarPago" maxWidth="Infinity" styleClass="ventasBtnFinalizar"/>
+                            <HBox spacing="8">
+                                <Button text="↻ Vaciar" onAction="#vaciarCarrito" HBox.hgrow="ALWAYS" styleClass="ventasBtnSecundario"/>
+                                <Button text="Ir a pago →" onAction="#irAPago" HBox.hgrow="ALWAYS" styleClass="ventasBtnIrPago"/>
+                            </HBox>
+                        </VBox>
                     </VBox>
 
                 </HBox>
@@ -376,7 +328,7 @@
                     <Button text="✎ Editar orden" styleClass="actionOrange"/>
                     <Button text="✖ Cancelar orden" styleClass="actionRed"/>
                     <Button text="✔ Enviar a cocina" styleClass="actionBlue"/>
-                    <Button text="Continuar a pago" styleClass="actionGreen"/>
+                    <Button text="Continuar a pago" onAction="#procesarPago" styleClass="actionGreen"/>
                 </HBox>
 
                 <HBox spacing="16">
@@ -546,6 +498,7 @@
                             </GridPane>
 
                             <Button text="Ir a pago"
+                                    onAction="#procesarPago"
                                     prefHeight="46"
                                     styleClass="actionGreen"/>
 
@@ -568,10 +521,10 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
-                    <Button text="✖ Cancelar pago" styleClass="actionRed"/>
-                    <Button text="🧾 Facturar" styleClass="actionBlue"/>
-                    <Button text="✔ Confirmar pago" styleClass="actionGreen"/>
+                    <Button text="↻ Actualizar" onAction="#actualizarPagoView" styleClass="actionNeutral"/>
+                    <Button text="✖ Cancelar pago" onAction="#cancelarPagoView" styleClass="actionRed"/>
+                    <Button text="🧾 Facturar" onAction="#facturarDesdeViewPago" styleClass="actionBlue"/>
+                    <Button text="✔ Confirmar pago" onAction="#procesarPago" styleClass="actionGreen"/>
 
                 </HBox>
 
@@ -692,7 +645,8 @@
                                        GridPane.rowIndex="3"
                                        GridPane.columnIndex="0"/>
 
-                                <Label text="RD$ 3,363.00"
+                                <Label fx:id="lblTotalPago"
+                                       text="RD$ 0.00"
                                        styleClass="metricValueSmall"
                                        GridPane.rowIndex="3"
                                        GridPane.columnIndex="1"/>
@@ -737,18 +691,22 @@
                             <Label text="Acciones rápidas" styleClass="cardTitle"/>
 
                             <Button text="✔ Confirmar pago"
+                                    onAction="#procesarPago"
                                     prefHeight="46"
                                     styleClass="actionGreen"/>
 
                             <Button text="🧾 Generar factura"
+                                    onAction="#facturarDesdeViewPago"
                                     prefHeight="42"
                                     styleClass="actionBlue"/>
 
                             <Button text="📄 Imprimir ticket"
+                                    onAction="#imprimirTicket"
                                     prefHeight="42"
                                     styleClass="actionOrange"/>
 
                             <Button text="✖ Cancelar venta"
+                                    onAction="#cancelarVenta"
                                     prefHeight="42"
                                     styleClass="actionRed"/>
 

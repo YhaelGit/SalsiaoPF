@@ -8,35 +8,46 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.salsiaopf.util.Navegacion;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-
+import org.example.salsiaopf.util.Navegacion;
+import org.example.salsiaopf.util.RoleGuard;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import javafx.event.ActionEvent;
-import org.example.salsiaopf.util.Navegacion;
-import org.example.salsiaopf.util.RoleGuard;
+import org.example.salsiaopf.util.SessionManager;
 
 public class CentroSistemaController {
 
-    @FXML
-    private ImageView logoImage;
+    @FXML private ImageView logoImage;
+    @FXML private Label lblFechaActual;
+    @FXML private Label lblHoraActual;
+    @FXML private Button btnNotificaciones;
+    @FXML private Label lblUsuarioTop;
+    @FXML private Label lblRolTop;
+    @FXML private Label lblBienvenida;
+    @FXML private Label lblUsuarioCard;
+    @FXML private Label lblRolCard;
+    @FXML private Button btnNavVentas;
+    @FXML private Button btnNavCompras;
+    @FXML private Button btnNavClientes;
+    @FXML private Button btnNavInventario;
+    @FXML private Button btnNavEmpleados;
+    @FXML private Button btnNavMantenimiento;
+    @FXML private Button btnNavReportes;
+    @FXML private Button btnNavConfiguracion;
 
     @FXML
     private void initialize() {
         cargarLogo();
         iniciarReloj();
         actualizarNotificaciones();
+        mostrarDatosSesion();
+        aplicarPermisosModulos();
     }
-
-    @FXML private Label lblFechaActual;
-    @FXML private Label lblHoraActual;
-    @FXML private Button btnNotificaciones;
 
     private int cantidadNotificaciones = 3;
 
@@ -109,6 +120,47 @@ public class CentroSistemaController {
 
     private void actualizarNotificaciones() {
         btnNotificaciones.setText("🔔 " + cantidadNotificaciones);
+    }
+
+    private void mostrarDatosSesion() {
+        var usuario = SessionManager.getInstance().getUsuarioActivo();
+        if (usuario == null) return;
+
+        String nombre = usuario.getNombre();
+        String rol = usuario.getRol();
+
+        if (lblUsuarioTop != null) lblUsuarioTop.setText(nombre);
+        if (lblRolTop != null) lblRolTop.setText(rol);
+        if (lblBienvenida != null) lblBienvenida.setText("Bienvenido, " + nombre + " 👋");
+        if (lblUsuarioCard != null) lblUsuarioCard.setText(nombre);
+        if (lblRolCard != null) lblRolCard.setText("Rol: " + rol);
+    }
+
+    private void aplicarPermisosModulos() {
+        configurarBotonModulo(btnNavVentas, "ventas");
+        configurarBotonModulo(btnNavCompras, "compras");
+        configurarBotonModulo(btnNavClientes, "clientes");
+        configurarBotonModulo(btnNavInventario, "inventario");
+        configurarBotonModulo(btnNavEmpleados, "empleados");
+        configurarBotonModulo(btnNavMantenimiento, "mantenimiento");
+        configurarBotonModulo(btnNavReportes, "reportes");
+        if (btnNavConfiguracion != null) {
+            configurarBotonModulo(btnNavConfiguracion, "mantenimiento");
+        }
+    }
+
+    private void configurarBotonModulo(Button boton, String modulo) {
+        if (boton == null) return;
+
+        boolean permitido = RoleGuard.tienePermiso(modulo);
+        boton.setDisable(!permitido);
+
+        if (!permitido) {
+            if (!boton.getStyleClass().contains("sideButtonDenied")) {
+                boton.getStyleClass().add("sideButtonDenied");
+            }
+            boton.setTooltip(new javafx.scene.control.Tooltip("Acceso denegado para tu rol"));
+        }
     }
 
     @FXML

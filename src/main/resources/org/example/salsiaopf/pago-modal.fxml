@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.salsiaopf.controller.PagoModalController"
+            prefWidth="520"
+            prefHeight="640"
+            styleClass="pagoModalRoot">
+
+    <top>
+        <VBox styleClass="pagoModalHeader" spacing="4">
+            <Label text="💳 Procesar Pago" styleClass="pagoModalTitulo"/>
+            <Label text="Resumen de la orden · Salsiao POS" styleClass="pagoModalSubtitulo"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="pagoModalScroll">
+            <VBox spacing="16" styleClass="pagoModalBody">
+
+                <VBox spacing="8" styleClass="pagoModalCard">
+                    <Label text="Resumen de compra" styleClass="pagoModalCardTitle"/>
+                    <VBox fx:id="panelResumenCompra" spacing="6"/>
+                    <Separator styleClass="pagoSeparador"/>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="TOTAL A PAGAR" styleClass="pagoTotalLabel"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblTotalModal" text="RD$ 0.00" styleClass="pagoTotalValor"/>
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="10" styleClass="pagoModalCard">
+                    <Label text="Correo del cliente" styleClass="pagoModalCardTitle"/>
+                    <TextField fx:id="txtEmailCliente" promptText="cliente@correo.com" styleClass="pagoModalField"/>
+                    <Label text="La factura PDF se enviará a este correo al confirmar." styleClass="pagoModalHint"/>
+                </VBox>
+
+                <VBox spacing="10" styleClass="pagoModalCard">
+                    <Label text="Método de pago" styleClass="pagoModalCardTitle"/>
+                    <HBox spacing="10">
+                        <ToggleButton fx:id="btnEfectivo" text="💵 Efectivo" styleClass="pagoMetodoBtn" selected="true"/>
+                        <ToggleButton fx:id="btnTarjeta" text="💳 Tarjeta" styleClass="pagoMetodoBtn"/>
+                        <ToggleButton fx:id="btnTransferencia" text="🏦 Transferencia" styleClass="pagoMetodoBtn"/>
+                    </HBox>
+                </VBox>
+
+                <VBox fx:id="panelEfectivo" spacing="10" styleClass="pagoModalCard">
+                    <Label text="Pago en efectivo" styleClass="pagoModalCardTitle"/>
+                    <GridPane hgap="12" vgap="10">
+                        <Label text="Monto recibido:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <TextField fx:id="txtMontoRecibidoModal" promptText="0.00" styleClass="pagoModalField"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <Label text="Devuelta:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <Label fx:id="lblDevueltaModal" text="RD$ 0.00" styleClass="pagoDevueltaValor"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    </GridPane>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="12" styleClass="pagoModalFooter">
+            <Button text="Cancelar" onAction="#cancelar" styleClass="pagoBtnCancelar" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="confirmarBtn" text="✔ Confirmar pago" onAction="#confirmarPago" styleClass="pagoBtnConfirmar" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

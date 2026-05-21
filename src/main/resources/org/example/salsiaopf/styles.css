@@ -1103,3 +1103,502 @@
     -fx-opacity: 0.7;
     -fx-cursor: default;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO VENTAS — Menú digital premium Salsiao
+   Paleta: fondo oscuro · azul eléctrico · amarillo intenso
+   ═══════════════════════════════════════════════════════════════ */
+
+.ventasMenuRoot {
+    -fx-background-color: #0a0e1a;
+}
+
+.ventasSideCategorias {
+    -fx-background-color: linear-gradient(to bottom, #0d1228, #080c18);
+    -fx-padding: 20 12;
+    -fx-border-color: rgba(0, 212, 255, 0.15);
+    -fx-border-width: 0 1 0 0;
+}
+
+.ventasBrandMini {
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #ffd000;
+    -fx-letter-spacing: 3px;
+}
+
+.ventasSideTitle {
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #00d4ff;
+    -fx-padding: 0 0 14 0;
+}
+
+.ventasScrollCat,
+.ventasScrollProductos,
+.ventasScrollCarrito {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.ventasScrollCat .viewport,
+.ventasScrollProductos .viewport,
+.ventasScrollCarrito .viewport {
+    -fx-background-color: transparent;
+}
+
+.ventasCatBtn {
+    -fx-background-color: rgba(255,255,255,0.04);
+    -fx-text-fill: #b8c5e0;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-alignment: center-left;
+    -fx-padding: 12 14;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.ventasCatBtn:hover {
+    -fx-background-color: rgba(0, 212, 255, 0.12);
+    -fx-text-fill: #00d4ff;
+}
+
+.ventasCatBtnActive {
+    -fx-background-color: linear-gradient(to right, rgba(0, 212, 255, 0.35), rgba(255, 208, 0, 0.2));
+    -fx-text-fill: #ffd000;
+    -fx-border-color: #00d4ff;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.ventasCentro {
+    -fx-background-color: #0a0e1a;
+    -fx-padding: 20 24;
+}
+
+.ventasHeaderBar {
+    -fx-padding: 0 0 8 0;
+}
+
+.ventasTituloSeccion {
+    -fx-font-size: 26px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #ffffff;
+}
+
+.ventasSubtitulo {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6b7a99;
+}
+
+.ventasBuscar {
+    -fx-background-color: #141b2e;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #6b7a99;
+    -fx-border-color: rgba(0, 212, 255, 0.35);
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 12 16;
+    -fx-font-size: 14px;
+}
+
+.ventasBuscar:focused {
+    -fx-border-color: #ffd000;
+    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.25), 12, 0.3, 0, 0);
+}
+
+.ventasFlowGrid {
+    -fx-padding: 8 4 24 4;
+}
+
+.ventasProductCard {
+    -fx-background-color: linear-gradient(to bottom, #151d35, #10182a);
+    -fx-background-radius: 16;
+    -fx-border-color: rgba(0, 212, 255, 0.2);
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-padding: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 14, 0.25, 0, 4);
+    -fx-cursor: default;
+}
+
+.ventasProductCard:hover {
+    -fx-border-color: #ffd000;
+    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.2), 18, 0.3, 0, 6);
+}
+
+.ventasProductImageWrap {
+    -fx-background-color: linear-gradient(to bottom right, #1a2545, #0f1628);
+    -fx-background-radius: 14;
+    -fx-min-height: 100;
+    -fx-pref-height: 100;
+    -fx-alignment: center;
+    -fx-border-color: rgba(0, 212, 255, 0.15);
+    -fx-border-radius: 14;
+}
+
+.ventasProductEmoji {
+    -fx-font-size: 42px;
+}
+
+.ventasProductName {
+    -fx-font-size: 15px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #ffffff;
+}
+
+.ventasProductDesc {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7a8aaa;
+}
+
+.ventasProductPrice {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #ffd000;
+}
+
+.ventasBtnAgregar {
+    -fx-background-color: linear-gradient(to right, #0066ff, #00d4ff);
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+    -fx-font-size: 13px;
+    -fx-background-radius: 10;
+    -fx-padding: 10 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 102, 255, 0.4), 10, 0.25, 0, 3);
+}
+
+.ventasBtnAgregar:hover {
+    -fx-background-color: linear-gradient(to right, #ffd000, #ffaa00);
+    -fx-text-fill: #0a0e1a;
+}
+
+.ventasCarritoPanel {
+    -fx-background-color: linear-gradient(to bottom, #0f1428, #0a0e1a);
+    -fx-padding: 18 16;
+    -fx-border-color: rgba(255, 208, 0, 0.2);
+    -fx-border-width: 0 0 0 1;
+}
+
+.ventasCarritoHeader {
+    -fx-padding: 0 0 12 0;
+}
+
+.ventasCarritoIcon {
+    -fx-font-size: 28px;
+}
+
+.ventasCarritoTitulo {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #ffffff;
+}
+
+.ventasCarritoSub {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7a99;
+}
+
+.ventasTotalBadge {
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #0a0e1a;
+    -fx-background-color: #ffd000;
+    -fx-background-radius: 20;
+    -fx-padding: 6 14;
+}
+
+.ventasCarritoItem {
+    -fx-background-color: #141b2e;
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+    -fx-border-color: rgba(0, 212, 255, 0.15);
+    -fx-border-radius: 12;
+}
+
+.ventasCarritoItemEmoji {
+    -fx-font-size: 24px;
+}
+
+.ventasCarritoItemName {
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
+}
+
+.ventasCarritoItemUnit {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6b7a99;
+}
+
+.ventasCarritoItemSubtotal {
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #ffd000;
+}
+
+.ventasBtnQty {
+    -fx-background-color: #1e2a4a;
+    -fx-text-fill: #00d4ff;
+    -fx-font-weight: 900;
+    -fx-font-size: 16px;
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.ventasBtnQty:hover {
+    -fx-background-color: #00d4ff;
+    -fx-text-fill: #0a0e1a;
+}
+
+.ventasQtyLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.ventasBtnEliminarItem {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ff4d6d;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.ventasBtnEliminarItem:hover {
+    -fx-background-color: rgba(255, 77, 109, 0.15);
+    -fx-background-radius: 8;
+}
+
+.ventasCarritoVacio {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7a99;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 40 20;
+}
+
+.ventasEmptyMsg {
+    -fx-font-size: 16px;
+    -fx-text-fill: #6b7a99;
+    -fx-padding: 40;
+}
+
+.ventasCarritoFooter {
+    -fx-padding: 14 0 0 0;
+}
+
+.ventasResumenLabel {
+    -fx-font-size: 13px;
+    -fx-text-fill: #8a97b5;
+}
+
+.ventasResumenValor {
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #ffffff;
+}
+
+.ventasSeparador {
+    -fx-background-color: rgba(255,255,255,0.08);
+}
+
+.ventasTotalLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #00d4ff;
+}
+
+.ventasTotalValor {
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #ffd000;
+}
+
+.ventasBtnFinalizar {
+    -fx-background-color: linear-gradient(to right, #ffd000, #ff9500);
+    -fx-text-fill: #0a0e1a;
+    -fx-font-size: 15px;
+    -fx-font-weight: 900;
+    -fx-padding: 16 20;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.45), 14, 0.35, 0, 4);
+}
+
+.ventasBtnFinalizar:hover {
+    -fx-background-color: linear-gradient(to right, #ffe566, #ffb020);
+}
+
+.ventasBtnIrPago {
+    -fx-background-color: transparent;
+    -fx-text-fill: #00d4ff;
+    -fx-border-color: #00d4ff;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-font-weight: 800;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+}
+
+.ventasBtnIrPago:hover {
+    -fx-background-color: rgba(0, 212, 255, 0.12);
+}
+
+.ventasBtnSecundario {
+    -fx-background-color: #1e2a4a;
+    -fx-text-fill: #b8c5e0;
+    -fx-font-weight: 700;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+}
+
+.ventasBtnSecundario:hover {
+    -fx-background-color: #2a3a5c;
+    -fx-text-fill: white;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL PROCESAR PAGO — POS Salsiao
+   ═══════════════════════════════════════════════════════════════ */
+
+.pagoModalRoot {
+    -fx-background-color: #0f1428;
+    -fx-background-radius: 16;
+    -fx-border-color: rgba(0, 212, 255, 0.4);
+    -fx-border-radius: 16;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 28, 0.35, 0, 8);
+}
+
+.pagoModalHeader {
+    -fx-background-color: linear-gradient(to right, #0066ff, #00d4ff);
+    -fx-padding: 20 24;
+}
+
+.pagoModalTitulo {
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.pagoModalSubtitulo {
+    -fx-font-size: 13px;
+    -fx-text-fill: rgba(255,255,255,0.9);
+}
+
+.pagoModalScroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.pagoModalScroll .viewport {
+    -fx-background-color: #0f1428;
+}
+
+.pagoModalBody {
+    -fx-padding: 16 20;
+}
+
+.pagoModalCard {
+    -fx-background-color: #141b2e;
+    -fx-background-radius: 12;
+    -fx-padding: 14;
+    -fx-border-color: rgba(255, 208, 0, 0.2);
+    -fx-border-radius: 12;
+    -fx-spacing: 8;
+}
+
+.pagoModalCardTitle {
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #ffd000;
+}
+
+.pagoModalField {
+    -fx-background-color: #1a2238;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #6b7a99;
+    -fx-border-color: rgba(0, 212, 255, 0.35);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10 12;
+}
+
+.pagoModalHint {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6b7a99;
+}
+
+.pagoResumenLinea {
+    -fx-font-size: 12px;
+    -fx-text-fill: #d0d8ec;
+}
+
+.pagoSeparador {
+    -fx-background-color: rgba(255,255,255,0.1);
+}
+
+.pagoTotalLabel {
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #00d4ff;
+}
+
+.pagoTotalValor {
+    -fx-font-size: 20px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #ffd000;
+}
+
+.pagoMetodoBtn {
+    -fx-background-color: #1e2a4a;
+    -fx-text-fill: #b8c5e0;
+    -fx-font-weight: 700;
+    -fx-background-radius: 10;
+    -fx-padding: 10 14;
+    -fx-cursor: hand;
+}
+
+.pagoMetodoBtn:selected {
+    -fx-background-color: linear-gradient(to right, #ffd000, #ff9500);
+    -fx-text-fill: #0a0e1a;
+}
+
+.pagoDevueltaValor {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #00ff88;
+}
+
+.pagoModalFooter {
+    -fx-padding: 16 20 20 20;
+    -fx-background-color: #0a0e1a;
+}
+
+.pagoBtnCancelar {
+    -fx-background-color: #2a3a5c;
+    -fx-text-fill: #b8c5e0;
+    -fx-font-weight: 700;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-cursor: hand;
+}
+
+.pagoBtnConfirmar {
+    -fx-background-color: linear-gradient(to right, #ffd000, #ff9500);
+    -fx-text-fill: #0a0e1a;
+    -fx-font-size: 14px;
+    -fx-font-weight: 900;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-cursor: hand;
+}
+
+.pagoBtnConfirmar:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.5), 12, 0.3, 0, 2);
+}

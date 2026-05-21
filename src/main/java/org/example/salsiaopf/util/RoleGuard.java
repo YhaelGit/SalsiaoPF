@@ -23,8 +23,8 @@ public class RoleGuard {
         "empleados",     Set.of("Administrador"),
         "mantenimiento", Set.of("Administrador"),
         "inventario",    Set.of("Administrador", "Inventario"),
-        "ventas",        Set.of("Administrador", "Cajero"),
-        "clientes",      Set.of("Administrador", "Cajero"),
+        "ventas",        Set.of("Administrador", "Cajero", "Delivery"),
+        "clientes",      Set.of("Administrador", "Cajero", "Delivery"),
         "reportes",      Set.of("Administrador")
     );
 

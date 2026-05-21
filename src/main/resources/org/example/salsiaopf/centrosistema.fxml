@@ -65,10 +65,12 @@
 
                     <VBox spacing="0">
 
-                        <Label text="Admin"
+                        <Label fx:id="lblUsuarioTop"
+                               text="Admin"
                                styleClass="userNameTop"/>
 
-                        <Label text="Administrador"
+                        <Label fx:id="lblRolTop"
+                               text="Administrador"
                                styleClass="userRoleTop"/>
 
                     </VBox>
@@ -84,20 +86,20 @@
             <Label text="NAVEGACIÓN" styleClass="sideTitle"/>
 
             <Button text="🏠  General" onAction="#mostrarGeneral" styleClass="sideButtonActive"/>
-            <Button text="🛒  Ventas" onAction="#abrirVentas" styleClass="sideButton"/>
-            <Button text="🧾  Compras" onAction="#abrirCompras" styleClass="sideButton"/>
-            <Button text="👥  Clientes" onAction="#abrirClientes" styleClass="sideButton"/>
-            <Button text="📦  Inventario" onAction="#abrirInventario" styleClass="sideButton"/>
-            <Button text="👤  Empleados" onAction="#abrirEmpleados" styleClass="sideButton"/>
-            <Button text="🛠  Mantenimiento" onAction="#abrirMantenimiento" styleClass="sideButton"/>
-            <Button text="📊  Reportes" onAction="#abrirReportes" styleClass="sideButton"/>
-            <Button text="⚙  Configuración" onAction="#abrirConfiguracion" styleClass="sideButton"/>
+            <Button fx:id="btnNavVentas" text="🛒  Ventas" onAction="#abrirVentas" styleClass="sideButton"/>
+            <Button fx:id="btnNavCompras" text="🧾  Compras" onAction="#abrirCompras" styleClass="sideButton"/>
+            <Button fx:id="btnNavClientes" text="👥  Clientes" onAction="#abrirClientes" styleClass="sideButton"/>
+            <Button fx:id="btnNavInventario" text="📦  Inventario" onAction="#abrirInventario" styleClass="sideButton"/>
+            <Button fx:id="btnNavEmpleados" text="👤  Empleados" onAction="#abrirEmpleados" styleClass="sideButton"/>
+            <Button fx:id="btnNavMantenimiento" text="🛠  Mantenimiento" onAction="#abrirMantenimiento" styleClass="sideButton"/>
+            <Button fx:id="btnNavReportes" text="📊  Reportes" onAction="#abrirReportes" styleClass="sideButton"/>
+            <Button fx:id="btnNavConfiguracion" text="⚙  Configuración" onAction="#abrirConfiguracion" styleClass="sideButton"/>
 
             <Region VBox.vgrow="ALWAYS"/>
 
             <VBox styleClass="userCard">
-                <Label text="Admin" styleClass="userCardName"/>
-                <Label text="Rol: Administrador" styleClass="userCardRole"/>
+                <Label fx:id="lblUsuarioCard" text="Admin" styleClass="userCardName"/>
+                <Label fx:id="lblRolCard" text="Rol: Administrador" styleClass="userCardRole"/>
             </VBox>
 
             <Button text="↪  Salir" onAction="#salirSistema" styleClass="sideButtonExit"/>
@@ -110,7 +112,7 @@
 
                 <HBox alignment="CENTER_LEFT">
                     <VBox>
-                        <Label text="Bienvenido, Admin 👋" styleClass="pageTitle"/>
+                        <Label fx:id="lblBienvenida" text="Bienvenido, Admin 👋" styleClass="pageTitle"/>
                         <Label text="Resumen general del sistema" styleClass="pageSubtitle"/>
                     </VBox>
 

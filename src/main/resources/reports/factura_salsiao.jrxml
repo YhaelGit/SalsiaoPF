@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="factura_salsiao" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenNoDataType="AllSectionsNoDetail" uuid="salsiao-factura-2026-v3">
+
+    <parameter name="ID_VENTA" class="java.lang.Integer"/>
+
+    <queryString language="SQL">
+        <![CDATA[
+        SELECT
+            v.id_venta,
+            v.id_factura,
+            v.fecha_venta,
+            v.total,
+            v.metodo_pago,
+            v.monto_recibido,
+            v.devuelta,
+            v.email_cliente,
+            d.nombre_producto,
+            d.cantidad,
+            d.precio_unitario,
+            d.subtotal
+        FROM tbl_VENTA_POS v
+        INNER JOIN tbl_DETALLE_VENTA_POS d ON v.id_venta = d.id_venta
+        WHERE v.id_venta = $P{ID_VENTA}
+        ORDER BY d.id_detalle
+        ]]>
+    </queryString>
+
+    <field name="id_venta" class="java.lang.Integer"/>
+    <field name="id_factura" class="java.lang.String"/>
+    <field name="fecha_venta" class="java.sql.Timestamp"/>
+    <field name="total" class="java.math.BigDecimal"/>
+    <field name="metodo_pago" class="java.lang.String"/>
+    <field name="monto_recibido" class="java.math.BigDecimal"/>
+    <field name="devuelta" class="java.math.BigDecimal"/>
+    <field name="email_cliente" class="java.lang.String"/>
+    <field name="nombre_producto" class="java.lang.String"/>
+    <field name="cantidad" class="java.lang.Integer"/>
+    <field name="precio_unitario" class="java.math.BigDecimal"/>
+    <field name="subtotal" class="java.math.BigDecimal"/>

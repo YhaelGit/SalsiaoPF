@@ -80,4 +80,26 @@ public class ClienteDAO {
 
         return lista;
     }
+
+    public boolean guardarDireccion(String direccion) {
+        String sql = """
+                INSERT INTO tbl_DIRECCION (nombre, fk_ID_cliente)
+                VALUES (?, IDENT_CURRENT('tbl_CLIENTE'))
+                """;
+
+        try (
+                Connection con = ConexionBD.conectar();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            if (con == null) return false;
+
+            ps.setString(1, direccion);
+            ps.executeUpdate();
+            return true;
+
+        } catch (Exception e) {
+            System.out.println("Error guardando dirección: " + e.getMessage());
+            return false;
+        }
+    }
 }
