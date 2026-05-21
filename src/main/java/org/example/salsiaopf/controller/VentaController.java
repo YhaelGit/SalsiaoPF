@@ -7,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,12 +37,15 @@ public class VentaController {
     @FXML private Label lblHoraActual;
     @FXML private Button btnNotificaciones;
     @FXML private ImageView logoImage;
+    @FXML private TextField txtMontoRecibido;
+    @FXML private Label lblCambio;
 
     @FXML
     public void initialize() {
         cargarLogo();
         iniciarReloj();
         mostrarControlVenta();
+        txtMontoRecibido.textProperty().addListener((obs, oldValue, newValue) -> calcularCambio());
     }
 
     private void cargarLogo() {
@@ -70,6 +74,30 @@ public class VentaController {
         } catch (Exception e) {
             System.out.println("Error cargando logo: " + e.getMessage());
         }
+    }
+
+    private void calcularCambio() {
+
+        try {
+
+            double total = 3363.00;
+
+            double recibido = Double.parseDouble(
+                    txtMontoRecibido.getText().isEmpty()
+                            ? "0"
+                            : txtMontoRecibido.getText()
+            );
+
+            double cambio = recibido - total;
+
+            lblCambio.setText("RD$ " + String.format("%,.2f", cambio));
+
+        } catch (Exception e) {
+
+            lblCambio.setText("RD$ 0.00");
+
+        }
+
     }
 
     private void iniciarReloj() {

@@ -874,3 +874,27 @@
     -fx-font-weight: bold;
     -fx-text-fill: #111827;
 }
+.paymentOption,
+.paymentOptionActive {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.paymentOption {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db;
+    -fx-text-fill: #111827;
+}
+
+.paymentOption:hover {
+    -fx-border-color: #4f46e5;
+    -fx-text-fill: #4f46e5;
+}
+
+.paymentOptionActive {
+    -fx-background-color: #dcfce7;
+    -fx-border-color: #16a34a;
+    -fx-text-fill: #166534;
+}

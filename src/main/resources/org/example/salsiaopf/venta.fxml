@@ -386,39 +386,41 @@
 
                         <Label text="Información de la orden" styleClass="cardTitle"/>
 
-                        <GridPane hgap="14" vgap="12">
+                        <GridPane hgap="18" vgap="14">
+
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="120" prefWidth="120"/>
+                                <ColumnConstraints minWidth="260" prefWidth="260"/>
+                                <ColumnConstraints minWidth="120" prefWidth="120"/>
+                                <ColumnConstraints minWidth="260" prefWidth="260"/>
+                            </columnConstraints>
 
                             <Label text="Orden:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField text="ORD-000125" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <TextField text="ORD-00125"
+                                       editable="false"
+                                       GridPane.rowIndex="0"
+                                       GridPane.columnIndex="1"/>
 
-                            <Label text="Cliente:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <ComboBox promptText="Seleccionar cliente"
-                                      prefWidth="280"
+                            <Label text="Cliente:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                            <TextField promptText="Cliente seleccionado"
+                                       editable="false"
+                                       GridPane.rowIndex="0"
+                                       GridPane.columnIndex="3"/>
+
+                            <Label text="Mesa:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <ComboBox promptText="Mesa opcional"
                                       GridPane.rowIndex="1"
                                       GridPane.columnIndex="1"/>
 
-                            <Label text="Mesa:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <ComboBox promptText="Mesa 05"
-                                      prefWidth="180"
-                                      GridPane.rowIndex="2"
-                                      GridPane.columnIndex="1"/>
+                            <Label text="Tipo:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                            <ComboBox promptText="Salón / Delivery / Para llevar"
+                                      GridPane.rowIndex="1"
+                                      GridPane.columnIndex="3"/>
 
-                            <Label text="Tipo:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <ComboBox promptText="Salón"
-                                      prefWidth="180"
-                                      GridPane.rowIndex="3"
-                                      GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <ComboBox promptText="En preparación"
-                                      prefWidth="220"
-                                      GridPane.rowIndex="4"
-                                      GridPane.columnIndex="1"/>
-
-                            <Label text="Atiende:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                            <Label text="Atiende:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                             <TextField text="Admin"
                                        editable="false"
-                                       GridPane.rowIndex="5"
+                                       GridPane.rowIndex="2"
                                        GridPane.columnIndex="1"/>
 
                         </GridPane>
@@ -428,7 +430,6 @@
                             <HBox alignment="CENTER_LEFT">
                                 <Label text="Detalle de productos" styleClass="cardTitle"/>
                                 <Region HBox.hgrow="ALWAYS"/>
-                                <Button text="+ Agregar producto" styleClass="actionBlue"/>
                             </HBox>
 
                             <TableView prefHeight="360">
@@ -440,8 +441,6 @@
                                     <TableColumn text="Precio" prefWidth="110"/>
                                     <TableColumn text="Subtotal" prefWidth="120"/>
                                     <TableColumn text="Estado" prefWidth="130"/>
-                                    <TableColumn text="Acciones" prefWidth="150"/>
-
                                 </columns>
 
                             </TableView>
@@ -586,52 +585,22 @@
 
                             <Label text="Resumen de la orden" styleClass="cardTitle"/>
 
-                            <GridPane hgap="14" vgap="12">
+                            <GridPane hgap="18" vgap="12">
 
-                                <Label text="Orden:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
+                                <Label text="Orden:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField text="ORD-000125" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                                <TextField text="ORD-000125"
-                                           editable="false"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
+                                <Label text="Cliente:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                                <TextField text="Juan Pérez García" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
-                                <Label text="Cliente:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
+                                <Label text="Mesa:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <TextField text="Mesa 05" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                                <TextField text="Juan Pérez García"
-                                           editable="false"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"/>
+                                <Label text="Tipo venta:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                                <TextField text="Salón" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
-                                <Label text="Mesa:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Mesa 05"
-                                           editable="false"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Tipo venta:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Salón"
-                                           editable="false"
-                                           GridPane.rowIndex="3"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Cajero:"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Admin"
-                                           editable="false"
-                                           GridPane.rowIndex="4"
-                                           GridPane.columnIndex="1"/>
+                                <Label text="Cajero:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <TextField text="Admin" editable="false" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
                             </GridPane>
 
@@ -667,19 +636,22 @@
                     <VBox spacing="16" prefWidth="420">
 
                         <!-- METODOS -->
-                        <VBox styleClass="cardPanel" spacing="14">
-
+                        <VBox styleClass="cardPanel" spacing="12">
                             <Label text="Método de pago" styleClass="cardTitle"/>
 
-                            <VBox spacing="10">
+                            <GridPane hgap="10" vgap="10">
+                                <Button text="💵 Efectivo" styleClass="paymentOptionActive" prefWidth="150" prefHeight="48"
+                                        GridPane.rowIndex="0" GridPane.columnIndex="0"/>
 
-                                <RadioButton text="💵 Efectivo" toggleGroup="$grupoPago"/>
-                                <RadioButton text="💳 Tarjeta" toggleGroup="$grupoPago"/>
-                                <RadioButton text="🏦 Transferencia" toggleGroup="$grupoPago"/>
-                                <RadioButton text="🔀 Pago mixto" toggleGroup="$grupoPago"/>
+                                <Button text="💳 Tarjeta" styleClass="paymentOption" prefWidth="150" prefHeight="48"
+                                        GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                            </VBox>
+                                <Button text="🏦 Transferencia" styleClass="paymentOption" prefWidth="150" prefHeight="48"
+                                        GridPane.rowIndex="1" GridPane.columnIndex="0"/>
 
+                                <Button text="🔀 Pago mixto" styleClass="paymentOption" prefWidth="150" prefHeight="48"
+                                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            </GridPane>
                         </VBox>
 
                         <!-- MONTOS -->
@@ -740,7 +712,8 @@
                                        GridPane.rowIndex="0"
                                        GridPane.columnIndex="0"/>
 
-                                <TextField promptText="0.00"
+                                <TextField fx:id="txtMontoRecibido"
+                                           promptText="0.00"
                                            GridPane.rowIndex="0"
                                            GridPane.columnIndex="1"/>
 
@@ -748,15 +721,13 @@
                                        GridPane.rowIndex="1"
                                        GridPane.columnIndex="0"/>
 
-                                <Label text="RD$ 0.00"
+                                <Label fx:id="lblCambio"
+                                       text="RD$ 0.00"
                                        styleClass="metricValueSmall"
                                        GridPane.rowIndex="1"
                                        GridPane.columnIndex="1"/>
 
                             </GridPane>
-
-                            <Button text="Calcular cambio"
-                                    styleClass="actionBlue"/>
 
                         </VBox>
 
