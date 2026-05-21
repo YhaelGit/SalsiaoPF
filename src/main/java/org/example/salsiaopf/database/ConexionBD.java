@@ -1,4 +1,4 @@
-package org.example.salsiaopf;
+package org.example.salsiaopf.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,11 +6,10 @@ import java.sql.SQLException;
 
 public class ConexionBD {
 
-    private static final String URL =
-            "jdbc:sqlserver://localhost:1433;databaseName=SALSIAO;encrypt=true;trustServerCertificate=true";
+    private static final String URL = "jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS;databaseName=SALSIAOREF;encrypt=true;trustServerCertificate=true";
 
-    private static final String USER = "salsiaoUser";
-    private static final String PASSWORD = "Admin1234*";
+    private static final String USER = "fernando";
+    private static final String PASSWORD = "123456";
 
     public static Connection conectar() {
         try {

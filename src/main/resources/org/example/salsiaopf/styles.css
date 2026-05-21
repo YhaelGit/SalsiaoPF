@@ -217,3 +217,660 @@
     -fx-padding: 20 30 20 30;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 18, 0.20, 0, 5);
 }
+
+.root{
+    -fx-font-family: "Segoe UI";
+}
+
+.appRoot{
+    -fx-background-color: #f4f6f8;
+}
+
+.topBar{
+    -fx-background-color: linear-gradient(to right, #ff7a00, #ff6a00);
+    -fx-padding: 16 24;
+    -fx-alignment: center-left;
+}
+
+.brandTitle{
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111111;
+}
+
+.brandSubtitle{
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.topInfo{
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.topIcon{
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+}
+
+.userName{
+    -fx-text-fill: white;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.userRole{
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+}
+
+.sideBar{
+    -fx-background-color: linear-gradient(to bottom, #041225, #020d1d);
+    -fx-padding: 22 16;
+}
+
+.sideTitle{
+    -fx-text-fill: #8b95a7;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 12 0;
+}
+
+.sideButton{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 16 18;
+    -fx-background-radius: 12;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+}
+
+.sideButton:hover{
+    -fx-background-color: rgba(255,255,255,0.08);
+}
+
+.sideButtonActive{
+    -fx-background-color: linear-gradient(to right, #4f46e5, #5b5bf0);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 16 18;
+    -fx-background-radius: 12;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+}
+
+.sideButtonExit{
+    -fx-background-color: transparent;
+    -fx-text-fill: #ff4d4d;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 16 18;
+    -fx-background-radius: 12;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+}
+
+.sideButtonExit:hover{
+    -fx-background-color: rgba(255,0,0,0.1);
+}
+
+.userCard{
+    -fx-background-color: rgba(255,255,255,0.03);
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-padding: 20;
+}
+
+.userCardName{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.userCardRole{
+    -fx-text-fill: #7c8aa5;
+    -fx-font-size: 14px;
+}
+
+.content{
+    -fx-padding: 24;
+}
+
+.pageTitle{
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.pageSubtitle{
+    -fx-font-size: 17px;
+    -fx-text-fill: #6b7280;
+}
+
+.primaryButton{
+    -fx-background-color: linear-gradient(to right, #4f46e5, #6366f1);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-padding: 12 22;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.primaryButton:hover{
+    -fx-opacity: 0.90;
+}
+
+.metricCard{
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #e5e7eb;
+    -fx-padding: 18;
+    -fx-spacing: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0.2, 0, 3);
+}
+
+.metricValue{
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.metricValueSmall{
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.metricSub{
+    -fx-font-size: 16px;
+    -fx-text-fill: #6b7280;
+}
+
+.metricPositive{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #16a34a;
+}
+
+.metricOrange{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff6a00;
+}
+
+.metricTitleGreen{
+    -fx-text-fill: #16a34a;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.metricTitleBlue{
+    -fx-text-fill: #2563eb;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.metricTitlePurple{
+    -fx-text-fill: #7c3aed;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.metricTitleOrange{
+    -fx-text-fill: #ff6a00;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.panelLarge,
+.panelSide,
+.panelSmall{
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #e5e7eb;
+    -fx-padding: 18;
+    -fx-spacing: 14;
+}
+
+.sectionTitle{
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4f46e5;
+}
+
+.sectionFooter{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4f46e5;
+}
+
+.chartPlaceholder{
+    -fx-background-color: #f9fafb;
+    -fx-background-radius: 14;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 14;
+}
+
+.placeholderText{
+    -fx-font-size: 20px;
+    -fx-text-fill: #9ca3af;
+}
+
+.alertItem{
+    -fx-font-size: 16px;
+    -fx-text-fill: #374151;
+}
+
+.quickButton{
+    -fx-background-color: white;
+    -fx-border-color: #dbe1ea;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 18;
+    -fx-pref-width: 140;
+    -fx-pref-height: 70;
+    -fx-cursor: hand;
+}
+
+.quickButton:hover{
+    -fx-background-color: #f4f6ff;
+}
+
+.footerText{
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
+}
+
+.contentArea {
+    -fx-background-color: #f6f7fb;
+}
+
+.content {
+    -fx-padding: 26 30 26 30;
+}
+
+.topBar {
+    -fx-background-color: linear-gradient(to right, #ff7a00, #ff8c00);
+    -fx-padding: 14 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.15, 0, 2);
+}
+
+.brandTitle {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
+    -fx-font-size: 34px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #b8322a;
+}
+
+.brandSubtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: #111827;
+    -fx-font-weight: 600;
+}
+
+.searchField {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #e5e7eb;
+    -fx-padding: 9 12;
+}
+
+.topButton {
+    -fx-background-color: white;
+    -fx-text-fill: #1f2937;
+    -fx-font-weight: 700;
+    -fx-background-radius: 8;
+    -fx-padding: 9 16;
+}
+
+.sideBar {
+    -fx-background-color: linear-gradient(to bottom, #061328, #020b18);
+    -fx-padding: 24 14;
+}
+
+.sideTitle {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 17px;
+    -fx-font-weight: 800;
+    -fx-padding: 0 0 12 0;
+}
+
+.sideButton,
+.sideButtonActive {
+    -fx-pref-width: 220;
+    -fx-alignment: center-left;
+    -fx-background-radius: 10;
+    -fx-padding: 14 16;
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+    -fx-cursor: hand;
+}
+
+.sideButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.sideButton:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+}
+
+.sideButtonActive {
+    -fx-background-color: linear-gradient(to right, #4f46e5, #6366f1);
+    -fx-text-fill: white;
+}
+
+.userCard {
+    -fx-background-color: rgba(255,255,255,0.035);
+    -fx-border-color: rgba(255,255,255,0.12);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 18;
+}
+
+.userCardName {
+    -fx-text-fill: white;
+    -fx-font-size: 17px;
+    -fx-font-weight: 800;
+}
+
+.userCardRole {
+    -fx-text-fill: #a7b0c2;
+    -fx-font-size: 13px;
+}
+
+.pageTitle {
+    -fx-font-size: 26px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #111827;
+}
+
+.pageSubtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4b5563;
+}
+
+.cardPanel {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0.18, 0, 2);
+}
+
+.cardTitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #4f46e5;
+}
+
+.actionBlue,
+.actionOrange,
+.actionRed,
+.actionGreen,
+.actionNeutral {
+    -fx-background-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+
+.actionBlue {
+    -fx-text-fill: #4f46e5;
+    -fx-border-color: #4f46e5;
+}
+
+.actionOrange {
+    -fx-text-fill: #f59e0b;
+    -fx-border-color: #f59e0b;
+}
+
+.actionRed {
+    -fx-text-fill: #ef4444;
+    -fx-border-color: #ef4444;
+}
+
+.actionGreen {
+    -fx-text-fill: #16a34a;
+    -fx-border-color: #16a34a;
+}
+
+.actionNeutral {
+    -fx-text-fill: #374151;
+    -fx-border-color: #d1d5db;
+}
+
+.actionBlue:hover {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+}
+
+.actionOrange:hover {
+    -fx-background-color: #f59e0b;
+    -fx-text-fill: white;
+}
+
+.actionRed:hover {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+}
+
+.actionGreen:hover {
+    -fx-background-color: #16a34a;
+    -fx-text-fill: white;
+}
+
+.actionNeutral:hover {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #111827;
+}
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #f9fafb, #e5e7eb);
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-size: 34;
+    -fx-border-color: transparent #e5e7eb transparent transparent;
+}
+
+.table-row-cell {
+    -fx-cell-size: 34;
+}
+
+.text-field,
+.combo-box,
+.text-area {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 7 10;
+}
+.statusCardOrange {
+    -fx-background-color: #fff3df;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+}
+
+.statusCardGreen {
+    -fx-background-color: #eaf8ea;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+}
+
+.statusCardRed {
+    -fx-background-color: #fdeaea;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+}
+
+.statusCardBlue {
+    -fx-background-color: #eaf3ff;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+}
+
+.statusCardPurple {
+    -fx-background-color: #eee9ff;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+}
+
+.statusCardCyan {
+    -fx-background-color: #e4fbff;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+}
+.productButton {
+    -fx-background-color: white;
+    -fx-border-color: #dbe1ea;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 18;
+    -fx-pref-width: 170;
+    -fx-pref-height: 95;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+.productButton:hover {
+    -fx-background-color: #f4f6ff;
+    -fx-border-color: #4f46e5;
+}
+.notificationButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.topInfoCard {
+    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-padding: 8 14;
+    -fx-background-radius: 14;
+    -fx-min-height: 42;
+}
+
+.topInfoText {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+}
+
+.topIcon {
+    -fx-font-size: 17px;
+}
+
+.notificationModernButton {
+    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 14;
+    -fx-padding: 8 15;
+    -fx-min-height: 42;
+}
+
+.userInfoCard {
+    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-padding: 7 14;
+    -fx-background-radius: 14;
+    -fx-min-height: 42;
+}
+
+.userNameTop {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 900;
+}
+
+.userRoleTop {
+    -fx-text-fill: rgba(255,255,255,0.80);
+    -fx-font-size: 11px;
+}
+.quickAccessButton {
+    -fx-background-color: white;
+    -fx-border-color: #dbe1ea;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+
+    -fx-pref-width: 150;
+    -fx-pref-height: 92;
+
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+
+    -fx-text-fill: #111827;
+
+    -fx-cursor: hand;
+
+    -fx-content-display: top;
+
+    -fx-alignment: center;
+
+    -fx-text-alignment: center;
+
+    -fx-padding: 10;
+
+    -fx-line-spacing: 3;
+}
+
+.quickAccessButton:hover {
+    -fx-background-color: #f4f6ff;
+    -fx-border-color: #4f46e5;
+    -fx-text-fill: #4f46e5;
+
+    -fx-translate-y: -1;
+}
+
+.quickAccessButton:hover {
+    -fx-background-color: #f4f6ff;
+    -fx-border-color: #4f46e5;
+    -fx-text-fill: #4f46e5;
+}
+.permissionGrid {
+    -fx-background-color: #f8fafc;
+    -fx-padding: 14;
+    -fx-background-radius: 14;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 14;
+}
+
+.permissionHeader {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4f46e5;
+}
+
+.permissionModule {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
