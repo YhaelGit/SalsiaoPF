@@ -10,6 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 import java.time.LocalDate;
@@ -30,6 +31,13 @@ public class EmpleadosController {
     @FXML private Label lblFechaActual;
     @FXML private Label lblHoraActual;
     @FXML private Button btnNotificaciones;
+
+    @FXML private TextField txtNombreEmpleado;
+    @FXML private TextField txtApellidoEmpleado;
+    @FXML private TextField txtCedulaEmpleado;
+    @FXML private TextField txtTelefonoEmpleado;
+    @FXML private TextField txtCorreoEmpleado;
+    @FXML private TextField txtDireccionEmpleado;
 
     @FXML
     private void initialize() {
@@ -163,5 +171,29 @@ public class EmpleadosController {
     @FXML
     private void salirSistema(ActionEvent event) {
         System.exit(0);
+    }
+
+    @FXML
+    private void guardarRegistroEmpleado() {
+        boolean exito = org.example.salsiaopf.dao.EmpleadoDAO.guardarEmpleado(
+                txtNombreEmpleado != null ? txtNombreEmpleado.getText() : "",
+                txtApellidoEmpleado != null ? txtApellidoEmpleado.getText() : "",
+                txtCedulaEmpleado != null ? txtCedulaEmpleado.getText() : "",
+                txtTelefonoEmpleado != null ? txtTelefonoEmpleado.getText() : "",
+                txtCorreoEmpleado != null ? txtCorreoEmpleado.getText() : "",
+                txtDireccionEmpleado != null ? txtDireccionEmpleado.getText() : ""
+        );
+
+        if (exito) {
+            System.out.println("Empleado guardado exitosamente.");
+            if (txtNombreEmpleado != null) txtNombreEmpleado.clear();
+            if (txtApellidoEmpleado != null) txtApellidoEmpleado.clear();
+            if (txtCedulaEmpleado != null) txtCedulaEmpleado.clear();
+            if (txtTelefonoEmpleado != null) txtTelefonoEmpleado.clear();
+            if (txtCorreoEmpleado != null) txtCorreoEmpleado.clear();
+            if (txtDireccionEmpleado != null) txtDireccionEmpleado.clear();
+        } else {
+            System.out.println("Error al guardar empleado.");
+        }
     }
 }

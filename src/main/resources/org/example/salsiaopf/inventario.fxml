@@ -93,8 +93,8 @@
                     <Button text="+ Nuevo ingrediente" styleClass="actionBlue"/>
                     <Button text="✎ Editar" styleClass="actionOrange"/>
                     <Button text="🗑 Eliminar" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
+                    <Button text="💾 Guardar" onAction="#guardarIngrediente" styleClass="actionGreen"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarIngrediente" styleClass="actionNeutral"/>
                 </HBox>
 
                 <HBox spacing="16">

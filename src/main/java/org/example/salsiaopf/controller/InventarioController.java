@@ -10,6 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 import java.time.LocalDate;
@@ -28,6 +29,10 @@ public class InventarioController {
     @FXML private Label lblFechaActual;
     @FXML private Label lblHoraActual;
     @FXML private Button btnNotificaciones;
+
+    @FXML private TextField txtNombreIngrediente;
+    @FXML private TextField txtCostoIngrediente;
+    @FXML private TextField txtStockActual;
 
 
     @FXML
@@ -146,5 +151,24 @@ public class InventarioController {
     @FXML
     private void salirSistema(ActionEvent event) {
         System.exit(0);
+    }
+
+    @FXML
+    private void guardarIngrediente() {
+        try {
+            String nombre = txtNombreIngrediente != null ? txtNombreIngrediente.getText() : "";
+            double costo = txtCostoIngrediente != null && !txtCostoIngrediente.getText().isEmpty() ? Double.parseDouble(txtCostoIngrediente.getText()) : 0.0;
+            int stock = txtStockActual != null && !txtStockActual.getText().isEmpty() ? Integer.parseInt(txtStockActual.getText()) : 0;
+            
+            boolean exito = org.example.salsiaopf.dao.InventarioDAO.guardarIngrediente(nombre, costo, stock);
+            if(exito) {
+                System.out.println("Ingrediente guardado!");
+                if(txtNombreIngrediente != null) txtNombreIngrediente.clear();
+                if(txtCostoIngrediente != null) txtCostoIngrediente.clear();
+                if(txtStockActual != null) txtStockActual.clear();
+            }
+        } catch(Exception e) {
+            System.out.println("Error en formulario: " + e.getMessage());
+        }
     }
 }

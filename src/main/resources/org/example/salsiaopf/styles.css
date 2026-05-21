@@ -898,3 +898,208 @@
     -fx-border-color: #16a34a;
     -fx-text-fill: #166534;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   LOGIN — Tema restaurante Salsiao (cálido, elegante, moderno)
+   ═══════════════════════════════════════════════════════════════ */
+
+.loginRoot {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: #faf7f2;
+}
+
+.loginBrandPanel {
+    -fx-background-color: linear-gradient(to bottom right, #c2413a 0%, #9a2f28 45%, #6b1f1a 100%);
+    -fx-padding: 48 40;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 24, 0.22, 4, 0);
+}
+
+.loginBrandEmoji {
+    -fx-font-size: 56px;
+    -fx-padding: 0 0 4 0;
+}
+
+.loginBrandName {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
+    -fx-font-size: 52px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #fff8f0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.25, 0, 2);
+}
+
+.loginBrandTagline {
+    -fx-font-size: 15px;
+    -fx-text-fill: rgba(255,248,240,0.88);
+    -fx-font-weight: 600;
+    -fx-letter-spacing: 0.5px;
+}
+
+.loginBrandDivider {
+    -fx-background-color: rgba(255,255,255,0.35);
+    -fx-pref-height: 3;
+    -fx-max-height: 3;
+    -fx-background-radius: 2;
+}
+
+.loginRoleCard {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-padding: 14 16;
+    -fx-cursor: default;
+}
+
+.loginRoleCard:hover {
+    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-border-color: rgba(255,255,255,0.28);
+}
+
+.loginRoleIcon {
+    -fx-font-size: 22px;
+    -fx-min-width: 32;
+}
+
+.loginRoleTitle {
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #fff8f0;
+}
+
+.loginRoleDesc {
+    -fx-font-size: 11px;
+    -fx-text-fill: rgba(255,248,240,0.72);
+}
+
+.loginBrandVersion {
+    -fx-font-size: 11px;
+    -fx-text-fill: rgba(255,248,240,0.55);
+}
+
+.loginFormPanel {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #faf7f2);
+    -fx-padding: 56 48;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 16, 0.15, -4, 0);
+}
+
+.loginFormTitle {
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #1a1a2e;
+}
+
+.loginFormSubtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
+}
+
+.loginFieldLabel {
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #374151;
+}
+
+.loginFieldGroup {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 12;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 6, 0.12, 0, 2);
+}
+
+.loginFieldGroup:focused-within {
+    -fx-border-color: #f28c28;
+    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.25), 10, 0.2, 0, 0);
+}
+
+.loginField,
+.loginFieldInner {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 14 16;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #9ca3af;
+}
+
+.loginField:focused,
+.loginFieldInner:focused {
+    -fx-background-color: transparent;
+}
+
+.loginBtnTogglePass {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 16px;
+    -fx-padding: 10 14;
+    -fx-background-radius: 0 12 12 0;
+    -fx-cursor: hand;
+}
+
+.loginBtnTogglePass:hover {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #c2413a;
+}
+
+.loginBtnPrimary {
+    -fx-background-color: linear-gradient(to right, #f28c28, #e07a18);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 800;
+    -fx-padding: 16 24;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.45), 14, 0.28, 0, 5);
+}
+
+.loginBtnPrimary:hover {
+    -fx-background-color: linear-gradient(to right, #e07a18, #c96a10);
+    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.55), 18, 0.32, 0, 6);
+}
+
+.loginBtnPrimary:pressed {
+    -fx-translate-y: 1;
+    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.30), 8, 0.2, 0, 2);
+}
+
+.loginBtnPrimary:disabled {
+    -fx-opacity: 0.65;
+    -fx-cursor: default;
+}
+
+.loginErrorLabel {
+    -fx-font-size: 13px;
+    -fx-text-fill: #b91c1c;
+    -fx-background-color: #fef2f2;
+    -fx-border-color: #fecaca;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 10 14;
+}
+
+.loginProgress {
+    -fx-progress-color: #f28c28;
+}
+
+.loginFooterText {
+    -fx-font-size: 11px;
+    -fx-text-fill: #9ca3af;
+    -fx-text-alignment: center;
+}
+
+.sideButtonDenied {
+    -fx-background-color: rgba(255,255,255,0.03);
+    -fx-text-fill: rgba(255,255,255,0.35);
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+    -fx-padding: 14 16;
+    -fx-background-radius: 10;
+    -fx-alignment: center-left;
+    -fx-opacity: 0.7;
+    -fx-cursor: default;
+}

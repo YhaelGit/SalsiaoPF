@@ -95,8 +95,8 @@
                     <Button text="✎ Editar" styleClass="actionOrange"/>
                     <Button text="📤 Enviar orden" styleClass="actionGreen"/>
                     <Button text="✖ Cancelar orden" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
+                    <Button text="💾 Guardar" onAction="#guardarOrdenCompra" styleClass="actionGreen"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarOrdenCompra" styleClass="actionNeutral"/>
                 </HBox>
 
                 <GridPane hgap="16">
@@ -149,7 +149,7 @@
                             <TextField promptText="Usuario" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
                             <Label text="Proveedor:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <ComboBox promptText="Seleccionar proveedor" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <TextField fx:id="txtProveedorOrden" promptText="Nombre del proveedor" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
                             <Label text="Sucursal:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
                             <ComboBox promptText="Sucursal" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
@@ -209,6 +209,11 @@
                             <Label text="Unidades:"/>
                             <Region HBox.hgrow="ALWAYS"/>
                             <Label text="0"/>
+                        </HBox>
+
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <Label text="Total (RD$):"/>
+                            <TextField fx:id="txtTotalOrden" promptText="0.00" prefWidth="120"/>
                         </HBox>
 
                         <Separator/>

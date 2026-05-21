@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 public class ConexionBD {
 
-    private static final String URL = "jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS;databaseName=SALSIAOREF;encrypt=true;trustServerCertificate=true";
+    private static final String URL =
+            "jdbc:sqlserver://MSIcyborg:1433;databaseName=SALSIAOREF;encrypt=true;trustServerCertificate=true";
 
     private static final String USER = "fernando";
     private static final String PASSWORD = "123456";

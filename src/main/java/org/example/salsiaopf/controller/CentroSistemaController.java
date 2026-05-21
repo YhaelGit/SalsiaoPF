@@ -20,6 +20,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.event.ActionEvent;
 import org.example.salsiaopf.util.Navegacion;
+import org.example.salsiaopf.util.RoleGuard;
 
 public class CentroSistemaController {
 
@@ -122,66 +123,79 @@ public class CentroSistemaController {
 
     @FXML
     private void irNuevaVenta(ActionEvent event) {
+        if (!RoleGuard.permitir("ventas")) return;
         Navegacion.abrirVentas(event);
     }
 
     @FXML
     private void irNuevoCliente(ActionEvent event) {
+        if (!RoleGuard.permitir("clientes")) return;
         Navegacion.abrirClientes(event);
     }
 
     @FXML
     private void irNuevaCompra(ActionEvent event) {
+        if (!RoleGuard.permitir("compras")) return;
         Navegacion.abrirCompras(event);
     }
 
     @FXML
     private void irNuevoProducto(ActionEvent event) {
-        Navegacion.abrirVentas(event);
+        if (!RoleGuard.permitir("inventario")) return;
+        Navegacion.abrirInventario(event);
     }
 
     @FXML
     private void irNuevaReserva(ActionEvent event) {
+        if (!RoleGuard.permitir("clientes")) return;
         Navegacion.abrirClientes(event);
     }
 
     @FXML
     private void irReporteVentas(ActionEvent event) {
+        if (!RoleGuard.permitir("reportes")) return;
         System.out.println("Ir a reportes de ventas");
     }
 
     @FXML
     private void abrirVentas(ActionEvent event) {
+        if (!RoleGuard.permitir("ventas")) return;
         Navegacion.abrirVentas(event);
     }
 
     @FXML
     private void abrirCompras(ActionEvent event) {
+        if (!RoleGuard.permitir("compras")) return;
         Navegacion.abrirCompras(event);
     }
 
     @FXML
     private void abrirClientes(ActionEvent event) {
+        if (!RoleGuard.permitir("clientes")) return;
         Navegacion.abrirClientes(event);
     }
 
     @FXML
     private void abrirInventario(ActionEvent event) {
+        if (!RoleGuard.permitir("inventario")) return;
         Navegacion.abrirInventario(event);
     }
 
     @FXML
     private void abrirEmpleados(ActionEvent event) {
+        if (!RoleGuard.permitir("empleados")) return;
         Navegacion.abrirEmpleados(event);
     }
 
     @FXML
     private void abrirMantenimiento(ActionEvent event) {
+        if (!RoleGuard.permitir("mantenimiento")) return;
         Navegacion.abrirMantenimiento(event);
     }
 
     @FXML
     private void abrirReportes(ActionEvent event) {
+        if (!RoleGuard.permitir("reportes")) return;
         System.out.println("Abrir reportes");
     }
 

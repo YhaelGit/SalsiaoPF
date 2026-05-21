@@ -98,7 +98,7 @@
                     <Button text="✎ Editar" styleClass="actionOrange"/>
                     <Button text="🗑 Eliminar" styleClass="actionRed"/>
                     <Button text="💾 Guardar" onAction="#guardarCliente" styleClass="actionGreen"/>
-                    <Button text="✕ Cancelar" styleClass="actionNeutral"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarRegistroCliente" styleClass="actionNeutral"/>
                 </HBox>
 
                 <HBox spacing="14">
@@ -124,15 +124,15 @@
                                        GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
                             <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField promptText="Ingrese nombre" prefWidth="240"
+                            <TextField fx:id="txtNombre" promptText="Ingrese nombre" prefWidth="240"
                                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
                             <Label text="Apellido:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <TextField promptText="Ingrese apellido" prefWidth="240"
+                            <TextField fx:id="txtApellido" promptText="Ingrese apellido" prefWidth="240"
                                        GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
                             <Label text="Teléfono:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField promptText="Ingrese teléfono" prefWidth="240"
+                            <TextField fx:id="txtTelefono" promptText="Ingrese teléfono" prefWidth="240"
                                        GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
                             <Label text="Email:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
@@ -192,7 +192,7 @@
                     <HBox alignment="CENTER_LEFT">
                         <Label text="Listado de clientes" styleClass="cardTitle"/>
                         <Region HBox.hgrow="ALWAYS"/>
-                        <Button text="↻ Actualizar" styleClass="actionNeutral"/>
+                        <Button text="↻ Actualizar" onAction="#cargarClientes" styleClass="actionNeutral"/>
                     </HBox>
 
                     <TableView fx:id="tablaClientes" prefHeight="260">

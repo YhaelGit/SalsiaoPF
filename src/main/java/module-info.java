@@ -4,6 +4,7 @@ module org.example.salsiaopf {
     requires javafx.fxml;
     requires java.sql;
     requires javafx.base;
+    requires jbcrypt;
 
     opens org.example.salsiaopf to javafx.fxml;
     opens org.example.salsiaopf.controller to javafx.fxml;

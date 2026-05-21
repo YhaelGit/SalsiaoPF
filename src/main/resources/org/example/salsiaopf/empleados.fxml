@@ -95,8 +95,8 @@
                     <Button text="+ Nuevo empleado" styleClass="actionBlue"/>
                     <Button text="✎ Editar" styleClass="actionOrange"/>
                     <Button text="🗑 Eliminar" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
+                    <Button text="💾 Guardar" onAction="#guardarRegistroEmpleado" styleClass="actionGreen"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarRegistroEmpleado" styleClass="actionNeutral"/>
                 </HBox>
 
                 <HBox spacing="16">
