@@ -8,11 +8,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
+import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import org.example.salsiaopf.util.Alertas;
 import org.example.salsiaopf.util.Navegacion;
 import org.example.salsiaopf.util.RoleGuard;
 import java.time.LocalDate;
@@ -47,6 +49,7 @@ public class CentroSistemaController {
         actualizarNotificaciones();
         mostrarDatosSesion();
         aplicarPermisosModulos();
+        animarEntrada();
     }
 
     private int cantidadNotificaciones = 3;
@@ -149,6 +152,24 @@ public class CentroSistemaController {
         }
     }
 
+    private void animarEntrada() {
+        Platform.runLater(() -> {
+            if (lblBienvenida == null || lblBienvenida.getScene() == null) return;
+            Node root = lblBienvenida.getScene().getRoot();
+            if (root == null) return;
+            root.setOpacity(0);
+            root.setTranslateY(20);
+            FadeTransition ft = new FadeTransition(Duration.millis(500), root);
+            ft.setFromValue(0); ft.setToValue(1);
+            TranslateTransition tt = new TranslateTransition(Duration.millis(500), root);
+            tt.setFromY(20); tt.setToY(0);
+            tt.setInterpolator(Interpolator.EASE_OUT);
+            ParallelTransition pt = new ParallelTransition(ft, tt);
+            pt.setDelay(Duration.millis(80));
+            pt.play();
+        });
+    }
+
     private void configurarBotonModulo(Button boton, String modulo) {
         if (boton == null) return;
 
@@ -165,12 +186,16 @@ public class CentroSistemaController {
 
     @FXML
     private void mostrarNotificaciones() {
-        System.out.println("Mostrar panel de notificaciones");
+        Alertas.informacion("Notificaciones",
+                "Tienes " + cantidadNotificaciones + " notificaciones pendientes.\n"
+                + "Panel de notificaciones próximamente disponible.");
     }
 
     @FXML
     private void mostrarGeneral(ActionEvent event) {
-        System.out.println("Pantalla general");
+        Alertas.informacion("Panel General",
+                "Bienvenido al panel general de Salsiao.\n"
+                + "Selecciona un módulo en el menú lateral para comenzar.");
     }
 
     @FXML
@@ -206,7 +231,9 @@ public class CentroSistemaController {
     @FXML
     private void irReporteVentas(ActionEvent event) {
         if (!RoleGuard.permitir("reportes")) return;
-        System.out.println("Ir a reportes de ventas");
+        Alertas.informacion("Reportes de ventas",
+                "Módulo de reportes en desarrollo.\n"
+                + "Próximamente: reportes gráficos, exportación a Excel y PDF.");
     }
 
     @FXML
@@ -248,12 +275,23 @@ public class CentroSistemaController {
     @FXML
     private void abrirReportes(ActionEvent event) {
         if (!RoleGuard.permitir("reportes")) return;
-        System.out.println("Abrir reportes");
+        Alertas.informacion("Reportes",
+                "Módulo de reportes en desarrollo.\n"
+                + "Próximamente: reportes de ventas, compras, inventario y más.");
     }
 
     @FXML
     private void abrirConfiguracion(ActionEvent event) {
-        System.out.println("Abrir configuración");
+        Alertas.informacion("Configuración",
+                "Módulo de configuración en desarrollo.\n"
+                + "Próximamente: ajustes del sistema, preferencias y personalización.");
+    }
+
+    @FXML
+    private void actualizarDashboard() {
+        actualizarNotificaciones();
+        mostrarDatosSesion();
+        Alertas.exito("Dashboard", "Panel actualizado correctamente.");
     }
 
     @FXML

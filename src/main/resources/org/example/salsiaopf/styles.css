@@ -905,93 +905,42 @@
 
 .loginRoot {
     -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    -fx-background-color: #faf7f2;
+    -fx-background-color: linear-gradient(135deg, #061328 0%, #0b1220 40%, #6b1f1a 100%);
 }
 
-.loginBrandPanel {
-    -fx-background-color: linear-gradient(to bottom right, #c2413a 0%, #9a2f28 45%, #6b1f1a 100%);
-    -fx-padding: 48 40;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 24, 0.22, 4, 0);
-}
-
-.loginBrandEmoji {
-    -fx-font-size: 56px;
-    -fx-padding: 0 0 4 0;
-}
-
-.loginBrandName {
-    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
-    -fx-font-size: 52px;
-    -fx-font-weight: 900;
-    -fx-text-fill: #fff8f0;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.25, 0, 2);
-}
-
-.loginBrandTagline {
-    -fx-font-size: 15px;
-    -fx-text-fill: rgba(255,248,240,0.88);
-    -fx-font-weight: 600;
-    -fx-letter-spacing: 0.5px;
-}
-
-.loginBrandDivider {
-    -fx-background-color: rgba(255,255,255,0.35);
-    -fx-pref-height: 3;
-    -fx-max-height: 3;
-    -fx-background-radius: 2;
-}
-
-.loginRoleCard {
-    -fx-background-color: rgba(255,255,255,0.10);
-    -fx-background-radius: 14;
+.loginCard {
+    -fx-background-color: rgba(255,255,255,0.93);
+    -fx-background-radius: 24;
+    -fx-padding: 48 40 36 40;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.40), 72, 0.25, 0, 24);
     -fx-border-color: rgba(255,255,255,0.18);
-    -fx-border-radius: 14;
+    -fx-border-radius: 24;
     -fx-border-width: 1;
-    -fx-padding: 14 16;
-    -fx-cursor: default;
 }
 
-.loginRoleCard:hover {
-    -fx-background-color: rgba(255,255,255,0.16);
-    -fx-border-color: rgba(255,255,255,0.28);
+.loginLogoEmoji {
+    -fx-font-size: 48px;
 }
 
-.loginRoleIcon {
-    -fx-font-size: 22px;
-    -fx-min-width: 32;
-}
-
-.loginRoleTitle {
-    -fx-font-size: 14px;
-    -fx-font-weight: 800;
-    -fx-text-fill: #fff8f0;
-}
-
-.loginRoleDesc {
-    -fx-font-size: 11px;
-    -fx-text-fill: rgba(255,248,240,0.72);
-}
-
-.loginBrandVersion {
-    -fx-font-size: 11px;
-    -fx-text-fill: rgba(255,248,240,0.55);
-}
-
-.loginFormPanel {
-    -fx-background-color: linear-gradient(to bottom, #ffffff, #faf7f2);
-    -fx-padding: 56 48;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 16, 0.15, -4, 0);
-}
-
-.loginFormTitle {
-    -fx-font-size: 28px;
+.loginLogoName {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
+    -fx-font-size: 36px;
     -fx-font-weight: 900;
-    -fx-text-fill: #1a1a2e;
+    -fx-text-fill: #c2413a;
 }
 
-.loginFormSubtitle {
-    -fx-font-size: 14px;
+.loginLogoTagline {
+    -fx-font-size: 13px;
     -fx-text-fill: #6b7280;
+    -fx-font-weight: 600;
+    -fx-letter-spacing: 0.3px;
+}
+
+.loginDivider {
+    -fx-background-color: #e5e7eb;
+    -fx-pref-height: 2;
+    -fx-max-height: 2;
+    -fx-background-radius: 1;
 }
 
 .loginFieldLabel {
@@ -1000,7 +949,7 @@
     -fx-text-fill: #374151;
 }
 
-.loginFieldGroup {
+.loginInputGroup {
     -fx-background-color: white;
     -fx-background-radius: 12;
     -fx-border-color: #e5e7eb;
@@ -1009,28 +958,31 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 6, 0.12, 0, 2);
 }
 
-.loginFieldGroup:focused-within {
+.loginInputGroup:focused-within {
     -fx-border-color: #f28c28;
-    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.25), 10, 0.2, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.25), 12, 0.2, 0, 2);
 }
 
-.loginField,
-.loginFieldInner {
+.loginInputIcon {
+    -fx-font-size: 16px;
+    -fx-padding: 12 6 12 16;
+    -fx-min-width: 36;
+    -fx-text-fill: #6b7280;
+}
+
+.loginField {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-padding: 14 16;
+    -fx-padding: 12 12 12 4;
     -fx-font-size: 14px;
     -fx-prompt-text-fill: #9ca3af;
 }
 
-.loginField:focused,
-.loginFieldInner:focused {
+.loginField:focused {
     -fx-background-color: transparent;
 }
 
-.loginBtnTogglePass {
+.loginBtnToggle {
     -fx-background-color: transparent;
     -fx-text-fill: #6b7280;
     -fx-font-size: 16px;
@@ -1039,7 +991,7 @@
     -fx-cursor: hand;
 }
 
-.loginBtnTogglePass:hover {
+.loginBtnToggle:hover {
     -fx-background-color: #f3f4f6;
     -fx-text-fill: #c2413a;
 }
@@ -1050,15 +1002,14 @@
     -fx-font-size: 16px;
     -fx-font-weight: 800;
     -fx-padding: 16 24;
-    -fx-background-radius: 14;
-    -fx-border-radius: 14;
+    -fx-background-radius: 12;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.45), 14, 0.28, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.45), 16, 0.28, 0, 5);
 }
 
 .loginBtnPrimary:hover {
     -fx-background-color: linear-gradient(to right, #e07a18, #c96a10);
-    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.55), 18, 0.32, 0, 6);
+    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.55), 22, 0.32, 0, 8);
 }
 
 .loginBtnPrimary:pressed {
@@ -1086,7 +1037,7 @@
     -fx-progress-color: #f28c28;
 }
 
-.loginFooterText {
+.loginFooter {
     -fx-font-size: 11px;
     -fx-text-fill: #9ca3af;
     -fx-text-alignment: center;
@@ -1106,17 +1057,17 @@
 
 /* ═══════════════════════════════════════════════════════════════
    MÓDULO VENTAS — Menú digital premium Salsiao
-   Paleta: fondo oscuro · azul eléctrico · amarillo intenso
+   Paleta: fondo oscuro suave · gradientes · glass effect
    ═══════════════════════════════════════════════════════════════ */
 
 .ventasMenuRoot {
-    -fx-background-color: #0a0e1a;
+    -fx-background-color: linear-gradient(135deg, #0f1729 0%, #131b30 40%, #1a1040 100%);
 }
 
 .ventasSideCategorias {
-    -fx-background-color: linear-gradient(to bottom, #0d1228, #080c18);
+    -fx-background-color: linear-gradient(to bottom, #141d35, #0d1228);
     -fx-padding: 20 12;
-    -fx-border-color: rgba(0, 212, 255, 0.15);
+    -fx-border-color: rgba(0, 212, 255, 0.10);
     -fx-border-width: 0 1 0 0;
 }
 
@@ -1173,7 +1124,7 @@
 }
 
 .ventasCentro {
-    -fx-background-color: #0a0e1a;
+    -fx-background-color: transparent;
     -fx-padding: 20 24;
 }
 
@@ -1193,10 +1144,10 @@
 }
 
 .ventasBuscar {
-    -fx-background-color: #141b2e;
+    -fx-background-color: rgba(255,255,255,0.06);
     -fx-text-fill: white;
     -fx-prompt-text-fill: #6b7a99;
-    -fx-border-color: rgba(0, 212, 255, 0.35);
+    -fx-border-color: rgba(0, 212, 255, 0.25);
     -fx-border-radius: 12;
     -fx-background-radius: 12;
     -fx-padding: 12 16;
@@ -1205,41 +1156,49 @@
 
 .ventasBuscar:focused {
     -fx-border-color: #ffd000;
-    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.25), 12, 0.3, 0, 0);
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.20), 12, 0.3, 0, 0);
 }
 
 .ventasFlowGrid {
     -fx-padding: 8 4 24 4;
 }
 
+/* ── Tarjeta de producto estilo delivery premium ── */
+
 .ventasProductCard {
-    -fx-background-color: linear-gradient(to bottom, #151d35, #10182a);
+    -fx-background-color: rgba(255,255,255,0.06);
     -fx-background-radius: 16;
-    -fx-border-color: rgba(0, 212, 255, 0.2);
+    -fx-border-color: rgba(255,255,255,0.08);
     -fx-border-radius: 16;
     -fx-border-width: 1;
-    -fx-padding: 14;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 14, 0.25, 0, 4);
-    -fx-cursor: default;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 12, 0.20, 0, 4);
+    -fx-cursor: hand;
+    -fx-transition: -fx-effect 0.2s ease;
 }
 
 .ventasProductCard:hover {
-    -fx-border-color: #ffd000;
-    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.2), 18, 0.3, 0, 6);
+    -fx-border-color: rgba(0, 212, 255, 0.40);
+    -fx-background-color: rgba(255,255,255,0.09);
+    -fx-effect: dropshadow(gaussian, rgba(0, 212, 255, 0.20), 20, 0.35, 0, 8);
 }
 
 .ventasProductImageWrap {
-    -fx-background-color: linear-gradient(to bottom right, #1a2545, #0f1628);
-    -fx-background-radius: 14;
-    -fx-min-height: 100;
-    -fx-pref-height: 100;
+    -fx-background-radius: 16 16 0 0;
+    -fx-min-height: 130;
+    -fx-pref-height: 130;
+    -fx-max-height: 130;
     -fx-alignment: center;
-    -fx-border-color: rgba(0, 212, 255, 0.15);
-    -fx-border-radius: 14;
 }
 
 .ventasProductEmoji {
-    -fx-font-size: 42px;
+    -fx-font-size: 52px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.4, 0, 3);
+}
+
+.ventasProductInfo {
+    -fx-padding: 12 14 4 14;
 }
 
 .ventasProductName {
@@ -1253,6 +1212,10 @@
     -fx-text-fill: #7a8aaa;
 }
 
+.ventasProductBottom {
+    -fx-padding: 8 14 14 14;
+}
+
 .ventasProductPrice {
     -fx-font-size: 18px;
     -fx-font-weight: 900;
@@ -1263,11 +1226,11 @@
     -fx-background-color: linear-gradient(to right, #0066ff, #00d4ff);
     -fx-text-fill: white;
     -fx-font-weight: 800;
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
     -fx-background-radius: 10;
-    -fx-padding: 10 16;
+    -fx-padding: 8 14;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0, 102, 255, 0.4), 10, 0.25, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 102, 255, 0.35), 8, 0.25, 0, 2);
 }
 
 .ventasBtnAgregar:hover {
@@ -1275,10 +1238,12 @@
     -fx-text-fill: #0a0e1a;
 }
 
+/* ── Carrito lateral ── */
+
 .ventasCarritoPanel {
-    -fx-background-color: linear-gradient(to bottom, #0f1428, #0a0e1a);
+    -fx-background-color: linear-gradient(to bottom, #141d35, #0f1729);
     -fx-padding: 18 16;
-    -fx-border-color: rgba(255, 208, 0, 0.2);
+    -fx-border-color: rgba(255, 208, 0, 0.12);
     -fx-border-width: 0 0 0 1;
 }
 
@@ -1311,10 +1276,10 @@
 }
 
 .ventasCarritoItem {
-    -fx-background-color: #141b2e;
+    -fx-background-color: rgba(255,255,255,0.04);
     -fx-background-radius: 12;
     -fx-padding: 12;
-    -fx-border-color: rgba(0, 212, 255, 0.15);
+    -fx-border-color: rgba(0, 212, 255, 0.10);
     -fx-border-radius: 12;
 }
 
@@ -1340,7 +1305,7 @@
 }
 
 .ventasBtnQty {
-    -fx-background-color: #1e2a4a;
+    -fx-background-color: rgba(255,255,255,0.08);
     -fx-text-fill: #00d4ff;
     -fx-font-weight: 900;
     -fx-font-size: 16px;
@@ -1449,7 +1414,7 @@
 }
 
 .ventasBtnSecundario {
-    -fx-background-color: #1e2a4a;
+    -fx-background-color: rgba(255,255,255,0.06);
     -fx-text-fill: #b8c5e0;
     -fx-font-weight: 700;
     -fx-background-radius: 10;
@@ -1458,7 +1423,7 @@
 }
 
 .ventasBtnSecundario:hover {
-    -fx-background-color: #2a3a5c;
+    -fx-background-color: rgba(255,255,255,0.12);
     -fx-text-fill: white;
 }
 
@@ -1601,4 +1566,213 @@
 
 .pagoBtnConfirmar:hover {
     -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.5), 12, 0.3, 0, 2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🚀 PREMIUM ENHANCEMENTS — Micro-interactions & Polish
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Card hover elevation ── */
+.cardPanel, .metricCard, .userCard, .quickButton, .statusCardOrange,
+.statusCardGreen, .statusCardRed, .statusCardBlue, .statusCardPurple,
+.statusCardCyan, .pagoOptionBtn, .loginRoleCard {
+    -fx-translate-y: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0.12, 0, 2);
+}
+
+.cardPanel:hover, .metricCard:hover, .userCard:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.14), 24, 0.18, 0, 6);
+}
+
+/* ── Table premium ── */
+.table-view {
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.table-view .column-header-background {
+    -fx-background-radius: 8 8 0 0;
+}
+
+.table-row-cell {
+    -fx-cell-size: 44px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #fafbfc;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #eff3ff;
+    -fx-cursor: hand;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e0e7ff;
+    -fx-text-background-color: #1a1a2e;
+}
+
+/* ── Premium scrollbar ── */
+.scroll-bar:vertical {
+    -fx-pref-width: 7;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(0,0,0,0.12);
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(0,0,0,0.22);
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-shape: " ";
+}
+
+/* ── Input focus glow ── */
+.text-field:focused,
+.text-area:focused,
+.combo-box:focused,
+.date-picker:focused {
+    -fx-border-color: #6366f1;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.20), 12, 0.18, 0, 0);
+}
+
+/* ── Sidebar hover micro-interaction ── */
+.sideButton:hover {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-translate-x: 2;
+}
+
+.sideButtonActive {
+    -fx-background-color: rgba(99, 102, 241, 0.20);
+    -fx-border-color: transparent transparent transparent #6366f1;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0 10 10 0;
+    -fx-text-fill: white;
+}
+
+/* ── Primary button pressed state ── */
+.primaryButton:pressed,
+.actionBlue:pressed,
+.actionGreen:pressed,
+.mainBtnBlue:pressed,
+.mainBtnGreen:pressed,
+.mainBtnOrange:pressed,
+.mainBtnPurple:pressed {
+    -fx-translate-y: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 6, 0.15, 0, 1);
+}
+
+/* ── Status cards hover ── */
+.statusCardOrange:hover { -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.25), 16, 0.2, 0, 4); }
+.statusCardGreen:hover { -fx-effect: dropshadow(gaussian, rgba(22,163,74,0.25), 16, 0.2, 0, 4); }
+.statusCardRed:hover { -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.25), 16, 0.2, 0, 4); }
+.statusCardBlue:hover { -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.25), 16, 0.2, 0, 4); }
+.statusCardPurple:hover { -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.25), 16, 0.2, 0, 4); }
+.statusCardCyan:hover { -fx-effect: dropshadow(gaussian, rgba(0,212,255,0.25), 16, 0.2, 0, 4); }
+
+/* ── Quick action buttons hover premium ── */
+.quickButton:hover {
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.25), 20, 0.2, 0, 6);
+    -fx-translate-y: -2;
+}
+
+/* ── Focus visible ring ── */
+.button:focused, .toggle-button:focused {
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.3), 14, 0.25, 0, 0);
+}
+
+/* ── Separator premium ── */
+.separator .line {
+    -fx-background-color: #e5e7eb;
+    -fx-background-radius: 1;
+    -fx-pref-height: 1;
+}
+
+/* ── Tooltip premium ── */
+.tooltip {
+    -fx-background-color: #0b1220;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 12, 0.2, 0, 4);
+}
+
+/* ── Dialog/Alert premium ── */
+.dialog-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.30), 32, 0.25, 0, 8);
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #faf7f2;
+    -fx-background-radius: 16 16 0 0;
+}
+
+.dialog-pane .button {
+    -fx-background-color: #f28c28;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-background-radius: 10;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: #e07a18;
+}
+
+/* ── Progress indicator / Loading spinner ── */
+.progress-indicator {
+    -fx-progress-color: #f28c28;
+}
+
+/* ── ComboBox dropdown premium ── */
+.combo-box-popup .list-view {
+    -fx-background-radius: 10;
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 16, 0.18, 0, 4);
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #eff3ff;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #e0e7ff;
+    -fx-text-fill: #1a1a2e;
+}
+
+/* ── DatePicker popup premium ── */
+.date-picker-popup {
+    -fx-background-radius: 12;
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 16, 0.18, 0, 4);
 }

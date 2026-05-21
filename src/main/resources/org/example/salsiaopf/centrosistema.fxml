@@ -118,7 +118,7 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="↻ Actualizar" styleClass="actionBlue"/>
+                    <Button text="↻ Actualizar" onAction="#actualizarDashboard" styleClass="actionBlue"/>
                 </HBox>
 
                 <HBox spacing="16">

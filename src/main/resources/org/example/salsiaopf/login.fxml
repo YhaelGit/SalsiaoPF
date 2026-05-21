@@ -2,131 +2,82 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
 
 <!--
-    login.fxml - Pantalla de inicio de sesión de Salsiao PF
+    login.fxml - Pantalla de inicio de sesión Salsiao (Premium UI)
     Controller: LoginController.java
-    Diseño: Split-panel (izquierda decorativa / derecha formulario)
+    Diseño: Tarjeta glassmorphism centrada
 -->
-<HBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.salsiaopf.controller.LoginController"
-      prefWidth="1200" prefHeight="800"
-      styleClass="loginRoot">
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="org.example.salsiaopf.controller.LoginController"
+           prefWidth="1200" prefHeight="800"
+           styleClass="loginRoot">
 
-    <!-- ═══════════════════════════════════════════════════════
-         PANEL IZQUIERDO  – Branding decorativo
-    ═══════════════════════════════════════════════════════ -->
-    <VBox styleClass="loginBrandPanel"
-          alignment="CENTER" spacing="24"
-          HBox.hgrow="ALWAYS">
+    <!-- Tarjeta principal glassmorphism -->
+    <VBox fx:id="panelLogin"
+          styleClass="loginCard"
+          alignment="CENTER"
+          spacing="28"
+          maxWidth="400">
 
-        <!-- Logo / marca -->
-        <VBox alignment="CENTER" spacing="8">
-            <Label text="🌶️" styleClass="loginBrandEmoji"/>
-            <Label text="Salsiao" styleClass="loginBrandName"/>
-            <Label text="Sistema de Gestión" styleClass="loginBrandTagline"/>
+        <!-- Logo Salsiao -->
+        <VBox alignment="CENTER" spacing="4">
+            <Label text="🌶️" styleClass="loginLogoEmoji"/>
+            <Label text="Salsiao" styleClass="loginLogoName"/>
+            <Label text="Sistema de Gestión" styleClass="loginLogoTagline"/>
         </VBox>
 
         <!-- Separador decorativo -->
-        <Region styleClass="loginBrandDivider" maxWidth="80"/>
-
-        <!-- Tarjetas de roles -->
-        <VBox spacing="10" maxWidth="300">
-            <HBox styleClass="loginRoleCard" spacing="12" alignment="CENTER_LEFT">
-                <Label text="👑" styleClass="loginRoleIcon"/>
-                <VBox spacing="2">
-                    <Label text="Administrador" styleClass="loginRoleTitle"/>
-                    <Label text="Acceso total al sistema" styleClass="loginRoleDesc"/>
-                </VBox>
-            </HBox>
-            <HBox styleClass="loginRoleCard" spacing="12" alignment="CENTER_LEFT">
-                <Label text="💰" styleClass="loginRoleIcon"/>
-                <VBox spacing="2">
-                    <Label text="Cajero" styleClass="loginRoleTitle"/>
-                    <Label text="Ventas y clientes" styleClass="loginRoleDesc"/>
-                </VBox>
-            </HBox>
-            <HBox styleClass="loginRoleCard" spacing="12" alignment="CENTER_LEFT">
-                <Label text="📦" styleClass="loginRoleIcon"/>
-                <VBox spacing="2">
-                    <Label text="Inventario" styleClass="loginRoleTitle"/>
-                    <Label text="Gestión de inventario y compras" styleClass="loginRoleDesc"/>
-                </VBox>
-            </HBox>
-            <HBox styleClass="loginRoleCard" spacing="12" alignment="CENTER_LEFT">
-                <Label text="🛵" styleClass="loginRoleIcon"/>
-                <VBox spacing="2">
-                    <Label text="Delivery" styleClass="loginRoleTitle"/>
-                    <Label text="Gestión de entregas" styleClass="loginRoleDesc"/>
-                </VBox>
-            </HBox>
-        </VBox>
-
-        <!-- Pie de branding -->
-        <Label text="v2.0 · Salsiao PF · 2025" styleClass="loginBrandVersion"/>
-
-    </VBox>
-
-    <!-- ═══════════════════════════════════════════════════════
-         PANEL DERECHO – Formulario de Login
-    ═══════════════════════════════════════════════════════ -->
-    <VBox fx:id="panelLogin"
-          styleClass="loginFormPanel"
-          alignment="CENTER" spacing="28"
-          prefWidth="480" minWidth="400">
-
-        <!-- Encabezado del formulario -->
-        <VBox alignment="CENTER" spacing="6">
-            <Label text="¡Bienvenido de vuelta!" styleClass="loginFormTitle"/>
-            <Label text="Ingresa tus credenciales para continuar" styleClass="loginFormSubtitle"/>
-        </VBox>
+        <Region styleClass="loginDivider" maxWidth="60"/>
 
         <!-- Formulario -->
-        <VBox spacing="16" maxWidth="380" minWidth="320">
+        <VBox spacing="20" maxWidth="Infinity">
 
-            <!-- Campo: Correo -->
+            <!-- Campo: Usuario -->
             <VBox spacing="6">
-                <Label text="Nombre de usuario" styleClass="loginFieldLabel"/>
-                <TextField fx:id="txtUsuario"
-                           promptText="Ej: admin"
-                           styleClass="loginField"/>
+                <Label text="Usuario" styleClass="loginFieldLabel"/>
+                <HBox styleClass="loginInputGroup">
+                    <Label text="👤" styleClass="loginInputIcon"/>
+                    <TextField fx:id="txtUsuario"
+                               promptText="Ingresa tu usuario"
+                               HBox.hgrow="ALWAYS"
+                               styleClass="loginField"/>
+                </HBox>
             </VBox>
 
             <!-- Campo: Contraseña -->
             <VBox spacing="6">
                 <Label text="Contraseña" styleClass="loginFieldLabel"/>
-                <HBox fx:id="hboxContrasena" spacing="0" styleClass="loginFieldGroup">
+                <HBox fx:id="hboxContrasena" styleClass="loginInputGroup">
+                    <Label text="🔒" styleClass="loginInputIcon"/>
                     <PasswordField fx:id="txtContrasena"
                                    promptText="••••••••"
-                                   styleClass="loginFieldInner"
-                                   HBox.hgrow="ALWAYS"/>
+                                   HBox.hgrow="ALWAYS"
+                                   styleClass="loginField"/>
                     <TextField fx:id="txtContrasenaVisible"
                                promptText="••••••••"
-                               styleClass="loginFieldInner"
-                               HBox.hgrow="ALWAYS"/>
+                               HBox.hgrow="ALWAYS"
+                               styleClass="loginField"/>
                     <Button fx:id="btnMostrarContrasena"
                             text="👁"
                             onAction="#toggleContrasena"
-                            styleClass="loginBtnTogglePass"/>
+                            styleClass="loginBtnToggle"/>
                 </HBox>
             </VBox>
 
             <!-- Mensaje de error -->
             <Label fx:id="lblError"
                    styleClass="loginErrorLabel"
-                   wrapText="true"
-                   maxWidth="380"/>
+                   wrapText="true"/>
 
             <!-- Indicador de carga -->
             <ProgressIndicator fx:id="progressLogin"
                                prefWidth="32" prefHeight="32"
                                styleClass="loginProgress"/>
 
-            <!-- Botón ingresar -->
+            <!-- Botón Ingresar -->
             <Button fx:id="btnIngresar"
                     text="Ingresar"
                     onAction="#iniciarSesion"
@@ -135,11 +86,11 @@
 
         </VBox>
 
-        <!-- Versión / footer -->
+        <!-- Footer -->
         <Label fx:id="lblVersion"
                text="Salsiao Sistema de Gestión · Todos los derechos reservados"
-               styleClass="loginFooterText"/>
+               styleClass="loginFooter"/>
 
     </VBox>
 
-</HBox>
+</StackPane>

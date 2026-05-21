@@ -1,9 +1,10 @@
 package org.example.salsiaopf.controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -39,6 +40,25 @@ public class CompraController {
         cargarLogo();
         iniciarReloj();
         mostrarOrdenCompra();
+        animarEntrada();
+    }
+
+    private void animarEntrada() {
+        Platform.runLater(() -> {
+            if (lblFechaActual == null || lblFechaActual.getScene() == null) return;
+            Node root = lblFechaActual.getScene().getRoot();
+            if (root == null) return;
+            root.setOpacity(0);
+            root.setTranslateY(20);
+            FadeTransition ft = new FadeTransition(Duration.millis(500), root);
+            ft.setFromValue(0); ft.setToValue(1);
+            TranslateTransition tt = new TranslateTransition(Duration.millis(500), root);
+            tt.setFromY(20); tt.setToY(0);
+            tt.setInterpolator(Interpolator.EASE_OUT);
+            ParallelTransition pt = new ParallelTransition(ft, tt);
+            pt.setDelay(Duration.millis(80));
+            pt.play();
+        });
     }
 
     private void cargarLogo() {

@@ -1,17 +1,17 @@
 package org.example.salsiaopf.service;
 
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.*;
+import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 import org.example.salsiaopf.database.ConexionBD;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,8 +30,6 @@ public final class FacturaService {
         Path directorio = Path.of(System.getProperty("user.dir"), "facturas");
         Files.createDirectories(directorio);
         Path archivoPdf = directorio.resolve("FACTURA-" + idVenta + ".pdf");
-
-        Exception jasperError = null;
 
         // INTENTO 1: JRXML externo
         try {
@@ -65,47 +63,26 @@ public final class FacturaService {
                 System.out.println("[FacturaService] JRXML externo no encontrado, usando fallback.");
             }
         } catch (Exception e) {
-            jasperError = e;
             System.out.println("[FacturaService] JRXML externo fallo: " + e.getMessage());
-        }
-
-        // INTENTO 2: Reporte en memoria
-        System.out.println("[FacturaService] Intento 2: Construyendo reporte en memoria...");
-        try {
-            return generarPdfEnMemoria(idVenta, archivoPdf);
-        } catch (Exception e) {
-            System.out.println("[FacturaService] Fallback en memoria fallo: " + e.getMessage());
             e.printStackTrace();
-            if (jasperError != null) {
-                System.out.println("[FacturaService] Error original JRXML: " + jasperError.getMessage());
-            }
-            throw new Exception("No se pudo generar la factura PDF: " + e.getMessage(), e);
         }
+
+        // INTENTO 2: Fallback - factura de texto
+        System.out.println("[FacturaService] Intento 2: Generando factura de texto...");
+        return generarFacturaTexto(idVenta, directorio);
     }
 
-    // Clase interna para detalles
-    public static class DetalleFactura {
-        private final String nombreProducto;
-        private final Integer cantidad;
-        private final BigDecimal precioUnitario;
-        private final BigDecimal subtotal;
-        public DetalleFactura(String nombreProducto, Integer cantidad, BigDecimal precioUnitario, BigDecimal subtotal) {
-            this.nombreProducto = nombreProducto;
-            this.cantidad = cantidad;
-            this.precioUnitario = precioUnitario;
-            this.subtotal = subtotal;
-        }
-        public String getNombreProducto() { return nombreProducto; }
-        public Integer getCantidad() { return cantidad; }
-        public BigDecimal getPrecioUnitario() { return precioUnitario; }
-        public BigDecimal getSubtotal() { return subtotal; }
-    }
-
-    private static Path generarPdfEnMemoria(int idVenta, Path archivoPdf) throws Exception {
+    private static Path generarFacturaTexto(int idVenta, Path directorio) throws Exception {
         System.out.println("[FacturaService] Obteniendo datos de venta #" + idVenta + " desde BD...");
 
-        Map<String, Object> datosVenta = new HashMap<>();
-        List<DetalleFactura> detalles = new ArrayList<>();
+        String idFactura = "";
+        String fechaVenta = "";
+        String total = "0.00";
+        String metodoPago = "";
+        String montoRecibido = "";
+        String devuelta = "";
+        String emailCliente = "";
+        List<String[]> detalles = new ArrayList<>();
 
         try (Connection conn = ConexionBD.conectar()) {
             if (conn == null) throw new IllegalStateException("Sin conexion a SQL Server.");
@@ -115,14 +92,13 @@ public final class FacturaService {
                 ps.setInt(1, idVenta);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        datosVenta.put("id_venta", rs.getInt("id_venta"));
-                        datosVenta.put("id_factura", rs.getString("id_factura"));
-                        datosVenta.put("fecha_venta", rs.getTimestamp("fecha_venta"));
-                        datosVenta.put("total", rs.getBigDecimal("total"));
-                        datosVenta.put("metodo_pago", rs.getString("metodo_pago"));
-                        datosVenta.put("monto_recibido", rs.getBigDecimal("monto_recibido"));
-                        datosVenta.put("devuelta", rs.getBigDecimal("devuelta"));
-                        datosVenta.put("email_cliente", rs.getString("email_cliente"));
+                        idFactura = rs.getString("id_factura");
+                        fechaVenta = String.valueOf(rs.getTimestamp("fecha_venta"));
+                        total = rs.getBigDecimal("total").toString();
+                        metodoPago = rs.getString("metodo_pago");
+                        montoRecibido = rs.getString("monto_recibido");
+                        devuelta = rs.getString("devuelta");
+                        emailCliente = rs.getString("email_cliente");
                     } else {
                         throw new IllegalStateException("Venta #" + idVenta + " no encontrada.");
                     }
@@ -134,168 +110,51 @@ public final class FacturaService {
                 ps.setInt(1, idVenta);
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
-                        detalles.add(new DetalleFactura(
+                        detalles.add(new String[]{
                                 rs.getString("nombre_producto"),
-                                rs.getInt("cantidad"),
-                                rs.getBigDecimal("precio_unitario"),
-                                rs.getBigDecimal("subtotal")
-                        ));
+                                String.valueOf(rs.getInt("cantidad")),
+                                rs.getBigDecimal("precio_unitario").toString(),
+                                rs.getBigDecimal("subtotal").toString()
+                        });
                     }
                 }
             }
         }
 
-        System.out.println("[FacturaService] Datos: " + detalles.size() + " detalles.");
         if (detalles.isEmpty()) throw new IllegalStateException("Venta sin detalles.");
 
-        JasperDesign design = new JasperDesign();
-        design.setName("factura_salsiao_memoria");
-        design.setPageWidth(595);
-        design.setPageHeight(842);
-        design.setColumnWidth(555);
-        design.setLeftMargin(20);
-        design.setRightMargin(20);
-        design.setTopMargin(20);
-        design.setBottomMargin(20);
-
-        // Campos
-        String[] fnames = {"nombreProducto", "cantidad", "precioUnitario", "subtotal"};
-        String[] fclasses = {"java.lang.String", "java.lang.Integer", "java.math.BigDecimal", "java.math.BigDecimal"};
-        for (int i = 0; i < fnames.length; i++) {
-            JRDesignField f = new JRDesignField();
-            f.setName(fnames[i]);
-            f.setValueClassName(fclasses[i]);
-            design.addField(f);
+        Path archivoTxt = directorio.resolve("FACTURA-" + idVenta + ".txt");
+        try (PrintWriter pw = new PrintWriter(new FileWriter(archivoTxt.toFile()))) {
+            pw.println("========================================");
+            pw.println("            S A L S I A O");
+            pw.println("       Fast Food - Factura de Venta");
+            pw.println("========================================");
+            pw.println("Factura: " + idFactura);
+            pw.println("Venta #: " + idVenta);
+            pw.println("Fecha: " + fechaVenta);
+            pw.println("Email: " + emailCliente);
+            pw.println("----------------------------------------");
+            pw.printf("%-25s %5s %10s %12s%n", "Producto", "Cant.", "Precio", "Subtotal");
+            pw.println("----------------------------------------");
+            for (String[] d : detalles) {
+                pw.printf("%-25s %5s %10s %12s%n", d[0], d[1], d[2], d[3]);
+            }
+            pw.println("========================================");
+            pw.printf("TOTAL RD$: %s%n", total);
+            pw.println("----------------------------------------");
+            pw.println("Metodo: " + metodoPago);
+            if (montoRecibido != null && !montoRecibido.equals("null")) {
+                pw.println("Recibido: " + montoRecibido);
+            }
+            if (devuelta != null && !devuelta.equals("null")) {
+                pw.println("Devuelta: " + devuelta);
+            }
+            pw.println("========================================");
+            pw.println("  Gracias por su compra - Salsiao");
+            pw.println("========================================");
         }
 
-        Float font10 = 10f;
-        Float font11 = 11f;
-        Float font9 = 9f;
-        Float font14 = 14f;
-        Float font24 = 24f;
-
-        // Title band
-        JRDesignBand title = new JRDesignBand();
-        title.setHeight(100);
-
-        JRDesignStaticText logo = new JRDesignStaticText();
-        logo.setX(0); logo.setY(10); logo.setWidth(555); logo.setHeight(35);
-        logo.setHorizontalAlignment(JRAlignment.HORIZONTAL_ALIGN_CENTER);
-        logo.setFontSize(font24); logo.setBold(true); logo.setText("SALSIAO");
-        title.addElement(logo);
-
-        JRDesignStaticText sub = new JRDesignStaticText();
-        sub.setX(0); sub.setY(45); sub.setWidth(555); sub.setHeight(18);
-        sub.setHorizontalAlignment(JRAlignment.HORIZONTAL_ALIGN_CENTER);
-        sub.setFontSize(font11); sub.setText("Fast Food - Factura de Venta");
-        title.addElement(sub);
-
-        JRDesignTextField fac = textField(0, 65, 280, 16, font10, "\"Factura: \" + $P{id_factura}", null);
-        title.addElement(fac);
-
-        JRDesignTextField ven = textField(280, 65, 275, 16, font10, "\"Venta #\" + $P{id_venta}", JRAlignment.HORIZONTAL_ALIGN_RIGHT);
-        title.addElement(ven);
-
-        JRDesignTextField fec = textField(0, 82, 280, 14, font9, "$P{fecha_venta}", null);
-        title.addElement(fec);
-
-        JRDesignTextField em = textField(280, 82, 275, 14, font9, "$P{email_cliente}", JRAlignment.HORIZONTAL_ALIGN_RIGHT);
-        title.addElement(em);
-
-        design.setTitle(title);
-
-        // Column header
-        JRDesignBand colHeader = new JRDesignBand();
-        colHeader.setHeight(22);
-        String[] ch = {" Producto", "Cant.", "Precio", "Subtotal"};
-        int[] cx = {0, 240, 295, 415};
-        int[] cw = {240, 55, 120, 140};
-        for (int i = 0; i < ch.length; i++) {
-            JRDesignStaticText st = new JRDesignStaticText();
-            st.setX(cx[i]); st.setY(0); st.setWidth(cw[i]); st.setHeight(20);
-            st.setText(ch[i]); st.setFontSize(font10); st.setBold(true);
-            if (i >= 2) st.setHorizontalAlignment(JRAlignment.HORIZONTAL_ALIGN_RIGHT);
-            else if (i == 1) st.setHorizontalAlignment(JRAlignment.HORIZONTAL_ALIGN_CENTER);
-            colHeader.addElement(st);
-        }
-        design.setColumnHeader(colHeader);
-
-        // Detail
-        JRDesignDetail detail = new JRDesignDetail();
-        JRDesignBand detailBand = new JRDesignBand();
-        detailBand.setHeight(20);
-        String[] df = {"nombreProducto", "cantidad", "precioUnitario", "subtotal"};
-        int[] dx = {0, 240, 295, 415};
-        int[] dw = {240, 55, 120, 140};
-        for (int i = 0; i < df.length; i++) {
-            JRDesignTextField tf = textField(dx[i], 0, dw[i], 18, font10, "$F{" + df[i] + "}",
-                    i >= 2 ? JRAlignment.HORIZONTAL_ALIGN_RIGHT : i == 1 ? JRAlignment.HORIZONTAL_ALIGN_CENTER : null);
-            detailBand.addElement(tf);
-        }
-        detail.addBand(detailBand);
-        design.setDetail(detail);
-
-        // Summary
-        JRDesignBand summary = new JRDesignBand();
-        summary.setHeight(80);
-
-        JRDesignLine line = new JRDesignLine();
-        line.setX(0); line.setY(5); line.setWidth(555); line.setHeight(1);
-        summary.addElement(line);
-
-        JRDesignStaticText tl = new JRDesignStaticText();
-        tl.setX(300); tl.setY(15); tl.setWidth(120); tl.setHeight(18);
-        tl.setText("TOTAL RD$:"); tl.setFontSize(font11); tl.setBold(true);
-        tl.setHorizontalAlignment(JRAlignment.HORIZONTAL_ALIGN_RIGHT);
-        summary.addElement(tl);
-
-        JRDesignTextField tv = textField(420, 15, 135, 18, font14, "$P{total}", JRAlignment.HORIZONTAL_ALIGN_RIGHT);
-        tv.setBold(true);
-        summary.addElement(tv);
-
-        JRDesignTextField mp = textField(300, 38, 255, 16, font9, "\"Metodo: \" + $P{metodo_pago}", JRAlignment.HORIZONTAL_ALIGN_RIGHT);
-        summary.addElement(mp);
-
-        JRDesignStaticText gr = new JRDesignStaticText();
-        gr.setX(0); gr.setY(65); gr.setWidth(555); gr.setHeight(14);
-        gr.setText("Gracias por su compra - Salsiao"); gr.setFontSize(font9); gr.setItalic(true);
-        gr.setHorizontalAlignment(JRAlignment.HORIZONTAL_ALIGN_CENTER);
-        summary.addElement(gr);
-
-        design.setSummary(summary);
-
-        // Parametros
-        Map<String, Object> params = new HashMap<>();
-        params.put("id_venta", datosVenta.get("id_venta"));
-        params.put("id_factura", datosVenta.get("id_factura"));
-        params.put("fecha_venta", datosVenta.get("fecha_venta"));
-        params.put("total", datosVenta.get("total"));
-        params.put("metodo_pago", datosVenta.get("metodo_pago"));
-        params.put("monto_recibido", datosVenta.get("monto_recibido"));
-        params.put("devuelta", datosVenta.get("devuelta"));
-        params.put("email_cliente", datosVenta.get("email_cliente"));
-
-        System.out.println("[FacturaService] Compilando reporte en memoria...");
-        JasperReport reporte = JasperCompileManager.compileReport(design);
-        System.out.println("[FacturaService] Llenando con " + detalles.size() + " detalles...");
-        JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(detalles);
-        JasperPrint impresion = JasperFillManager.fillReport(reporte, params, ds);
-        System.out.println("[FacturaService] Exportando PDF: " + archivoPdf);
-        JasperExportManager.exportReportToPdfFile(impresion, archivoPdf.toAbsolutePath().toString());
-
-        if (!Files.exists(archivoPdf)) throw new IllegalStateException("PDF no se genero: " + archivoPdf);
-        System.out.println("[FacturaService] PDF generado: " + archivoPdf + " (" + Files.size(archivoPdf) + " bytes)");
-        return archivoPdf;
-    }
-
-    private static JRDesignTextField textField(int x, int y, int w, int h, Float fontSize, String expression, Integer alignment) {
-        JRDesignTextField tf = new JRDesignTextField();
-        tf.setX(x); tf.setY(y); tf.setWidth(w); tf.setHeight(h);
-        tf.setFontSize(fontSize);
-        if (alignment != null) tf.setHorizontalAlignment(alignment);
-        JRDesignExpression expr = new JRDesignExpression();
-        expr.setText(expression);
-        tf.setExpression(expr);
-        return tf;
+        System.out.println("[FacturaService] Factura de texto generada: " + archivoTxt);
+        return archivoTxt;
     }
 }

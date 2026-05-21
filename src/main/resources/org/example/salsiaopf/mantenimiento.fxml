@@ -112,10 +112,10 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="+ Nuevo equipo" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="🗑 Eliminar" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
+                    <Button text="+ Nuevo equipo" onAction="#nuevoEquipo" styleClass="actionBlue"/>
+                    <Button text="✎ Editar" onAction="#editarEquipo" styleClass="actionOrange"/>
+                    <Button text="🗑 Eliminar" onAction="#eliminarEquipo" styleClass="actionRed"/>
+                    <Button text="💾 Guardar" onAction="#guardarEquipo" styleClass="actionGreen"/>
                 </HBox>
 
                 <HBox spacing="16">
@@ -169,8 +169,8 @@
 
                         <Separator/>
 
-                        <Button text="Registrar fallo" styleClass="actionOrange" prefHeight="42"/>
-                        <Button text="Ver historial equipo" styleClass="actionBlue" prefHeight="42"/>
+                        <Button text="Registrar fallo" onAction="#registrarFallo" styleClass="actionOrange" prefHeight="42"/>
+                        <Button text="Ver historial equipo" onAction="#verHistorialEquipo" styleClass="actionBlue" prefHeight="42"/>
                     </VBox>
 
                 </HBox>
@@ -181,7 +181,7 @@
                         <Region HBox.hgrow="ALWAYS"/>
                         <ComboBox promptText="Estado" prefWidth="160"/>
                         <TextField promptText="Buscar equipo..." prefWidth="240"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
+                        <Button text="🔍" onAction="#buscarEquipo" styleClass="actionNeutral"/>
                     </HBox>
 
                     <TableView prefHeight="430">
@@ -217,15 +217,19 @@
                     <Region HBox.hgrow="ALWAYS"/>
 
                     <Button text="+ Registrar fallo"
+                            onAction="#registrarFallo"
                             styleClass="actionBlue"/>
 
                     <Button text="✎ Editar"
+                            onAction="#editarFallo"
                             styleClass="actionOrange"/>
 
                     <Button text="✔ Resolver"
+                            onAction="#resolverFallo"
                             styleClass="actionGreen"/>
 
                     <Button text="🗑 Eliminar"
+                            onAction="#eliminarFallo"
                             styleClass="actionRed"/>
 
                 </HBox>
@@ -335,10 +339,12 @@
                         <Separator/>
 
                         <Button text="Ver reparaciones"
+                                onAction="#mostrarReparaciones"
                                 styleClass="actionBlue"
                                 prefHeight="42"/>
 
                         <Button text="Generar reporte"
+                                onAction="#generarReporteFallos"
                                 styleClass="actionOrange"
                                 prefHeight="42"/>
 
@@ -360,6 +366,7 @@
                                    prefWidth="240"/>
 
                         <Button text="🔍"
+                                onAction="#buscarFallo"
                                 styleClass="actionNeutral"/>
 
                     </HBox>
@@ -408,10 +415,10 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="+ Nueva reparación" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="✔ Finalizar" styleClass="actionGreen"/>
-                    <Button text="🗑 Eliminar" styleClass="actionRed"/>
+                    <Button text="+ Nueva reparación" onAction="#nuevaReparacion" styleClass="actionBlue"/>
+                    <Button text="✎ Editar" onAction="#editarReparacion" styleClass="actionOrange"/>
+                    <Button text="✔ Finalizar" onAction="#finalizarReparacion" styleClass="actionGreen"/>
+                    <Button text="🗑 Eliminar" onAction="#eliminarReparacion" styleClass="actionRed"/>
                 </HBox>
 
                 <HBox spacing="16">
@@ -460,9 +467,9 @@
 
                         <Separator/>
 
-                        <Button text="Ver fallos pendientes" styleClass="actionBlue" prefHeight="42"/>
-                        <Button text="Generar orden técnica" styleClass="actionOrange" prefHeight="42"/>
-                        <Button text="Finalizar reparación" styleClass="actionGreen" prefHeight="42"/>
+                        <Button text="Ver fallos pendientes" onAction="#mostrarFallos" styleClass="actionBlue" prefHeight="42"/>
+                        <Button text="Generar orden técnica" onAction="#generarOrdenTecnica" styleClass="actionOrange" prefHeight="42"/>
+                        <Button text="Finalizar reparación" onAction="#finalizarReparacion" styleClass="actionGreen" prefHeight="42"/>
                     </VBox>
 
                 </HBox>
@@ -474,7 +481,7 @@
                         <ComboBox promptText="Estado" prefWidth="160"/>
                         <ComboBox promptText="Técnico" prefWidth="180"/>
                         <TextField promptText="Buscar reparación..." prefWidth="240"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
+                        <Button text="🔍" onAction="#buscarReparacion" styleClass="actionNeutral"/>
                     </HBox>
 
                     <TableView prefHeight="430">
@@ -505,10 +512,10 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="+ Nueva tarea" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="✔ Completar" styleClass="actionGreen"/>
-                    <Button text="🗑 Eliminar" styleClass="actionRed"/>
+                    <Button text="+ Nueva tarea" onAction="#nuevaTareaLimpieza" styleClass="actionBlue"/>
+                    <Button text="✎ Editar" onAction="#editarTareaLimpieza" styleClass="actionOrange"/>
+                    <Button text="✔ Completar" onAction="#completarTareaLimpieza" styleClass="actionGreen"/>
+                    <Button text="🗑 Eliminar" onAction="#eliminarTareaLimpieza" styleClass="actionRed"/>
                 </HBox>
 
                 <HBox spacing="16">
@@ -561,9 +568,9 @@
 
                         <Separator/>
 
-                        <Button text="Ver tareas pendientes" styleClass="actionBlue" prefHeight="42"/>
-                        <Button text="Generar rutina diaria" styleClass="actionOrange" prefHeight="42"/>
-                        <Button text="Marcar completada" styleClass="actionGreen" prefHeight="42"/>
+                        <Button text="Ver tareas pendientes" onAction="#mostrarLimpieza" styleClass="actionBlue" prefHeight="42"/>
+                        <Button text="Generar rutina diaria" onAction="#generarRutinaDiaria" styleClass="actionOrange" prefHeight="42"/>
+                        <Button text="Marcar completada" onAction="#completarTareaLimpieza" styleClass="actionGreen" prefHeight="42"/>
                     </VBox>
 
                 </HBox>
@@ -575,7 +582,7 @@
                         <ComboBox promptText="Área" prefWidth="180"/>
                         <ComboBox promptText="Estado" prefWidth="160"/>
                         <TextField promptText="Buscar tarea..." prefWidth="240"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
+                        <Button text="🔍" onAction="#buscarTareaLimpieza" styleClass="actionNeutral"/>
                     </HBox>
 
                     <TableView prefHeight="430">
@@ -605,9 +612,9 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="📄 Exportar" styleClass="actionBlue"/>
-                    <Button text="🖨 Imprimir" styleClass="actionOrange"/>
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
+                    <Button text="📄 Exportar" onAction="#exportarHistorial" styleClass="actionBlue"/>
+                    <Button text="🖨 Imprimir" onAction="#imprimirHistorial" styleClass="actionOrange"/>
+                    <Button text="↻ Actualizar" onAction="#actualizarHistorial" styleClass="actionNeutral"/>
                 </HBox>
 
                 <HBox spacing="16">
@@ -649,7 +656,7 @@
                         <DatePicker promptText="Hasta" prefWidth="150"/>
                         <ComboBox promptText="Tipo" prefWidth="150"/>
                         <TextField promptText="Buscar historial..." prefWidth="240"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
+                        <Button text="🔍" onAction="#buscarHistorial" styleClass="actionNeutral"/>
                     </HBox>
 
                     <TableView prefHeight="540" VBox.vgrow="ALWAYS">
@@ -669,12 +676,12 @@
                         <Label text="Mostrando historial de mantenimiento"/>
                         <Region HBox.hgrow="ALWAYS"/>
 
-                        <Button text="&lt;&lt;" styleClass="actionNeutral"/>
-                        <Button text="&lt;" styleClass="actionNeutral"/>
-                        <Button text="1" styleClass="actionBlue"/>
-                        <Button text="2" styleClass="actionNeutral"/>
-                        <Button text="&gt;" styleClass="actionNeutral"/>
-                        <Button text="&gt;&gt;" styleClass="actionNeutral"/>
+                        <Button text="&lt;&lt;" onAction="#buscarHistorial" styleClass="actionNeutral"/>
+                        <Button text="&lt;" onAction="#buscarHistorial" styleClass="actionNeutral"/>
+                        <Button text="1" onAction="#buscarHistorial" styleClass="actionBlue"/>
+                        <Button text="2" onAction="#buscarHistorial" styleClass="actionNeutral"/>
+                        <Button text="&gt;" onAction="#buscarHistorial" styleClass="actionNeutral"/>
+                        <Button text="&gt;&gt;" onAction="#buscarHistorial" styleClass="actionNeutral"/>
                     </HBox>
 
                 </VBox>

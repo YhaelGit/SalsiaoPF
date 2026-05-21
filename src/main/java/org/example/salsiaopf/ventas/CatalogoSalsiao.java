@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * Catálogo oficial del menú Salsiao para el módulo de ventas.
+ * Las imágenes se resuelven exclusivamente a través de {@link ProductImageRegistry}.
  */
 public final class CatalogoSalsiao {
 
@@ -24,8 +25,7 @@ public final class CatalogoSalsiao {
             "Picaderas",
             "Papas y extras",
             "Bebidas",
-            "Postres",
-            "Combos"
+            "Postres"
     );
 
     private static final List<ProductoMenu> PRODUCTOS = new ArrayList<>();
@@ -39,39 +39,39 @@ public final class CatalogoSalsiao {
         agregar("burg-5", "Crispy Chicken Burger", "Pollo crujiente, salsa especial.", "Hamburguesas", "🍔", 480);
 
         // Hotdogs
-        agregar("hd-1", "Clásico", "El de siempre, rápido y confiable.", "Hotdogs", "🌭", 220);
-        agregar("hd-2", "Callejero", "Con toppings callejeros.", "Hotdogs", "🌭", 290);
-        agregar("hd-3", "XL", "Tamaño XL para hambre grande.", "Hotdogs", "🌭", 360);
+        agregar("hd-1", "Hotdog Clásico", "El de siempre, rápido y confiable.", "Hotdogs", "🌭", 220);
+        agregar("hd-2", "Hotdog Callejero", "Con toppings callejeros.", "Hotdogs", "🌭", 290);
+        agregar("hd-3", "Hotdog XL", "Tamaño XL para hambre grande.", "Hotdogs", "🌭", 360);
 
         // Pizzas
-        agregar("piz-1", "Personal", "Pizza personal, masa fresca.", "Pizzas", "🍕", 445);
-        agregar("piz-2", "Mediana", "Ideal para compartir en mesa.", "Pizzas", "🍕", 790);
-        agregar("piz-3", "Familiar", "Familiar XL, fiesta en la mesa.", "Pizzas", "🍕", 1050);
+        agregar("piz-1", "Pizza Personal", "Pizza personal, masa fresca.", "Pizzas", "🍕", 445);
+        agregar("piz-2", "Pizza Mediana", "Ideal para compartir en mesa.", "Pizzas", "🍕", 790);
+        agregar("piz-3", "Pizza Familiar", "Familiar XL, fiesta en la mesa.", "Pizzas", "🍕", 1050);
 
         // Tacos
-        agregar("tac-1", "Crispy", "Taco crujiente con relleno premium.", "Tacos", "🌮", 360);
-        agregar("tac-2", "BBQ", "Taco BBQ con toque ahumado.", "Tacos", "🌮", 390);
+        agregar("tac-1", "Taco Crispy", "Taco crujiente con relleno premium.", "Tacos", "🌮", 360);
+        agregar("tac-2", "Taco BBQ", "Taco BBQ con toque ahumado.", "Tacos", "🌮", 390);
 
         // Wraps
-        agregar("wr-1", "Crispy Chicken", "Wrap de pollo crispy.", "Wraps", "🌯", 410);
-        agregar("wr-2", "BBQ", "Wrap BBQ con queso fundido.", "Wraps", "🌯", 430);
+        agregar("wr-1", "Wrap Crispy Chicken", "Wrap de pollo crispy.", "Wraps", "🌯", 410);
+        agregar("wr-2", "Wrap BBQ", "Wrap BBQ con queso fundido.", "Wraps", "🌯", 430);
 
         // Sándwiches
-        agregar("san-1", "Club", "Club sandwich completo.", "Sándwiches", "🥪", 540);
+        agregar("san-1", "Club Sandwich", "Club sandwich completo.", "Sándwiches", "🥪", 540);
         agregar("san-2", "Philly Cheesesteak", "Philly con queso derretido.", "Sándwiches", "🥪", 590);
-        agregar("san-3", "Crispy", "Sándwich crispy de pollo.", "Sándwiches", "🥪", 420);
+        agregar("san-3", "Crispy Sandwich", "Sándwich crispy de pollo.", "Sándwiches", "🥪", 420);
 
         // Pollo / Alitas
-        agregar("ali-1", "6 piezas", "Alitas bañadas, porción 6.", "Pollo / Alitas", "🍗", 495);
-        agregar("ali-2", "12 piezas", "Ideal para compartir.", "Pollo / Alitas", "🍗", 895);
-        agregar("ali-3", "24 piezas", "Party pack de alitas.", "Pollo / Alitas", "🍗", 1690);
+        agregar("ali-1", "Alitas 6 piezas", "Alitas bañadas, porción 6.", "Pollo / Alitas", "🍗", 495);
+        agregar("ali-2", "Alitas 12 piezas", "Ideal para compartir.", "Pollo / Alitas", "🍗", 895);
+        agregar("ali-3", "Alitas 24 piezas", "Party pack de alitas.", "Pollo / Alitas", "🍗", 1690);
 
         // Picaderas
         agregar("pic-1", "Nachos Salsiao", "Nachos con queso y salsa house.", "Picaderas", "🧀", 320);
         agregar("pic-2", "Mozzarella Sticks", "Palitos de mozzarella crujientes.", "Picaderas", "🧀", 280);
 
         // Papas y extras
-        agregar("pap-1", "Clásicas", "Papas fritas doradas.", "Papas y extras", "🍟", 120);
+        agregar("pap-1", "Papas Clásicas", "Papas fritas doradas.", "Papas y extras", "🍟", 120);
         agregar("pap-2", "Bacon Cheese Fries", "Con bacon y queso.", "Papas y extras", "🍟", 250);
         agregar("pap-3", "Loaded Fries", "Cargadas con toppings.", "Papas y extras", "🍟", 290);
 
@@ -87,10 +87,6 @@ public final class CatalogoSalsiao {
         agregar("pos-1", "Brownie", "Brownie de chocolate caliente.", "Postres", "🍰", 180);
         agregar("pos-2", "Cheesecake", "Cheesecake cremoso.", "Postres", "🍰", 250);
 
-        // Combos
-        agregar("com-1", "Combo Street", "Combo callejero completo.", "Combos", "📦", 690);
-        agregar("com-2", "Combo Crispy", "Combo crispy chicken.", "Combos", "📦", 590);
-        agregar("com-3", "Combo Party", "Combo fiesta para grupo.", "Combos", "📦", 1890);
     }
 
     private CatalogoSalsiao() {
@@ -98,6 +94,27 @@ public final class CatalogoSalsiao {
 
     private static void agregar(String id, String nombre, String desc, String cat, String emoji, double precio) {
         PRODUCTOS.add(new ProductoMenu(id, nombre, desc, cat, emoji, precio));
+    }
+
+    /**
+     * Retorna un gradiente de 2 colores para el placeholder de imagen
+     * segun la categoria del producto. Estilo delivery premium.
+     */
+    public static String[] gradienteCategoria(String categoria) {
+        return switch (categoria == null ? "" : categoria) {
+            case "Hamburguesas" -> new String[]{"#d4380d", "#ff7a45"};
+            case "Hotdogs" -> new String[]{"#fa8c16", "#ffc069"};
+            case "Pizzas" -> new String[]{"#c41d3a", "#e85d75"};
+            case "Tacos" -> new String[]{"#d48b0e", "#f5c542"};
+            case "Wraps" -> new String[]{"#389e0d", "#73d13d"};
+            case "Sándwiches" -> new String[]{"#a8590d", "#d48806"};
+            case "Pollo / Alitas" -> new String[]{"#ad2102", "#fa541c"};
+            case "Picaderas" -> new String[]{"#d4a017", "#fadb14"};
+            case "Papas y extras" -> new String[]{"#b37b0d", "#faad14"};
+            case "Bebidas" -> new String[]{"#006d77", "#48cae4"};
+            case "Postres" -> new String[]{"#7b2cbf", "#c77dff"};
+            default -> new String[]{"#1e3a5f", "#3b82f6"};
+        };
     }
 
     public static List<ProductoMenu> todos() {
