@@ -2,6 +2,7 @@ package org.example.salsiaopf.controller;
 
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,9 +31,11 @@ import org.example.salsiaopf.ventas.CatalogoSalsiao;
 import org.example.salsiaopf.ventas.ItemCarrito;
 import org.example.salsiaopf.ventas.MenuDigitalUI;
 import org.example.salsiaopf.ventas.ProductoMenu;
+import org.example.salsiaopf.service.FacturaService;
 import org.example.salsiaopf.ventas.FacturaDesktopUtil;
 import org.example.salsiaopf.ventas.ResultadoProcesoVenta;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -482,6 +486,101 @@ public class VentaController {
             return;
         }
         procesarPago();
+    }
+
+    @FXML
+    private void generarFacturaDirecta() {
+        if (carrito.estaVacio()) {
+            Alertas.advertencia("Carrito vacío", "Agrega productos al carrito antes de generar la factura.");
+            return;
+        }
+
+        TextInputDialog dialogNombre = new TextInputDialog("Cliente Salsiao");
+        dialogNombre.setTitle("Datos del cliente");
+        dialogNombre.setHeaderText("Nombre del cliente");
+        dialogNombre.setContentText("Nombre:");
+        Optional<String> nombreOpt = dialogNombre.showAndWait();
+        if (nombreOpt.isEmpty() || nombreOpt.get().isBlank()) return;
+
+        TextInputDialog dialogTel = new TextInputDialog("(809) 555-0000");
+        dialogTel.setTitle("Datos del cliente");
+        dialogTel.setHeaderText("Teléfono del cliente");
+        dialogTel.setContentText("Teléfono:");
+        Optional<String> telOpt = dialogTel.showAndWait();
+        if (telOpt.isEmpty()) return;
+
+        TextInputDialog dialogDir = new TextInputDialog("República Dominicana");
+        dialogDir.setTitle("Datos del cliente");
+        dialogDir.setHeaderText("Dirección del cliente");
+        dialogDir.setContentText("Dirección:");
+        Optional<String> dirOpt = dialogDir.showAndWait();
+        if (dirOpt.isEmpty()) return;
+
+        TextInputDialog dialogEmail = new TextInputDialog("cliente@email.com");
+        dialogEmail.setTitle("Datos del cliente");
+        dialogEmail.setHeaderText("Correo del cliente");
+        dialogEmail.setContentText("Email:");
+        Optional<String> emailOpt = dialogEmail.showAndWait();
+        if (emailOpt.isEmpty()) return;
+
+        String nombre = nombreOpt.get().trim();
+        String telefono = telOpt.get().trim();
+        String direccion = dirOpt.get().trim();
+        String email = emailOpt.get().trim();
+
+        Task<Path> task = new Task<>() {
+            @Override
+            protected Path call() throws Exception {
+                return FacturaService.generarFacturaDirecta(
+                        carrito.copiarItems(), nombre, telefono, direccion, email, null);
+            }
+        };
+
+        task.setOnSucceeded(ev -> Platform.runLater(() -> {
+            Path rutaPdf = task.getValue();
+            if (rutaPdf != null) {
+                FacturaDesktopUtil.abrirPdf(rutaPdf);
+
+                double subtotal = carrito.getSubtotal();
+                double itbis = subtotal * 0.18;
+                double total = subtotal + itbis;
+
+                StringBuilder msg = new StringBuilder();
+                msg.append("Factura generada correctamente.\n\n");
+                msg.append(String.format("Subtotal: RD$ %,.2f\n", subtotal));
+                msg.append(String.format("ITBIS (18%%): RD$ %,.2f\n", itbis));
+                msg.append(String.format("Total: RD$ %,.2f\n", total));
+                msg.append("\nPDF guardado en:\n").append(rutaPdf.toAbsolutePath());
+
+                ButtonType btnAbrir = new ButtonType("Abrir PDF");
+                ButtonType btnImprimir = new ButtonType("Imprimir");
+                ButtonType btnOk = ButtonType.OK;
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, msg.toString(), btnAbrir, btnImprimir, btnOk);
+                alert.setTitle("Factura generada");
+                alert.setHeaderText("✅ Factura generada — Salsiao RD");
+
+                Optional<ButtonType> opcion = alert.showAndWait();
+                if (opcion.isPresent()) {
+                    if (opcion.get() == btnAbrir) {
+                        FacturaDesktopUtil.abrirPdf(rutaPdf);
+                    } else if (opcion.get() == btnImprimir) {
+                        FacturaDesktopUtil.imprimirPdf(rutaPdf);
+                    }
+                }
+            }
+        }));
+
+        task.setOnFailed(ev -> Platform.runLater(() -> {
+            Throwable err = task.getException();
+            String msg = err != null ? err.getMessage() : "Error desconocido";
+            Alertas.error("Error", "No se pudo generar la factura: " + msg);
+            if (err != null) err.printStackTrace();
+        }));
+
+        Thread hilo = new Thread(task);
+        hilo.setDaemon(true);
+        hilo.start();
     }
 
     @FXML

@@ -523,7 +523,7 @@
 
                     <Button text="↻ Actualizar" onAction="#actualizarPagoView" styleClass="actionNeutral"/>
                     <Button text="✖ Cancelar pago" onAction="#cancelarPagoView" styleClass="actionRed"/>
-                    <Button text="🧾 Facturar" onAction="#facturarDesdeViewPago" styleClass="actionBlue"/>
+                    <Button text="🧾 Facturar" onAction="#generarFacturaDirecta" styleClass="actionBlue"/>
                     <Button text="✔ Confirmar pago" onAction="#procesarPago" styleClass="actionGreen"/>
 
                 </HBox>
@@ -696,7 +696,7 @@
                                     styleClass="actionGreen"/>
 
                             <Button text="🧾 Generar factura"
-                                    onAction="#facturarDesdeViewPago"
+                                    onAction="#generarFacturaDirecta"
                                     prefHeight="42"
                                     styleClass="actionBlue"/>
 

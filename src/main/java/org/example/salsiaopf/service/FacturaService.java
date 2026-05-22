@@ -3,158 +3,140 @@ package org.example.salsiaopf.service;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 import org.example.salsiaopf.database.ConexionBD;
+import org.example.salsiaopf.ventas.ItemCarrito;
 
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public final class FacturaService {
 
     private static final String REPORTE_JRXML = "/reports/factura_salsiao.jrxml";
+    private static final String REPORTE_DIRECTO_JRXML = "/reports/factura_directa.jrxml";
+    private static final DateTimeFormatter ID_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss");
+    private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
+    private static final double ITBIS_PORCENTAJE = 0.18;
 
     private FacturaService() {
     }
 
     public static Path generarFacturaPdf(int idVenta) throws Exception {
-        System.out.println("[FacturaService] === INICIO generacion factura para venta #" + idVenta + " ===");
+        System.out.println("[FacturaService] Generando factura PDF para venta #" + idVenta);
 
         Path directorio = Path.of(System.getProperty("user.dir"), "facturas");
         Files.createDirectories(directorio);
         Path archivoPdf = directorio.resolve("FACTURA-" + idVenta + ".pdf");
 
-        // INTENTO 1: JRXML externo
-        try {
-            System.out.println("[FacturaService] Intento 1: JRXML externo " + REPORTE_JRXML);
-            java.io.InputStream jrxmlStream = FacturaService.class.getResourceAsStream(REPORTE_JRXML);
-            if (jrxmlStream != null) {
-                String contenido = new String(jrxmlStream.readAllBytes());
-                jrxmlStream.close();
-                boolean tieneBands = contenido.contains("<title>") || contenido.contains("<detail>")
-                        || contenido.contains("<pageHeader>") || contenido.contains("<columnHeader>");
-                if (tieneBands) {
-                    System.out.println("[FacturaService] JRXML tiene bands, compilando...");
-                    JasperReport reporte = JasperCompileManager.compileReport(
-                            FacturaService.class.getResourceAsStream(REPORTE_JRXML));
-                    Map<String, Object> parametros = new HashMap<>();
-                    parametros.put("ID_VENTA", idVenta);
-                    try (Connection conn = ConexionBD.conectar()) {
-                        if (conn == null) throw new IllegalStateException("Sin conexion a SQL Server.");
-                        JasperPrint impresion = JasperFillManager.fillReport(reporte, parametros, conn);
-                        JasperExportManager.exportReportToPdfFile(impresion, archivoPdf.toAbsolutePath().toString());
-                    }
-                    if (Files.exists(archivoPdf) && Files.size(archivoPdf) > 100) {
-                        System.out.println("[FacturaService] PDF generado con JRXML externo: " + archivoPdf);
-                        return archivoPdf;
-                    }
-                    System.out.println("[FacturaService] JRXML externo produjo PDF vacio, usando fallback.");
-                } else {
-                    System.out.println("[FacturaService] JRXML externo sin bands, usando fallback.");
-                }
-            } else {
-                System.out.println("[FacturaService] JRXML externo no encontrado, usando fallback.");
-            }
-        } catch (Exception e) {
-            System.out.println("[FacturaService] JRXML externo fallo: " + e.getMessage());
-            e.printStackTrace();
+        java.io.InputStream jrxmlStream = FacturaService.class.getResourceAsStream(REPORTE_JRXML);
+        if (jrxmlStream == null) {
+            throw new IllegalStateException("No se encontró el reporte: " + REPORTE_JRXML);
         }
 
-        // INTENTO 2: Fallback - factura de texto
-        System.out.println("[FacturaService] Intento 2: Generando factura de texto...");
-        return generarFacturaTexto(idVenta, directorio);
+        JasperReport reporte = JasperCompileManager.compileReport(jrxmlStream);
+        jrxmlStream.close();
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("ID_VENTA", idVenta);
+
+        Connection conn = ConexionBD.conectar();
+        if (conn == null) {
+            throw new IllegalStateException("Sin conexión a SQL Server.");
+        }
+
+        try {
+            JasperPrint impresion = JasperFillManager.fillReport(reporte, parametros, conn);
+            JasperExportManager.exportReportToPdfFile(impresion, archivoPdf.toAbsolutePath().toString());
+        } finally {
+            conn.close();
+        }
+
+        if (!Files.exists(archivoPdf) || Files.size(archivoPdf) == 0) {
+            throw new IllegalStateException("El PDF generado está vacío.");
+        }
+
+        System.out.println("[FacturaService] PDF generado exitosamente: " + archivoPdf.toAbsolutePath());
+        return archivoPdf;
     }
 
-    private static Path generarFacturaTexto(int idVenta, Path directorio) throws Exception {
-        System.out.println("[FacturaService] Obteniendo datos de venta #" + idVenta + " desde BD...");
+    public static Path generarFacturaDirecta(List<ItemCarrito> items, String clienteNombre,
+                                              String clienteTelefono, String clienteDireccion,
+                                              String clienteEmail, String metodoPago) throws Exception {
+        System.out.println("[FacturaService] Generando factura directa desde carrito...");
 
-        String idFactura = "";
-        String fechaVenta = "";
-        String total = "0.00";
-        String metodoPago = "";
-        String montoRecibido = "";
-        String devuelta = "";
-        String emailCliente = "";
-        List<String[]> detalles = new ArrayList<>();
+        Path directorio = Path.of(System.getProperty("user.dir"), "facturas");
+        Files.createDirectories(directorio);
 
-        try (Connection conn = ConexionBD.conectar()) {
-            if (conn == null) throw new IllegalStateException("Sin conexion a SQL Server.");
+        String invoiceNum = generarNumeroFactura();
+        String invoiceDate = LocalDateTime.now().format(DATE_FMT);
 
-            try (PreparedStatement ps = conn.prepareStatement(
-                    "SELECT id_venta, id_factura, fecha_venta, total, metodo_pago, monto_recibido, devuelta, email_cliente FROM tbl_VENTA_POS WHERE id_venta = ?")) {
-                ps.setInt(1, idVenta);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        idFactura = rs.getString("id_factura");
-                        fechaVenta = String.valueOf(rs.getTimestamp("fecha_venta"));
-                        total = rs.getBigDecimal("total").toString();
-                        metodoPago = rs.getString("metodo_pago");
-                        montoRecibido = rs.getString("monto_recibido");
-                        devuelta = rs.getString("devuelta");
-                        emailCliente = rs.getString("email_cliente");
-                    } else {
-                        throw new IllegalStateException("Venta #" + idVenta + " no encontrada.");
-                    }
-                }
-            }
+        BigDecimal subtotal = calcularSubtotal(items);
+        BigDecimal itbis = subtotal.multiply(BigDecimal.valueOf(ITBIS_PORCENTAJE)).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal total = subtotal.add(itbis);
 
-            try (PreparedStatement ps = conn.prepareStatement(
-                    "SELECT nombre_producto, cantidad, precio_unitario, subtotal FROM tbl_DETALLE_VENTA_POS WHERE id_venta = ? ORDER BY id_detalle")) {
-                ps.setInt(1, idVenta);
-                try (ResultSet rs = ps.executeQuery()) {
-                    while (rs.next()) {
-                        detalles.add(new String[]{
-                                rs.getString("nombre_producto"),
-                                String.valueOf(rs.getInt("cantidad")),
-                                rs.getBigDecimal("precio_unitario").toString(),
-                                rs.getBigDecimal("subtotal").toString()
-                        });
-                    }
-                }
-            }
+        Path archivoPdf = directorio.resolve(invoiceNum.replace("/", "-") + ".pdf");
+
+        java.io.InputStream jrxmlStream = FacturaService.class.getResourceAsStream(REPORTE_DIRECTO_JRXML);
+        if (jrxmlStream == null) {
+            throw new IllegalStateException("No se encontró el reporte: " + REPORTE_DIRECTO_JRXML);
         }
 
-        if (detalles.isEmpty()) throw new IllegalStateException("Venta sin detalles.");
+        JasperReport reporte = JasperCompileManager.compileReport(jrxmlStream);
+        jrxmlStream.close();
 
-        Path archivoTxt = directorio.resolve("FACTURA-" + idVenta + ".txt");
-        try (PrintWriter pw = new PrintWriter(new FileWriter(archivoTxt.toFile()))) {
-            pw.println("========================================");
-            pw.println("            S A L S I A O");
-            pw.println("       Fast Food - Factura de Venta");
-            pw.println("========================================");
-            pw.println("Factura: " + idFactura);
-            pw.println("Venta #: " + idVenta);
-            pw.println("Fecha: " + fechaVenta);
-            pw.println("Email: " + emailCliente);
-            pw.println("----------------------------------------");
-            pw.printf("%-25s %5s %10s %12s%n", "Producto", "Cant.", "Precio", "Subtotal");
-            pw.println("----------------------------------------");
-            for (String[] d : detalles) {
-                pw.printf("%-25s %5s %10s %12s%n", d[0], d[1], d[2], d[3]);
-            }
-            pw.println("========================================");
-            pw.printf("TOTAL RD$: %s%n", total);
-            pw.println("----------------------------------------");
-            pw.println("Metodo: " + metodoPago);
-            if (montoRecibido != null && !montoRecibido.equals("null")) {
-                pw.println("Recibido: " + montoRecibido);
-            }
-            if (devuelta != null && !devuelta.equals("null")) {
-                pw.println("Devuelta: " + devuelta);
-            }
-            pw.println("========================================");
-            pw.println("  Gracias por su compra - Salsiao");
-            pw.println("========================================");
+        Map<String, Object> params = new HashMap<>();
+        params.put("INVOICE_NUM", invoiceNum);
+        params.put("INVOICE_DATE", invoiceDate);
+        params.put("CLIENT_NAME", clienteNombre != null ? clienteNombre : "");
+        params.put("CLIENT_PHONE", clienteTelefono != null ? clienteTelefono : "");
+        params.put("CLIENT_ADDRESS", clienteDireccion != null ? clienteDireccion : "");
+        params.put("CLIENT_EMAIL", clienteEmail != null ? clienteEmail : "");
+        params.put("SUBTOTAL", subtotal);
+        params.put("ITBIS", itbis);
+        params.put("TOTAL", total);
+        params.put("METODO_PAGO", metodoPago);
+        params.put("MONTO_RECIBIDO", null);
+        params.put("DEVUELTA", null);
+
+        Collection<Map<String, ?>> detalleRows = new ArrayList<>();
+        for (ItemCarrito item : items) {
+            Map<String, Object> row = new HashMap<>();
+            row.put("nombre_producto", item.getProducto().getNombre());
+            row.put("cantidad", item.getCantidad());
+            row.put("precio_unitario", BigDecimal.valueOf(item.getProducto().getPrecio()).setScale(2, RoundingMode.HALF_UP));
+            row.put("subtotal", BigDecimal.valueOf(item.getSubtotal()).setScale(2, RoundingMode.HALF_UP));
+            detalleRows.add(row);
         }
 
-        System.out.println("[FacturaService] Factura de texto generada: " + archivoTxt);
-        return archivoTxt;
+        JRMapCollectionDataSource dataSource = new JRMapCollectionDataSource(detalleRows);
+
+        JasperPrint impresion = JasperFillManager.fillReport(reporte, params, dataSource);
+        JasperExportManager.exportReportToPdfFile(impresion, archivoPdf.toAbsolutePath().toString());
+
+        if (!Files.exists(archivoPdf) || Files.size(archivoPdf) == 0) {
+            throw new IllegalStateException("El PDF generado está vacío.");
+        }
+
+        System.out.println("[FacturaService] Factura directa generada: " + archivoPdf.toAbsolutePath());
+        return archivoPdf;
+    }
+
+    private static String generarNumeroFactura() {
+        String year = String.valueOf(LocalDate.now().getYear());
+        String seq = String.format("%04d", (int) (System.currentTimeMillis() % 10000));
+        return "SLS-" + year + "-" + seq;
+    }
+
+    private static BigDecimal calcularSubtotal(List<ItemCarrito> items) {
+        double total = 0;
+        for (ItemCarrito item : items) {
+            total += item.getSubtotal();
+        }
+        return BigDecimal.valueOf(total).setScale(2, RoundingMode.HALF_UP);
     }
 }

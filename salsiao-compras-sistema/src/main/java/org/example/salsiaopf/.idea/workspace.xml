@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="34b9a5f2-7840-4aa1-834f-01a6f5e9dfb7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../../SalsiaoPF2/src/main/java/org/example/salsiaopf/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../SalsiaoPF2/src/main/java/org/example/salsiaopf/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../../SalsiaoPF2/src/main/java/org/example/salsiaopf/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../SalsiaoPF2/src/main/java/org/example/salsiaopf/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../resources/org/example/salsiaopf/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../resources/org/example/salsiaopf/main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../resources/org/example/salsiaopf/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../resources/org/example/salsiaopf/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../src/main/java/org/example/salsiaopf/controller/VentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../src/main/java/org/example/salsiaopf/controller/VentaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../src/main/java/org/example/salsiaopf/service/FacturaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../src/main/java/org/example/salsiaopf/service/FacturaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../src/main/resources/org/example/salsiaopf/venta.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../src/main/resources/org/example/salsiaopf/venta.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../src/main/resources/reports/factura_salsiao.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../src/main/resources/reports/factura_salsiao.jrxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,40 +19,40 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "fernanpro7"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;fernanpro7&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/YhaelGit/SalsiaoPF.git",
-    "accountId": "0a44dc1d-7f48-45c6-b373-05ebdfd894ff"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/YhaelGit/SalsiaoPF.git&quot;,
+    &quot;accountId&quot;: &quot;0a44dc1d-7f48-45c6-b373-05ebdfd894ff&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="3Du9LnSbJwhOALP0zPCmssAhiEQ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ferna/Downloads/salsiao-compras-sistema-20260326T005504Z-1-001/salsiao-compras-sistema/src/main/java/org/example/salsiaopf",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ferna/Downloads/salsiao-compras-sistema-20260326T005504Z-1-001/salsiao-compras-sistema/src/main/java/org/example/salsiaopf&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="34b9a5f2-7840-4aa1-834f-01a6f5e9dfb7" name="Changes" comment="" />
