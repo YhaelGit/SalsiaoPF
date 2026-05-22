@@ -1,7 +1,11 @@
-package org.example.salsiaopf.model;
+﻿package org.example.salsiaopf.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * @deprecated Sin uso actual en el sistema. Clase mantenida por compatibilidad futura.
+ */
+@Deprecated
 public class FacturaVenta {
     private int id;
     private int idVenta;

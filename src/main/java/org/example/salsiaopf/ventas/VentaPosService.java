@@ -1,10 +1,11 @@
-package org.example.salsiaopf.ventas;
+﻿package org.example.salsiaopf.ventas;
 
 import org.example.salsiaopf.service.PagoService;
 
 /**
- * Fachada de compatibilidad: delega al flujo POS central en {@link PagoService}.
+ * @deprecated Usar directamente {@link org.example.salsiaopf.service.PagoService}.
  */
+@Deprecated
 public final class VentaPosService {
 
     private VentaPosService() {

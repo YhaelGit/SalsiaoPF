@@ -1,5 +1,9 @@
-package org.example.salsiaopf.model;
+﻿package org.example.salsiaopf.model;
 
+/**
+ * @deprecated Sin uso actual en el sistema. Clase mantenida por compatibilidad futura.
+ */
+@Deprecated
 public class Plato {
     private int id;
     private String nombre;

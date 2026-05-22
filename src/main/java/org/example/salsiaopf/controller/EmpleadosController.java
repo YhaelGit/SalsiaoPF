@@ -1,4 +1,4 @@
-package org.example.salsiaopf.controller;
+﻿package org.example.salsiaopf.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import org.example.salsiaopf.dao.EmpleadoDAO;
 import org.example.salsiaopf.model.Empleado;
 import org.example.salsiaopf.util.Alertas;
+import org.example.salsiaopf.util.ControllerUtil;
 import org.example.salsiaopf.util.Navegacion;
 import javafx.animation.*;
 import javafx.application.Platform;
@@ -54,21 +55,7 @@ public class EmpleadosController {
     }
 
     private void animarEntrada() {
-        Platform.runLater(() -> {
-            if (lblFechaActual == null || lblFechaActual.getScene() == null) return;
-            Node root = lblFechaActual.getScene().getRoot();
-            if (root == null) return;
-            root.setOpacity(0);
-            root.setTranslateY(20);
-            FadeTransition ft = new FadeTransition(Duration.millis(500), root);
-            ft.setFromValue(0); ft.setToValue(1);
-            TranslateTransition tt = new TranslateTransition(Duration.millis(500), root);
-            tt.setFromY(20); tt.setToY(0);
-            tt.setInterpolator(Interpolator.EASE_OUT);
-            ParallelTransition pt = new ParallelTransition(ft, tt);
-            pt.setDelay(Duration.millis(80));
-            pt.play();
-        });
+        ControllerUtil.animarEntrada(lblFechaActual);
     }
 
     private void configurarTabla() {
@@ -92,37 +79,11 @@ public class EmpleadosController {
     }
 
     private void cargarLogo() {
-        try {
-            var stream = getClass().getResourceAsStream("/imagenes/logo-salsiao.jpeg");
-            if (stream != null && logoImage != null) {
-                logoImage.setImage(new Image(stream));
-                logoImage.setFitWidth(82);
-                logoImage.setFitHeight(82);
-                logoImage.setPreserveRatio(true);
-                javafx.scene.shape.Circle clip = new javafx.scene.shape.Circle();
-                clip.setRadius(41);
-                clip.setCenterX(41);
-                clip.setCenterY(41);
-                logoImage.setClip(clip);
-            }
-        } catch (Exception e) {
-            System.out.println("Error cargando logo: " + e.getMessage());
-        }
+        ControllerUtil.cargarLogo(logoImage);
     }
 
     private void iniciarReloj() {
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("hh:mm a");
-
-        Timeline reloj = new Timeline(
-                new KeyFrame(Duration.seconds(0), event -> {
-                    lblFechaActual.setText(LocalDate.now().format(formatoFecha));
-                    lblHoraActual.setText(LocalTime.now().format(formatoHora));
-                }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        reloj.setCycleCount(Timeline.INDEFINITE);
-        reloj.play();
+        ControllerUtil.iniciarReloj(lblFechaActual, lblHoraActual);
     }
 
     @FXML
