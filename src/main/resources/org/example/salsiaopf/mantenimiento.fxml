@@ -1,704 +1,301 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.salsiaopf.controller.MantenimientoController"
-            styleClass="appRoot">
-
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.salsiaopf.controller.MantenimientoController" styleClass="appRoot">
     <top>
         <HBox styleClass="topBar" alignment="CENTER_LEFT" spacing="18">
-            <ImageView fx:id="logoImage"
-                       fitWidth="82"
-                       fitHeight="82"
-                       preserveRatio="true"/>
-
-            <VBox>
-                <Label text="Salsiao" styleClass="brandTitle"/>
-                <Label text="Gestión de Mantenimiento" styleClass="brandSubtitle"/>
-            </VBox>
-
+            <ImageView fx:id="logoImage" fitWidth="82" fitHeight="82" preserveRatio="true"/>
+            <VBox><Label text="Salsiao" styleClass="brandTitle"/><Label text="Gestión de Mantenimiento" styleClass="brandSubtitle"/></VBox>
             <Region HBox.hgrow="ALWAYS"/>
-
             <Button text="☰ Volver" onAction="#volverMenu" styleClass="topButton"/>
-
             <HBox alignment="CENTER" spacing="10">
                 <HBox alignment="CENTER" spacing="6" styleClass="topInfoCard">
-                    <Label text="📅" styleClass="topIcon"/>
-                    <Label fx:id="lblFechaActual" text="--/--/----" styleClass="topInfoText"/>
+                    <Label text="📅" styleClass="topIcon"/><Label fx:id="lblFechaActual" text="--/--/----" styleClass="topInfoText"/>
                 </HBox>
-
                 <HBox alignment="CENTER" spacing="6" styleClass="topInfoCard">
-                    <Label text="🕒" styleClass="topIcon"/>
-                    <Label fx:id="lblHoraActual" text="--:-- --" styleClass="topInfoText"/>
+                    <Label text="🕒" styleClass="topIcon"/><Label fx:id="lblHoraActual" text="--:-- --" styleClass="topInfoText"/>
                 </HBox>
-
-                <Button fx:id="btnNotificaciones"
-                        text="🔔 0"
-                        onAction="#mostrarNotificaciones"
-                        styleClass="notificationModernButton"/>
-
+                <Button fx:id="btnNotificaciones" text="🔔 0" onAction="#mostrarNotificaciones" styleClass="notificationModernButton"/>
                 <HBox alignment="CENTER" spacing="8" styleClass="userInfoCard">
                     <Label text="👤" styleClass="topIcon"/>
-                    <VBox spacing="0">
-                        <Label text="Admin" styleClass="userNameTop"/>
-                        <Label text="Administrador" styleClass="userRoleTop"/>
-                    </VBox>
+                    <VBox spacing="0"><Label text="Admin" styleClass="userNameTop"/><Label text="Mantenimiento" styleClass="userRoleTop"/></VBox>
                 </HBox>
             </HBox>
         </HBox>
     </top>
-
     <left>
         <VBox styleClass="sideBar" spacing="12">
-
-            <Label text="MANTENIMIENTO"
-                   styleClass="sideTitle"/>
-
-            <Button fx:id="btnEquipos"
-                    text="🛠  Equipos"
-                    onAction="#mostrarEquipos"
-                    styleClass="sideButton"/>
-
-            <Button fx:id="btnFallos"
-                    text="⚠  Fallos"
-                    onAction="#mostrarFallos"
-                    styleClass="sideButton"/>
-
-            <Button fx:id="btnReparaciones"
-                    text="🔧  Reparaciones"
-                    onAction="#mostrarReparaciones"
-                    styleClass="sideButton"/>
-
-            <Button fx:id="btnLimpieza"
-                    text="🧹  Limpieza"
-                    onAction="#mostrarLimpieza"
-                    styleClass="sideButton"/>
-
-            <Button fx:id="btnHistorialMantenimiento"
-                    text="↺  Historial"
-                    onAction="#mostrarHistorialMantenimiento"
-                    styleClass="sideButton"/>
-
+            <Label text="MANTENIMIENTO" styleClass="sideTitle"/>
+            <Button text="📊  Dashboard" onAction="#mostrarDashboard" styleClass="sideButtonActive" fx:id="btnDashboard"/>
+            <Button text="🛠  Equipos/Activos" onAction="#mostrarEquipos" styleClass="sideButton" fx:id="btnEquipos"/>
+            <Button text="⚠  Reportar Avería" onAction="#mostrarReportar" styleClass="sideButton" fx:id="btnReportar"/>
+            <Button text="📋  Solicitudes" onAction="#mostrarSolicitudes" styleClass="sideButton" fx:id="btnSolicitudes"/>
+            <Button text="✅  Realizados" onAction="#mostrarRealizados" styleClass="sideButton" fx:id="btnRealizados"/>
+            <Button text="👨‍🔧  Técnicos" onAction="#mostrarTecnicos" styleClass="sideButton" fx:id="btnTecnicos"/>
+            <Button text="📅  Calendario" onAction="#mostrarCalendario" styleClass="sideButton" fx:id="btnCalendario"/>
+            <Button text="💰  Costos" onAction="#mostrarCostos" styleClass="sideButton" fx:id="btnCostos"/>
             <Region VBox.vgrow="ALWAYS"/>
-
-            <VBox styleClass="userCard">
-                <Label text="Mantenimiento"
-                       styleClass="userCardName"/>
-
-                <Label text="Gestión del mantenimiento."
-                       wrapText="true"
-                       styleClass="userCardRole"/>
-            </VBox>
+            <VBox styleClass="userCard"><Label text="Mantenimiento" styleClass="userCardName"/><Label text="Gestión del mantenimiento." wrapText="true" styleClass="userCardRole"/></VBox>
             <Button text="↪  Salir" onAction="#salirSistema" styleClass="sideButtonExit"/>
         </VBox>
     </left>
-
     <center>
-        <StackPane fx:id="contenedorMantenimiento"
-                   styleClass="contentArea">
+        <StackPane fx:id="contenedorMantenimiento" styleClass="contentArea">
+
+            <!-- DASHBOARD -->
+            <ScrollPane fx:id="scrollDashboard" fitToWidth="true" fitToHeight="true" visible="true" managed="true" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+                <Label text="Dashboard de Mantenimiento" styleClass="pageTitle"/>
+                <HBox spacing="14">
+                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="180" prefHeight="95">
+                        <Label text="🟢" style="-fx-text-fill: #000000;"/><Label fx:id="lblEquiposBuenos" text="0" style="-fx-text-fill: #000000; -fx-font-size: 28px; -fx-font-weight: bold;"/><Label text="Equipos Buenos" style="-fx-text-fill: #000000;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardRed" prefWidth="180" prefHeight="95">
+                        <Label text="🔴" style="-fx-text-fill: #000000;"/><Label fx:id="lblEquiposFallas" text="0" style="-fx-text-fill: #000000; -fx-font-size: 28px; -fx-font-weight: bold;"/><Label text="Con Fallas" style="-fx-text-fill: #000000;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardOrange" prefWidth="180" prefHeight="95">
+                        <Label text="🟡" style="-fx-text-fill: #000000;"/><Label fx:id="lblPendientes" text="0" style="-fx-text-fill: #000000; -fx-font-size: 28px; -fx-font-weight: bold;"/><Label text="Pendientes" style="-fx-text-fill: #000000;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardBlue" prefWidth="180" prefHeight="95">
+                        <Label text="🔵" style="-fx-text-fill: #000000;"/><Label fx:id="lblEnProceso" text="0" style="-fx-text-fill: #000000; -fx-font-size: 28px; -fx-font-weight: bold;"/><Label text="En Proceso" style="-fx-text-fill: #000000;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="180" prefHeight="95">
+                        <Label text="✅" style="-fx-text-fill: #000000;"/><Label fx:id="lblFinalizados" text="0" style="-fx-text-fill: #000000; -fx-font-size: 28px; -fx-font-weight: bold;"/><Label text="Finalizados" style="-fx-text-fill: #000000;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardPurple" prefWidth="180" prefHeight="95">
+                        <Label text="💰" style="-fx-text-fill: #000000;"/><Label fx:id="lblCostosMes" text="RD$ 0" style="-fx-text-fill: #000000; -fx-font-size: 28px; -fx-font-weight: bold;"/><Label text="Costos del Mes" style="-fx-text-fill: #000000;"/>
+                    </VBox>
+                </HBox>
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Todos los Mantenimientos" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="➕ Nuevo Reporte" onAction="#mostrarReportar" styleClass="actionBlue"/>
+                        <Button text="📄 Exportar" onAction="#exportarMantenimientos" styleClass="actionOrange"/>
+                        <TextField fx:id="txtBuscarDashboard" promptText="Buscar..." prefWidth="200"/>
+                        <ComboBox fx:id="cmbFiltroEstadoD" promptText="Estado" prefWidth="140"/>
+                        <ComboBox fx:id="cmbFiltroPrioridadD" promptText="Prioridad" prefWidth="140"/>
+                        <Button text="🔍" onAction="#buscarDashboard" styleClass="actionNeutral"/>
+                        <Button text="🧹 Limpiar" onAction="#limpiarDashboard" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaDashboard" prefHeight="400" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Código" prefWidth="120"/><TableColumn text="Equipo" prefWidth="180"/><TableColumn text="Área" prefWidth="120"/><TableColumn text="Problema" prefWidth="250"/><TableColumn text="Estado" prefWidth="110"/><TableColumn text="Prioridad" prefWidth="100"/><TableColumn text="Fecha" prefWidth="120"/><TableColumn text="Responsable" prefWidth="150"/><TableColumn text="Acciones" prefWidth="140"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+            </ScrollPane>
 
             <!-- EQUIPOS -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewEquipos" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Equipos" styleClass="pageTitle"/>
-                        <Label text="Administra equipos, máquinas, utensilios y activos operativos del restaurante." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nuevo equipo" onAction="#nuevoEquipo" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" onAction="#editarEquipo" styleClass="actionOrange"/>
-                    <Button text="🗑 Eliminar" onAction="#eliminarEquipo" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" onAction="#guardarEquipo" styleClass="actionGreen"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos del equipo" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-                            <Label text="ID Maquina:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField promptText="Automático" editable="false" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Área:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Seleccionar área" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Nombre:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField promptText="Nevera, freidora, estufa..." prefWidth="260" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Tipo:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Tipo de equipo"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="1"
-                                      GridPane.columnIndex="3"/>
-
-                            <Label text="Marca:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField promptText="Marca" prefWidth="260" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Modelo:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <TextField promptText="Modelo" prefWidth="260" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Estado:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <ComboBox promptText="Estado"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="3"
-                                      GridPane.columnIndex="1"/>
-                            <Label text="Fecha compra:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <DatePicker prefWidth="260" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-
-                            <Label text="Observación:" minWidth="140" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextArea promptText="Observaciones del equipo..." prefRowCount="3" prefWidth="260"
-                                      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                        </GridPane>
-                    </VBox>
-
-                    <VBox styleClass="cardPanel" spacing="12" prefWidth="390">
-                        <Label text="Resumen equipos" styleClass="cardTitle"/>
-
-                        <HBox><Label text="Activos:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        <HBox><Label text="En reparación:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        <HBox><Label text="Fuera servicio:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        <HBox><Label text="Mantenimientos pendientes:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-
-                        <Separator/>
-
-                        <Button text="Registrar fallo" onAction="#registrarFallo" styleClass="actionOrange" prefHeight="42"/>
-                        <Button text="Ver historial equipo" onAction="#verHistorialEquipo" styleClass="actionBlue" prefHeight="42"/>
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Listado de equipos" styleClass="cardTitle"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <ComboBox promptText="Estado" prefWidth="160"/>
-                        <TextField promptText="Buscar equipo..." prefWidth="240"/>
-                        <Button text="🔍" onAction="#buscarEquipo" styleClass="actionNeutral"/>
+            <ScrollPane fx:id="scrollEquipos" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+                <Label text="Equipos / Activos" styleClass="pageTitle"/>
+                <VBox styleClass="cardPanel" spacing="14">
+                    <Label text="Formulario de Equipo" styleClass="cardTitle"/>
+                    <GridPane hgap="16" vgap="12">
+                        <Label text="Código:" GridPane.rowIndex="0" GridPane.columnIndex="0"/><TextField fx:id="txtCodigoEquipo" promptText="EQ-001" prefWidth="220" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="2"/><TextField fx:id="txtNombreEquipo" promptText="Nombre del equipo" prefWidth="220" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                        <Label text="Área:" GridPane.rowIndex="1" GridPane.columnIndex="0"/><ComboBox fx:id="cmbAreaEquipo" promptText="Área" prefWidth="220" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="Marca:" GridPane.rowIndex="1" GridPane.columnIndex="2"/><TextField fx:id="txtMarcaEquipo" promptText="Marca" prefWidth="220" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                        <Label text="Modelo:" GridPane.rowIndex="2" GridPane.columnIndex="0"/><TextField fx:id="txtModeloEquipo" promptText="Modelo" prefWidth="220" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <Label text="Fecha Compra:" GridPane.rowIndex="2" GridPane.columnIndex="2"/><DatePicker fx:id="dateCompraEquipo" prefWidth="220" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                        <Label text="Estado:" GridPane.rowIndex="3" GridPane.columnIndex="0"/><ComboBox fx:id="cmbEstadoEquipo" promptText="Estado" prefWidth="220" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                        <Label text="Observaciones:" GridPane.rowIndex="3" GridPane.columnIndex="2"/><TextField fx:id="txtObsEquipo" promptText="Observaciones" prefWidth="220" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+                    </GridPane>
+                    <HBox spacing="10">
+                        <Button text="🗑 Nuevo" onAction="#nuevoEquipo" styleClass="actionBlue"/><Button text="💾 Guardar" onAction="#guardarEquipo" styleClass="actionGreen"/><Button text="✎ Editar" onAction="#editarEquipo" styleClass="actionOrange"/><Button text="🗑 Eliminar" onAction="#eliminarEquipo" styleClass="actionRed"/><Button text="🧹 Limpiar" onAction="#limpiarEquipo" styleClass="actionNeutral"/>
                     </HBox>
-
-                    <TableView prefHeight="430" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="ID" prefWidth="90"/>
-                            <TableColumn text="Equipo" prefWidth="240"/>
-                            <TableColumn text="Área" prefWidth="180"/>
-                            <TableColumn text="Tipo" prefWidth="180"/>
-                            <TableColumn text="Marca" prefWidth="150"/>
-                            <TableColumn text="Modelo" prefWidth="150"/>
-                            <TableColumn text="Estado" prefWidth="160"/>
-                            <TableColumn text="Último mantenimiento" prefWidth="200"/>
-                            <TableColumn text="Acciones" prefWidth="160"/>
-                        </columns>
-                    </TableView>
                 </VBox>
-
-            </VBox>
-            </ScrollPane>
-
-            <!-- FALLOS -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewFallos" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-
-                    <VBox>
-                        <Label text="Fallos"
-                               styleClass="pageTitle"/>
-
-                        <Label text="Registra daños, averías y problemas operativos detectados en equipos o áreas."
-                               styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Registrar fallo"
-                            onAction="#registrarFallo"
-                            styleClass="actionBlue"/>
-
-                    <Button text="✎ Editar"
-                            onAction="#editarFallo"
-                            styleClass="actionOrange"/>
-
-                    <Button text="✔ Resolver"
-                            onAction="#resolverFallo"
-                            styleClass="actionGreen"/>
-
-                    <Button text="🗑 Eliminar"
-                            onAction="#eliminarFallo"
-                            styleClass="actionRed"/>
-
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel"
-                          spacing="14"
-                          HBox.hgrow="ALWAYS">
-
-                        <Label text="Datos del fallo"
-                               styleClass="cardTitle"/>
-
-                        <GridPane hgap="18"
-                                  vgap="14">
-
-                            <Label text="ID Fallo:"
-                                   minWidth="140"
-                                   GridPane.rowIndex="0"
-                                   GridPane.columnIndex="0"/>
-
-                            <TextField promptText="Automático"
-                                       editable="false"
-                                       prefWidth="260"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="1"/>
-
-                            <Label text="Equipo:"
-                                   minWidth="140"
-                                   GridPane.rowIndex="0"
-                                   GridPane.columnIndex="2"/>
-
-                            <ComboBox promptText="Seleccionar equipo"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="0"
-                                      GridPane.columnIndex="3"/>
-
-                            <Label text="Área:"
-                                   minWidth="140"
-                                   GridPane.rowIndex="1"
-                                   GridPane.columnIndex="0"/>
-
-                            <ComboBox promptText="Área afectada"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="1"
-                                      GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:"
-                                   minWidth="140"
-                                   GridPane.rowIndex="2"
-                                   GridPane.columnIndex="0"/>
-
-                            <ComboBox promptText="Pendiente / En proceso / Resuelto"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="2"
-                                      GridPane.columnIndex="1"/>
-
-                            <Label text="Fecha:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <DatePicker GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Descripción:"
-                                   minWidth="140"
-                                   GridPane.rowIndex="3"
-                                   GridPane.columnIndex="0"/>
-
-                            <TextArea promptText="Describir el fallo..."
-                                      prefRowCount="4"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="3"
-                                      GridPane.columnIndex="1"/>
-
-                        </GridPane>
-
-                    </VBox>
-
-                    <VBox styleClass="cardPanel"
-                          spacing="12"
-                          prefWidth="390">
-
-                        <Label text="Resumen fallos"
-                               styleClass="cardTitle"/>
-
-                        <HBox>
-                            <Label text="Pendientes"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="0"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="En proceso"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="0"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Resueltos"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="0"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Alta prioridad"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="0"/>
-                        </HBox>
-
-                        <Separator/>
-
-                        <Button text="Ver reparaciones"
-                                onAction="#mostrarReparaciones"
-                                styleClass="actionBlue"
-                                prefHeight="42"/>
-
-                        <Button text="Generar reporte"
-                                onAction="#generarReporteFallos"
-                                styleClass="actionOrange"
-                                prefHeight="42"/>
-
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel"
-                      spacing="12">
-
-                    <HBox alignment="CENTER_LEFT">
-
-                        <Label text="Listado de fallos"
-                               styleClass="cardTitle"/>
-
-                        <Region HBox.hgrow="ALWAYS"/>
-
-                        <TextField promptText="Buscar fallo..."
-                                   prefWidth="240"/>
-
-                        <Button text="🔍"
-                                onAction="#buscarFallo"
-                                styleClass="actionNeutral"/>
-
-                    </HBox>
-
-                    <TableView prefHeight="430" VBox.vgrow="ALWAYS">
-
-                        <columns>
-
-                            <TableColumn text="ID"
-                                         prefWidth="90"/>
-
-                            <TableColumn text="Equipo"
-                                         prefWidth="200"/>
-
-                            <TableColumn text="Área"
-                                         prefWidth="120"/>
-
-                            <TableColumn text="Estado"
-                                         prefWidth="100"/>
-
-                            <TableColumn text="Fecha"
-                                         prefWidth="110"/>
-
-                            <TableColumn text="Descripción"
-                                         prefWidth="250"/>
-
-                            <TableColumn text="Acciones"
-                                         prefWidth="160"/>
-
-                        </columns>
-
-                    </TableView>
-
-                </VBox>
-
-            </VBox>
-            </ScrollPane>
-
-            <!-- REPARACIONES -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewReparaciones" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Reparaciones" styleClass="pageTitle"/>
-                        <Label text="Controla reparaciones, técnicos, costos y estado de solución." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nueva reparación" onAction="#nuevaReparacion" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" onAction="#editarReparacion" styleClass="actionOrange"/>
-                    <Button text="✔ Finalizar" onAction="#finalizarReparacion" styleClass="actionGreen"/>
-                    <Button text="🗑 Eliminar" onAction="#eliminarReparacion" styleClass="actionRed"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos de reparación" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-                            <Label text="ID Reparación:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField promptText="Automático" editable="false" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Fallo:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Seleccionar fallo" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Equipo:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField promptText="Equipo afectado" editable="false" prefWidth="260" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Técnico:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Seleccionar técnico" prefWidth="260" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Fecha inicio:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <DatePicker prefWidth="260" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Fecha final:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <DatePicker prefWidth="260" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Costo:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <TextField promptText="0.00" prefWidth="260" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Pendiente / En proceso / Finalizada" prefWidth="260" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-
-                            <Label text="Descripción:" minWidth="140" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextArea promptText="Trabajo realizado o diagnóstico..." prefRowCount="4" prefWidth="260"
-                                      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                        </GridPane>
-                    </VBox>
-
-                    <VBox styleClass="cardPanel" spacing="12" prefWidth="390">
-                        <Label text="Resumen reparaciones" styleClass="cardTitle"/>
-
-                        <HBox><Label text="Pendientes"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        <HBox><Label text="En proceso"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        <HBox><Label text="Finalizadas"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        <HBox><Label text="Costo del mes"/><Region HBox.hgrow="ALWAYS"/><Label text="RD$ 0.00"/></HBox>
-
-                        <Separator/>
-
-                        <Button text="Ver fallos pendientes" onAction="#mostrarFallos" styleClass="actionBlue" prefHeight="42"/>
-                        <Button text="Generar orden técnica" onAction="#generarOrdenTecnica" styleClass="actionOrange" prefHeight="42"/>
-                        <Button text="Finalizar reparación" onAction="#finalizarReparacion" styleClass="actionGreen" prefHeight="42"/>
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Listado de reparaciones" styleClass="cardTitle"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <ComboBox promptText="Estado" prefWidth="160"/>
-                        <ComboBox promptText="Técnico" prefWidth="180"/>
-                        <TextField promptText="Buscar reparación..." prefWidth="240"/>
-                        <Button text="🔍" onAction="#buscarReparacion" styleClass="actionNeutral"/>
-                    </HBox>
-
-                    <TableView prefHeight="430" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="ID" prefWidth="90"/>
-                            <TableColumn text="Fallo" prefWidth="120"/>
-                            <TableColumn text="Equipo" prefWidth="220"/>
-                            <TableColumn text="Técnico" prefWidth="140"/>
-                            <TableColumn text="Fecha inicio" prefWidth="150"/>
-                            <TableColumn text="Fecha final" prefWidth="150"/>
-                            <TableColumn text="Costo" prefWidth="110"/>
-                            <TableColumn text="Estado" prefWidth="150"/>
-                            <TableColumn text="Acciones" prefWidth="130"/>
-                        </columns>
-                    </TableView>
-                </VBox>
-
-            </VBox>
-            </ScrollPane>
-
-            <!-- LIMPIEZA -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewLimpieza" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Limpieza" styleClass="pageTitle"/>
-                        <Label text="Controla tareas de limpieza, áreas asignadas, responsables y frecuencia." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nueva tarea" onAction="#nuevaTareaLimpieza" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" onAction="#editarTareaLimpieza" styleClass="actionOrange"/>
-                    <Button text="✔ Completar" onAction="#completarTareaLimpieza" styleClass="actionGreen"/>
-                    <Button text="🗑 Eliminar" onAction="#eliminarTareaLimpieza" styleClass="actionRed"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos de limpieza" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-                            <Label text="ID Maquina:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField promptText="Automático" editable="false" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Área:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Seleccionar área" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Responsable:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <ComboBox promptText="Empleado responsable" prefWidth="260" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Frecuencia:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Diaria / Semanal / Mensual" prefWidth="260" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Fecha:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <DatePicker prefWidth="260" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Pendiente / Completada" prefWidth="260" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Descripción:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <TextArea promptText="Descripción de la tarea..."
-                                      prefRowCount="4"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="3"
-                                      GridPane.columnIndex="1"/>
-
-                            <Label text="Observación:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <TextArea promptText="Observación final..."
-                                      prefRowCount="4"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="3"
-                                      GridPane.columnIndex="3"/>
-                        </GridPane>
-                    </VBox>
-
-                    <VBox styleClass="cardPanel" spacing="12" prefWidth="390">
-                        <Label text="Resumen limpieza" styleClass="cardTitle"/>
-
-                        <HBox><Label text="Pendientes"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        <HBox><Label text="Completadas hoy"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        <HBox><Label text="Áreas críticas"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        <HBox><Label text="Responsables activos"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-
-                        <Separator/>
-
-                        <Button text="Ver tareas pendientes" onAction="#mostrarLimpieza" styleClass="actionBlue" prefHeight="42"/>
-                        <Button text="Generar rutina diaria" onAction="#generarRutinaDiaria" styleClass="actionOrange" prefHeight="42"/>
-                        <Button text="Marcar completada" onAction="#completarTareaLimpieza" styleClass="actionGreen" prefHeight="42"/>
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Listado de tareas de limpieza" styleClass="cardTitle"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <ComboBox promptText="Área" prefWidth="180"/>
-                        <ComboBox promptText="Estado" prefWidth="160"/>
-                        <TextField promptText="Buscar tarea..." prefWidth="240"/>
-                        <Button text="🔍" onAction="#buscarTareaLimpieza" styleClass="actionNeutral"/>
-                    </HBox>
-
-                    <TableView prefHeight="430" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="ID" prefWidth="90"/>
-                            <TableColumn text="Área" prefWidth="120"/>
-                            <TableColumn text="Responsable" prefWidth="130"/>
-                            <TableColumn text="Frecuencia" prefWidth="120"/>
-                            <TableColumn text="Fecha" prefWidth="140"/>
-                            <TableColumn text="Estado" prefWidth="150"/>
-                            <TableColumn text="Descripción" prefWidth="360"/>
-                            <TableColumn text="Acciones" prefWidth="130"/>
-                        </columns>
-                    </TableView>
-                </VBox>
-
-            </VBox>
-            </ScrollPane>
-
-            <!-- HISTORIAL -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewHistorialMantenimiento" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Historial mantenimiento" styleClass="pageTitle"/>
-                        <Label text="Consulta fallos, reparaciones, limpiezas y mantenimientos registrados." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="📄 Exportar" onAction="#exportarHistorial" styleClass="actionBlue"/>
-                    <Button text="🖨 Imprimir" onAction="#imprimirHistorial" styleClass="actionOrange"/>
-                    <Button text="↻ Actualizar" onAction="#actualizarHistorial" styleClass="actionNeutral"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="230" prefHeight="95">
-                        <Label text="Reparaciones"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Finalizadas"/>
-                    </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardBlue" prefWidth="230" prefHeight="95">
-                        <Label text="Limpiezas"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Registradas"/>
-                    </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardOrange" prefWidth="230" prefHeight="95">
-                        <Label text="Fallos"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Detectados"/>
-                    </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardRed" prefWidth="230" prefHeight="95">
-                        <Label text="Equipos críticos"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Revisar"/>
-                    </VBox>
-
-                </HBox>
-
                 <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
-
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label text="Historial de mantenimiento" styleClass="cardTitle"/>
-
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Listado de Equipos" styleClass="cardTitle"/>
                         <Region HBox.hgrow="ALWAYS"/>
-
-                        <DatePicker promptText="Desde" prefWidth="150"/>
-                        <DatePicker promptText="Hasta" prefWidth="150"/>
-                        <ComboBox promptText="Tipo" prefWidth="150"/>
-                        <TextField promptText="Buscar historial..." prefWidth="240"/>
-                        <Button text="🔍" onAction="#buscarHistorial" styleClass="actionNeutral"/>
+                        <TextField fx:id="txtBuscarEquipo" promptText="Buscar equipo..." prefWidth="240"/>
+                        <ComboBox fx:id="cmbFiltroEstadoEquipo" promptText="Estado" prefWidth="140"/>
+                        <Button text="🔍" onAction="#buscarEquipo" styleClass="actionNeutral"/>
+                        <Button text="🧹 Limpiar" onAction="#limpiarFiltrosEquipo" styleClass="actionNeutral"/>
                     </HBox>
-
-                    <TableView prefHeight="540" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="tablaEquipos" prefHeight="380" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn text="Fecha" prefWidth="130"/>
-                            <TableColumn text="Hora" prefWidth="110"/>
-                            <TableColumn text="Tipo" prefWidth="160"/>
-                            <TableColumn text="Equipo" prefWidth="120"/>
-                            <TableColumn text="Descripción" prefWidth="250"/>
-                            <TableColumn text="Responsable" prefWidth="190"/>
-                            <TableColumn text="Costo" prefWidth="130"/>
-                            <TableColumn text="Acciones" prefWidth="150"/>
+                            <TableColumn text="ID" prefWidth="60"/><TableColumn text="Código" prefWidth="100"/><TableColumn text="Nombre" prefWidth="200"/><TableColumn text="Área" prefWidth="120"/><TableColumn text="Marca" prefWidth="120"/><TableColumn text="Modelo" prefWidth="120"/><TableColumn text="Fecha Compra" prefWidth="120"/><TableColumn text="Estado" prefWidth="100"/><TableColumn text="Acciones" prefWidth="120"/>
                         </columns>
                     </TableView>
-
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Mostrando historial de mantenimiento"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-
-                        <Button text="&lt;&lt;" onAction="#buscarHistorial" styleClass="actionNeutral"/>
-                        <Button text="&lt;" onAction="#buscarHistorial" styleClass="actionNeutral"/>
-                        <Button text="1" onAction="#buscarHistorial" styleClass="actionBlue"/>
-                        <Button text="2" onAction="#buscarHistorial" styleClass="actionNeutral"/>
-                        <Button text="&gt;" onAction="#buscarHistorial" styleClass="actionNeutral"/>
-                        <Button text="&gt;&gt;" onAction="#buscarHistorial" styleClass="actionNeutral"/>
-                    </HBox>
-
                 </VBox>
+            </VBox>
+            </ScrollPane>
 
+            <!-- REPORTAR AVERÍA -->
+            <ScrollPane fx:id="scrollReportar" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+                <Label text="Reportar Avería" styleClass="pageTitle"/>
+                <VBox styleClass="cardPanel" spacing="16" maxWidth="700">
+                    <Label text="Formulario de Reporte" styleClass="cardTitle"/>
+                    <GridPane hgap="16" vgap="12">
+                        <Label text="Equipo:" GridPane.rowIndex="0" GridPane.columnIndex="0"/><ComboBox fx:id="cmbEquipoReporte" promptText="Seleccionar equipo" prefWidth="280" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Área:" GridPane.rowIndex="0" GridPane.columnIndex="2"/><TextField fx:id="txtAreaReporte" promptText="Área afectada" prefWidth="280" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                        <Label text="Descripción del Problema:" GridPane.rowIndex="1" GridPane.columnIndex="0"/><TextArea fx:id="txtDescReporte" promptText="Describa el problema..." prefRowCount="4" prefWidth="280" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="Fecha Reporte:" GridPane.rowIndex="1" GridPane.columnIndex="2"/><DatePicker fx:id="dateReporte" prefWidth="280" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                        <Label text="Prioridad:" GridPane.rowIndex="2" GridPane.columnIndex="0"/><ComboBox fx:id="cmbPrioridadReporte" promptText="Prioridad" prefWidth="280" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <Label text="Persona que Reporta:" GridPane.rowIndex="2" GridPane.columnIndex="2"/><TextField fx:id="txtPersonaReporte" promptText="Nombre de quien reporta" prefWidth="280" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                    </GridPane>
+                    <HBox spacing="10">
+                        <Button text="💾 Guardar Reporte" onAction="#guardarReporte" styleClass="actionGreen"/>
+                        <Button text="🧹 Limpiar" onAction="#limpiarReporte" styleClass="actionNeutral"/>
+                        <Button text="↩ Volver" onAction="#mostrarDashboard" styleClass="actionOrange"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+            </ScrollPane>
+
+            <!-- SOLICITUDES -->
+            <ScrollPane fx:id="scrollSolicitudes" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+                <Label text="Solicitudes de Mantenimiento" styleClass="pageTitle"/>
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Todas las Solicitudes" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="📄 Exportar" onAction="#exportarSolicitudes" styleClass="actionOrange"/>
+                        <TextField fx:id="txtBuscarSolicitud" promptText="Buscar..." prefWidth="200"/>
+                        <ComboBox fx:id="cmbFiltroEstadoSol" promptText="Estado" prefWidth="140"/>
+                        <ComboBox fx:id="cmbFiltroPrioridadSol" promptText="Prioridad" prefWidth="140"/>
+                        <Button text="🔍" onAction="#buscarSolicitud" styleClass="actionNeutral"/>
+                        <Button text="🧹 Limpiar" onAction="#limpiarSolicitudes" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaSolicitudes" prefHeight="500" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Código" prefWidth="100"/><TableColumn text="Equipo" prefWidth="180"/><TableColumn text="Problema" prefWidth="250"/><TableColumn text="Prioridad" prefWidth="90"/><TableColumn text="Responsable" prefWidth="150"/><TableColumn text="Fecha" prefWidth="110"/><TableColumn text="Estado" prefWidth="100"/><TableColumn text="Acciones" prefWidth="180"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+            </ScrollPane>
+
+            <!-- REALIZADOS -->
+            <ScrollPane fx:id="scrollRealizados" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+                <Label text="Mantenimientos Realizados" styleClass="pageTitle"/>
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Historial de Completados" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="📄 Exportar" onAction="#exportarRealizados" styleClass="actionOrange"/>
+                        <TextField fx:id="txtBuscarRealizado" promptText="Buscar..." prefWidth="200"/>
+                        <DatePicker fx:id="dateDesdeReal" promptText="Desde" prefWidth="140"/>
+                        <DatePicker fx:id="dateHastaReal" promptText="Hasta" prefWidth="140"/>
+                        <Button text="🔍" onAction="#buscarRealizado" styleClass="actionNeutral"/>
+                        <Button text="🧹 Limpiar" onAction="#limpiarRealizados" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaRealizados" prefHeight="500" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Código" prefWidth="100"/><TableColumn text="Equipo" prefWidth="180"/><TableColumn text="Problema" prefWidth="200"/><TableColumn text="Solución" prefWidth="200"/><TableColumn text="Técnico" prefWidth="150"/><TableColumn text="Fecha" prefWidth="110"/><TableColumn text="Costo" prefWidth="100"/><TableColumn text="Tiempo" prefWidth="100"/><TableColumn text="Acciones" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+            </ScrollPane>
+
+            <!-- TÉCNICOS -->
+            <ScrollPane fx:id="scrollTecnicos" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+                <Label text="Técnicos / Responsables" styleClass="pageTitle"/>
+                <VBox styleClass="cardPanel" spacing="14">
+                    <Label text="Formulario de Técnico" styleClass="cardTitle"/>
+                    <GridPane hgap="16" vgap="12">
+                        <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/><TextField fx:id="txtNombreTec" promptText="Nombre completo" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Teléfono:" GridPane.rowIndex="0" GridPane.columnIndex="2"/><TextField fx:id="txtTelefonoTec" promptText="Teléfono" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                        <Label text="Especialidad:" GridPane.rowIndex="1" GridPane.columnIndex="0"/><ComboBox fx:id="cmbEspecialidadTec" promptText="Especialidad" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="Tipo:" GridPane.rowIndex="1" GridPane.columnIndex="2"/><ComboBox fx:id="cmbTipoTec" promptText="Interno/Externo" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                        <Label text="Empresa:" GridPane.rowIndex="2" GridPane.columnIndex="0"/><TextField fx:id="txtEmpresaTec" promptText="Empresa (si externo)" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <Label text="Estado:" GridPane.rowIndex="2" GridPane.columnIndex="2"/><ComboBox fx:id="cmbEstadoTec" promptText="Estado" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                        <Label text="Observaciones:" GridPane.rowIndex="3" GridPane.columnIndex="0"/><TextField fx:id="txtObsTec" promptText="Observaciones" prefWidth="250" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    </GridPane>
+                    <HBox spacing="10">
+                        <Button text="🗑 Nuevo" onAction="#nuevoTecnico" styleClass="actionBlue"/><Button text="💾 Guardar" onAction="#guardarTecnico" styleClass="actionGreen"/><Button text="✎ Editar" onAction="#editarTecnico" styleClass="actionOrange"/><Button text="🗑 Eliminar" onAction="#eliminarTecnico" styleClass="actionRed"/><Button text="🧹 Limpiar" onAction="#limpiarTecnico" styleClass="actionNeutral"/>
+                    </HBox>
+                </VBox>
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Listado de Técnicos" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="txtBuscarTec" promptText="Buscar técnico..." prefWidth="240"/>
+                        <Button text="🔍" onAction="#buscarTecnico" styleClass="actionNeutral"/>
+                        <Button text="🧹 Limpiar" onAction="#limpiarFiltrosTec" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaTecnicos" prefHeight="380" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="ID" prefWidth="60"/><TableColumn text="Nombre" prefWidth="200"/><TableColumn text="Teléfono" prefWidth="120"/><TableColumn text="Especialidad" prefWidth="140"/><TableColumn text="Tipo" prefWidth="100"/><TableColumn text="Empresa" prefWidth="150"/><TableColumn text="Estado" prefWidth="90"/><TableColumn text="Acciones" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+            </ScrollPane>
+
+            <!-- CALENDARIO -->
+            <ScrollPane fx:id="scrollCalendario" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+                <Label text="Calendario de Mantenimiento Preventivo" styleClass="pageTitle"/>
+                <VBox styleClass="cardPanel" spacing="14">
+                    <Label text="Programar Mantenimiento" styleClass="cardTitle"/>
+                    <GridPane hgap="16" vgap="12">
+                        <Label text="Equipo:" GridPane.rowIndex="0" GridPane.columnIndex="0"/><ComboBox fx:id="cmbEquipoCal" promptText="Seleccionar equipo" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Fecha Programada:" GridPane.rowIndex="0" GridPane.columnIndex="2"/><DatePicker fx:id="dateCal" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                        <Label text="Tipo Mantenimiento:" GridPane.rowIndex="1" GridPane.columnIndex="0"/><ComboBox fx:id="cmbTipoCal" promptText="Tipo" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="Responsable:" GridPane.rowIndex="1" GridPane.columnIndex="2"/><ComboBox fx:id="cmbResponsableCal" promptText="Responsable" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                        <Label text="Observaciones:" GridPane.rowIndex="2" GridPane.columnIndex="0"/><TextField fx:id="txtObsCal" promptText="Observaciones" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    </GridPane>
+                    <HBox spacing="10">
+                        <Button text="📅 Programar" onAction="#guardarCalendario" styleClass="actionBlue"/><Button text="✎ Editar" onAction="#editarCalendario" styleClass="actionOrange"/><Button text="🗑 Eliminar" onAction="#eliminarCalendario" styleClass="actionRed"/><Button text="✅ Marc. Realizado" onAction="#marcarRealizadoCal" styleClass="actionGreen"/><Button text="🧹 Limpiar" onAction="#limpiarCalendario" styleClass="actionNeutral"/>
+                    </HBox>
+                </VBox>
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Próximos Mantenimientos" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="txtBuscarCal" promptText="Buscar..." prefWidth="200"/>
+                        <ComboBox fx:id="cmbFiltroEstadoCal" promptText="Estado" prefWidth="140"/>
+                        <Button text="🔍" onAction="#buscarCalendario" styleClass="actionNeutral"/>
+                        <Button text="🧹 Limpiar" onAction="#limpiarFiltrosCal" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaCalendario" prefHeight="380" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="ID" prefWidth="60"/><TableColumn text="Equipo" prefWidth="180"/><TableColumn text="Fecha" prefWidth="120"/><TableColumn text="Tipo" prefWidth="200"/><TableColumn text="Responsable" prefWidth="150"/><TableColumn text="Estado" prefWidth="100"/><TableColumn text="Acciones" prefWidth="140"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+            </ScrollPane>
+
+            <!-- COSTOS -->
+            <ScrollPane fx:id="scrollCostos" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+                <Label text="Costos de Mantenimiento" styleClass="pageTitle"/>
+                <HBox spacing="14">
+                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardBlue" prefWidth="280" prefHeight="80"><Label text="💰 Costo Total del Mes" style="-fx-text-fill: #000000;"/><Label fx:id="lblCostoTotalMes" text="RD$ 0.00" style="-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold;"/></VBox>
+                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="280" prefHeight="80"><Label text="✅ Promedio por Reparación" style="-fx-text-fill: #000000;"/><Label fx:id="lblPromedioCosto" text="RD$ 0.00" style="-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold;"/></VBox>
+                </HBox>
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Detalle de Costos" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="📄 Exportar" onAction="#exportarCostos" styleClass="actionOrange"/>
+                        <TextField fx:id="txtBuscarCosto" promptText="Buscar..." prefWidth="200"/>
+                        <DatePicker fx:id="dateDesdeCosto" promptText="Desde" prefWidth="140"/>
+                        <DatePicker fx:id="dateHastaCosto" promptText="Hasta" prefWidth="140"/>
+                        <Button text="🔍" onAction="#buscarCosto" styleClass="actionNeutral"/>
+                        <Button text="🧹 Limpiar" onAction="#limpiarCostos" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaCostos" prefHeight="480" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Código" prefWidth="100"/><TableColumn text="Equipo" prefWidth="180"/><TableColumn text="Problema" prefWidth="200"/><TableColumn text="Costo Piezas" prefWidth="120"/><TableColumn text="Mano Obra" prefWidth="120"/><TableColumn text="Total" prefWidth="120"/><TableColumn text="Fecha" prefWidth="110"/><TableColumn text="Técnico" prefWidth="150"/>
+                        </columns>
+                    </TableView>
+                </VBox>
             </VBox>
             </ScrollPane>
 
         </StackPane>
     </center>
-
 </BorderPane>

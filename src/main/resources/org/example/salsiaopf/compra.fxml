@@ -11,36 +11,23 @@
 
     <top>
         <HBox styleClass="topBar" alignment="CENTER_LEFT" spacing="18">
-            <ImageView fx:id="logoImage"
-                       fitWidth="82"
-                       fitHeight="82"
-                       preserveRatio="true"/>
-
+            <ImageView fx:id="logoImage" fitWidth="82" fitHeight="82" preserveRatio="true"/>
             <VBox>
                 <Label text="Salsiao" styleClass="brandTitle"/>
                 <Label text="Gestión de Compras" styleClass="brandSubtitle"/>
             </VBox>
-
             <Region HBox.hgrow="ALWAYS"/>
-
             <Button text="☰ Volver" onAction="#volverMenu" styleClass="topButton"/>
-
             <HBox alignment="CENTER" spacing="10">
                 <HBox alignment="CENTER" spacing="6" styleClass="topInfoCard">
                     <Label text="📅" styleClass="topIcon"/>
                     <Label fx:id="lblFechaActual" text="--/--/----" styleClass="topInfoText"/>
                 </HBox>
-
                 <HBox alignment="CENTER" spacing="6" styleClass="topInfoCard">
                     <Label text="🕒" styleClass="topIcon"/>
                     <Label fx:id="lblHoraActual" text="--:-- --" styleClass="topInfoText"/>
                 </HBox>
-
-                <Button fx:id="btnNotificaciones"
-                        text="🔔 0"
-                        onAction="#mostrarNotificaciones"
-                        styleClass="notificationModernButton"/>
-
+                <Button fx:id="btnNotificaciones" text="🔔 0" onAction="#mostrarNotificaciones" styleClass="notificationModernButton"/>
                 <HBox alignment="CENTER" spacing="8" styleClass="userInfoCard">
                     <Label text="👤" styleClass="topIcon"/>
                     <VBox spacing="0">
@@ -55,24 +42,14 @@
     <left>
         <VBox styleClass="sideBar" spacing="12">
             <Label text="COMPRAS" styleClass="sideTitle"/>
-
-            <Button fx:id="btnOrdenCompra" text="🛒  Orden de compra" onAction="#mostrarOrdenCompra" styleClass="sideButtonActive"/>
-            <Button fx:id="btnProveedores" text="🏢  Proveedores" onAction="#mostrarProveedores" styleClass="sideButton"/>
-            <Button fx:id="btnRecepcion" text="📥  Recepción" onAction="#mostrarRecepcion" styleClass="sideButton"/>
-            <Button fx:id="btnAnalisisDeCompra" text="🥬  Análisis de Compra" onAction="#mostrarAnalisisCompras" styleClass="sideButton"/>
-            <Button fx:id="btnPagosCompra" text="💳  Pagos de compra" onAction="#mostrarPagosCompra" styleClass="sideButton"/>
-            <Button fx:id="btnHistorialCompras" text="↺  Historial de compras" onAction="#mostrarHistorialCompras" styleClass="sideButton"/>
-
+            <Button text="🛒  Orden de compra" onAction="#mostrarOrdenCompra" styleClass="sideButtonActive"/>
+            <Button text="🏢  Proveedores" onAction="#mostrarProveedores" styleClass="sideButton"/>
+            <Button text="📥  Recepción" onAction="#mostrarRecepcion" styleClass="sideButton"/>
             <Region VBox.vgrow="ALWAYS"/>
-
-                <VBox styleClass="userCard">
-                    <Label text="Compras"
-                           styleClass="userCardName"/>
-
-                    <Label text="Gestión de compras."
-                           wrapText="true"
-                           styleClass="userCardRole"/>
-                </VBox>
+            <VBox styleClass="userCard">
+                <Label text="Compras" styleClass="userCardName"/>
+                <Label text="Gestión de compras." wrapText="true" styleClass="userCardRole"/>
+            </VBox>
             <Button text="↪  Salir" onAction="#salirSistema" styleClass="sideButtonExit"/>
         </VBox>
     </left>
@@ -80,300 +57,168 @@
     <center>
         <StackPane fx:id="contenedorCompras" styleClass="contentArea">
 
-            <!-- ORDEN DE COMPRA -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewOrdenCompra" styleClass="content" spacing="16">
+            <!-- ═══════════════ ORDEN DE COMPRA ═══════════════ -->
+            <ScrollPane fx:id="scrollOrdenCompra" fitToWidth="true" fitToHeight="true" visible="true" managed="true" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
                     <VBox>
                         <Label text="Orden de compra" styleClass="pageTitle"/>
-                        <Label text="Crea y envía solicitudes de ingredientes a proveedores." styleClass="pageSubtitle"/>
+                        <Label text="Crea órdenes de compra seleccionando proveedor e ingredientes." styleClass="pageSubtitle"/>
                     </VBox>
-
                     <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nueva orden" onAction="#nuevaOrdenCompra" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" onAction="#editarOrdenCompra" styleClass="actionOrange"/>
-                    <Button text="📤 Enviar orden" onAction="#enviarOrdenCompra" styleClass="actionGreen"/>
-                    <Button text="✖ Cancelar orden" onAction="#cancelarOrdenCompra" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" onAction="#guardarOrdenCompra" styleClass="actionGreen"/>
+                    <Button text="💾 Guardar orden" onAction="#guardarOrdenCompra" styleClass="actionGreen"/>
+                    <Button text="↻ Nueva orden" onAction="#nuevaOrdenCompra" styleClass="actionBlue"/>
                     <Button text="↻ Limpiar" onAction="#limpiarOrdenCompra" styleClass="actionNeutral"/>
                 </HBox>
 
                 <GridPane hgap="16">
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardOrange" prefWidth="220" prefHeight="95" GridPane.columnIndex="0">
-                        <Label text="Pendientes"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Órdenes sin enviar"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardBlue" prefWidth="260" prefHeight="85" GridPane.columnIndex="0">
+                        <Label text="Órdenes pendientes"/>
+                        <Label fx:id="lblMetricaPendientes" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardBlue" prefWidth="220" prefHeight="95" GridPane.columnIndex="1">
-                        <Label text="Enviadas"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Esperando recepción"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardGreen" prefWidth="260" prefHeight="85" GridPane.columnIndex="1">
+                        <Label text="Recibidas este mes"/>
+                        <Label fx:id="lblMetricaRecibidas" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="220" prefHeight="95" GridPane.columnIndex="2">
-                        <Label text="Recibidas"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Este mes"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardOrange" prefWidth="260" prefHeight="85" GridPane.columnIndex="2">
+                        <Label text="Total invertido"/>
+                        <Label fx:id="lblMetricaTotal" text="RD$ 0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardPurple" prefWidth="260" prefHeight="95" GridPane.columnIndex="3">
-                        <Label text="Ingredientes solicitados"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Este mes"/>
-                    </VBox>
-
                 </GridPane>
 
                 <HBox spacing="16">
-
                     <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-
                         <Label text="Datos de la orden" styleClass="cardTitle"/>
-
-                        <GridPane hgap="16" vgap="12">
-
+                        <GridPane hgap="16" vgap="10">
                             <columnConstraints>
-                                <ColumnConstraints minWidth="130" prefWidth="130"/>
-                                <ColumnConstraints minWidth="260" prefWidth="260"/>
-                                <ColumnConstraints minWidth="130" prefWidth="130"/>
-                                <ColumnConstraints minWidth="260" prefWidth="260"/>
+                                <ColumnConstraints minWidth="120" prefWidth="120"/>
+                                <ColumnConstraints minWidth="240" prefWidth="240"/>
+                                <ColumnConstraints minWidth="120" prefWidth="120"/>
+                                <ColumnConstraints minWidth="240" prefWidth="240"/>
                             </columnConstraints>
 
-                            <Label text="No. orden:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField promptText="Automático" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Código orden:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtCodigoOrden" editable="false" promptText="Auto-generado" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                            <Label text="Solicitado por:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <TextField promptText="Usuario" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                            <Label text="Fecha:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                            <DatePicker fx:id="dateFechaOrden" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
                             <Label text="Proveedor:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtProveedorOrden" promptText="Nombre del proveedor" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <ComboBox fx:id="cmbProveedorOrden" promptText="Seleccionar proveedor" prefWidth="240" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                            <Label text="Sucursal:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Sucursal" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                            <Label text="Estado:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                            <TextField text="Pendiente" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
-                            <Label text="Fecha solicitud:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <DatePicker GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Borrador / Enviada / Recibida / Cancelada" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Fecha esperada:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Observación:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextArea promptText="Instrucciones para el proveedor..."
-                                      prefRowCount="3"
-                                      wrapText="true"
-                                      GridPane.rowIndex="4"
-                                      GridPane.columnIndex="1"
-                                      GridPane.columnSpan="3"/>
-
+                            <Label text="Notas de orden:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextArea fx:id="txtNotasOrden" promptText="Especificaciones extra, instrucciones de entrega, condiciones especiales..." prefRowCount="3" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
                         </GridPane>
-
                     </VBox>
 
-                    <VBox styleClass="cardPanel compactPanel" spacing="12" prefWidth="320" minWidth="320" maxWidth="320">
-
-                        <Label text="Resumen de la orden" styleClass="cardTitle"/>
-
-                        <HBox>
-                            <Label text="Proveedor:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="N/A"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Estado:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="Borrador"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Fecha esperada:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="--/--/----"/>
-                        </HBox>
-
+                    <VBox styleClass="cardPanel compactPanel" spacing="10" prefWidth="300" minWidth="300" maxWidth="300">
+                        <Label text="Resumen" styleClass="cardTitle"/>
+                        <HBox><Label text="Código:" style="-fx-text-fill: #000000;"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="lblResCodigo" text="---" style="-fx-text-fill: #000000;"/></HBox>
+                        <HBox><Label text="Proveedor:" style="-fx-text-fill: #000000;"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="lblResProveedor" text="---" style="-fx-text-fill: #000000;"/></HBox>
+                        <HBox><Label text="Fecha:" style="-fx-text-fill: #000000;"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="lblResFecha" text="---" style="-fx-text-fill: #000000;"/></HBox>
                         <Separator/>
-
-                        <HBox>
-                            <Label text="Ingredientes:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="0"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Unidades:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="0"/>
-                        </HBox>
-
-                        <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="Total (RD$):"/>
-                            <TextField fx:id="txtTotalOrden" promptText="0.00" prefWidth="120"/>
-                        </HBox>
-
-                        <Separator/>
-
-                        <Button text="📤 Enviar orden" onAction="#enviarOrdenCompra" styleClass="actionGreen" maxWidth="Infinity"/>
-                        <Button text="📋 Duplicar orden" onAction="#duplicarOrden" styleClass="actionBlue" maxWidth="Infinity"/>
-                        <Button text="✔ Marcar recibida" onAction="#marcarRecibida" styleClass="actionBlue" maxWidth="Infinity"/>
-                        <Button text="✖ Cancelar orden" onAction="#cancelarOrdenCompra" styleClass="actionRed" maxWidth="Infinity"/>
-
+                        <HBox><Label text="Ingredientes:" style="-fx-text-fill: #000000;"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="lblResItems" text="0" style="-fx-text-fill: #000000;"/></HBox>
+                        <HBox><Label text="Total:" style="-fx-text-fill: #000000;"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="lblResTotal" text="RD$ 0.00" styleClass="cardTitle" style="-fx-text-fill: #27ae60;"/></HBox>
                     </VBox>
-
                 </HBox>
 
                 <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
-
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label text="Detalle solicitado" styleClass="cardTitle"/>
-
-                        <Region HBox.hgrow="ALWAYS"/>
-
-                        <ComboBox promptText="Ingrediente" prefWidth="230"/>
-                        <ComboBox promptText="Unidad" prefWidth="150"/>
-                        <TextField promptText="Cantidad" prefWidth="120"/>
-                        <TextField promptText="Nota opcional" prefWidth="220"/>
+                    <Label text="Agregar ingredientes" styleClass="cardTitle"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <ComboBox fx:id="cmbIngrediente" promptText="Ingrediente" prefWidth="250"/>
+                        <TextField fx:id="txtCantidad" promptText="Cantidad" prefWidth="100"/>
+                        <TextField fx:id="txtUnidad" promptText="Unidad" prefWidth="80"/>
+                        <TextField fx:id="txtPrecioUnitario" promptText="Precio uni." prefWidth="120"/>
                         <Button text="+ Agregar" onAction="#agregarDetalle" styleClass="actionBlue"/>
                     </HBox>
 
-                    <TableView prefHeight="300" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="tablaDetalle" prefHeight="220" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn text="ID" prefWidth="60"/>
-                            <TableColumn text="Ingrediente" prefWidth="200"/>
-                            <TableColumn text="Unidad" prefWidth="150"/>
-                            <TableColumn text="Cantidad solicitada" prefWidth="190"/>
-                            <TableColumn text="Nota" prefWidth="300"/>
-                            <TableColumn text="Estado" prefWidth="150"/>
+                            <TableColumn text="Ingrediente" prefWidth="230"/>
+                            <TableColumn text="Cantidad" prefWidth="100"/>
+                            <TableColumn text="Unidad" prefWidth="80"/>
+                            <TableColumn text="Precio uni." prefWidth="120"/>
+                            <TableColumn text="Subtotal" prefWidth="130"/>
+                            <TableColumn text="Acción" prefWidth="100"/>
                         </columns>
                     </TableView>
 
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Mostrando ingredientes solicitados"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <Label text="La recepción comparará lo solicitado contra lo recibido."/>
+                    <HBox alignment="CENTER_RIGHT" spacing="10">
+                        <Label fx:id="lblTotalDetalle" text="Total: RD$ 0.00" styleClass="cardTitle" style="-fx-text-fill: #27ae60;"/>
+                        <Button text="🗑 Quitar seleccionado" onAction="#quitarDetalle" styleClass="actionRed"/>
                     </HBox>
-
                 </VBox>
 
             </VBox>
             </ScrollPane>
 
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewProveedores" styleClass="content" spacing="16">
+            <!-- ═══════════════ PROVEEDORES ═══════════════ -->
+            <ScrollPane fx:id="scrollProveedores" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
                     <VBox>
                         <Label text="Proveedores" styleClass="pageTitle"/>
-                        <Label text="Administra proveedores, datos fiscales, contactos y sucursales." styleClass="pageSubtitle"/>
+                        <Label text="Registra y administra los proveedores del restaurante." styleClass="pageSubtitle"/>
                     </VBox>
-
                     <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nuevo proveedor" onAction="#nuevoProveedor" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" onAction="#editarProveedor" styleClass="actionOrange"/>
-                    <Button text="🗑 Eliminar" onAction="#eliminarProveedor" styleClass="actionRed"/>
                     <Button text="💾 Guardar" onAction="#guardarProveedor" styleClass="actionGreen"/>
                     <Button text="↻ Limpiar" onAction="#limpiarProveedor" styleClass="actionNeutral"/>
                 </HBox>
 
-                <HBox spacing="16">
+                <VBox styleClass="cardPanel" spacing="16">
+                    <Label text="Registro de proveedor" styleClass="cardTitle"/>
+                    <GridPane hgap="20" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="100" prefWidth="100"/>
+                            <ColumnConstraints minWidth="220" prefWidth="220"/>
+                            <ColumnConstraints minWidth="100" prefWidth="100"/>
+                            <ColumnConstraints minWidth="220" prefWidth="220"/>
+                        </columnConstraints>
 
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos del proveedor" styleClass="cardTitle"/>
+                        <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtIdProveedor" editable="false" promptText="Automático" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                        <GridPane hgap="18" vgap="14">
+                        <Label text="RNC:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtRncProveedor" promptText="RNC o cédula" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
-                            <Label text="ID Proveedor:" minWidth="130" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtIdProveedor" editable="false" promptText="Automático" prefWidth="260"
-                                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtNombreProveedor" promptText="Nombre del proveedor (obligatorio)" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                            <Label text="RNC:" minWidth="130" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtRncProveedor" promptText="RNC" prefWidth="240"
-                                       GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                        <Label text="Teléfono:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtTelefonoProveedor" promptText="Teléfono" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
-                            <Label text="Nombre:" minWidth="130" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtNombreProveedor" promptText="Nombre del proveedor" prefWidth="260"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="Dirección:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtDireccionProveedor" promptText="Dirección principal" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-                            <Label text="Teléfono:" minWidth="130" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtTelefonoProveedor" promptText="Teléfono" prefWidth="240"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                        <Label text="Correo:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtCorreoProveedor" promptText="Correo electrónico" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
 
-                            <Label text="Dirección:" minWidth="130" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtDireccionProveedor" promptText="Dirección principal" prefWidth="260"
-                                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <Button text="💾 Guardar proveedor" onAction="#guardarProveedor" styleClass="actionGreen" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2" maxWidth="260"/>
+                        <Button text="↻ Limpiar" onAction="#limpiarProveedor" styleClass="actionNeutral" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                    </GridPane>
+                </VBox>
 
-                            <Label text="Estado:" minWidth="130" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbEstadoProveedor" promptText="Activo" prefWidth="240"
-                                      GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Correo:" minWidth="130" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtCorreoProveedor" promptText="Correo opcional" prefWidth="260"
-                                       GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Observaciones:" minWidth="130" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <TextArea fx:id="txtObservacionProveedor" promptText="Observaciones..."
-                                      prefRowCount="3" prefWidth="240"
-                                      GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-                        </GridPane>
-                    </VBox>
-
-                    <VBox styleClass="cardPanel" spacing="14" prefWidth="390">
-                        <Label text="Búsqueda rápida" styleClass="cardTitle"/>
-
-                        <HBox spacing="10">
-                            <ComboBox fx:id="cmbTipoBusquedaProveedor" promptText="Nombre" prefWidth="130"/>
-                            <TextField fx:id="txtBuscarProveedor" promptText="Buscar proveedor..." HBox.hgrow="ALWAYS"/>
-                            <Button text="🔍" onAction="#buscarProveedor" styleClass="actionBlue"/>
-                        </HBox>
-
-                        <Separator/>
-
-                        <Label text="Resumen de proveedores" styleClass="cardTitle"/>
-
-                        <HBox>
-                            <Label text="Activos:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="25"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Inactivos:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="3"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Con compras:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="18"/>
-                        </HBox>
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
                     <HBox alignment="CENTER_LEFT">
                         <Label text="Listado de proveedores" styleClass="cardTitle"/>
                         <Region HBox.hgrow="ALWAYS"/>
-                        <Button text="Quitar sucursal" onAction="#quitarSucursal" styleClass="actionRed"/>
+                        <Button text="✎ Editar" onAction="#editarProveedor" styleClass="actionOrange"/>
+                        <Button text="🗑 Eliminar" onAction="#eliminarProveedor" styleClass="actionRed"/>
                         <Button text="↻ Actualizar" onAction="#actualizarProveedores" styleClass="actionNeutral"/>
                     </HBox>
-
-                    <TableView fx:id="tablaProveedores" prefHeight="300" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="tablaProveedores" prefHeight="280" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn text="ID Proveedor" prefWidth="130"/>
-                            <TableColumn text="Nombre" prefWidth="150"/>
-                            <TableColumn text="RNC" prefWidth="150"/>
-                            <TableColumn text="Teléfono" prefWidth="160"/>
-                            <TableColumn text="Dirección" prefWidth="250"/>
-                            <TableColumn text="Estado" prefWidth="130"/>
+                            <TableColumn text="ID" prefWidth="50"/>
+                            <TableColumn text="Nombre" prefWidth="180"/>
+                            <TableColumn text="RNC" prefWidth="120"/>
+                            <TableColumn text="Teléfono" prefWidth="130"/>
+                            <TableColumn text="Dirección" prefWidth="200"/>
+                            <TableColumn text="Correo" prefWidth="180"/>
                         </columns>
                     </TableView>
                 </VBox>
@@ -381,566 +226,92 @@
             </VBox>
             </ScrollPane>
 
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewRecepcion" styleClass="content" spacing="16">
+            <!-- ═══════════════ RECEPCIÓN ═══════════════ -->
+            <ScrollPane fx:id="scrollRecepcion" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
                     <VBox>
                         <Label text="Recepción de mercancía" styleClass="pageTitle"/>
-                        <Label text="Recibe, valida y actualiza inventario desde las compras realizadas." styleClass="pageSubtitle"/>
+                        <Label text="Valida la llegada de productos y procesa pagos a proveedores." styleClass="pageSubtitle"/>
                     </VBox>
-
                     <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="📥 Recibir compra" onAction="#recibirCompra" styleClass="actionBlue"/>
-                    <Button text="✔ Confirmar recepción" onAction="#confirmarRecepcion" styleClass="actionGreen"/>
-                    <Button text="✖ Rechazar" onAction="#rechazarRecepcion" styleClass="actionRed"/>
-                    <Button text="↻ Limpiar" onAction="#limpiarRecepcion" styleClass="actionNeutral"/>
+                    <Button text="✔ Marcar recibida" onAction="#confirmarRecepcion" styleClass="actionGreen"/>
+                    <Button text="💳 Procesar pago" onAction="#procesarPago" styleClass="actionBlue"/>
+                    <Button text="↻ Actualizar" onAction="#recargarRecepcion" styleClass="actionNeutral"/>
                 </HBox>
 
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos de recepción" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-                            <Label text="Orden compra:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbOrdenRecepcion" promptText="Seleccionar orden" prefWidth="280" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Proveedor:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtProveedorRecepcion" editable="false" promptText="Proveedor" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Fecha recepción:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <DatePicker fx:id="dateRecepcion" prefWidth="280" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbEstadoRecepcion" promptText="Pendiente" prefWidth="260" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Recibido por:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtRecibidoPor" editable="false" promptText="Admin" prefWidth="280" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Observación:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <TextArea fx:id="txtObservacionRecepcion" promptText="Observación de recepción..." prefRowCount="3" prefWidth="260"
-                                      GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-                        </GridPane>
-                    </VBox>
-
-                    <VBox styleClass="cardPanel" spacing="12" prefWidth="390">
-                        <Label text="Resumen de recepción" styleClass="cardTitle"/>
-
-                        <HBox>
-                            <Label text="Pendientes:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="5"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Recibidas hoy:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="8"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Rechazadas:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="1"/>
-                        </HBox>
-
-                        <Separator/>
-
-                        <Button text="Ver órdenes pendientes" onAction="#verOrdenesPendientes" styleClass="actionBlue" prefHeight="42"/>
-                        <Button text="Actualizar inventario" onAction="#actualizarInventarioRecepcion" styleClass="actionGreen" prefHeight="42"/>
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
-
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Detalle recibido" styleClass="cardTitle"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <TextField promptText="Buscar ingrediente..." prefWidth="240"/>
-                        <Button text="🔍" onAction="#detalleRecibido" styleClass="actionNeutral"/>
-                    </HBox>
-
-                    <TableView fx:id="tablaRecepcion" prefHeight="420" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="Ingrediente" prefWidth="260"/>
-                            <TableColumn text="Cantidad comprada" prefWidth="160"/>
-                            <TableColumn text="Cantidad recibida" prefWidth="160"/>
-                            <TableColumn text="Unidad" prefWidth="120"/>
-                            <TableColumn text="Costo unidad" prefWidth="140"/>
-                            <TableColumn text="Vencimiento" prefWidth="150"/>
-                        </columns>
-                    </TableView>
-
-                </VBox>
-
-            </VBox>
-            </ScrollPane>
-
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewAnalisisCompras"
-                  styleClass="content"
-                  spacing="16"
-                  visible="false"
-                  managed="false">
-
-             <HBox alignment="CENTER_LEFT" spacing="12">
-                <VBox>
-                    <Label text="Análisis de compras" styleClass="pageTitle"/>
-                    <Label text="Analiza ingredientes comprados, costos, proveedores y variaciones de precio." styleClass="pageSubtitle"/>
-                </VBox>
-
-                <Region HBox.hgrow="ALWAYS"/>
-
-                <Button text="📦 Nuevo ingrediente" onAction="#nuevoIngredienteAnalisis" styleClass="actionBlue"/>
-                <Button text="✎ Editar costo" onAction="#editarCosto" styleClass="actionOrange"/>
-                <Button text="📊 Actualizar análisis" onAction="#actualizarAnalisis" styleClass="actionGreen"/>
-                <Button text="↻ Actualizar" onAction="#refrescarAnalisis" styleClass="actionNeutral"/>
-             </HBox>
-
-             <GridPane hgap="16">
-
-                <VBox alignment="CENTER" spacing="6" styleClass="statusCardBlue" prefWidth="220" prefHeight="95" GridPane.columnIndex="0">
-                    <Label text="Compras registradas"/>
-                    <Label text="0" styleClass="metricValueSmall"/>
-                    <Label text="Este periodo"/>
-                </VBox>
-
-                <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="220" prefHeight="95" GridPane.columnIndex="1">
-                    <Label text="Total invertido"/>
-                    <Label text="RD$ 0.00" styleClass="metricValueSmall"/>
-                    <Label text="Compras"/>
-                </VBox>
-
-                <VBox alignment="CENTER" spacing="6" styleClass="statusCardOrange" prefWidth="220" prefHeight="95" GridPane.columnIndex="2">
-                    <Label text="Ingrediente más comprado"/>
-                    <Label text="N/A" styleClass="metricValueSmall"/>
-                    <Label text="Mayor demanda"/>
-                </VBox>
-
-                <VBox alignment="CENTER" spacing="6" styleClass="statusCardRed" prefWidth="220" prefHeight="95" GridPane.columnIndex="3">
-                    <Label text="Costos elevados"/>
-                    <Label text="0" styleClass="metricValueSmall"/>
-                    <Label text="Revisar precios"/>
-                </VBox>
-
-            </GridPane>
-
-            <HBox spacing="16">
-
-                <VBox styleClass="cardPanel" spacing="12" HBox.hgrow="ALWAYS">
-
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label text="Filtro" styleClass="cardTitle"/>
-
-                        <Region HBox.hgrow="ALWAYS"/>
-
-                        <TextField promptText="Buscar ingrediente..." prefWidth="220"/>
-                        <ComboBox promptText="Proveedor" prefWidth="180"/>
-                        <ComboBox promptText="Categoría" prefWidth="160"/>
-                        <ComboBox promptText="Estado stock" prefWidth="160"/>
-                        <Button text="🔍 Buscar" onAction="#buscarAnalisis" styleClass="actionBlue"/>
-                    </HBox>
-
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <DatePicker promptText="Desde" prefWidth="150"/>
-                        <DatePicker promptText="Hasta" prefWidth="150"/>
-                        <Button text="↻ Limpiar" onAction="#limpiarAnalisis" styleClass="actionNeutral"/>
-                    </HBox>
-
-                    <TableView prefHeight="500" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="Ingrediente" prefWidth="220"/>
-                            <TableColumn text="Última compra" prefWidth="140"/>
-                            <TableColumn text="Proveedor" prefWidth="220"/>
-                            <TableColumn text="Costo actual" prefWidth="130"/>
-                            <TableColumn text="Costo anterior" prefWidth="140"/>
-                            <TableColumn text="Variación" prefWidth="120"/>
-                            <TableColumn text="Stock actual" prefWidth="130"/>
-                            <TableColumn text="Estado" prefWidth="130"/>
-                            <TableColumn text="Acciones" prefWidth="130"/>
-                        </columns>
-                    </TableView>
-
-                </VBox>
-
-                <VBox styleClass="cardPanel compactPanel" spacing="12" prefWidth="320" minWidth="320" maxWidth="320">
-
-                    <Label text="Alertas de compra" styleClass="cardTitle"/>
-
-                    <VBox spacing="10">
-                        <Label text="• Ingredientes con costo elevado"/>
-                        <Label text="• Ingredientes sin compras recientes"/>
-                        <Label text="• Stock bajo o crítico"/>
-                        <Label text="• Proveedores inactivos"/>
-                    </VBox>
-
-                    <Separator/>
-
-                    <Label text="Detalle rápido" styleClass="cardTitle"/>
-
-                    <Label text="Ingrediente:"/>
-                    <TextField promptText="N/A" editable="false"/>
-
-                    <Label text="Proveedor principal:"/>
-                    <TextField promptText="N/A" editable="false"/>
-
-                    <Label text="Último costo:"/>
-                    <TextField promptText="RD$ 0.00" editable="false"/>
-
-                    <Label text="Variación:"/>
-                    <TextField promptText="0%" editable="false"/>
-
-                    <Button text="Ver historial" onAction="#verHistorialAnalisis" styleClass="actionBlue" maxWidth="Infinity"/>
-                    <Button text="Comparar proveedores" onAction="#compararProveedores" styleClass="actionGreen" maxWidth="Infinity"/>
-
-                </VBox>
-
-            </HBox>
-
-        </VBox>
-            </ScrollPane>
-
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewPagosCompra" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Pagos de compra" styleClass="pageTitle"/>
-                        <Label text="Registra pagos realizados a proveedores y controla facturas pendientes." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nuevo pago" onAction="#nuevoPago" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" onAction="#editarPago" styleClass="actionOrange"/>
-                    <Button text="🗑 Anular" onAction="#anularPago" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" onAction="#guardarPago" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" onAction="#limpiarPago" styleClass="actionNeutral"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos del pago" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-
-                            <Label text="No. factura:"
-                                   GridPane.rowIndex="0"
-                                   GridPane.columnIndex="0"/>
-
-                            <TextField prefWidth="250.0"
-                                       promptText="Número de factura del proveedor"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="1"/>
-
-                            <Label text="Proveedor:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtProveedorPagoCompra" editable="false" promptText="Proveedor" prefWidth="260"
-                                       GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Fecha pago:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <DatePicker fx:id="datePagoCompra" prefWidth="280"
-                                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Método pago:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbMetodoPagoCompra" promptText="Efectivo / Tarjeta / Transferencia" prefWidth="260"
-                                      GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Monto factura:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtMontoFacturaCompra" editable="false" promptText="0.00" prefWidth="280"
-                                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Monto pagado:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtMontoPagoCompra" promptText="0.00" prefWidth="260"
-                                       GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Balance:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtBalancePagoCompra" editable="false" promptText="0.00" prefWidth="280"
-                                       GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Estado del pago:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbEstadoPagoCompra" promptText="Pendiente / Pagado / Parcial" prefWidth="260"
-                                      GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-
-                            <Label text="Referencia:" minWidth="140" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtReferenciaPagoCompra" promptText="No. transferencia, cheque o recibo" prefWidth="280"
-                                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-
-                            <Label text="Observación:" minWidth="140" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
-                            <TextArea fx:id="txtObservacionPagoCompra" promptText="Observación del pago..." prefRowCount="3" prefWidth="260"
-                                      GridPane.rowIndex="4" GridPane.columnIndex="3"/>
-
-                        </GridPane>
-                    </VBox>
-
-                    <VBox styleClass="cardPanel" spacing="12" prefWidth="390">
-                        <Label text="Resumen de pagos" styleClass="cardTitle"/>
-
-                        <HBox>
-                            <Label text="Facturas pendientes:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="0"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Pagos hoy:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="RD$ 0.00"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Balance pendiente:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="RD$ 0.00"/>
-                        </HBox>
-
-                        <HBox>
-                            <Label text="Último pago:"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label text="N/A"/>
-                        </HBox>
-
-                        <Separator/>
-
-                        <Button text="Ver facturas pendientes" styleClass="actionBlue" prefHeight="42"/>
-                        <Button text="Generar recibo de pago" styleClass="actionGreen" prefHeight="42"/>
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Historial de pagos a proveedores" styleClass="cardTitle"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <DatePicker promptText="Desde"/>
-                        <DatePicker promptText="Hasta"/>
-                        <ComboBox promptText="Estado" prefWidth="150"/>
-                        <TextField promptText="Buscar pago..." prefWidth="240"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
-                    </HBox>
-
-                    <TableView fx:id="tablaPagosCompra" prefHeight="390" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="ID Pago" prefWidth="110"/>
-                            <TableColumn text="Factura" prefWidth="140"/>
-                            <TableColumn text="Proveedor" prefWidth="200"/>
-                            <TableColumn text="Fecha" prefWidth="130"/>
-                            <TableColumn text="Método" prefWidth="160"/>
-                            <TableColumn text="Monto factura" prefWidth="150"/>
-                            <TableColumn text="Monto pagado" prefWidth="150"/>
-                            <TableColumn text="Estado" prefWidth="140"/>
-                        </columns>
-                    </TableView>
-                </VBox>
-
-            </VBox>
-            </ScrollPane>
-
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewHistorialCompras" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Historial de compras" styleClass="pageTitle"/>
-                        <Label text="Consulta todas las compras realizadas, pagos y recepciones." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="📄 Exportar" styleClass="actionBlue"/>
-                    <Button text="🖨 Imprimir" styleClass="actionOrange"/>
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
-                </HBox>
-
-                <!-- RESUMEN -->
                 <GridPane hgap="16">
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardBlue" prefWidth="220" prefHeight="95" GridPane.columnIndex="0">
-                        <Label text="Compras hoy"/>
-                        <Label text="18" styleClass="metricValueSmall"/>
-                        <Label text="RD$ 125,000"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardBlue" prefWidth="260" prefHeight="85" GridPane.columnIndex="0">
+                        <Label text="Órdenes pendientes"/>
+                        <Label fx:id="lblRecPendientes" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="220" prefHeight="95" GridPane.columnIndex="1">
-                        <Label text="Facturas pagadas"/>
-                        <Label text="15" styleClass="metricValueSmall"/>
-                        <Label text="Completadas"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardGreen" prefWidth="260" prefHeight="85" GridPane.columnIndex="1">
+                        <Label text="Recibidas hoy"/>
+                        <Label fx:id="lblRecRecibidas" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardOrange" prefWidth="220" prefHeight="95" GridPane.columnIndex="2">
-                        <Label text="Pendientes"/>
-                        <Label text="3" styleClass="metricValueSmall"/>
-                        <Label text="Por pagar"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardOrange" prefWidth="260" prefHeight="85" GridPane.columnIndex="2">
+                        <Label text="Pendientes de pago"/>
+                        <Label fx:id="lblRecPendientesPago" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardRed" prefWidth="220" prefHeight="95" GridPane.columnIndex="3">
-                        <Label text="Anuladas"/>
-                        <Label text="1" styleClass="metricValueSmall"/>
-                        <Label text="Canceladas"/>
-                    </VBox>
-
                 </GridPane>
 
                 <HBox spacing="16">
-                    <!-- TABLA PRINCIPAL -->
-                    <VBox styleClass="cardPanel" spacing="12" HBox.hgrow="ALWAYS">
+                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
+                        <Label text="Seleccionar orden" styleClass="cardTitle"/>
+                        <ComboBox fx:id="cmbOrdenRecepcion" promptText="Seleccionar orden pendiente" prefWidth="500" maxWidth="Infinity"/>
 
-                        <HBox alignment="CENTER_LEFT">
+                        <GridPane hgap="16" vgap="10">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="120" prefWidth="120"/>
+                                <ColumnConstraints minWidth="220" prefWidth="220"/>
+                                <ColumnConstraints minWidth="120" prefWidth="120"/>
+                                <ColumnConstraints minWidth="220" prefWidth="220"/>
+                            </columnConstraints>
 
-                            <Label text="Listado de compras"
-                                   styleClass="cardTitle"/>
+                            <Label text="Código:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtRecCodigo" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Proveedor:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                            <TextField fx:id="txtRecProveedor" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
-                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label text="Fecha orden:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtRecFecha" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <Label text="Estado:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                            <TextField fx:id="txtRecEstado" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
-                            <ComboBox promptText="Estado"
-                                      prefWidth="160"/>
-
-                            <ComboBox promptText="Proveedor"
-                                      prefWidth="220"/>
-
-                            <TextField promptText="Buscar compra..."
-                                       prefWidth="240"/>
-
-                            <Button text="🔍"
-                                    styleClass="actionNeutral"/>
-
-                        </HBox>
-
-                        <TableView fx:id="tablaHistorialCompras" prefHeight="520" VBox.vgrow="ALWAYS">
-
-                            <columns>
-
-                                <TableColumn text="Orden" prefWidth="130"/>
-                                <TableColumn text="Factura" prefWidth="140"/>
-                                <TableColumn text="Proveedor" prefWidth="260"/>
-                                <TableColumn text="Fecha" prefWidth="140"/>
-                                <TableColumn text="Estado" prefWidth="140"/>
-                                <TableColumn text="Pago" prefWidth="140"/>
-                                <TableColumn text="Recepción" prefWidth="150"/>
-                                <TableColumn text="Subtotal" prefWidth="150"/>
-                                <TableColumn text="ITBIS" prefWidth="140"/>
-                                <TableColumn text="Total" prefWidth="160"/>
-                                <TableColumn text="Usuario" prefWidth="160"/>
-                            </columns>
-
-                        </TableView>
-
+                            <Label text="Total orden:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtRecTotal" editable="false" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            <Label text="Notas:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                            <TextArea fx:id="txtRecNotas" editable="false" prefRowCount="2" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                        </GridPane>
                     </VBox>
 
-                    <!-- PANEL DERECHO -->
-                    <VBox styleClass="cardPanel compactPanel" spacing="10" prefWidth="320" minWidth="320" maxWidth="320">
-
-
-                    <!-- DETALLE -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Detalle de compra"
-                                   styleClass="cardTitle"/>
-
-                            <GridPane hgap="12" vgap="10">
-
-                                <Label text="Orden:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="COMP-00025"
-                                           editable="false"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Proveedor:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Distribuidora Central"
-                                           editable="false"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Factura:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="FAC-4582"
-                                           editable="false"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Estado:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Pagada"
-                                           editable="false"
-                                           GridPane.rowIndex="3"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Total:"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 28,500.00"
-                                       styleClass="metricValueSmall"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- INGREDIENTES -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Ingredientes comprados"
-                                    styleClass="cardTitle"/>
-
-                            <TableView prefHeight="220" VBox.vgrow="ALWAYS">
-
-                                <columns>
-
-                                    <TableColumn text="Ingrediente" prefWidth="200"/>
-                                    <TableColumn text="Cant." prefWidth="80"/>
-                                    <TableColumn text="Subtotal" prefWidth="120"/>
-
-                                </columns>
-
-                            </TableView>
-
-                        </VBox>
-
-                        <!-- ACCIONES -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Acciones rápidas"
-                                   styleClass="cardTitle"/>
-
-                            <Button text="🧾 Ver factura"
-                                    prefHeight="42"
-                                    styleClass="actionBlue"/>
-
-                            <Button text="🖨 Reimprimir"
-                                    prefHeight="42"
-                                    styleClass="actionOrange"/>
-
-                            <Button text="📄 Exportar PDF"
-                                    prefHeight="42"
-                                    styleClass="actionGreen"/>
-
-                            <Button text="✖ Anular compra"
-                                    prefHeight="42"
-                                    styleClass="actionRed"/>
-
-                        </VBox>
-
+                    <VBox styleClass="cardPanel compactPanel" spacing="12" prefWidth="300" minWidth="300" maxWidth="300">
+                        <Label text="Procesar pago" styleClass="cardTitle"/>
+                        <Label text="Monto a pagar:"/>
+                        <TextField fx:id="txtPagoMonto" promptText="0.00"/>
+                        <Label text="Fecha pago:"/>
+                        <DatePicker fx:id="datePago"/>
+                        <Label text="Método de pago:"/>
+                        <ComboBox fx:id="cmbMetodoPago" promptText="Seleccionar método" prefWidth="Infinity"/>
+                        <Button text="💳 Procesar pago" onAction="#procesarPago" styleClass="actionBlue" maxWidth="Infinity" prefHeight="42"/>
+                        <Button text="✔ Marcar como recibida" onAction="#confirmarRecepcion" styleClass="actionGreen" maxWidth="Infinity" prefHeight="42"/>
                     </VBox>
-
                 </HBox>
+
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <Label text="Listado de órdenes" styleClass="cardTitle"/>
+                    <TableView fx:id="tablaRecepcion" prefHeight="250" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Código" prefWidth="120"/>
+                            <TableColumn text="Proveedor" prefWidth="200"/>
+                            <TableColumn text="Fecha" prefWidth="130"/>
+                            <TableColumn text="Total" prefWidth="130"/>
+                            <TableColumn text="Estado" prefWidth="120"/>
+                            <TableColumn text="Acciones" prefWidth="200"/>
+                        </columns>
+                    </TableView>
+                </VBox>
 
             </VBox>
             </ScrollPane>

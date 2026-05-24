@@ -11,36 +11,23 @@
 
     <top>
         <HBox styleClass="topBar" alignment="CENTER_LEFT" spacing="18">
-            <ImageView fx:id="logoImage"
-                       fitWidth="82"
-                       fitHeight="82"
-                       preserveRatio="true"/>
-
+            <ImageView fx:id="logoImage" fitWidth="82" fitHeight="82" preserveRatio="true"/>
             <VBox>
                 <Label text="Salsiao" styleClass="brandTitle"/>
-                <Label text="Gestión de Empleado" styleClass="brandSubtitle"/>
+                <Label text="Gestión de Empleados" styleClass="brandSubtitle"/>
             </VBox>
-
             <Region HBox.hgrow="ALWAYS"/>
-
             <Button text="☰ Volver" onAction="#volverMenu" styleClass="topButton"/>
-
             <HBox alignment="CENTER" spacing="10">
                 <HBox alignment="CENTER" spacing="6" styleClass="topInfoCard">
                     <Label text="📅" styleClass="topIcon"/>
                     <Label fx:id="lblFechaActual" text="--/--/----" styleClass="topInfoText"/>
                 </HBox>
-
                 <HBox alignment="CENTER" spacing="6" styleClass="topInfoCard">
                     <Label text="🕒" styleClass="topIcon"/>
                     <Label fx:id="lblHoraActual" text="--:-- --" styleClass="topInfoText"/>
                 </HBox>
-
-                <Button fx:id="btnNotificaciones"
-                        text="🔔 0"
-                        onAction="#mostrarNotificaciones"
-                        styleClass="notificationModernButton"/>
-
+                <Button fx:id="btnNotificaciones" text="🔔 0" onAction="#mostrarNotificaciones" styleClass="notificationModernButton"/>
                 <HBox alignment="CENTER" spacing="8" styleClass="userInfoCard">
                     <Label text="👤" styleClass="topIcon"/>
                     <VBox spacing="0">
@@ -55,24 +42,17 @@
     <left>
         <VBox styleClass="sideBar" spacing="12">
             <Label text="EMPLEADOS" styleClass="sideTitle"/>
-
-            <Button fx:id="btnRegistroEmpleado" text="👤  Registro de empleados" onAction="#mostrarRegistroEmpleado" styleClass="sideButtonActive"/>
-            <Button fx:id="btnNomina" text="💰 Nómina" onAction="#mostrarNomina" styleClass="sideButton"/>
-            <Button fx:id="btnUsuariosSistema" text="🔐  Usuarios del sistema" onAction="#mostrarUsuariosSistema" styleClass="sideButton"/>
-            <Button fx:id="btnRolesPermisos" text="🛡  Roles y permisos" onAction="#mostrarRolesPermisos" styleClass="sideButton"/>
-            <Button fx:id="btnAsistencia" text="🕒  Asistencia" onAction="#mostrarAsistencia" styleClass="sideButton"/>
-            <Button fx:id="btnHorarios" text="📅  Horarios" onAction="#mostrarHorarios" styleClass="sideButton"/>
-            <Button fx:id="btnHistorialEmpleados" text="↺  Historial empleados" onAction="#mostrarHistorialEmpleados" styleClass="sideButton"/>
-
+            <Button text="📊  Dashboard" onAction="#mostrarDashboard" styleClass="sideButtonActive"/>
+            <Button text="📝  Registrar" onAction="#mostrarRegistrar" styleClass="sideButton"/>
+            <Button text="🏷  Cargos/Roles" onAction="#mostrarCargos" styleClass="sideButton"/>
+            <Button text="🕒  Asistencia" onAction="#mostrarAsistencia" styleClass="sideButton"/>
+            <Button text="📅  Turnos/Horarios" onAction="#mostrarTurnos" styleClass="sideButton"/>
+            <Button text="🔐  Usuarios" onAction="#mostrarUsuarios" styleClass="sideButton"/>
+            <Button text="📋  Historial" onAction="#mostrarHistorial" styleClass="sideButton"/>
             <Region VBox.vgrow="ALWAYS"/>
-
             <VBox styleClass="userCard">
-                <Label text="Empleado"
-                       styleClass="userCardName"/>
-
-                <Label text="Gestión del empleado."
-                       wrapText="true"
-                       styleClass="userCardRole"/>
+                <Label text="Empleados" styleClass="userCardName"/>
+                <Label text="Gestión del personal." wrapText="true" styleClass="userCardRole"/>
             </VBox>
             <Button text="↪  Salir" onAction="#salirSistema" styleClass="sideButtonExit"/>
         </VBox>
@@ -81,452 +61,154 @@
     <center>
         <StackPane fx:id="contenedorEmpleados" styleClass="contentArea">
 
-            <!-- REGISTRO DE EMPLEADOS -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewRegistroEmpleado" styleClass="content" spacing="16">
+            <!-- ═══════════════ DASHBOARD ═══════════════ -->
+            <ScrollPane fx:id="scrollDashboard" fitToWidth="true" fitToHeight="true" visible="true" managed="true" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
                     <VBox>
-                        <Label text="Registro de empleados" styleClass="pageTitle"/>
-                        <Label text="Administra los datos personales, cargo, área y estado laboral." styleClass="pageSubtitle"/>
+                        <Label text="Dashboard de empleados" styleClass="pageTitle"/>
+                        <Label text="Resumen general del personal." styleClass="pageSubtitle"/>
                     </VBox>
-
                     <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nuevo empleado" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="🗑 Eliminar" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" onAction="#guardarRegistroEmpleado" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" onAction="#limpiarRegistroEmpleado" styleClass="actionNeutral"/>
+                    <Button text="+ Nuevo empleado" onAction="#nuevoEmpleado" styleClass="actionBlue"/>
+                    <Button text="🕒 Registrar asistencia" onAction="#irARegistrarAsistencia" styleClass="actionGreen"/>
+                    <Button text="📅 Asignar turno" onAction="#irATurnos" styleClass="actionOrange"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarDashboard" styleClass="actionNeutral"/>
                 </HBox>
 
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos del empleado" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-                            <Label text="ID Empleado:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtIdEmpleado" editable="false" promptText="Automático" prefWidth="260"
-                                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Cédula:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtCedulaEmpleado" promptText="000-0000000-0" prefWidth="250"
-                                       GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Nombre:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtNombreEmpleado" promptText="Nombre" prefWidth="260"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Apellido:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtApellidoEmpleado" promptText="Apellido" prefWidth="250"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Teléfono:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtTelefonoEmpleado" promptText="Teléfono" prefWidth="260"
-                                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Correo:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtCorreoEmpleado" promptText="Correo opcional" prefWidth="250"
-                                       GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Cargo:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbCargoEmpleado" promptText="Cargo" prefWidth="260"
-                                      GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Departamento:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbDepartamentoEmpleado" promptText="Departamento" prefWidth="250"
-                                      GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-
-                            <Label text="Fecha ingreso:" minWidth="140" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <DatePicker fx:id="dateIngresoEmpleado" prefWidth="260"
-                                        GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:" minWidth="140" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbEstadoEmpleado" promptText="Activo" prefWidth="250"
-                                      GridPane.rowIndex="4" GridPane.columnIndex="3"/>
-
-                            <Label text="Dirección:" minWidth="140" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtDireccionEmpleado" promptText="Dirección" prefWidth="260"
-                                       GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-
-                            <Label text="Referencia:" minWidth="140" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
-                            <TextArea fx:id="txtReferenciaEmpleado" promptText="Referencia u observación..."
-                                      prefRowCount="3" prefWidth="250"
-                                      GridPane.rowIndex="5" GridPane.columnIndex="3"/>
-                        </GridPane>
+                <GridPane hgap="16">
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardBlue" prefWidth="200" prefHeight="85" GridPane.columnIndex="0">
+                        <Label text="Empleados activos" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblActivos" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox spacing="16" prefWidth="390">
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Resumen empleados" styleClass="cardTitle"/>
-
-                            <HBox><Label text="Activos:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                            <HBox><Label text="Inactivos:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                            <HBox><Label text="Usuarios:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                            <HBox><Label text="En turno:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        </VBox>
-
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Acciones rápidas" styleClass="cardTitle"/>
-
-                            <Button text="🔐 Crear usuario" styleClass="actionBlue" prefHeight="42"/>
-                            <Button text="🕒 Registrar asistencia" styleClass="actionGreen" prefHeight="42"/>
-                            <Button text="📅 Asignar horario" styleClass="actionOrange" prefHeight="42"/>
-                            <Button text="📄 Exportar empleados" styleClass="actionNeutral" prefHeight="42"/>
-                        </VBox>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardRed" prefWidth="200" prefHeight="85" GridPane.columnIndex="1">
+                        <Label text="Inactivos" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblInactivos" text="0" styleClass="metricValueSmall"/>
                     </VBox>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardGreen" prefWidth="200" prefHeight="85" GridPane.columnIndex="2">
+                        <Label text="Asistencias hoy" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblAsistenciasHoy" text="0" styleClass="metricValueSmall"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardOrange" prefWidth="200" prefHeight="85" GridPane.columnIndex="3">
+                        <Label text="Total empleados" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblTotalEmpleados" text="0" styleClass="metricValueSmall"/>
+                    </VBox>
+                </GridPane>
 
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Listado de empleados" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="txtBuscarEmpleado" promptText="Buscar empleado..." prefWidth="240" onKeyReleased="#filtrarEmpleados"/>
+                        <ComboBox fx:id="cmbFiltroCargo" promptText="Filtrar por cargo" prefWidth="180" onAction="#filtrarEmpleados"/>
+                        <ComboBox fx:id="cmbFiltroEstado" promptText="Filtrar por estado" prefWidth="160" onAction="#filtrarEmpleados"/>
+                        <Button text="📄 Exportar" onAction="#exportarEmpleados" styleClass="actionBlue"/>
+                        <Button text="↻ Limpiar" onAction="#limpiarDashboard" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaEmpleados" prefHeight="380" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Código" prefWidth="100"/>
+                            <TableColumn text="Nombre completo" prefWidth="200"/>
+                            <TableColumn text="Cédula" prefWidth="140"/>
+                            <TableColumn text="Cargo" prefWidth="140"/>
+                            <TableColumn text="Teléfono" prefWidth="130"/>
+                            <TableColumn text="Turno" prefWidth="100"/>
+                            <TableColumn text="Estado" prefWidth="100"/>
+                            <TableColumn text="F. Ingreso" prefWidth="120"/>
+                            <TableColumn text="Acciones" prefWidth="220"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </VBox>
+            </ScrollPane>
+
+            <!-- ═══════════════ REGISTRAR EMPLEADO ═══════════════ -->
+            <ScrollPane fx:id="scrollRegistrar" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <VBox>
+                        <Label text="Registrar empleado" styleClass="pageTitle"/>
+                        <Label text="Complete los datos del nuevo empleado." styleClass="pageSubtitle"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="💾 Guardar" onAction="#guardarEmpleado" styleClass="actionGreen"/>
+                    <Button text="❌ Cancelar" onAction="#cancelarEdicion" styleClass="actionRed"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarFormulario" styleClass="actionNeutral"/>
+                    <Button text="← Volver" onAction="#volverADashboard" styleClass="actionOrange"/>
                 </HBox>
 
-                <VBox styleClass="cardPanel" spacing="12">
+                <VBox styleClass="cardPanel" spacing="16">
+                    <Label text="Datos del empleado" styleClass="cardTitle"/>
+                    <GridPane hgap="18" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="120" prefWidth="120"/>
+                            <ColumnConstraints minWidth="220" prefWidth="220"/>
+                            <ColumnConstraints minWidth="120" prefWidth="120"/>
+                            <ColumnConstraints minWidth="220" prefWidth="220"/>
+                        </columnConstraints>
+
+                        <Label text="Código:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtCodigo" editable="false" promptText="Generado automáticamente" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Cédula:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtCedula" promptText="000-0000000-0" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                        <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtNombre" promptText="Nombre del empleado" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Apellido:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtApellido" promptText="Apellido del empleado" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                        <Label text="Teléfono:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtTelefono" promptText="809-000-0000" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                        <Label text="Correo:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtCorreo" promptText="correo@ejemplo.com" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                        <Label text="Dirección:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtDireccion" promptText="Dirección completa" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+                        <Label text="Cargo:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cmbCargo" promptText="Seleccione cargo" editable="true" prefWidth="220" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                        <Label text="Área:" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+                        <ComboBox fx:id="cmbArea" promptText="Departamento o área" editable="true" prefWidth="220" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+
+                        <Label text="Turno:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cmbTurno" promptText="Seleccione turno" prefWidth="220" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                        <Label text="Sueldo:" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtSueldo" promptText="0.00" GridPane.rowIndex="5" GridPane.columnIndex="3"/>
+
+                        <Label text="Fecha ingreso:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                        <DatePicker fx:id="dateIngreso" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+                        <Label text="Estado:" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+                        <ComboBox fx:id="cmbEstado" promptText="Estado inicial" prefWidth="220" GridPane.rowIndex="6" GridPane.columnIndex="3"/>
+
+                        <Label text="Observación:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                        <TextArea fx:id="txtObservacion" promptText="Notas del empleado..." prefRowCount="2" wrapText="true" GridPane.rowIndex="7" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+                    </GridPane>
+                </VBox>
+
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
                     <HBox alignment="CENTER_LEFT">
                         <Label text="Listado de empleados" styleClass="cardTitle"/>
                         <Region HBox.hgrow="ALWAYS"/>
                         <TextField promptText="Buscar empleado..." prefWidth="240"/>
                         <Button text="🔍" styleClass="actionNeutral"/>
                     </HBox>
-
-                    <TableView fx:id="tablaEmpleados" prefHeight="380" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="tablaRegistroEmpleados" prefHeight="300" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn text="ID" prefWidth="90"/>
-                            <TableColumn text="Empleado" prefWidth="140"/>
-                            <TableColumn text="Cédula" prefWidth="150"/>
-                            <TableColumn text="Teléfono" prefWidth="150"/>
-                            <TableColumn text="Cargo" prefWidth="180"/>
-                            <TableColumn text="Departamento" prefWidth="140"/>
-                            <TableColumn text="Fecha ingreso" prefWidth="160"/>
-                            <TableColumn text="Estado" prefWidth="130"/>
-                        </columns>
-                    </TableView>
-                </VBox>
-
-            </VBox>
-            </ScrollPane>
-
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewNomina"
-                  styleClass="content"
-                  spacing="16"
-                  visible="false"
-                  managed="false">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Nómina y estado laboral" styleClass="pageTitle"/>
-                        <Label text="Gestiona sueldos, ingresos, deducciones, pagos, vacaciones, suspensiones, despidos y liquidaciones." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="💰 Procesar nómina" styleClass="actionBlue"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="📄 Exportar" styleClass="actionBlue"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
-                </HBox>
-
-                <GridPane hgap="16">
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="220" prefHeight="95" GridPane.columnIndex="0">
-                        <Label text="Empleados activos"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="En nómina"/>
-                    </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardBlue" prefWidth="220" prefHeight="95" GridPane.columnIndex="1">
-                        <Label text="Nómina pendiente"/>
-                        <Label text="RD$ 0.00" styleClass="metricValueSmall"/>
-                        <Label text="Por procesar"/>
-                    </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardOrange" prefWidth="220" prefHeight="95" GridPane.columnIndex="2">
-                        <Label text="Deducciones"/>
-                        <Label text="RD$ 0.00" styleClass="metricValueSmall"/>
-                        <Label text="AFP / SFS / ISR"/>
-                    </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardRed" prefWidth="220" prefHeight="95" GridPane.columnIndex="3">
-                        <Label text="Desvinculados"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Renuncia / despido"/>
-                    </VBox>
-
-                </GridPane>
-
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-
-                        <Label text="Datos de nómina" styleClass="cardTitle"/>
-
-                        <GridPane hgap="16" vgap="12">
-
-                            <columnConstraints>
-                                <ColumnConstraints minWidth="130" prefWidth="130"/>
-                                <ColumnConstraints minWidth="220" prefWidth="220"/>
-                                <ColumnConstraints minWidth="130" prefWidth="130"/>
-                                <ColumnConstraints minWidth="220" prefWidth="220"/>
-                            </columnConstraints>
-
-                            <Label text="Empleado:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField promptText="Nombre del empleado" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="ID empleado:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <TextField promptText="Automático" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Cargo:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField promptText="Cargo del empleado" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Periodo:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Semanal / Quincenal / Mensual" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Fecha desde:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <DatePicker GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Fecha hasta:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <DatePicker GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                        </GridPane>
-
-                        <Separator/>
-
-                        <HBox spacing="16">
-
-                            <VBox spacing="10" HBox.hgrow="ALWAYS">
-                                <Label text="Ingresos" styleClass="cardTitle"/>
-
-                                <GridPane hgap="12" vgap="10">
-                                    <Label text="Sueldo base:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                                    <Label text="Horas extra:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                                    <Label text="Bonificación:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                                    <Label text="Otros ingresos:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                                    <Label text="Total ingresos:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" editable="false" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                                </GridPane>
-                            </VBox>
-
-                            <VBox spacing="10" HBox.hgrow="ALWAYS">
-                                <Label text="Deducciones" styleClass="cardTitle"/>
-
-                                <GridPane hgap="12" vgap="10">
-                                    <Label text="AFP:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                                    <Label text="SFS:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                                    <Label text="ISR:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                                    <Label text="Descuentos:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                                    <Label text="Total deducciones:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                                    <TextField promptText="0.00" editable="false" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                                </GridPane>
-                            </VBox>
-
-                            <VBox spacing="10" prefWidth="240">
-                                <Label text="Resultado" styleClass="cardTitle"/>
-
-                                <VBox alignment="CENTER" spacing="8" styleClass="statusCardGreen" prefHeight="150">
-                                    <Label text="Neto a pagar"/>
-                                    <Label text="RD$ 0.00" styleClass="metricValueSmall"/>
-                                    <Label text="Resultado final"/>
-                                </VBox>
-
-                                <Button text="Calcular nómina" styleClass="actionBlue" maxWidth="Infinity"/>
-                                <Button text="Registrar pago" styleClass="actionGreen" maxWidth="Infinity"/>
-
-                                <Button text="Guardar estado laboral"
-                                        styleClass="actionGreen"
-                                        maxWidth="Infinity"/>
-
-                                <Button text="Marcar desvinculado"
-                                        styleClass="actionRed"
-                                        maxWidth="Infinity"/>
-
-                                <Button text="Limpiar"
-                                        styleClass="actionNeutral"
-                                        maxWidth="Infinity"/>
-                            </VBox>
-
-                        </HBox>
-
-                    </VBox>
-
-                    <VBox styleClass="cardPanel compactPanel" spacing="10" prefWidth="320" minWidth="320" maxWidth="320">
-
-                        <Label text="Estado laboral" styleClass="cardTitle"/>
-
-                        <Label text="Estado actual:"/>
-                        <ComboBox promptText="Activo / Suspendido / Desvinculado"/>
-
-                        <Label text="Tipo movimiento:"/>
-                        <ComboBox promptText="Vacaciones / Permiso / Suspensión / Renuncia / Despido"/>
-
-                        <Label text="Fecha ingreso:"/>
-                        <DatePicker/>
-
-                        <Label text="Fecha salida:"/>
-                        <DatePicker/>
-
-                        <Label text="Motivo:"/>
-                        <TextField promptText="Motivo del movimiento"/>
-
-                        <Label text="Liquidación:"/>
-                        <TextField promptText="0.00"/>
-
-                        <Label text="Observación:"/>
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
-
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label text="Historial de nómina" styleClass="cardTitle"/>
-
-                        <Region HBox.hgrow="ALWAYS"/>
-
-                        <DatePicker promptText="Desde" prefWidth="140"/>
-                        <DatePicker promptText="Hasta" prefWidth="140"/>
-                        <ComboBox promptText="Estado" prefWidth="150"/>
-                        <TextField promptText="Buscar empleado..." prefWidth="230"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
-                    </HBox>
-
-                    <TableView prefHeight="300" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="ID" prefWidth="80"/>
-                            <TableColumn text="Empleado" prefWidth="220"/>
-                            <TableColumn text="Periodo" prefWidth="130"/>
-                            <TableColumn text="Sueldo base" prefWidth="130"/>
-                            <TableColumn text="Ingresos" prefWidth="130"/>
-                            <TableColumn text="Deducciones" prefWidth="140"/>
-                            <TableColumn text="Neto" prefWidth="130"/>
-                            <TableColumn text="Estado laboral" prefWidth="160"/>
-                            <TableColumn text="Fecha pago" prefWidth="140"/>
-                            <TableColumn text="Acciones" prefWidth="150"/>
-                        </columns>
-                    </TableView>
-
-                </VBox>
-
-            </VBox>
-            </ScrollPane>
-
-            <!-- USUARIOS -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewUsuariosSistema" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Usuarios del sistema" styleClass="pageTitle"/>
-                        <Label text="Controla los accesos, usuarios, roles y estados de entrada al sistema." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nuevo usuario" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="🔒 Bloquear" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos de acceso" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-                            <Label text="ID Usuario:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtIdUsuario" editable="false" promptText="Automático" prefWidth="260"
-                                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Empleado:" minWidth="140" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbEmpleadoUsuario" promptText="Seleccionar empleado" prefWidth="260"
-                                      GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Usuario:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtNombreUsuario" promptText="Nombre de usuario" prefWidth="260"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Rol:" minWidth="140" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbRolUsuario" promptText="Rol del sistema" prefWidth="260"
-                                      GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Contraseña:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <PasswordField fx:id="txtPasswordUsuario" promptText="Contraseña" prefWidth="260"
-                                           GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Confirmar:" minWidth="140" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <PasswordField fx:id="txtConfirmarPasswordUsuario" promptText="Confirmar contraseña" prefWidth="260"
-                                           GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Estado:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbEstadoUsuario" promptText="Activo" prefWidth="260"
-                                      GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Último acceso:" minWidth="140" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtUltimoAccesoUsuario" editable="false" promptText="Sin acceso" prefWidth="260"
-                                       GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-
-                            <Label text="Observación:" minWidth="140" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextArea fx:id="txtObservacionUsuario" promptText="Observaciones del usuario..."
-                                      prefRowCount="3" prefWidth="260"
-                                      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                        </GridPane>
-                    </VBox>
-
-                    <VBox spacing="16" prefWidth="390">
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Resumen usuarios" styleClass="cardTitle"/>
-
-                            <HBox><Label text="Usuarios activos:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                            <HBox><Label text="Bloqueados:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                            <HBox><Label text="Administradores:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                            <HBox><Label text="Últimos accesos:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                        </VBox>
-
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Acciones rápidas" styleClass="cardTitle"/>
-
-                            <Button text="🔑 Cambiar contraseña" styleClass="actionBlue" prefHeight="42"/>
-                            <Button text="🛡 Asignar rol" styleClass="actionOrange" prefHeight="42"/>
-                            <Button text="✔ Activar usuario" styleClass="actionGreen" prefHeight="42"/>
-                            <Button text="🔒 Bloquear usuario" styleClass="actionRed" prefHeight="42"/>
-                        </VBox>
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Listado de usuarios" styleClass="cardTitle"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <TextField promptText="Buscar usuario..." prefWidth="240"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
-                    </HBox>
-
-                    <TableView fx:id="tablaUsuariosSistema" prefHeight="420" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="ID" prefWidth="90"/>
-                            <TableColumn text="Empleado" prefWidth="140"/>
-                            <TableColumn text="Usuario" prefWidth="180"/>
-                            <TableColumn text="Rol" prefWidth="170"/>
-                            <TableColumn text="Estado" prefWidth="130"/>
-                            <TableColumn text="Último acceso" prefWidth="180"/>
-                            <TableColumn text="Creado por" prefWidth="160"/>
+                            <TableColumn text="Código" prefWidth="100"/>
+                            <TableColumn text="Nombre" prefWidth="180"/>
+                            <TableColumn text="Cédula" prefWidth="140"/>
+                            <TableColumn text="Cargo" prefWidth="130"/>
+                            <TableColumn text="Turno" prefWidth="100"/>
+                            <TableColumn text="Estado" prefWidth="100"/>
                             <TableColumn text="Acciones" prefWidth="200"/>
                         </columns>
                     </TableView>
@@ -535,136 +217,54 @@
             </VBox>
             </ScrollPane>
 
-            <!-- ROLES -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewRolesPermisos" styleClass="content" spacing="16">
+            <!-- ═══════════════ CARGOS/ROLES ═══════════════ -->
+            <ScrollPane fx:id="scrollCargos" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
                     <VBox>
-                        <Label text="Roles y permisos" styleClass="pageTitle"/>
-                        <Label text="Administra perfiles de acceso y permisos por módulo." styleClass="pageSubtitle"/>
+                        <Label text="Cargos / Roles" styleClass="pageTitle"/>
+                        <Label text="Administra los cargos y roles del personal." styleClass="pageSubtitle"/>
                     </VBox>
-
                     <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nuevo rol" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="🗑 Eliminar" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
+                    <Button text="+ Nuevo cargo" onAction="#nuevoCargo" styleClass="actionBlue"/>
+                    <Button text="💾 Guardar" onAction="#guardarCargo" styleClass="actionGreen"/>
+                    <Button text="❌ Cancelar" onAction="#cancelarEdicion" styleClass="actionRed"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarFormCargo" styleClass="actionNeutral"/>
                 </HBox>
 
                 <HBox spacing="16">
-
                     <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos del rol" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-                            <Label text="ID Rol:" minWidth="130" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtIdRol" editable="false" promptText="Automático" prefWidth="260"
-                                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Nombre rol:" minWidth="130" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtNombreRol" promptText="Administrador, cajero, cocinero..." prefWidth="260"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:" minWidth="130" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbEstadoRol" promptText="Activo" prefWidth="260"
-                                      GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Descripción:" minWidth="130" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextArea fx:id="txtDescripcionRol" promptText="Descripción del rol..."
-                                      prefRowCount="3" prefWidth="260"
-                                      GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                        </GridPane>
-
-                        <Separator/>
-
-                        <Label text="Permisos por módulo" styleClass="cardTitle"/>
-
-                        <GridPane hgap="12" vgap="10" styleClass="permissionGrid">
-
-                            <Label text="Módulo" styleClass="permissionHeader" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <Label text="Ver" styleClass="permissionHeader" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                            <Label text="Crear" styleClass="permissionHeader" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <Label text="Editar" styleClass="permissionHeader" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-                            <Label text="Eliminar" styleClass="permissionHeader" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
-
-                            <Label text="Clientes" styleClass="permissionModule" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <CheckBox GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                            <CheckBox GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <CheckBox GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-                            <CheckBox GridPane.rowIndex="1" GridPane.columnIndex="4"/>
-
-                            <Label text="Ventas" styleClass="permissionModule" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <CheckBox GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                            <CheckBox GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <CheckBox GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-                            <CheckBox GridPane.rowIndex="2" GridPane.columnIndex="4"/>
-
-                            <Label text="Compras" styleClass="permissionModule" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <CheckBox GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                            <CheckBox GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <CheckBox GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-                            <CheckBox GridPane.rowIndex="3" GridPane.columnIndex="4"/>
-
-                            <Label text="Inventario" styleClass="permissionModule" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <CheckBox GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                            <CheckBox GridPane.rowIndex="4" GridPane.columnIndex="2"/>
-                            <CheckBox GridPane.rowIndex="4" GridPane.columnIndex="3"/>
-                            <CheckBox GridPane.rowIndex="4" GridPane.columnIndex="4"/>
-
-                            <Label text="Empleados" styleClass="permissionModule" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                            <CheckBox GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-                            <CheckBox GridPane.rowIndex="5" GridPane.columnIndex="2"/>
-                            <CheckBox GridPane.rowIndex="5" GridPane.columnIndex="3"/>
-                            <CheckBox GridPane.rowIndex="5" GridPane.columnIndex="4"/>
-
-                            <Label text="Reportes" styleClass="permissionModule" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                            <CheckBox GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-                            <CheckBox GridPane.rowIndex="6" GridPane.columnIndex="2"/>
-                            <CheckBox GridPane.rowIndex="6" GridPane.columnIndex="3"/>
-                            <CheckBox GridPane.rowIndex="6" GridPane.columnIndex="4"/>
-
+                        <Label text="Datos del cargo" styleClass="cardTitle"/>
+                        <GridPane hgap="18" vgap="10">
+                            <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtIdCargo" editable="false" promptText="Automático" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtNombreCargo" promptText="Nombre del cargo (ej: Cocinero)" prefWidth="260" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <Label text="Estado:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                            <ComboBox fx:id="cmbEstadoCargo" promptText="Activo" prefWidth="260" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                            <Label text="Descripción:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextArea fx:id="txtDescCargo" promptText="Descripción del cargo..." prefRowCount="3" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
                         </GridPane>
                     </VBox>
-
-                    <VBox spacing="16" prefWidth="390">
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Resumen de roles" styleClass="cardTitle"/>
-
-                            <HBox><Label text="Roles activos:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                            <HBox><Label text="Usuarios asignados:"/><Region HBox.hgrow="ALWAYS"/><Label text="0"/></HBox>
-                            <HBox><Label text="Rol más usado:"/><Region HBox.hgrow="ALWAYS"/><Label text="N/A"/></HBox>
-                        </VBox>
-
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Acciones rápidas" styleClass="cardTitle"/>
-
-                            <Button text="Copiar permisos" styleClass="actionBlue" prefHeight="42"/>
-                            <Button text="Restablecer permisos" styleClass="actionOrange" prefHeight="42"/>
-                            <Button text="Asignar usuarios" styleClass="actionGreen" prefHeight="42"/>
-                        </VBox>
-                    </VBox>
-
                 </HBox>
 
-                <VBox styleClass="cardPanel" spacing="12">
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
                     <HBox alignment="CENTER_LEFT">
-                        <Label text="Listado de roles" styleClass="cardTitle"/>
+                        <Label text="Listado de cargos" styleClass="cardTitle"/>
                         <Region HBox.hgrow="ALWAYS"/>
-                        <TextField promptText="Buscar rol..." prefWidth="240"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
+                        <TextField fx:id="txtBuscarCargo" promptText="Buscar cargo..." prefWidth="240" onKeyReleased="#filtrarCargos"/>
+                        <Button text="📄 Exportar" onAction="#exportarCargos" styleClass="actionBlue"/>
+                        <Button text="↻ Limpiar" onAction="#limpiarFormCargo" styleClass="actionNeutral"/>
                     </HBox>
-
-                    <TableView fx:id="tablaRolesPermisos" prefHeight="300" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="tablaCargos" prefHeight="380" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn text="ID" prefWidth="90"/>
-                            <TableColumn text="Rol" prefWidth="140"/>
-                            <TableColumn text="Descripción" prefWidth="200"/>
-                            <TableColumn text="Usuarios" prefWidth="130"/>
-                            <TableColumn text="Estado" prefWidth="130"/>
-                            <TableColumn text="Acciones" prefWidth="160"/>
+                            <TableColumn text="ID" prefWidth="80"/>
+                            <TableColumn text="Nombre" prefWidth="200"/>
+                            <TableColumn text="Descripción" prefWidth="300"/>
+                            <TableColumn text="Empleados" prefWidth="120"/>
+                            <TableColumn text="Estado" prefWidth="100"/>
+                            <TableColumn text="Acciones" prefWidth="180"/>
                         </columns>
                     </TableView>
                 </VBox>
@@ -672,425 +272,268 @@
             </VBox>
             </ScrollPane>
 
-            <!-- ASISTENCIA -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewAsistencia" styleClass="content" spacing="16">
+            <!-- ═══════════════ ASISTENCIA ═══════════════ -->
+            <ScrollPane fx:id="scrollAsistencia" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
                     <VBox>
                         <Label text="Asistencia" styleClass="pageTitle"/>
-                        <Label text="Controla entradas, salidas, tardanzas y ausencias del personal." styleClass="pageSubtitle"/>
+                        <Label text="Registra y consulta entradas, salidas y ausencias." styleClass="pageSubtitle"/>
                     </VBox>
-
                     <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="🟢 Registrar entrada" styleClass="actionGreen"/>
-                    <Button text="🔴 Registrar salida" styleClass="actionRed"/>
-                    <Button text="📄 Exportar" styleClass="actionBlue"/>
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
+                    <Button text="🟢 Registrar entrada" onAction="#registrarEntrada" styleClass="actionGreen"/>
+                    <Button text="🔴 Registrar salida" onAction="#registrarSalida" styleClass="actionRed"/>
+                    <Button text="⛔ Marcar ausencia" onAction="#marcarAusencia" styleClass="actionOrange"/>
+                    <Button text="📄 Exportar" onAction="#exportarAsistencias" styleClass="actionBlue"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarFiltrosAsistencia" styleClass="actionNeutral"/>
                 </HBox>
 
                 <GridPane hgap="16">
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="220" prefHeight="95" GridPane.columnIndex="0">
-                        <Label text="Presentes"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="En turno"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardGreen" prefWidth="200" prefHeight="85" GridPane.columnIndex="0">
+                        <Label text="Presentes hoy" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblPresentesHoy" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardOrange" prefWidth="220" prefHeight="95" GridPane.columnIndex="1">
-                        <Label text="Tardanzas"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Hoy"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardOrange" prefWidth="200" prefHeight="85" GridPane.columnIndex="1">
+                        <Label text="Tardanzas" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblTardanzasHoy" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardRed" prefWidth="220" prefHeight="95" GridPane.columnIndex="2">
-                        <Label text="Ausentes"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="No registrados"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardRed" prefWidth="200" prefHeight="85" GridPane.columnIndex="2">
+                        <Label text="Ausentes" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblAusentesHoy" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardBlue" prefWidth="220" prefHeight="95" GridPane.columnIndex="3">
-                        <Label text="Horas trabajadas"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Total del día"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardBlue" prefWidth="200" prefHeight="85" GridPane.columnIndex="3">
+                        <Label text="Total registros" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblTotalAsistencias" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
                 </GridPane>
 
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="12" HBox.hgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT">
-                            <Label text="Registro de asistencia" styleClass="cardTitle"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <DatePicker promptText="Fecha"/>
-                            <ComboBox promptText="Empleado" prefWidth="200"/>
-                            <ComboBox promptText="Estado" prefWidth="160"/>
-                            <TextField promptText="Buscar asistencia..." prefWidth="220"/>
-                            <Button text="🔍" styleClass="actionNeutral"/>
-                        </HBox>
-
-                        <TableView fx:id="tablaAsistencia" prefHeight="520" VBox.vgrow="ALWAYS">
-                            <columns>
-                                <TableColumn text="ID" prefWidth="90"/>
-                                <TableColumn text="Empleado" prefWidth="260"/>
-                                <TableColumn text="Fecha" prefWidth="130"/>
-                                <TableColumn text="Entrada" prefWidth="120"/>
-                                <TableColumn text="Salida" prefWidth="120"/>
-                                <TableColumn text="Horas" prefWidth="110"/>
-                                <TableColumn text="Estado" prefWidth="140"/>
-                                <TableColumn text="Observación" prefWidth="300"/>
-                                <TableColumn text="Acciones" prefWidth="160"/>
-                            </columns>
-                        </TableView>
-                    </VBox>
-
-                    <VBox styleClass="cardPanel compactPanel" spacing="10" prefWidth="320" minWidth="320" maxWidth="320">
-                        <Label text="Registrar asistencia" styleClass="cardTitle"/>
-
-                        <GridPane hgap="12" vgap="10">
-                            <Label text="Empleado:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbEmpleadoAsistencia" promptText="Seleccionar" prefWidth="240"
-                                      GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Fecha:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <DatePicker fx:id="dateAsistencia" prefWidth="240"
-                                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Entrada:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtHoraEntrada" promptText="08:00 AM" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Salida:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtHoraSalida" promptText="05:00 PM" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbEstadoAsistencia" promptText="Presente / Tarde / Ausente" prefWidth="240"
-                                      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-
-                            <Label text="Observación:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                            <TextArea fx:id="txtObservacionAsistencia" promptText="Observación..."
-                                      prefRowCount="3" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-                        </GridPane>
-
-                        <Button text="Guardar asistencia" styleClass="actionGreen" prefHeight="42"/>
-                        <Button text="Limpiar formulario" styleClass="actionNeutral" prefHeight="42"/>
-                    </VBox>
-
-                </HBox>
-
-            </VBox>
-            </ScrollPane>
-
-            <!-- HORARIOS -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewHorarios" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Horarios" styleClass="pageTitle"/>
-                        <Label text="Administra turnos, horarios laborales y asignaciones del personal." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nuevo horario" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="🗑 Eliminar" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Configuración de horario" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-
-                            <Label text="Empleado:" minWidth="140"
-                                   GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbEmpleadoHorario"
-                                      promptText="Seleccionar empleado"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Departamento:" minWidth="140"
-                                   GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbDepartamentoHorario"
-                                      promptText="Departamento"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Turno:" minWidth="140"
-                                   GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbTurnoHorario"
-                                      promptText="Mañana / Noche"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Hora entrada:" minWidth="140"
-                                   GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtHoraEntradaHorario"
-                                       promptText="08:00 AM"
-                                       prefWidth="260"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Hora salida:" minWidth="140"
-                                   GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtHoraSalidaHorario"
-                                       promptText="05:00 PM"
-                                       prefWidth="260"
-                                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Días laborales:" minWidth="140"
-                                   GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbDiasHorario"
-                                      promptText="Lunes a Sábado"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Fecha inicio:" minWidth="140"
-                                   GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <DatePicker fx:id="dateInicioHorario"
-                                        prefWidth="260"
-                                        GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Estado:" minWidth="140"
-                                   GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbEstadoHorario"
-                                      promptText="Activo"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-
-                            <Label text="Observación:" minWidth="140"
-                                   GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextArea fx:id="txtObservacionHorario"
-                                      promptText="Observación del horario..."
-                                      prefRowCount="3"
-                                      prefWidth="260"
-                                      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                        </GridPane>
-                    </VBox>
-
-                    <VBox spacing="16" prefWidth="390">
-
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Resumen horarios" styleClass="cardTitle"/>
-
-                            <HBox>
-                                <Label text="Turnos activos:"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label text="0"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label text="Empleados mañana:"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label text="0"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label text="Empleados tarde:"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label text="0"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label text="Empleados noche:"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label text="0"/>
-                            </HBox>
-
-                        </VBox>
-
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Acciones rápidas" styleClass="cardTitle"/>
-
-                            <Button text="📅 Generar semana"
-                                    styleClass="actionBlue"
-                                    prefHeight="42"/>
-
-                            <Button text="🕒 Ver asistencia"
-                                    styleClass="actionOrange"
-                                    prefHeight="42"/>
-
-                            <Button text="✔ Activar horario"
-                                    styleClass="actionGreen"
-                                    prefHeight="42"/>
-
-                            <Button text="📄 Exportar horarios"
-                                    styleClass="actionNeutral"
-                                    prefHeight="42"/>
-
-                        </VBox>
-
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
-
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
                     <HBox alignment="CENTER_LEFT">
-
-                        <Label text="Listado de horarios"
-                               styleClass="cardTitle"/>
-
+                        <Label text="Registro de asistencia" styleClass="cardTitle"/>
                         <Region HBox.hgrow="ALWAYS"/>
-
-                        <TextField promptText="Buscar horario..."
-                                   prefWidth="240"/>
-
-                        <Button text="🔍"
-                                styleClass="actionNeutral"/>
-
+                        <DatePicker fx:id="dateFiltroAsistencia" promptText="Filtrar fecha" onAction="#filtrarAsistencias"/>
+                        <ComboBox fx:id="cmbFiltroEstadoAsistencia" promptText="Estado" prefWidth="150" onAction="#filtrarAsistencias"/>
+                        <TextField fx:id="txtBuscarAsistencia" promptText="Buscar empleado..." prefWidth="200" onKeyReleased="#filtrarAsistencias"/>
+                        <Button text="📄 Exportar" onAction="#exportarAsistencias" styleClass="actionBlue"/>
+                        <Button text="↻ Limpiar" onAction="#limpiarFiltrosAsistencia" styleClass="actionNeutral"/>
                     </HBox>
-
-                    <TableView fx:id="tablaHorarios"
-                               prefHeight="420" VBox.vgrow="ALWAYS">
-
+                    <TableView fx:id="tablaAsistencia" prefHeight="400" VBox.vgrow="ALWAYS">
                         <columns>
-
-                            <TableColumn text="ID"
-                                         prefWidth="90"/>
-
-                            <TableColumn text="Empleado"
-                                         prefWidth="140"/>
-
-                            <TableColumn text="Departamento"
-                                         prefWidth="150"/>
-
-                            <TableColumn text="Turno"
-                                         prefWidth="150"/>
-
-                            <TableColumn text="Entrada"
-                                         prefWidth="120"/>
-
-                            <TableColumn text="Salida"
-                                         prefWidth="120"/>
-
-                            <TableColumn text="Días"
-                                         prefWidth="110"/>
-
+                            <TableColumn text="ID" prefWidth="60"/>
+                            <TableColumn text="Empleado" prefWidth="200"/>
+                            <TableColumn text="Fecha" prefWidth="120"/>
+                            <TableColumn text="Entrada" prefWidth="100"/>
+                            <TableColumn text="Salida" prefWidth="100"/>
+                            <TableColumn text="Estado" prefWidth="120"/>
+                            <TableColumn text="Observación" prefWidth="250"/>
                         </columns>
-
                     </TableView>
-
                 </VBox>
 
             </VBox>
             </ScrollPane>
 
-            <!-- HISTORIAL -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
-            <VBox fx:id="viewHistorialEmpleados" styleClass="content" spacing="16">
+            <!-- ═══════════════ TURNOS/HORARIOS ═══════════════ -->
+            <ScrollPane fx:id="scrollTurnos" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
                     <VBox>
-                        <Label text="Historial empleados" styleClass="pageTitle"/>
-                        <Label text="Consulta cambios, asistencia, roles, horarios y actividad del personal." styleClass="pageSubtitle"/>
+                        <Label text="Turnos / Horarios" styleClass="pageTitle"/>
+                        <Label text="Administra los horarios y turnos del personal." styleClass="pageSubtitle"/>
                     </VBox>
-
                     <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="+ Nuevo turno" onAction="#nuevoTurno" styleClass="actionBlue"/>
+                    <Button text="💾 Guardar" onAction="#guardarTurno" styleClass="actionGreen"/>
+                    <Button text="❌ Cancelar" onAction="#cancelarEdicion" styleClass="actionRed"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarFormTurno" styleClass="actionNeutral"/>
+                </HBox>
 
-                    <Button text="📄 Exportar" styleClass="actionBlue"/>
-                    <Button text="🖨 Imprimir" styleClass="actionOrange"/>
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
+                <VBox styleClass="cardPanel" spacing="14">
+                    <Label text="Asignar horario" styleClass="cardTitle"/>
+                    <GridPane hgap="18" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="120" prefWidth="120"/>
+                            <ColumnConstraints minWidth="220" prefWidth="220"/>
+                            <ColumnConstraints minWidth="120" prefWidth="120"/>
+                            <ColumnConstraints minWidth="220" prefWidth="220"/>
+                        </columnConstraints>
+
+                        <Label text="Empleado:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cmbEmpleadoTurno" promptText="Seleccione empleado" prefWidth="220" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Día:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <ComboBox fx:id="cmbDiaTurno" promptText="Lunes, Martes..." prefWidth="220" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                        <Label text="Hora entrada:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtHoraEntradaTurno" promptText="08:00 AM" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Hora salida:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtHoraSalidaTurno" promptText="05:00 PM" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                        <Label text="Observación:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextArea fx:id="txtObsTurno" promptText="Notas del horario..." prefRowCount="2" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+                    </GridPane>
+                </VBox>
+
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Listado de turnos" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="txtBuscarTurno" promptText="Buscar turno..." prefWidth="240" onKeyReleased="#filtrarTurnos"/>
+                        <ComboBox fx:id="cmbFiltroDiaTurno" promptText="Filtrar por día" prefWidth="160" onAction="#filtrarTurnos"/>
+                        <Button text="↻ Limpiar" onAction="#limpiarFormTurno" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaTurnos" prefHeight="380" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="ID" prefWidth="60"/>
+                            <TableColumn text="Empleado" prefWidth="180"/>
+                            <TableColumn text="Cargo" prefWidth="130"/>
+                            <TableColumn text="Día" prefWidth="110"/>
+                            <TableColumn text="Entrada" prefWidth="100"/>
+                            <TableColumn text="Salida" prefWidth="100"/>
+                            <TableColumn text="Estado" prefWidth="100"/>
+                            <TableColumn text="Acciones" prefWidth="180"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </VBox>
+            </ScrollPane>
+
+            <!-- ═══════════════ USUARIOS ═══════════════ -->
+            <ScrollPane fx:id="scrollUsuarios" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <VBox>
+                        <Label text="Usuarios del sistema" styleClass="pageTitle"/>
+                        <Label text="Controla accesos, roles y credenciales del sistema." styleClass="pageSubtitle"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="+ Nuevo usuario" onAction="#nuevoUsuario" styleClass="actionBlue"/>
+                    <Button text="🔑 Cambiar contraseña" onAction="#cambiarContrasena" styleClass="actionOrange"/>
+                    <Button text="💾 Guardar" onAction="#guardarUsuario" styleClass="actionGreen"/>
+                    <Button text="❌ Cancelar" onAction="#cancelarEdicion" styleClass="actionRed"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarFormUsuario" styleClass="actionNeutral"/>
+                </HBox>
+
+                <VBox styleClass="cardPanel" spacing="14">
+                    <Label text="Datos de acceso" styleClass="cardTitle"/>
+                    <GridPane hgap="18" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="120" prefWidth="120"/>
+                            <ColumnConstraints minWidth="220" prefWidth="220"/>
+                            <ColumnConstraints minWidth="120" prefWidth="120"/>
+                            <ColumnConstraints minWidth="220" prefWidth="220"/>
+                        </columnConstraints>
+
+                        <Label text="ID Usuario:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtIdUsuario" editable="false" promptText="Automático" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Empleado:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <ComboBox fx:id="cmbEmpleadoUsuario" promptText="Seleccionar empleado" prefWidth="220" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                        <Label text="Usuario:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtNombreUsuario" promptText="Nombre de usuario" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Rol:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <ComboBox fx:id="cmbRolUsuario" promptText="Rol del sistema" prefWidth="220" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                        <Label text="Contraseña:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <PasswordField fx:id="txtPasswordUsuario" promptText="Contraseña" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                        <Label text="Confirmar:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                        <PasswordField fx:id="txtConfirmarPassword" promptText="Confirmar contraseña" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                        <Label text="Estado:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cmbEstadoUsuario" promptText="Activo" prefWidth="220" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                        <Label text="Permisos:" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtPermisosUsuario" promptText="Separados por coma: ver,crear,editar" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+                    </GridPane>
+                </VBox>
+
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Listado de usuarios" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="txtBuscarUsuario" promptText="Buscar usuario..." prefWidth="240" onKeyReleased="#filtrarUsuarios"/>
+                        <Button text="↻ Limpiar" onAction="#limpiarFormUsuario" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaUsuarios" prefHeight="380" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="ID" prefWidth="60"/>
+                            <TableColumn text="Empleado" prefWidth="180"/>
+                            <TableColumn text="Usuario" prefWidth="150"/>
+                            <TableColumn text="Rol" prefWidth="130"/>
+                            <TableColumn text="Estado" prefWidth="100"/>
+                            <TableColumn text="Último acceso" prefWidth="180"/>
+                            <TableColumn text="Acciones" prefWidth="200"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </VBox>
+            </ScrollPane>
+
+            <!-- ═══════════════ HISTORIAL ═══════════════ -->
+            <ScrollPane fx:id="scrollHistorial" fitToWidth="true" fitToHeight="true" visible="false" managed="false" styleClass="contentScroll">
+            <VBox spacing="16" styleClass="content">
+
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <VBox>
+                        <Label text="Historial de empleados" styleClass="pageTitle"/>
+                        <Label text="Consulta movimientos, cambios y eventos del personal." styleClass="pageSubtitle"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="📄 Exportar" onAction="#exportarHistorial" styleClass="actionBlue"/>
+                    <Button text="↻ Actualizar" onAction="#actualizarHistorial" styleClass="actionNeutral"/>
                 </HBox>
 
                 <GridPane hgap="16">
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardBlue" prefWidth="220" prefHeight="95" GridPane.columnIndex="0">
-                        <Label text="Eventos"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Registrados"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardBlue" prefWidth="200" prefHeight="85" GridPane.columnIndex="0">
+                        <Label text="Eventos registrados" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblTotalEventos" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardGreen" prefWidth="220" prefHeight="95" GridPane.columnIndex="1">
-                        <Label text="Asistencias"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="En historial"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardOrange" prefWidth="200" prefHeight="85" GridPane.columnIndex="1">
+                        <Label text="Cambios de cargo" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblCambiosCargo" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardOrange" prefWidth="220" prefHeight="95" GridPane.columnIndex="2">
-                        <Label text="Cambios de rol"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Registrados"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardGreen" prefWidth="200" prefHeight="85" GridPane.columnIndex="2">
+                        <Label text="Asistencias" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblHistorialAsistencias" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
-                    <VBox alignment="CENTER" spacing="6" styleClass="statusCardRed" prefWidth="220" prefHeight="95" GridPane.columnIndex="3">
-                        <Label text="Incidencias"/>
-                        <Label text="0" styleClass="metricValueSmall"/>
-                        <Label text="Revisar"/>
+                    <VBox alignment="CENTER" spacing="4" styleClass="statusCardRed" prefWidth="200" prefHeight="85" GridPane.columnIndex="3">
+                        <Label text="Incidencias" style="-fx-text-fill: #000000;"/>
+                        <Label fx:id="lblIncidencias" text="0" styleClass="metricValueSmall"/>
                     </VBox>
-
                 </GridPane>
 
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="12" HBox.hgrow="ALWAYS">
-
-                        <HBox alignment="CENTER_LEFT">
-                            <Label text="Historial del personal" styleClass="cardTitle"/>
-
-                            <Region HBox.hgrow="ALWAYS"/>
-
-                            <DatePicker promptText="Desde"/>
-                            <DatePicker promptText="Hasta"/>
-                            <ComboBox promptText="Empleado" prefWidth="190"/>
-                            <ComboBox promptText="Tipo evento" prefWidth="170"/>
-                            <TextField promptText="Buscar historial..." prefWidth="230"/>
-                            <Button text="🔍" styleClass="actionNeutral"/>
-                        </HBox>
-
-                        <TableView fx:id="tablaHistorialEmpleados" prefHeight="520" VBox.vgrow="ALWAYS">
-                            <columns>
-                                <TableColumn text="Fecha" prefWidth="130"/>
-                                <TableColumn text="Hora" prefWidth="110"/>
-                                <TableColumn text="Empleado" prefWidth="240"/>
-                                <TableColumn text="Tipo evento" prefWidth="170"/>
-                                <TableColumn text="Descripción" prefWidth="360"/>
-                                <TableColumn text="Usuario" prefWidth="160"/>
-                                <TableColumn text="Módulo" prefWidth="150"/>
-                                <TableColumn text="Acciones" prefWidth="150"/>
-                            </columns>
-                        </TableView>
-                    </VBox>
-
-                    <VBox styleClass="cardPanel compactPanel" spacing="10" prefWidth="320" minWidth="320" maxWidth="320">
-                        <Label text="Detalle del evento" styleClass="cardTitle"/>
-
-                        <GridPane hgap="12" vgap="10">
-                            <Label text="Empleado:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField text="Empleado seleccionado" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Evento:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField text="N/A" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Fecha:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField text="N/A" editable="false" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Usuario:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <TextField text="Admin" editable="false" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Módulo:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextField text="Empleados" editable="false" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                        </GridPane>
-
-                        <Separator/>
-
-                        <Label text="Descripción" styleClass="cardTitle"/>
-
-                        <TextArea text="Seleccione un registro para ver el detalle completo."
-                                  wrapText="true"
-                                  editable="false"
-                                  prefHeight="150"/>
-
-                        <Button text="Ver empleado" styleClass="actionBlue" prefHeight="42"/>
-                        <Button text="Exportar detalle" styleClass="actionGreen" prefHeight="42"/>
-                    </VBox>
-
-                </HBox>
+                <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Movimientos del personal" styleClass="cardTitle"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <DatePicker fx:id="dateHistorialDesde" promptText="Desde" onAction="#filtrarHistorial"/>
+                        <DatePicker fx:id="dateHistorialHasta" promptText="Hasta" onAction="#filtrarHistorial"/>
+                        <ComboBox fx:id="cmbFiltroTipoEvento" promptText="Tipo evento" prefWidth="160" onAction="#filtrarHistorial"/>
+                        <TextField fx:id="txtBuscarHistorial" promptText="Buscar historial..." prefWidth="200" onKeyReleased="#filtrarHistorial"/>
+                        <Button text="📄 Exportar" onAction="#exportarHistorial" styleClass="actionBlue"/>
+                        <Button text="↻ Limpiar" onAction="#limpiarFiltrosHistorial" styleClass="actionNeutral"/>
+                    </HBox>
+                    <TableView fx:id="tablaHistorial" prefHeight="400" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Fecha" prefWidth="110"/>
+                            <TableColumn text="Hora" prefWidth="90"/>
+                            <TableColumn text="Empleado" prefWidth="200"/>
+                            <TableColumn text="Tipo evento" prefWidth="150"/>
+                            <TableColumn text="Descripción" prefWidth="350"/>
+                            <TableColumn text="Usuario" prefWidth="130"/>
+                            <TableColumn text="Módulo" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
 
             </VBox>
             </ScrollPane>
