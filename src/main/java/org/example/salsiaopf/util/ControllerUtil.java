@@ -1,4 +1,4 @@
-﻿package org.example.salsiaopf.util;
+package org.example.salsiaopf.util;
 
 import javafx.animation.*;
 import javafx.application.Platform;

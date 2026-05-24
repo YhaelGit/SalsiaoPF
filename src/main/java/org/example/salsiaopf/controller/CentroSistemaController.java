@@ -1,4 +1,4 @@
-﻿package org.example.salsiaopf.controller;
+package org.example.salsiaopf.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -121,6 +121,17 @@ public class CentroSistemaController {
         Alertas.informacion("Notificaciones",
                 "Tienes " + cantidadNotificaciones + " notificaciones pendientes.\n"
                 + "Panel de notificaciones próximamente disponible.");
+    }
+
+    @FXML
+    private void irPanelNotificaciones(ActionEvent event) {
+        mostrarNotificaciones();
+    }
+
+    @FXML
+    private void irPanelInventario(ActionEvent event) {
+        if (!RoleGuard.permitir("inventario")) return;
+        Navegacion.abrirInventario(event);
     }
 
     @FXML

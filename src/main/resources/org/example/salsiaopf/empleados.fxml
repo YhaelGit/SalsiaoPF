@@ -82,6 +82,7 @@
         <StackPane fx:id="contenedorEmpleados" styleClass="contentArea">
 
             <!-- REGISTRO DE EMPLEADOS -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewRegistroEmpleado" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -186,7 +187,7 @@
                         <Button text="🔍" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView fx:id="tablaEmpleados" prefHeight="380">
+                    <TableView fx:id="tablaEmpleados" prefHeight="380" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID" prefWidth="90"/>
                             <TableColumn text="Empleado" prefWidth="140"/>
@@ -201,7 +202,9 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewNomina"
                   styleClass="content"
                   spacing="16"
@@ -252,7 +255,7 @@
 
                 <HBox spacing="16">
 
-                    <VBox styleClass="cardPanel" spacing="14" prefWidth="980" maxWidth="980">
+                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
 
                         <Label text="Datos de nómina" styleClass="cardTitle"/>
 
@@ -419,8 +422,10 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
             <!-- USUARIOS -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewUsuariosSistema" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -513,7 +518,7 @@
                         <Button text="🔍" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView fx:id="tablaUsuariosSistema" prefHeight="420">
+                    <TableView fx:id="tablaUsuariosSistema" prefHeight="420" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID" prefWidth="90"/>
                             <TableColumn text="Empleado" prefWidth="140"/>
@@ -528,8 +533,10 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
             <!-- ROLES -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewRolesPermisos" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -650,7 +657,7 @@
                         <Button text="🔍" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView fx:id="tablaRolesPermisos" prefHeight="300">
+                    <TableView fx:id="tablaRolesPermisos" prefHeight="300" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID" prefWidth="90"/>
                             <TableColumn text="Rol" prefWidth="140"/>
@@ -663,8 +670,10 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
             <!-- ASISTENCIA -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewAsistencia" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -711,7 +720,7 @@
 
                 <HBox spacing="16">
 
-                    <VBox styleClass="cardPanel" spacing="12" prefWidth="980" maxWidth="980">
+                    <VBox styleClass="cardPanel" spacing="12" HBox.hgrow="ALWAYS">
                         <HBox alignment="CENTER_LEFT">
                             <Label text="Registro de asistencia" styleClass="cardTitle"/>
                             <Region HBox.hgrow="ALWAYS"/>
@@ -722,7 +731,7 @@
                             <Button text="🔍" styleClass="actionNeutral"/>
                         </HBox>
 
-                        <TableView fx:id="tablaAsistencia" prefHeight="520">
+                        <TableView fx:id="tablaAsistencia" prefHeight="520" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn text="ID" prefWidth="90"/>
                                 <TableColumn text="Empleado" prefWidth="260"/>
@@ -771,8 +780,10 @@
                 </HBox>
 
             </VBox>
+            </ScrollPane>
 
             <!-- HORARIOS -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewHorarios" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -936,7 +947,7 @@
                     </HBox>
 
                     <TableView fx:id="tablaHorarios"
-                               prefHeight="420">
+                               prefHeight="420" VBox.vgrow="ALWAYS">
 
                         <columns>
 
@@ -968,8 +979,10 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
             <!-- HISTORIAL -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewHistorialEmpleados" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -1015,7 +1028,7 @@
 
                 <HBox spacing="16">
 
-                    <VBox styleClass="cardPanel" spacing="12" prefWidth="980" maxWidth="980">
+                    <VBox styleClass="cardPanel" spacing="12" HBox.hgrow="ALWAYS">
 
                         <HBox alignment="CENTER_LEFT">
                             <Label text="Historial del personal" styleClass="cardTitle"/>
@@ -1030,7 +1043,7 @@
                             <Button text="🔍" styleClass="actionNeutral"/>
                         </HBox>
 
-                        <TableView fx:id="tablaHistorialEmpleados" prefHeight="520">
+                        <TableView fx:id="tablaHistorialEmpleados" prefHeight="520" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn text="Fecha" prefWidth="130"/>
                                 <TableColumn text="Hora" prefWidth="110"/>
@@ -1080,6 +1093,7 @@
                 </HBox>
 
             </VBox>
+            </ScrollPane>
 
         </StackPane>
     </center>

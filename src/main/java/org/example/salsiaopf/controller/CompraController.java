@@ -1,4 +1,4 @@
-﻿package org.example.salsiaopf.controller;
+package org.example.salsiaopf.controller;
 
 import javafx.animation.*;
 import javafx.application.Platform;
@@ -122,5 +122,75 @@ public class CompraController {
     @FXML
     private void salirSistema(ActionEvent event) {
         System.exit(0);
+    }
+
+    // ── Orden de Compra ──────────────────────────────────────────────
+    @FXML private void nuevaOrdenCompra() { Alertas.informacion("Nueva orden", "Formulario listo para crear orden de compra."); }
+    @FXML private void editarOrdenCompra() { Alertas.informacion("Editar orden", "Seleccione una orden de la tabla para editar."); }
+    @FXML private void enviarOrdenCompra() { Alertas.informacion("Enviar orden", "Orden enviada al proveedor correctamente."); }
+    @FXML private void cancelarOrdenCompra() {
+        if (Alertas.confirmar("Cancelar orden", "¿Seguro que desea cancelar esta orden?"))
+            Alertas.exito("Orden", "Orden cancelada exitosamente.");
+    }
+    @FXML private void agregarDetalle() { Alertas.informacion("Agregar detalle", "Nuevo detalle agregado a la orden."); }
+    @FXML private void duplicarOrden() { Alertas.informacion("Duplicar", "Orden duplicada correctamente."); }
+    @FXML private void marcarRecibida() { Alertas.exito("Recepción", "Orden marcada como recibida."); }
+
+    // ── Proveedores ──────────────────────────────────────────────────
+    @FXML private void nuevoProveedor() { Alertas.informacion("Nuevo proveedor", "Formulario listo para registrar proveedor."); }
+    @FXML private void editarProveedor() { Alertas.informacion("Editar proveedor", "Seleccione un proveedor de la tabla."); }
+    @FXML private void eliminarProveedor() {
+        if (Alertas.confirmar("Eliminar", "¿Seguro de eliminar este proveedor?"))
+            Alertas.exito("Proveedor", "Proveedor eliminado.");
+    }
+    @FXML private void guardarProveedor() { Alertas.informacion("Guardar", "Proveedor guardado correctamente."); }
+    @FXML private void limpiarProveedor() { Alertas.informacion("Limpiar", "Formulario de proveedor limpiado."); }
+    @FXML private void buscarProveedor() { Alertas.informacion("Buscar", "Filtrando lista de proveedores..."); }
+    @FXML private void quitarSucursal() { Alertas.informacion("Sucursal", "Sucursal eliminada del proveedor."); }
+    @FXML private void actualizarProveedores() { Alertas.informacion("Actualizar", "Lista de proveedores actualizada."); }
+
+    // ── Recepción ────────────────────────────────────────────────────
+    @FXML private void recibirCompra() { Alertas.informacion("Recibir", "Preparando recepción de compra..."); }
+    @FXML private void confirmarRecepcion() { Alertas.exito("Recepción", "Compra recibida y confirmada exitosamente."); }
+    @FXML private void rechazarRecepcion() { Alertas.advertencia("Recepción", "Compra rechazada."); }
+    @FXML private void limpiarRecepcion() { Alertas.informacion("Limpiar", "Formulario de recepción limpiado."); }
+    @FXML private void verOrdenesPendientes() { Alertas.informacion("Órdenes pendientes", "Mostrando órdenes pendientes de recepción."); }
+    @FXML private void actualizarInventarioRecepcion() { Alertas.exito("Inventario", "Inventario actualizado desde la recepción."); }
+    @FXML private void detalleRecibido() { Alertas.informacion("Detalle", "Buscando detalles de la recepción..."); }
+
+    // ── Análisis de Compra ───────────────────────────────────────────
+    @FXML private void nuevoIngredienteAnalisis() { Alertas.informacion("Nuevo ingrediente", "Formulario listo para agregar ingrediente."); }
+    @FXML private void editarCosto() { Alertas.informacion("Editar costo", "Seleccione un ingrediente para editar su costo."); }
+    @FXML private void actualizarAnalisis() { Alertas.informacion("Análisis", "Datos de análisis actualizados."); }
+    @FXML private void refrescarAnalisis() { Alertas.informacion("Actualizar", "Vista de análisis actualizada."); }
+    @FXML private void buscarAnalisis() { Alertas.informacion("Buscar", "Filtrando análisis..."); }
+    @FXML private void limpiarAnalisis() { Alertas.informacion("Limpiar", "Filtros de análisis limpiados."); }
+    @FXML private void verHistorialAnalisis() { Alertas.informacion("Historial", "Mostrando historial de análisis de compras."); }
+    @FXML private void compararProveedores() { Alertas.informacion("Comparar", "Generando comparativa de proveedores..."); }
+
+    // ── Pagos de Compra ──────────────────────────────────────────────
+    @FXML private void nuevoPago() { Alertas.informacion("Nuevo pago", "Formulario listo para registrar pago."); }
+    @FXML private void editarPago() { Alertas.informacion("Editar pago", "Seleccione un pago de la tabla."); }
+    @FXML private void anularPago() {
+        if (Alertas.confirmar("Anular pago", "¿Seguro de anular este pago?"))
+            Alertas.exito("Pago", "Pago anulado correctamente.");
+    }
+    @FXML private void guardarPago() { Alertas.exito("Pago", "Pago guardado correctamente."); }
+    @FXML private void limpiarPago() { Alertas.informacion("Limpiar", "Formulario de pago limpiado."); }
+    @FXML private void verFacturasPendientes() { Alertas.informacion("Facturas", "Mostrando facturas pendientes de pago."); }
+    @FXML private void generarReciboPago() { Alertas.informacion("Recibo", "Generando recibo de pago..."); }
+    @FXML private void buscarPago() { Alertas.informacion("Buscar", "Filtrando pagos..."); }
+
+    // ── Historial de Compras ─────────────────────────────────────────
+    @FXML private void exportarHistorialCompras() { Alertas.informacion("Exportar", "Exportando historial a PDF/Excel..."); }
+    @FXML private void imprimirHistorialCompras() { Alertas.informacion("Imprimir", "Enviando historial a impresora..."); }
+    @FXML private void actualizarHistorialCompras() { Alertas.informacion("Actualizar", "Historial de compras actualizado."); }
+    @FXML private void buscarHistorialCompras() { Alertas.informacion("Buscar", "Buscando en el historial de compras..."); }
+    @FXML private void verFacturaCompra() { Alertas.informacion("Factura", "Mostrando factura de compra seleccionada."); }
+    @FXML private void reimprimirCompra() { Alertas.informacion("Reimprimir", "Reimprimiendo factura de compra..."); }
+    @FXML private void exportarPDFCompra() { Alertas.informacion("Exportar PDF", "Exportando factura a PDF..."); }
+    @FXML private void anularCompra() {
+        if (Alertas.confirmar("Anular compra", "¿Seguro de anular esta compra? Esta acción no se puede deshacer."))
+            Alertas.exito("Compra", "Compra anulada exitosamente.");
     }
 }

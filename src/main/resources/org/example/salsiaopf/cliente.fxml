@@ -84,6 +84,7 @@
         <StackPane fx:id="contenedorCliente" styleClass="contentArea">
 
             <!-- REGISTRO -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewRegistro" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -175,7 +176,7 @@
                         <TextField fx:id="txtReferenciaDireccion" promptText="Referencia" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
                     </GridPane>
 
-                    <TableView fx:id="tablaDirecciones" prefHeight="140">
+                    <TableView fx:id="tablaDirecciones" prefHeight="140" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colDireccionId" text="ID" prefWidth="100"/>
                             <TableColumn fx:id="colDireccionTipo" text="Tipo" prefWidth="130"/>
@@ -195,7 +196,7 @@
                         <Button text="↻ Actualizar" onAction="#cargarClientes" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView fx:id="tablaClientes" prefHeight="260">
+                    <TableView fx:id="tablaClientes" prefHeight="260" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colIdCliente" text="ID Cliente" prefWidth="130"/>
                             <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
@@ -220,7 +221,11 @@
 
             </VBox>
 
+            </VBox>
+            </ScrollPane>
+
             <!-- RESERVAS -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewReservas" styleClass="content" spacing="16">
 
                 <!-- HEADER -->
@@ -385,7 +390,7 @@
                     </HBox>
 
                     <TableView fx:id="tablaReservas"
-                               prefHeight="320">
+                               prefHeight="320" VBox.vgrow="ALWAYS">
 
                         <columns>
 
@@ -456,7 +461,11 @@
 
             </VBox>
 
+            </VBox>
+            </ScrollPane>
+
             <!-- RECLAMACIONES -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewReclamaciones" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -679,7 +688,7 @@
                         <Button text="↻" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView fx:id="tablaReclamaciones" prefHeight="285">
+                    <TableView fx:id="tablaReclamaciones" prefHeight="285" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID Reclamación" prefWidth="120"/>
                             <TableColumn text="Cliente" prefWidth="130"/>
@@ -709,7 +718,11 @@
 
             </VBox>
 
+            </VBox>
+            </ScrollPane>
+
             <!-- HISTORIAL -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewHistorial" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -835,7 +848,7 @@
                         <ComboBox promptText="10 por página" prefWidth="150"/>
                     </HBox>
 
-                    <TableView fx:id="tablaHistorialCliente" prefHeight="360">
+                    <TableView fx:id="tablaHistorialCliente" prefHeight="360" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="Fecha" prefWidth="120"/>
                             <TableColumn text="Hora" prefWidth="120"/>
@@ -862,6 +875,7 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
         </StackPane>
     </center>

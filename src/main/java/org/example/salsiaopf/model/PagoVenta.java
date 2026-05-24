@@ -1,4 +1,4 @@
-﻿package org.example.salsiaopf.model;
+package org.example.salsiaopf.model;
 
 import java.time.LocalDateTime;
 

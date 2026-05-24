@@ -102,6 +102,7 @@
                    styleClass="contentArea">
 
             <!-- EQUIPOS -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewEquipos" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -184,7 +185,7 @@
                         <Button text="🔍" onAction="#buscarEquipo" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView prefHeight="430">
+                    <TableView prefHeight="430" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID" prefWidth="90"/>
                             <TableColumn text="Equipo" prefWidth="240"/>
@@ -200,8 +201,10 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
             <!-- FALLOS -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewFallos" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -371,7 +374,7 @@
 
                     </HBox>
 
-                    <TableView prefHeight="430">
+                    <TableView prefHeight="430" VBox.vgrow="ALWAYS">
 
                         <columns>
 
@@ -403,8 +406,10 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
             <!-- REPARACIONES -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewReparaciones" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -484,7 +489,7 @@
                         <Button text="🔍" onAction="#buscarReparacion" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView prefHeight="430">
+                    <TableView prefHeight="430" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID" prefWidth="90"/>
                             <TableColumn text="Fallo" prefWidth="120"/>
@@ -500,8 +505,10 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
             <!-- LIMPIEZA -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewLimpieza" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -585,7 +592,7 @@
                         <Button text="🔍" onAction="#buscarTareaLimpieza" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView prefHeight="430">
+                    <TableView prefHeight="430" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID" prefWidth="90"/>
                             <TableColumn text="Área" prefWidth="120"/>
@@ -600,8 +607,10 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
             <!-- HISTORIAL -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewHistorialMantenimiento" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -687,6 +696,7 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
         </StackPane>
     </center>

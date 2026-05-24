@@ -27,6 +27,14 @@ public final class Alertas {
         mostrar(Alert.AlertType.WARNING, titulo, mensaje);
     }
 
+    public static boolean confirmar(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, mensaje, ButtonType.OK, ButtonType.CANCEL);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.getDialogPane().setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 13px;");
+        return alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK;
+    }
+
     private static void mostrar(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo, mensaje, ButtonType.OK);
         alert.setTitle(titulo);

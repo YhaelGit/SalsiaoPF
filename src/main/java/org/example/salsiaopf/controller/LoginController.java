@@ -65,7 +65,8 @@ public class LoginController implements Initializable {
         // Enfocar el campo de usuario al inicio
         Platform.runLater(() -> txtUsuario.requestFocus());
 
-        // Enter en contraseña → iniciar sesión
+        // Enter en usuario o contraseña → iniciar sesión
+        txtUsuario.setOnAction(e -> iniciarSesion());
         txtContrasena.setOnAction(e -> iniciarSesion());
         txtContrasenaVisible.setOnAction(e -> iniciarSesion());
     }

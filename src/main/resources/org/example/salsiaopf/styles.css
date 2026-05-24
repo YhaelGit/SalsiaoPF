@@ -1,247 +1,35 @@
-﻿.segmentBar {
-    -fx-padding: 10 18;
-    -fx-background-color: #0b1220;
-    -fx-border-color: rgba(255,255,255,0.08);
-    -fx-border-width: 0 0 1 0;
-}
+﻿/* ═══════════════════════════════════════════════════════════════════
+   SALSIAO POS — Main Stylesheet
+   Sistema de gestión de compras · Diseño premium moderno
+   ═══════════════════════════════════════════════════════════════════ */
 
-.segBtn {
-    -fx-background-color: rgba(255,255,255,0.06);
-    -fx-text-fill: #e9eefc;
-    -fx-background-radius: 999;
-    -fx-padding: 8 14;
-    -fx-font-weight: 700;
-}
-
-.segBtn:selected {
-    -fx-background-color: rgba(99, 102, 241, 0.95);
-    -fx-text-fill: white;
-}
-
-.cardWide {
-    -fx-background-color: rgba(255,255,255,0.05);
-    -fx-background-radius: 18;
-    -fx-padding: 16;
-    -fx-border-color: rgba(255,255,255,0.08);
-    -fx-border-radius: 18;
-}
-
-.logoWrap {
-    -fx-background-color: rgba(99, 102, 241, 0.14);
-    -fx-border-color: rgba(99, 102, 241, 0.35);
-    -fx-border-radius: 14;
-    -fx-background-radius: 14;
-    -fx-padding: 8;
-}
-
-.topbar {
-    -fx-background-color: transparent;
-    -fx-padding: 12 18;
-}
-
-.brandBox {
-    -fx-background-color: #f28c28;
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
-    -fx-padding: 10 18;
-}
-
-.logoCircle {
-    -fx-background-color: white;
-    -fx-background-radius: 50;
-    -fx-padding: 5;
-}
-
-.brandScript {
-    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
-    -fx-font-size: 28px;
-    -fx-font-weight: 900;
-    -fx-text-fill: #c2413a;
-}
-
-.brandSub {
-    -fx-text-fill: rgba(20,20,20,0.85);
-    -fx-font-size: 12px;
-}
-
-.segmentBar {
-    -fx-padding: 10 18;
-    -fx-background-color: #071227;
-}
-
-.segBtn {
-    -fx-background-color: rgba(255,255,255,0.06);
-    -fx-text-fill: #e9eefc;
-    -fx-background-radius: 999;
-    -fx-padding: 8 14;
-    -fx-font-weight: 700;
-}
-
-.segBtn:hover {
-    -fx-background-color: rgba(255,255,255,0.12);
-}
-
-.segBtn:selected {
-    -fx-background-color: rgba(99, 102, 241, 0.95);
-    -fx-text-fill: white;
-}
-
-.qtyField {
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-    -fx-border-color: #cfcfcf;
-    -fx-background-color: white;
-    -fx-padding: 6 10 6 10;
-}
-
-.mainRoot {
-    -fx-background-color: linear-gradient(to bottom, #f4f5f8, #e9edf3);
-}
-
-.mainWrapper {
-    -fx-padding: 20;
-}
-
-.mainLogoWrap {
-    -fx-background-color: #f28c28;
-    -fx-background-radius: 999;
-    -fx-padding: 10;
-    -fx-min-width: 170;
-    -fx-min-height: 170;
-    -fx-max-width: 170;
-    -fx-max-height: 170;
-    -fx-alignment: center;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 18, 0.22, 0, 5);
-}
-
-.mainBrand {
-    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
-    -fx-font-size: 44px;
-    -fx-font-weight: 900;
-    -fx-text-fill: #c2413a;
-    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.75), 10, 0.30, 0, 0),
-                dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.18, 0, 2);
-}
-
-.mainTitle {
-    -fx-font-size: 22px;
-    -fx-font-weight: 800;
-    -fx-text-fill: #172033;
-}
-
-.mainSubtitle {
-    -fx-font-size: 13px;
-    -fx-text-fill: #5d6575;
-    -fx-max-width: 520;
-    -fx-alignment: center;
-}
-
-.mainBtnBlue {
-    -fx-background-color: linear-gradient(to right, #5f6ae8, #7a6cf0);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(95,106,232,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnBlue:hover {
-    -fx-background-color: linear-gradient(to right, #505cdb, #6b5fe7);
-}
-
-.mainBtnGreen {
-    -fx-background-color: linear-gradient(to right, #74c69d, #52b788);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(82,183,136,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnGreen:hover {
-    -fx-background-color: linear-gradient(to right, #63ba8e, #45aa7b);
-}
-
-.mainBtnOrange {
-    -fx-background-color: linear-gradient(to right, #f39c12, #f08c00);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(240,140,0,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnOrange:hover {
-    -fx-background-color: linear-gradient(to right, #e9900d, #e07f00);
-}
-
-.mainBtnPurple {
-    -fx-background-color: linear-gradient(to right, #7b2cbf, #9d4edd);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(123,44,191,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnPurple:hover {
-    -fx-background-color: linear-gradient(to right, #6f22b2, #9144d1);
-}
-
-.mainBtnExit {
-    -fx-background-color: linear-gradient(to right, #495057, #343a40);
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(52,58,64,0.28), 14, 0.20, 0, 5);
-}
-
-.mainBtnExit:hover {
-    -fx-background-color: linear-gradient(to right, #3f464d, #2d3237);
-}
-
-.mainTopPanel {
-    -fx-background-color: #f28c28;
-    -fx-background-radius: 40;
-    -fx-padding: 20 30 20 30;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 18, 0.20, 0, 5);
-}
-
+/* ── 1. ROOT & BASE ── */
 .root{
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 .appRoot{
     -fx-background-color: #f4f6f8;
 }
 
+/* ── 2. TOP BAR ── */
 .topBar{
-    -fx-background-color: linear-gradient(to right, #ff7a00, #ff6a00);
-    -fx-padding: 16 24;
-    -fx-alignment: center-left;
+    -fx-background-color: linear-gradient(to right, #ff7a00, #ff8c00);
+    -fx-padding: 14 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 8, 0.15, 0, 2);
 }
 
 .brandTitle{
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
     -fx-font-size: 34px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #111111;
+    -fx-font-weight: 900;
+    -fx-text-fill: #b8322a;
 }
 
 .brandSubtitle{
-    -fx-font-size: 18px;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-text-fill: #111827;
+    -fx-font-weight: 600;
 }
 
 .topInfo{
@@ -251,7 +39,7 @@
 }
 
 .topIcon{
-    -fx-font-size: 18px;
+    -fx-font-size: 17px;
     -fx-text-fill: white;
 }
 
@@ -262,111 +50,249 @@
 }
 
 .userRole{
-    -fx-text-fill: white;
+    -fx-text-fill: rgba(255,255,255,0.85);
     -fx-font-size: 13px;
 }
 
+.searchField {
+    -fx-background-color: rgba(255,255,255,0.92);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-padding: 9 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 4, 0.1, 0, 1);
+    -fx-transition: -fx-effect 0.2s ease;
+}
+
+.searchField:focused {
+    -fx-border-color: #4f46e5;
+    -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.18), 10, 0.15, 0, 0);
+}
+
+.topButton {
+    -fx-background-color: rgba(255,255,255,0.92);
+    -fx-text-fill: #1f2937;
+    -fx-font-weight: 700;
+    -fx-background-radius: 8;
+    -fx-padding: 9 16;
+    -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease;
+}
+
+.topButton:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0.12, 0, 1);
+}
+
+.topInfoCard {
+    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-padding: 8 14;
+    -fx-background-radius: 14;
+    -fx-min-height: 42;
+}
+
+.topInfoText {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+}
+
+.notificationModernButton {
+    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 14;
+    -fx-padding: 8 15;
+    -fx-min-height: 42;
+    -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease;
+}
+
+.notificationModernButton:hover {
+    -fx-background-color: rgba(255,255,255,0.28);
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.12), 8, 0.15, 0, 0);
+}
+
+.userInfoCard {
+    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-padding: 7 14;
+    -fx-background-radius: 14;
+    -fx-min-height: 42;
+}
+
+.userNameTop {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 900;
+}
+
+.userRoleTop {
+    -fx-text-fill: rgba(255,255,255,0.80);
+    -fx-font-size: 11px;
+}
+
+/* ── 3. SIDEBAR ── */
 .sideBar{
-    -fx-background-color: linear-gradient(to bottom, #041225, #020d1d);
-    -fx-padding: 22 16;
+    -fx-background-color: linear-gradient(to bottom, #061328, #020b18);
+    -fx-padding: 24 14;
 }
 
 .sideTitle{
-    -fx-text-fill: #8b95a7;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 17px;
+    -fx-font-weight: 800;
     -fx-padding: 0 0 12 0;
 }
 
-.sideButton{
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-padding: 16 18;
-    -fx-background-radius: 12;
+.sideButton,
+.sideButtonActive {
+    -fx-pref-width: 220;
     -fx-alignment: center-left;
+    -fx-background-radius: 10;
+    -fx-padding: 14 16;
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
     -fx-cursor: hand;
 }
 
-.sideButton:hover{
-    -fx-background-color: rgba(255,255,255,0.08);
+.sideButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-transition: -fx-background-color 0.18s ease, -fx-translate-x 0.18s ease;
+}
+
+.sideButton:hover {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-translate-x: 2;
 }
 
 .sideButtonActive{
-    -fx-background-color: linear-gradient(to right, #4f46e5, #5b5bf0);
+    -fx-background-color: rgba(99, 102, 241, 0.20);
     -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-padding: 16 18;
-    -fx-background-radius: 12;
-    -fx-alignment: center-left;
-    -fx-cursor: hand;
+    -fx-border-color: transparent transparent transparent #6366f1;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0 10 10 0;
 }
 
 .sideButtonExit{
     -fx-background-color: transparent;
     -fx-text-fill: #ff4d4d;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-padding: 16 18;
-    -fx-background-radius: 12;
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+    -fx-padding: 14 16;
+    -fx-background-radius: 10;
     -fx-alignment: center-left;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.18s ease;
 }
 
 .sideButtonExit:hover{
-    -fx-background-color: rgba(255,0,0,0.1);
+    -fx-background-color: rgba(255,0,0,0.12);
+}
+
+.sideButtonDenied {
+    -fx-background-color: rgba(255,255,255,0.03);
+    -fx-text-fill: rgba(255,255,255,0.35);
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+    -fx-padding: 14 16;
+    -fx-background-radius: 10;
+    -fx-alignment: center-left;
+    -fx-opacity: 0.7;
+    -fx-cursor: default;
 }
 
 .userCard{
-    -fx-background-color: rgba(255,255,255,0.03);
-    -fx-border-color: rgba(255,255,255,0.08);
-    -fx-border-radius: 14;
-    -fx-background-radius: 14;
-    -fx-padding: 20;
+    -fx-background-color: rgba(255,255,255,0.035);
+    -fx-border-color: rgba(255,255,255,0.12);
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 18;
+    -fx-transition: -fx-effect 0.2s ease;
 }
 
 .userCardName{
     -fx-text-fill: white;
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
+    -fx-font-size: 17px;
+    -fx-font-weight: 800;
 }
 
 .userCardRole{
-    -fx-text-fill: #7c8aa5;
-    -fx-font-size: 14px;
+    -fx-text-fill: #a7b0c2;
+    -fx-font-size: 13px;
+}
+
+/* ── 4. CONTENT ── */
+.contentArea {
+    -fx-background-color: #f6f7fb;
 }
 
 .content{
-    -fx-padding: 24;
+    -fx-padding: 26 30 26 30;
 }
 
 .pageTitle{
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
+    -fx-font-size: 26px;
+    -fx-font-weight: 900;
     -fx-text-fill: #111827;
 }
 
 .pageSubtitle{
-    -fx-font-size: 17px;
-    -fx-text-fill: #6b7280;
+    -fx-font-size: 14px;
+    -fx-text-fill: #4b5563;
 }
 
-.primaryButton{
-    -fx-background-color: linear-gradient(to right, #4f46e5, #6366f1);
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-font-size: 15px;
-    -fx-padding: 12 22;
-    -fx-background-radius: 10;
-    -fx-cursor: hand;
+/* ── 5. CARDS & PANELS ── */
+.cardPanel {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #e5e7eb;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0.15, 0, 2);
+    -fx-transition: -fx-effect 0.25s ease, -fx-translate-y 0.25s ease;
 }
 
-.primaryButton:hover{
-    -fx-opacity: 0.90;
+.cardPanel:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 22, 0.16, 0, 6);
+    -fx-translate-y: -1;
 }
 
+.cardTitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #4f46e5;
+}
+
+.compactPanel {
+    -fx-spacing: 10;
+    -fx-padding: 14;
+}
+
+.contentScroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.contentScroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.chartPlaceholder{
+    -fx-background-color: #f9fafb;
+    -fx-background-radius: 14;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 14;
+}
+
+.placeholderText{
+    -fx-font-size: 20px;
+    -fx-text-fill: #9ca3af;
+}
+
+/* ── 6. METRICS (Dashboard) ── */
 .metricCard{
     -fx-background-color: white;
     -fx-background-radius: 18;
@@ -374,7 +300,13 @@
     -fx-border-color: #e5e7eb;
     -fx-padding: 18;
     -fx-spacing: 8;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0.2, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0.15, 0, 3);
+    -fx-transition: -fx-effect 0.25s ease, -fx-translate-y 0.25s ease;
+}
+
+.metricCard:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.14), 24, 0.18, 0, 6);
+    -fx-translate-y: -2;
 }
 
 .metricValue{
@@ -439,6 +371,7 @@
     -fx-border-color: #e5e7eb;
     -fx-padding: 18;
     -fx-spacing: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0.12, 0, 2);
 }
 
 .sectionTitle{
@@ -453,16 +386,9 @@
     -fx-text-fill: #4f46e5;
 }
 
-.chartPlaceholder{
-    -fx-background-color: #f9fafb;
-    -fx-background-radius: 14;
-    -fx-border-color: #e5e7eb;
-    -fx-border-radius: 14;
-}
-
-.placeholderText{
-    -fx-font-size: 20px;
-    -fx-text-fill: #9ca3af;
+.footerText{
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
 }
 
 .alertItem{
@@ -470,153 +396,27 @@
     -fx-text-fill: #374151;
 }
 
-.quickButton{
-    -fx-background-color: white;
-    -fx-border-color: #dbe1ea;
-    -fx-border-radius: 12;
-    -fx-background-radius: 12;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-padding: 18;
-    -fx-pref-width: 140;
-    -fx-pref-height: 70;
-    -fx-cursor: hand;
-}
+/* ── 7. BUTTONS ── */
 
-.quickButton:hover{
-    -fx-background-color: #f4f6ff;
-}
-
-.footerText{
-    -fx-font-size: 14px;
-    -fx-text-fill: #6b7280;
-}
-
-.contentArea {
-    -fx-background-color: #f6f7fb;
-}
-
-.content {
-    -fx-padding: 26 30 26 30;
-}
-
-.topBar {
-    -fx-background-color: linear-gradient(to right, #ff7a00, #ff8c00);
-    -fx-padding: 14 24;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.15, 0, 2);
-}
-
-.brandTitle {
-    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
-    -fx-font-size: 34px;
-    -fx-font-weight: 900;
-    -fx-text-fill: #b8322a;
-}
-
-.brandSubtitle {
-    -fx-font-size: 15px;
-    -fx-text-fill: #111827;
-    -fx-font-weight: 600;
-}
-
-.searchField {
-    -fx-background-color: white;
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-    -fx-border-color: #e5e7eb;
-    -fx-padding: 9 12;
-}
-
-.topButton {
-    -fx-background-color: white;
-    -fx-text-fill: #1f2937;
-    -fx-font-weight: 700;
-    -fx-background-radius: 8;
-    -fx-padding: 9 16;
-}
-
-.sideBar {
-    -fx-background-color: linear-gradient(to bottom, #061328, #020b18);
-    -fx-padding: 24 14;
-}
-
-.sideTitle {
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 17px;
-    -fx-font-weight: 800;
-    -fx-padding: 0 0 12 0;
-}
-
-.sideButton,
-.sideButtonActive {
-    -fx-pref-width: 220;
-    -fx-alignment: center-left;
-    -fx-background-radius: 10;
-    -fx-padding: 14 16;
-    -fx-font-size: 15px;
-    -fx-font-weight: 800;
-    -fx-cursor: hand;
-}
-
-.sideButton {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-}
-
-.sideButton:hover {
-    -fx-background-color: rgba(255,255,255,0.08);
-}
-
-.sideButtonActive {
+/* Primary button (indigo) */
+.primaryButton{
     -fx-background-color: linear-gradient(to right, #4f46e5, #6366f1);
     -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-padding: 12 22;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.25), 10, 0.18, 0, 3);
+    -fx-transition: -fx-opacity 0.2s ease, -fx-effect 0.2s ease;
 }
 
-.userCard {
-    -fx-background-color: rgba(255,255,255,0.035);
-    -fx-border-color: rgba(255,255,255,0.12);
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-padding: 18;
+.primaryButton:hover{
+    -fx-opacity: 0.92;
+    -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.35), 16, 0.22, 0, 5);
 }
 
-.userCardName {
-    -fx-text-fill: white;
-    -fx-font-size: 17px;
-    -fx-font-weight: 800;
-}
-
-.userCardRole {
-    -fx-text-fill: #a7b0c2;
-    -fx-font-size: 13px;
-}
-
-.pageTitle {
-    -fx-font-size: 26px;
-    -fx-font-weight: 900;
-    -fx-text-fill: #111827;
-}
-
-.pageSubtitle {
-    -fx-font-size: 14px;
-    -fx-text-fill: #4b5563;
-}
-
-.cardPanel {
-    -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-border-color: #e5e7eb;
-    -fx-padding: 18;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0.18, 0, 2);
-}
-
-.cardTitle {
-    -fx-font-size: 16px;
-    -fx-font-weight: 900;
-    -fx-text-fill: #4f46e5;
-}
-
+/* Action buttons */
 .actionBlue,
 .actionOrange,
 .actionRed,
@@ -629,6 +429,7 @@
     -fx-font-size: 13px;
     -fx-padding: 10 18;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-text-fill 0.2s ease;
 }
 
 .actionBlue {
@@ -659,21 +460,25 @@
 .actionBlue:hover {
     -fx-background-color: #4f46e5;
     -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.25), 10, 0.15, 0, 2);
 }
 
 .actionOrange:hover {
     -fx-background-color: #f59e0b;
     -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(245,158,11,0.25), 10, 0.15, 0, 2);
 }
 
 .actionRed:hover {
     -fx-background-color: #ef4444;
     -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.25), 10, 0.15, 0, 2);
 }
 
 .actionGreen:hover {
     -fx-background-color: #16a34a;
     -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(22,163,74,0.25), 10, 0.15, 0, 2);
 }
 
 .actionNeutral:hover {
@@ -681,6 +486,121 @@
     -fx-text-fill: #111827;
 }
 
+.actionBlue:pressed,
+.actionGreen:pressed,
+.actionRed:pressed,
+.actionOrange:pressed,
+.actionNeutral:pressed {
+    -fx-translate-y: 1;
+}
+
+/* Quick buttons (dashboard) */
+.quickButton{
+    -fx-background-color: white;
+    -fx-border-color: #dbe1ea;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 18;
+    -fx-pref-width: 140;
+    -fx-pref-height: 70;
+    -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease, -fx-translate-y 0.2s ease;
+}
+
+.quickButton:hover{
+    -fx-background-color: #f4f6ff;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.25), 20, 0.2, 0, 6);
+    -fx-translate-y: -2;
+}
+
+.quickAccessButton {
+    -fx-background-color: white;
+    -fx-border-color: #dbe1ea;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-pref-width: 150;
+    -fx-pref-height: 92;
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #111827;
+    -fx-cursor: hand;
+    -fx-content-display: top;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 10;
+    -fx-line-spacing: 3;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-border-color 0.2s ease, -fx-translate-y 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.quickAccessButton:hover {
+    -fx-background-color: #f4f6ff;
+    -fx-border-color: #4f46e5;
+    -fx-text-fill: #4f46e5;
+    -fx-translate-y: -2;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.20), 16, 0.18, 0, 5);
+}
+
+.notificationButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+/* ── 8. STATUS CARDS ── */
+.statusCardOrange {
+    -fx-background-color: #fff3df;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-transition: -fx-effect 0.2s ease;
+}
+
+.statusCardGreen {
+    -fx-background-color: #eaf8ea;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-transition: -fx-effect 0.2s ease;
+}
+
+.statusCardRed {
+    -fx-background-color: #fdeaea;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-transition: -fx-effect 0.2s ease;
+}
+
+.statusCardBlue {
+    -fx-background-color: #eaf3ff;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-transition: -fx-effect 0.2s ease;
+}
+
+.statusCardPurple {
+    -fx-background-color: #eee9ff;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-transition: -fx-effect 0.2s ease;
+}
+
+.statusCardCyan {
+    -fx-background-color: #e4fbff;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-transition: -fx-effect 0.2s ease;
+}
+
+.statusCardOrange:hover { -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.25), 16, 0.2, 0, 4); }
+.statusCardGreen:hover { -fx-effect: dropshadow(gaussian, rgba(22,163,74,0.25), 16, 0.2, 0, 4); }
+.statusCardRed:hover { -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.25), 16, 0.2, 0, 4); }
+.statusCardBlue:hover { -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.25), 16, 0.2, 0, 4); }
+.statusCardPurple:hover { -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.25), 16, 0.2, 0, 4); }
+.statusCardCyan:hover { -fx-effect: dropshadow(gaussian, rgba(0,212,255,0.25), 16, 0.2, 0, 4); }
+
+/* ── 9. TABLES ── */
 .table-view {
     -fx-background-color: white;
     -fx-border-color: #e5e7eb;
@@ -689,63 +609,66 @@
 }
 
 .table-view .column-header-background {
-    -fx-background-color: linear-gradient(to bottom, #f9fafb, #e5e7eb);
+    -fx-background-color: linear-gradient(to bottom, #f9fafb, #eef0f3);
+    -fx-background-radius: 8 8 0 0;
 }
 
 .table-view .column-header,
 .table-view .filler {
     -fx-size: 34;
     -fx-border-color: transparent #e5e7eb transparent transparent;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
 }
 
 .table-row-cell {
-    -fx-cell-size: 34;
+    -fx-cell-size: 44px;
 }
 
+.table-row-cell:odd {
+    -fx-background-color: #fafbfc;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #eff3ff;
+    -fx-cursor: hand;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e0e7ff;
+    -fx-text-background-color: #1a1a2e;
+}
+
+/* ── 10. FORM ELEMENTS ── */
 .text-field,
 .combo-box,
-.text-area {
+.text-area,
+.date-picker {
     -fx-background-color: white;
     -fx-border-color: #d1d5db;
     -fx-border-radius: 7;
     -fx-background-radius: 7;
     -fx-padding: 7 10;
-}
-.statusCardOrange {
-    -fx-background-color: #fff3df;
-    -fx-background-radius: 10;
-    -fx-padding: 12;
+    -fx-transition: -fx-border-color 0.2s ease, -fx-effect 0.2s ease;
 }
 
-.statusCardGreen {
-    -fx-background-color: #eaf8ea;
-    -fx-background-radius: 10;
-    -fx-padding: 12;
+.text-field:focused,
+.text-area:focused,
+.combo-box:focused,
+.date-picker:focused {
+    -fx-border-color: #6366f1;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.20), 12, 0.18, 0, 0);
 }
 
-.statusCardRed {
-    -fx-background-color: #fdeaea;
-    -fx-background-radius: 10;
-    -fx-padding: 12;
+.qtyField {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #cfcfcf;
+    -fx-background-color: white;
+    -fx-padding: 6 10 6 10;
 }
 
-.statusCardBlue {
-    -fx-background-color: #eaf3ff;
-    -fx-background-radius: 10;
-    -fx-padding: 12;
-}
-
-.statusCardPurple {
-    -fx-background-color: #eee9ff;
-    -fx-background-radius: 10;
-    -fx-padding: 12;
-}
-
-.statusCardCyan {
-    -fx-background-color: #e4fbff;
-    -fx-background-radius: 10;
-    -fx-padding: 12;
-}
+/* ── 11. PRODUCT BUTTON ── */
 .productButton {
     -fx-background-color: white;
     -fx-border-color: #dbe1ea;
@@ -758,164 +681,28 @@
     -fx-pref-height: 95;
     -fx-cursor: hand;
     -fx-alignment: center;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-border-color 0.2s ease;
 }
 
 .productButton:hover {
     -fx-background-color: #f4f6ff;
     -fx-border-color: #4f46e5;
 }
-.notificationButton {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-}
-.topInfoCard {
-    -fx-background-color: rgba(255,255,255,0.16);
-    -fx-padding: 8 14;
-    -fx-background-radius: 14;
-    -fx-min-height: 42;
-}
 
-.topInfoText {
-    -fx-text-fill: white;
-    -fx-font-size: 15px;
-    -fx-font-weight: 700;
-}
-
-.topIcon {
-    -fx-font-size: 17px;
-}
-
-.notificationModernButton {
-    -fx-background-color: rgba(255,255,255,0.18);
-    -fx-text-fill: white;
-    -fx-font-size: 15px;
-    -fx-font-weight: 800;
-    -fx-background-radius: 14;
-    -fx-padding: 8 15;
-    -fx-min-height: 42;
-}
-
-.userInfoCard {
-    -fx-background-color: rgba(255,255,255,0.16);
-    -fx-padding: 7 14;
-    -fx-background-radius: 14;
-    -fx-min-height: 42;
-}
-
-.userNameTop {
-    -fx-text-fill: white;
-    -fx-font-size: 15px;
-    -fx-font-weight: 900;
-}
-
-.userRoleTop {
-    -fx-text-fill: rgba(255,255,255,0.80);
-    -fx-font-size: 11px;
-}
-.quickAccessButton {
-    -fx-background-color: white;
-    -fx-border-color: #dbe1ea;
-    -fx-border-radius: 14;
-    -fx-background-radius: 14;
-
-    -fx-pref-width: 150;
-    -fx-pref-height: 92;
-
-    -fx-font-size: 14px;
-    -fx-font-weight: 800;
-
-    -fx-text-fill: #111827;
-
-    -fx-cursor: hand;
-
-    -fx-content-display: top;
-
-    -fx-alignment: center;
-
-    -fx-text-alignment: center;
-
-    -fx-padding: 10;
-
-    -fx-line-spacing: 3;
-}
-
-.quickAccessButton:hover {
-    -fx-background-color: #f4f6ff;
-    -fx-border-color: #4f46e5;
-    -fx-text-fill: #4f46e5;
-
-    -fx-translate-y: -1;
-}
-
-.quickAccessButton:hover {
-    -fx-background-color: #f4f6ff;
-    -fx-border-color: #4f46e5;
-    -fx-text-fill: #4f46e5;
-}
-.permissionGrid {
-    -fx-background-color: #f8fafc;
-    -fx-padding: 14;
-    -fx-background-radius: 14;
-    -fx-border-color: #e5e7eb;
-    -fx-border-radius: 14;
-}
-
-.permissionHeader {
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #4f46e5;
-}
-
-.permissionModule {
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #111827;
-}
-.paymentOption,
-.paymentOptionActive {
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-}
-
-.paymentOption {
-    -fx-background-color: white;
-    -fx-border-color: #d1d5db;
-    -fx-text-fill: #111827;
-}
-
-.paymentOption:hover {
-    -fx-border-color: #4f46e5;
-    -fx-text-fill: #4f46e5;
-}
-
-.paymentOptionActive {
-    -fx-background-color: #dcfce7;
-    -fx-border-color: #16a34a;
-    -fx-text-fill: #166534;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   LOGIN — Tema restaurante Salsiao (cálido, elegante, moderno)
-   ═══════════════════════════════════════════════════════════════ */
-
+/* ── 12. LOGIN (main project) ── */
 .loginRoot {
     -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    -fx-background-color: linear-gradient(135deg, #061328 0%, #0b1220 40%, #6b1f1a 100%);
+    -fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #061328 0%, #0b1220 40%, #6b1f1a 100%);
 }
 
 .loginCard {
     -fx-background-color: rgba(255,255,255,0.93);
     -fx-background-radius: 24;
     -fx-padding: 48 40 36 40;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.40), 72, 0.25, 0, 24);
     -fx-border-color: rgba(255,255,255,0.18);
     -fx-border-radius: 24;
     -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.40), 72, 0.25, 0, 24);
 }
 
 .loginLogoEmoji {
@@ -956,6 +743,7 @@
     -fx-border-radius: 12;
     -fx-border-width: 1.5;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 6, 0.12, 0, 2);
+    -fx-transition: -fx-border-color 0.2s ease, -fx-effect 0.2s ease;
 }
 
 .loginInputGroup:focused-within {
@@ -989,6 +777,7 @@
     -fx-padding: 10 14;
     -fx-background-radius: 0 12 12 0;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease;
 }
 
 .loginBtnToggle:hover {
@@ -1005,6 +794,7 @@
     -fx-background-radius: 12;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.45), 16, 0.28, 0, 5);
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
 }
 
 .loginBtnPrimary:hover {
@@ -1043,25 +833,152 @@
     -fx-text-alignment: center;
 }
 
-.sideButtonDenied {
-    -fx-background-color: rgba(255,255,255,0.03);
-    -fx-text-fill: rgba(255,255,255,0.35);
-    -fx-font-size: 15px;
-    -fx-font-weight: 800;
-    -fx-padding: 14 16;
-    -fx-background-radius: 10;
-    -fx-alignment: center-left;
-    -fx-opacity: 0.7;
-    -fx-cursor: default;
+/* ── 12b. LOGIN (subproject — split panel) ── */
+.loginBrandPanel {
+    -fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #061328 0%, #0b1220 40%, #6b1f1a 100%);
+    -fx-padding: 48 32;
+    -fx-alignment: center;
+    -fx-spacing: 24;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   MÓDULO VENTAS — Menú digital premium Salsiao
-   Paleta: fondo oscuro suave · gradientes · glass effect
-   ═══════════════════════════════════════════════════════════════ */
+.loginBrandEmoji {
+    -fx-font-size: 64px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 12, 0.3, 0, 4);
+}
 
+.loginBrandName {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
+    -fx-font-size: 42px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #ff7a00;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 6, 0.2, 0, 2);
+}
+
+.loginBrandTagline {
+    -fx-font-size: 16px;
+    -fx-text-fill: rgba(255,255,255,0.75);
+    -fx-font-weight: 600;
+    -fx-letter-spacing: 1px;
+}
+
+.loginBrandDivider {
+    -fx-background-color: rgba(242,140,40,0.5);
+    -fx-pref-height: 3;
+    -fx-max-height: 3;
+    -fx-background-radius: 2;
+    -fx-max-width: 80;
+}
+
+.loginBrandVersion {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255,255,255,0.4);
+    -fx-font-weight: 600;
+}
+
+/* Role cards */
+.loginRoleCard {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(255,255,255,0.10);
+    -fx-border-radius: 14;
+    -fx-padding: 14 18;
+    -fx-spacing: 12;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-border-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.loginRoleCard:hover {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-border-color: rgba(242,140,40,0.4);
+    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.12), 14, 0.15, 0, 4);
+}
+
+.loginRoleIcon {
+    -fx-font-size: 28px;
+}
+
+.loginRoleTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+}
+
+.loginRoleDesc {
+    -fx-text-fill: rgba(255,255,255,0.55);
+    -fx-font-size: 12px;
+}
+
+/* Form panel */
+.loginFormPanel {
+    -fx-background-color: white;
+    -fx-padding: 48 40;
+    -fx-alignment: center;
+    -fx-spacing: 28;
+}
+
+.loginFormTitle {
+    -fx-font-size: 26px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #111827;
+}
+
+.loginFormSubtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
+}
+
+.loginFieldGroup {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 10;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 4, 0.1, 0, 1);
+    -fx-transition: -fx-border-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.loginFieldGroup:focused-within {
+    -fx-border-color: #f28c28;
+    -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.20), 10, 0.15, 0, 0);
+}
+
+.loginFieldInner {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10 14;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #9ca3af;
+}
+
+.loginFieldInner:focused {
+    -fx-background-color: transparent;
+}
+
+.loginBtnTogglePass {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 18px;
+    -fx-padding: 8 14;
+    -fx-background-radius: 0 10 10 0;
+    -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease;
+}
+
+.loginBtnTogglePass:hover {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #f28c28;
+}
+
+.loginFooterText {
+    -fx-font-size: 12px;
+    -fx-text-fill: #9ca3af;
+    -fx-text-alignment: center;
+}
+
+/* ── 13. VENTAS (Digital Menu) ── */
 .ventasMenuRoot {
-    -fx-background-color: linear-gradient(135deg, #0f1729 0%, #131b30 40%, #1a1040 100%);
+    -fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #0f1729 0%, #131b30 40%, #1a1040 100%);
 }
 
 .ventasSideCategorias {
@@ -1107,6 +1024,7 @@
     -fx-padding: 12 14;
     -fx-background-radius: 10;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-text-fill 0.2s ease;
 }
 
 .ventasCatBtn:hover {
@@ -1121,6 +1039,16 @@
     -fx-border-width: 0 0 0 3;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+}
+
+.ventasCatBadge {
+    -fx-background-color: rgba(255, 208, 0, 0.2);
+    -fx-text-fill: #ffd000;
+    -fx-font-size: 10px;
+    -fx-font-weight: 900;
+    -fx-background-radius: 8;
+    -fx-padding: 2 8;
+    -fx-alignment: center;
 }
 
 .ventasCentro {
@@ -1152,6 +1080,7 @@
     -fx-background-radius: 12;
     -fx-padding: 12 16;
     -fx-font-size: 14px;
+    -fx-transition: -fx-border-color 0.2s ease, -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
 }
 
 .ventasBuscar:focused {
@@ -1164,8 +1093,7 @@
     -fx-padding: 8 4 24 4;
 }
 
-/* ── Tarjeta de producto estilo delivery premium ── */
-
+/* ── Product cards (digital menu) ── */
 .ventasProductCard {
     -fx-background-color: rgba(255,255,255,0.06);
     -fx-background-radius: 16;
@@ -1173,9 +1101,8 @@
     -fx-border-radius: 16;
     -fx-border-width: 1;
     -fx-padding: 0;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 12, 0.20, 0, 4);
     -fx-cursor: hand;
-    -fx-transition: -fx-effect 0.2s ease;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-border-color 0.2s ease, -fx-effect 0.2s ease;
 }
 
 .ventasProductCard:hover {
@@ -1194,7 +1121,6 @@
 
 .ventasProductEmoji {
     -fx-font-size: 52px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.4, 0, 3);
 }
 
 .ventasProductInfo {
@@ -1231,6 +1157,7 @@
     -fx-padding: 8 14;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0, 102, 255, 0.35), 8, 0.25, 0, 2);
+    -fx-transition: -fx-background-color 0.2s ease, -fx-text-fill 0.2s ease;
 }
 
 .ventasBtnAgregar:hover {
@@ -1238,8 +1165,7 @@
     -fx-text-fill: #0a0e1a;
 }
 
-/* ── Carrito lateral ── */
-
+/* ── Cart panel (ventas) ── */
 .ventasCarritoPanel {
     -fx-background-color: linear-gradient(to bottom, #141d35, #0f1729);
     -fx-padding: 18 16;
@@ -1281,6 +1207,11 @@
     -fx-padding: 12;
     -fx-border-color: rgba(0, 212, 255, 0.10);
     -fx-border-radius: 12;
+    -fx-transition: -fx-background-color 0.2s ease;
+}
+
+.ventasCarritoItem:hover {
+    -fx-background-color: rgba(255,255,255,0.07);
 }
 
 .ventasCarritoItemEmoji {
@@ -1313,6 +1244,7 @@
     -fx-min-height: 36;
     -fx-background-radius: 8;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.15s ease, -fx-text-fill 0.15s ease;
 }
 
 .ventasBtnQty:hover {
@@ -1331,11 +1263,12 @@
     -fx-text-fill: #ff4d6d;
     -fx-font-size: 14px;
     -fx-cursor: hand;
+    -fx-background-radius: 8;
+    -fx-transition: -fx-background-color 0.15s ease;
 }
 
 .ventasBtnEliminarItem:hover {
     -fx-background-color: rgba(255, 77, 109, 0.15);
-    -fx-background-radius: 8;
 }
 
 .ventasCarritoVacio {
@@ -1392,10 +1325,12 @@
     -fx-background-radius: 12;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.45), 14, 0.35, 0, 4);
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
 }
 
 .ventasBtnFinalizar:hover {
     -fx-background-color: linear-gradient(to right, #ffe566, #ffb020);
+    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.55), 20, 0.4, 0, 6);
 }
 
 .ventasBtnIrPago {
@@ -1407,6 +1342,7 @@
     -fx-font-weight: 800;
     -fx-padding: 10;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease;
 }
 
 .ventasBtnIrPago:hover {
@@ -1420,6 +1356,7 @@
     -fx-background-radius: 10;
     -fx-padding: 10;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-text-fill 0.2s ease;
 }
 
 .ventasBtnSecundario:hover {
@@ -1427,10 +1364,174 @@
     -fx-text-fill: white;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   MODAL PROCESAR PAGO — POS Salsiao
-   ═══════════════════════════════════════════════════════════════ */
+.ventasBtnCancelar {
+    -fx-background-color: rgba(255,60,60,0.12);
+    -fx-text-fill: #ff6b6b;
+    -fx-font-weight: 700;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease;
+}
 
+.ventasBtnCancelar:hover {
+    -fx-background-color: rgba(255,60,60,0.25);
+    -fx-text-fill: #ff4444;
+}
+
+/* ── Additional ventas classes (from FXML) ── */
+.ventasCambioValor {
+    -fx-font-size: 20px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #00ff88;
+}
+
+.ventasInputMonto {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #6b7a99;
+    -fx-border-color: rgba(0, 212, 255, 0.30);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 12 16;
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-alignment: center-right;
+    -fx-transition: -fx-border-color 0.2s ease;
+}
+
+.ventasInputMonto:focused {
+    -fx-border-color: #ffd000;
+    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.15), 10, 0.2, 0, 0);
+}
+
+.ventasMetodoBtn {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: #b8c5e0;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-background-radius: 10;
+    -fx-padding: 10 16;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-border-color 0.2s ease;
+}
+
+.ventasMetodoBtn:hover {
+    -fx-background-color: rgba(0, 212, 255, 0.15);
+    -fx-text-fill: #00d4ff;
+}
+
+.ventasMetodoBtn:selected {
+    -fx-background-color: linear-gradient(to right, #ffd000, #ff9500);
+    -fx-text-fill: #0a0e1a;
+    -fx-border-color: #ffd000;
+}
+
+.ventasMetodoPago {
+    -fx-background-color: rgba(255,255,255,0.04);
+    -fx-border-color: rgba(0, 212, 255, 0.12);
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 14;
+    -fx-spacing: 10;
+}
+
+/* ── Mesa classes (venta.fxml) ── */
+.mesaLibre {
+    -fx-background-color: #e8f5e9;
+    -fx-text-fill: #2e7d32;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-border-color: #a5d6a7;
+    -fx-border-radius: 12;
+    -fx-padding: 12 16;
+    -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.mesaLibre:hover {
+    -fx-background-color: #c8e6c9;
+    -fx-effect: dropshadow(gaussian, rgba(46,125,50,0.2), 8, 0.15, 0, 2);
+}
+
+.mesaOcupada {
+    -fx-background-color: #fbe9e7;
+    -fx-text-fill: #c62828;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-border-color: #ef9a9a;
+    -fx-border-radius: 12;
+    -fx-padding: 12 16;
+    -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.mesaOcupada:hover {
+    -fx-background-color: #ffccbc;
+    -fx-effect: dropshadow(gaussian, rgba(198,40,40,0.2), 8, 0.15, 0, 2);
+}
+
+.mesaReservada {
+    -fx-background-color: #fff8e1;
+    -fx-text-fill: #e65100;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-border-color: #ffe082;
+    -fx-border-radius: 12;
+    -fx-padding: 12 16;
+    -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.mesaReservada:hover {
+    -fx-background-color: #ffecb3;
+    -fx-effect: dropshadow(gaussian, rgba(230,81,0,0.2), 8, 0.15, 0, 2);
+}
+
+/* ── Mini status cards (venta.fxml) ── */
+.miniCardBlue {
+    -fx-background-color: #eaf3ff;
+    -fx-background-radius: 10;
+    -fx-padding: 12 16;
+    -fx-border-color: #bfdbfe;
+    -fx-border-radius: 10;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e40af;
+}
+
+.miniCardGreen {
+    -fx-background-color: #e8f5e9;
+    -fx-background-radius: 10;
+    -fx-padding: 12 16;
+    -fx-border-color: #a5d6a7;
+    -fx-border-radius: 10;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2e7d32;
+}
+
+.miniCardOrange {
+    -fx-background-color: #fff3e0;
+    -fx-background-radius: 10;
+    -fx-padding: 12 16;
+    -fx-border-color: #ffcc80;
+    -fx-border-radius: 10;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e65100;
+}
+
+.miniCardRed {
+    -fx-background-color: #fbe9e7;
+    -fx-background-radius: 10;
+    -fx-padding: 12 16;
+    -fx-border-color: #ef9a9a;
+    -fx-border-radius: 10;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c62828;
+}
+
+/* ── 14. PAGO MODAL ── */
 .pagoModalRoot {
     -fx-background-color: #0f1428;
     -fx-background-radius: 16;
@@ -1492,6 +1593,12 @@
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-padding: 10 12;
+    -fx-transition: -fx-border-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.pagoModalField:focused {
+    -fx-border-color: #ffd000;
+    -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.20), 10, 0.2, 0, 0);
 }
 
 .pagoModalHint {
@@ -1527,6 +1634,12 @@
     -fx-background-radius: 10;
     -fx-padding: 10 14;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease;
+}
+
+.pagoMetodoBtn:hover {
+    -fx-background-color: #2a3a5c;
+    -fx-text-fill: white;
 }
 
 .pagoMetodoBtn:selected {
@@ -1552,6 +1665,12 @@
     -fx-background-radius: 10;
     -fx-padding: 12;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease;
+}
+
+.pagoBtnCancelar:hover {
+    -fx-background-color: #3a4a6c;
+    -fx-text-fill: white;
 }
 
 .pagoBtnConfirmar {
@@ -1562,118 +1681,272 @@
     -fx-background-radius: 10;
     -fx-padding: 12;
     -fx-cursor: hand;
+    -fx-transition: -fx-effect 0.2s ease;
 }
 
 .pagoBtnConfirmar:hover {
     -fx-effect: dropshadow(gaussian, rgba(255, 208, 0, 0.5), 12, 0.3, 0, 2);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   🚀 PREMIUM ENHANCEMENTS — Micro-interactions & Polish
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ── Card hover elevation ── */
-.cardPanel, .metricCard, .userCard, .quickButton, .statusCardOrange,
-.statusCardGreen, .statusCardRed, .statusCardBlue, .statusCardPurple,
-.statusCardCyan, .pagoOptionBtn, .loginRoleCard {
-    -fx-translate-y: 0;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0.12, 0, 2);
-}
-
-.cardPanel:hover, .metricCard:hover, .userCard:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.14), 24, 0.18, 0, 6);
-}
-
-/* ── Table premium ── */
-.table-view {
+/* ── 15. PERMISSION GRID (empleados) ── */
+.permissionGrid {
+    -fx-background-color: #f8fafc;
+    -fx-padding: 14;
+    -fx-background-radius: 14;
     -fx-border-color: #e5e7eb;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
+    -fx-border-radius: 14;
 }
 
-.table-view .column-header-background {
-    -fx-background-radius: 8 8 0 0;
+.permissionHeader {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4f46e5;
 }
 
-.table-row-cell {
-    -fx-cell-size: 44px;
+.permissionModule {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
 }
 
-.table-row-cell:odd {
-    -fx-background-color: #fafbfc;
-}
-
-.table-row-cell:hover {
-    -fx-background-color: #eff3ff;
+/* ── 16. PAYMENT OPTIONS (venta.fxml) ── */
+.paymentOption,
+.paymentOptionActive {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-font-weight: bold;
     -fx-cursor: hand;
+    -fx-transition: -fx-background-color 0.2s ease, -fx-border-color 0.2s ease;
 }
 
-.table-row-cell:selected {
-    -fx-background-color: #e0e7ff;
-    -fx-text-background-color: #1a1a2e;
+.paymentOption {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db;
+    -fx-text-fill: #111827;
 }
 
-/* ── Premium scrollbar ── */
-.scroll-bar:vertical {
-    -fx-pref-width: 7;
-    -fx-background-color: transparent;
+.paymentOption:hover {
+    -fx-border-color: #4f46e5;
+    -fx-text-fill: #4f46e5;
 }
 
-.scroll-bar:vertical .thumb {
-    -fx-background-color: rgba(0,0,0,0.12);
-    -fx-background-radius: 4;
+.paymentOptionActive {
+    -fx-background-color: #dcfce7;
+    -fx-border-color: #16a34a;
+    -fx-text-fill: #166534;
 }
 
-.scroll-bar:vertical .thumb:hover {
-    -fx-background-color: rgba(0,0,0,0.22);
+/* ── 17. MAIN MENU (standalone screens) ── */
+.mainRoot {
+    -fx-background-color: linear-gradient(to bottom, #f4f5f8, #e9edf3);
 }
 
-.scroll-bar:vertical .track {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+.mainWrapper {
+    -fx-padding: 20;
 }
 
-.scroll-bar .increment-button,
-.scroll-bar .decrement-button {
-    -fx-padding: 0;
-    -fx-background-color: transparent;
+.mainLogoWrap {
+    -fx-background-color: #f28c28;
+    -fx-background-radius: 999;
+    -fx-padding: 10;
+    -fx-min-width: 170;
+    -fx-min-height: 170;
+    -fx-max-width: 170;
+    -fx-max-height: 170;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 18, 0.22, 0, 5);
 }
 
-.scroll-bar .increment-arrow,
-.scroll-bar .decrement-arrow {
-    -fx-padding: 0;
-    -fx-background-color: transparent;
-    -fx-shape: " ";
+.mainBrand {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
+    -fx-font-size: 44px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #c2413a;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.75), 10, 0.30, 0, 0),
+                dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.18, 0, 2);
 }
 
-/* ── Input focus glow ── */
-.text-field:focused,
-.text-area:focused,
-.combo-box:focused,
-.date-picker:focused {
-    -fx-border-color: #6366f1;
-    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.20), 12, 0.18, 0, 0);
+.mainTitle {
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #172033;
 }
 
-/* ── Sidebar hover micro-interaction ── */
-.sideButton:hover {
-    -fx-background-color: rgba(255,255,255,0.10);
-    -fx-translate-x: 2;
+.mainSubtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #5d6575;
+    -fx-max-width: 520;
+    -fx-alignment: center;
 }
 
-.sideButtonActive {
-    -fx-background-color: rgba(99, 102, 241, 0.20);
-    -fx-border-color: transparent transparent transparent #6366f1;
-    -fx-border-width: 0 0 0 3;
-    -fx-border-radius: 0;
-    -fx-background-radius: 0 10 10 0;
+.mainBtnBlue {
+    -fx-background-color: linear-gradient(to right, #5f6ae8, #7a6cf0);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(95,106,232,0.28), 14, 0.20, 0, 5);
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.mainBtnBlue:hover {
+    -fx-background-color: linear-gradient(to right, #505cdb, #6b5fe7);
+    -fx-effect: dropshadow(gaussian, rgba(95,106,232,0.40), 20, 0.25, 0, 8);
+}
+
+.mainBtnGreen {
+    -fx-background-color: linear-gradient(to right, #74c69d, #52b788);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(82,183,136,0.28), 14, 0.20, 0, 5);
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.mainBtnGreen:hover {
+    -fx-background-color: linear-gradient(to right, #63ba8e, #45aa7b);
+    -fx-effect: dropshadow(gaussian, rgba(82,183,136,0.40), 20, 0.25, 0, 8);
+}
+
+.mainBtnOrange {
+    -fx-background-color: linear-gradient(to right, #f39c12, #f08c00);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(240,140,0,0.28), 14, 0.20, 0, 5);
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.mainBtnOrange:hover {
+    -fx-background-color: linear-gradient(to right, #e9900d, #e07f00);
+    -fx-effect: dropshadow(gaussian, rgba(240,140,0,0.40), 20, 0.25, 0, 8);
+}
+
+.mainBtnPurple {
+    -fx-background-color: linear-gradient(to right, #7b2cbf, #9d4edd);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(123,44,191,0.28), 14, 0.20, 0, 5);
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.mainBtnPurple:hover {
+    -fx-background-color: linear-gradient(to right, #6f22b2, #9144d1);
+    -fx-effect: dropshadow(gaussian, rgba(123,44,191,0.40), 20, 0.25, 0, 8);
+}
+
+.mainBtnExit {
+    -fx-background-color: linear-gradient(to right, #495057, #343a40);
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(52,58,64,0.28), 14, 0.20, 0, 5);
+    -fx-transition: -fx-background-color 0.2s ease, -fx-effect 0.2s ease;
+}
+
+.mainBtnExit:hover {
+    -fx-background-color: linear-gradient(to right, #3f464d, #2d3237);
+    -fx-effect: dropshadow(gaussian, rgba(52,58,64,0.40), 20, 0.25, 0, 8);
+}
+
+.mainTopPanel {
+    -fx-background-color: #f28c28;
+    -fx-background-radius: 40;
+    -fx-padding: 20 30 20 30;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 18, 0.20, 0, 5);
+}
+
+/* ── 18. SEGMENT BAR / LEGACY ── */
+.segmentBar {
+    -fx-padding: 10 18;
+    -fx-background-color: #0b1220;
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-width: 0 0 1 0;
+}
+
+.segBtn {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: #e9eefc;
+    -fx-background-radius: 999;
+    -fx-padding: 8 14;
+    -fx-font-weight: 700;
+    -fx-transition: -fx-background-color 0.2s ease;
+}
+
+.segBtn:hover {
+    -fx-background-color: rgba(255,255,255,0.12);
+}
+
+.segBtn:selected {
+    -fx-background-color: rgba(99, 102, 241, 0.95);
     -fx-text-fill: white;
 }
 
-/* ── Primary button pressed state ── */
+.cardWide {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-background-radius: 18;
+    -fx-padding: 16;
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-radius: 18;
+}
+
+.logoWrap {
+    -fx-background-color: rgba(99, 102, 241, 0.14);
+    -fx-border-color: rgba(99, 102, 241, 0.35);
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-padding: 8;
+}
+
+.brandBox {
+    -fx-background-color: #f28c28;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 10 18;
+}
+
+.logoCircle {
+    -fx-background-color: white;
+    -fx-background-radius: 50;
+    -fx-padding: 5;
+}
+
+.brandScript {
+    -fx-font-family: "Segoe Script", "Brush Script MT", "Segoe UI";
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #c2413a;
+}
+
+.brandSub {
+    -fx-text-fill: rgba(20,20,20,0.85);
+    -fx-font-size: 12px;
+}
+
+/* ── 19. PREMIUM ENHANCEMENTS ── */
+
+/* Button pressed state (shared) */
 .primaryButton:pressed,
 .actionBlue:pressed,
 .actionGreen:pressed,
+.actionRed:pressed,
+.actionOrange:pressed,
+.actionNeutral:pressed,
 .mainBtnBlue:pressed,
 .mainBtnGreen:pressed,
 .mainBtnOrange:pressed,
@@ -1682,33 +1955,20 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 6, 0.15, 0, 1);
 }
 
-/* ── Status cards hover ── */
-.statusCardOrange:hover { -fx-effect: dropshadow(gaussian, rgba(242,140,40,0.25), 16, 0.2, 0, 4); }
-.statusCardGreen:hover { -fx-effect: dropshadow(gaussian, rgba(22,163,74,0.25), 16, 0.2, 0, 4); }
-.statusCardRed:hover { -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.25), 16, 0.2, 0, 4); }
-.statusCardBlue:hover { -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.25), 16, 0.2, 0, 4); }
-.statusCardPurple:hover { -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.25), 16, 0.2, 0, 4); }
-.statusCardCyan:hover { -fx-effect: dropshadow(gaussian, rgba(0,212,255,0.25), 16, 0.2, 0, 4); }
-
-/* ── Quick action buttons hover premium ── */
-.quickButton:hover {
-    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.25), 20, 0.2, 0, 6);
-    -fx-translate-y: -2;
-}
-
-/* ── Focus visible ring ── */
-.button:focused, .toggle-button:focused {
+/* Focus visible ring */
+.button:focused,
+.toggle-button:focused {
     -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.3), 14, 0.25, 0, 0);
 }
 
-/* ── Separator premium ── */
+/* Separator premium */
 .separator .line {
     -fx-background-color: #e5e7eb;
     -fx-background-radius: 1;
     -fx-pref-height: 1;
 }
 
-/* ── Tooltip premium ── */
+/* Tooltip premium */
 .tooltip {
     -fx-background-color: #0b1220;
     -fx-text-fill: white;
@@ -1719,7 +1979,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 12, 0.2, 0, 4);
 }
 
-/* ── Dialog/Alert premium ── */
+/* Dialog/Alert premium */
 .dialog-pane {
     -fx-background-color: white;
     -fx-background-radius: 16;
@@ -1745,12 +2005,46 @@
     -fx-background-color: #e07a18;
 }
 
-/* ── Progress indicator / Loading spinner ── */
+/* Progress indicator / Loading spinner */
 .progress-indicator {
     -fx-progress-color: #f28c28;
 }
 
-/* ── ComboBox dropdown premium ── */
+/* Premium scrollbar */
+.scroll-bar:vertical {
+    -fx-pref-width: 7;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(0,0,0,0.12);
+    -fx-background-radius: 4;
+    -fx-transition: -fx-background-color 0.15s ease;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(0,0,0,0.22);
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-shape: " ";
+}
+
+/* ComboBox dropdown premium */
 .combo-box-popup .list-view {
     -fx-background-radius: 10;
     -fx-background-color: white;
@@ -1768,7 +2062,7 @@
     -fx-text-fill: #1a1a2e;
 }
 
-/* ── DatePicker popup premium ── */
+/* DatePicker popup premium */
 .date-picker-popup {
     -fx-background-radius: 12;
     -fx-background-color: white;
@@ -1776,3 +2070,5 @@
     -fx-border-radius: 12;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 16, 0.18, 0, 4);
 }
+
+/* ── END OF STYLESHEET ── */

@@ -1,4 +1,4 @@
-﻿package org.example.salsiaopf.ventas;
+package org.example.salsiaopf.ventas;
 
 import org.example.salsiaopf.service.PagoService;
 

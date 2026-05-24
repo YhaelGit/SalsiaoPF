@@ -166,7 +166,7 @@
                         <Label text="🟡  Inventario bajo - 12 productos con stock mínimo" styleClass="alertItem"/>
                         <Label text="🔵  Mantenimiento programado - 2 equipos requieren mantenimiento" styleClass="alertItem"/>
                         <Label text="🟢  Pagos pendientes - 4 facturas por cobrar" styleClass="alertItem"/>
-                        <Hyperlink text="Ver todas las notificaciones"/>
+                        <Hyperlink text="Ver todas las notificaciones" onAction="#irPanelNotificaciones"/>
                     </VBox>
                 </HBox>
 
@@ -186,7 +186,7 @@
                         <Label text="🟢 En stock: 142"/>
                         <Label text="🟡 Bajo stock: 42"/>
                         <Label text="🔴 Agotados: 31"/>
-                        <Hyperlink text="Ver inventario completo"/>
+                        <Hyperlink text="Ver inventario completo" onAction="#irPanelInventario"/>
                     </VBox>
 
                     <VBox styleClass="cardPanel" spacing="16">

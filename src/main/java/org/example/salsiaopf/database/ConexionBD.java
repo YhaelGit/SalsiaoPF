@@ -1,4 +1,4 @@
-﻿package org.example.salsiaopf.database;
+package org.example.salsiaopf.database;
 
 import java.io.IOException;
 import java.io.InputStream;

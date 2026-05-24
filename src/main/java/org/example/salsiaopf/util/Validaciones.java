@@ -1,4 +1,4 @@
-﻿package org.example.salsiaopf.util;
+package org.example.salsiaopf.util;
 
 /**
  * @deprecated Clase vac\u00eda sin implementaci\u00f3n.

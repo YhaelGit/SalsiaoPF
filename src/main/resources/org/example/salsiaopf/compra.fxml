@@ -81,6 +81,7 @@
         <StackPane fx:id="contenedorCompras" styleClass="contentArea">
 
             <!-- ORDEN DE COMPRA -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewOrdenCompra" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -91,10 +92,10 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="+ Nueva orden" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="📤 Enviar orden" styleClass="actionGreen"/>
-                    <Button text="✖ Cancelar orden" styleClass="actionRed"/>
+                    <Button text="+ Nueva orden" onAction="#nuevaOrdenCompra" styleClass="actionBlue"/>
+                    <Button text="✎ Editar" onAction="#editarOrdenCompra" styleClass="actionOrange"/>
+                    <Button text="📤 Enviar orden" onAction="#enviarOrdenCompra" styleClass="actionGreen"/>
+                    <Button text="✖ Cancelar orden" onAction="#cancelarOrdenCompra" styleClass="actionRed"/>
                     <Button text="💾 Guardar" onAction="#guardarOrdenCompra" styleClass="actionGreen"/>
                     <Button text="↻ Limpiar" onAction="#limpiarOrdenCompra" styleClass="actionNeutral"/>
                 </HBox>
@@ -129,7 +130,7 @@
 
                 <HBox spacing="16">
 
-                    <VBox styleClass="cardPanel" spacing="14" prefWidth="980" maxWidth="980">
+                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
 
                         <Label text="Datos de la orden" styleClass="cardTitle"/>
 
@@ -218,10 +219,10 @@
 
                         <Separator/>
 
-                        <Button text="📤 Enviar orden" styleClass="actionGreen" maxWidth="Infinity"/>
-                        <Button text="📋 Duplicar orden" styleClass="actionBlue" maxWidth="Infinity"/>
-                        <Button text="✔ Marcar recibida" styleClass="actionBlue" maxWidth="Infinity"/>
-                        <Button text="✖ Cancelar orden" styleClass="actionRed" maxWidth="Infinity"/>
+                        <Button text="📤 Enviar orden" onAction="#enviarOrdenCompra" styleClass="actionGreen" maxWidth="Infinity"/>
+                        <Button text="📋 Duplicar orden" onAction="#duplicarOrden" styleClass="actionBlue" maxWidth="Infinity"/>
+                        <Button text="✔ Marcar recibida" onAction="#marcarRecibida" styleClass="actionBlue" maxWidth="Infinity"/>
+                        <Button text="✖ Cancelar orden" onAction="#cancelarOrdenCompra" styleClass="actionRed" maxWidth="Infinity"/>
 
                     </VBox>
 
@@ -238,7 +239,7 @@
                         <ComboBox promptText="Unidad" prefWidth="150"/>
                         <TextField promptText="Cantidad" prefWidth="120"/>
                         <TextField promptText="Nota opcional" prefWidth="220"/>
-                        <Button text="+ Agregar" styleClass="actionBlue"/>
+                        <Button text="+ Agregar" onAction="#agregarDetalle" styleClass="actionBlue"/>
                     </HBox>
 
                     <TableView prefHeight="300" VBox.vgrow="ALWAYS">
@@ -261,7 +262,9 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewProveedores" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -272,11 +275,11 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="+ Nuevo proveedor" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="🗑 Eliminar" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
+                    <Button text="+ Nuevo proveedor" onAction="#nuevoProveedor" styleClass="actionBlue"/>
+                    <Button text="✎ Editar" onAction="#editarProveedor" styleClass="actionOrange"/>
+                    <Button text="🗑 Eliminar" onAction="#eliminarProveedor" styleClass="actionRed"/>
+                    <Button text="💾 Guardar" onAction="#guardarProveedor" styleClass="actionGreen"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarProveedor" styleClass="actionNeutral"/>
                 </HBox>
 
                 <HBox spacing="16">
@@ -327,7 +330,7 @@
                         <HBox spacing="10">
                             <ComboBox fx:id="cmbTipoBusquedaProveedor" promptText="Nombre" prefWidth="130"/>
                             <TextField fx:id="txtBuscarProveedor" promptText="Buscar proveedor..." HBox.hgrow="ALWAYS"/>
-                            <Button text="🔍" styleClass="actionBlue"/>
+                            <Button text="🔍" onAction="#buscarProveedor" styleClass="actionBlue"/>
                         </HBox>
 
                         <Separator/>
@@ -359,11 +362,11 @@
                     <HBox alignment="CENTER_LEFT">
                         <Label text="Listado de proveedores" styleClass="cardTitle"/>
                         <Region HBox.hgrow="ALWAYS"/>
-                        <Button text="Quitar sucursal" styleClass="actionRed"/>
-                        <Button text="↻ Actualizar" styleClass="actionNeutral"/>
+                        <Button text="Quitar sucursal" onAction="#quitarSucursal" styleClass="actionRed"/>
+                        <Button text="↻ Actualizar" onAction="#actualizarProveedores" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView fx:id="tablaProveedores" prefHeight="300">
+                    <TableView fx:id="tablaProveedores" prefHeight="300" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID Proveedor" prefWidth="130"/>
                             <TableColumn text="Nombre" prefWidth="150"/>
@@ -376,7 +379,9 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewRecepcion" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -387,10 +392,10 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="📥 Recibir compra" styleClass="actionBlue"/>
-                    <Button text="✔ Confirmar recepción" styleClass="actionGreen"/>
-                    <Button text="✖ Rechazar" styleClass="actionRed"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
+                    <Button text="📥 Recibir compra" onAction="#recibirCompra" styleClass="actionBlue"/>
+                    <Button text="✔ Confirmar recepción" onAction="#confirmarRecepcion" styleClass="actionGreen"/>
+                    <Button text="✖ Rechazar" onAction="#rechazarRecepcion" styleClass="actionRed"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarRecepcion" styleClass="actionNeutral"/>
                 </HBox>
 
                 <HBox spacing="16">
@@ -443,8 +448,8 @@
 
                         <Separator/>
 
-                        <Button text="Ver órdenes pendientes" styleClass="actionBlue" prefHeight="42"/>
-                        <Button text="Actualizar inventario" styleClass="actionGreen" prefHeight="42"/>
+                        <Button text="Ver órdenes pendientes" onAction="#verOrdenesPendientes" styleClass="actionBlue" prefHeight="42"/>
+                        <Button text="Actualizar inventario" onAction="#actualizarInventarioRecepcion" styleClass="actionGreen" prefHeight="42"/>
                     </VBox>
 
                 </HBox>
@@ -455,10 +460,10 @@
                         <Label text="Detalle recibido" styleClass="cardTitle"/>
                         <Region HBox.hgrow="ALWAYS"/>
                         <TextField promptText="Buscar ingrediente..." prefWidth="240"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
+                        <Button text="🔍" onAction="#detalleRecibido" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView fx:id="tablaRecepcion" prefHeight="420">
+                    <TableView fx:id="tablaRecepcion" prefHeight="420" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="Ingrediente" prefWidth="260"/>
                             <TableColumn text="Cantidad comprada" prefWidth="160"/>
@@ -472,7 +477,9 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewAnalisisCompras"
                   styleClass="content"
                   spacing="16"
@@ -487,10 +494,10 @@
 
                 <Region HBox.hgrow="ALWAYS"/>
 
-                <Button text="📦 Nuevo ingrediente" styleClass="actionBlue"/>
-                <Button text="✎ Editar costo" styleClass="actionOrange"/>
-                <Button text="📊 Actualizar análisis" styleClass="actionGreen"/>
-                <Button text="↻ Actualizar" styleClass="actionNeutral"/>
+                <Button text="📦 Nuevo ingrediente" onAction="#nuevoIngredienteAnalisis" styleClass="actionBlue"/>
+                <Button text="✎ Editar costo" onAction="#editarCosto" styleClass="actionOrange"/>
+                <Button text="📊 Actualizar análisis" onAction="#actualizarAnalisis" styleClass="actionGreen"/>
+                <Button text="↻ Actualizar" onAction="#refrescarAnalisis" styleClass="actionNeutral"/>
              </HBox>
 
              <GridPane hgap="16">
@@ -523,7 +530,7 @@
 
             <HBox spacing="16">
 
-                <VBox styleClass="cardPanel" spacing="12" prefWidth="980" maxWidth="980">
+                <VBox styleClass="cardPanel" spacing="12" HBox.hgrow="ALWAYS">
 
                     <HBox alignment="CENTER_LEFT" spacing="10">
                         <Label text="Filtro" styleClass="cardTitle"/>
@@ -534,13 +541,13 @@
                         <ComboBox promptText="Proveedor" prefWidth="180"/>
                         <ComboBox promptText="Categoría" prefWidth="160"/>
                         <ComboBox promptText="Estado stock" prefWidth="160"/>
-                        <Button text="🔍 Buscar" styleClass="actionBlue"/>
+                        <Button text="🔍 Buscar" onAction="#buscarAnalisis" styleClass="actionBlue"/>
                     </HBox>
 
                     <HBox alignment="CENTER_LEFT" spacing="10">
                         <DatePicker promptText="Desde" prefWidth="150"/>
                         <DatePicker promptText="Hasta" prefWidth="150"/>
-                        <Button text="↻ Limpiar" styleClass="actionNeutral"/>
+                        <Button text="↻ Limpiar" onAction="#limpiarAnalisis" styleClass="actionNeutral"/>
                     </HBox>
 
                     <TableView prefHeight="500" VBox.vgrow="ALWAYS">
@@ -586,15 +593,17 @@
                     <Label text="Variación:"/>
                     <TextField promptText="0%" editable="false"/>
 
-                    <Button text="Ver historial" styleClass="actionBlue" maxWidth="Infinity"/>
-                    <Button text="Comparar proveedores" styleClass="actionGreen" maxWidth="Infinity"/>
+                    <Button text="Ver historial" onAction="#verHistorialAnalisis" styleClass="actionBlue" maxWidth="Infinity"/>
+                    <Button text="Comparar proveedores" onAction="#compararProveedores" styleClass="actionGreen" maxWidth="Infinity"/>
 
                 </VBox>
 
             </HBox>
 
         </VBox>
+            </ScrollPane>
 
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewPagosCompra" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -605,11 +614,11 @@
 
                     <Region HBox.hgrow="ALWAYS"/>
 
-                    <Button text="+ Nuevo pago" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="🗑 Anular" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
+                    <Button text="+ Nuevo pago" onAction="#nuevoPago" styleClass="actionBlue"/>
+                    <Button text="✎ Editar" onAction="#editarPago" styleClass="actionOrange"/>
+                    <Button text="🗑 Anular" onAction="#anularPago" styleClass="actionRed"/>
+                    <Button text="💾 Guardar" onAction="#guardarPago" styleClass="actionGreen"/>
+                    <Button text="↻ Limpiar" onAction="#limpiarPago" styleClass="actionNeutral"/>
                 </HBox>
 
                 <HBox spacing="16">
@@ -713,7 +722,7 @@
                         <Button text="🔍" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView fx:id="tablaPagosCompra" prefHeight="390">
+                    <TableView fx:id="tablaPagosCompra" prefHeight="390" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID Pago" prefWidth="110"/>
                             <TableColumn text="Factura" prefWidth="140"/>
@@ -728,7 +737,9 @@
                 </VBox>
 
             </VBox>
+            </ScrollPane>
 
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="contentScroll">
             <VBox fx:id="viewHistorialCompras" styleClass="content" spacing="16">
 
                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -775,7 +786,7 @@
 
                 <HBox spacing="16">
                     <!-- TABLA PRINCIPAL -->
-                    <VBox styleClass="cardPanel" spacing="12" prefWidth="980" maxWidth="980">
+                    <VBox styleClass="cardPanel" spacing="12" HBox.hgrow="ALWAYS">
 
                         <HBox alignment="CENTER_LEFT">
 
@@ -798,7 +809,7 @@
 
                         </HBox>
 
-                        <TableView fx:id="tablaHistorialCompras" prefHeight="520">
+                        <TableView fx:id="tablaHistorialCompras" prefHeight="520" VBox.vgrow="ALWAYS">
 
                             <columns>
 
@@ -886,9 +897,9 @@
                               styleClass="cardPanel">
 
                             <Label text="Ingredientes comprados"
-                                   styleClass="cardTitle"/>
+                                    styleClass="cardTitle"/>
 
-                            <TableView prefHeight="220">
+                            <TableView prefHeight="220" VBox.vgrow="ALWAYS">
 
                                 <columns>
 
@@ -932,6 +943,7 @@
                 </HBox>
 
             </VBox>
+            </ScrollPane>
 
         </StackPane>
     </center>

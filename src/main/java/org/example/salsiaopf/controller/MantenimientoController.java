@@ -1,4 +1,4 @@
-﻿package org.example.salsiaopf.controller;
+package org.example.salsiaopf.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

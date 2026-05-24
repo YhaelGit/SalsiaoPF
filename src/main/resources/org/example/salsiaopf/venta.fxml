@@ -206,7 +206,7 @@
                         <Button text="+ Agregar" styleClass="actionBlue"/>
                     </HBox>
 
-                    <TableView fx:id="tablaRecetaProducto" prefHeight="170">
+                    <TableView fx:id="tablaRecetaProducto" prefHeight="170" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID" prefWidth="80"/>
                             <TableColumn text="Ingrediente" prefWidth="280"/>
@@ -229,7 +229,7 @@
                         <Button text="🔍" styleClass="actionNeutral"/>
                     </HBox>
 
-                    <TableView fx:id="tablaProductos" prefHeight="300">
+                    <TableView fx:id="tablaProductos" prefHeight="300" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="ID Producto" prefWidth="130"/>
                             <TableColumn text="Nombre" prefWidth="260"/>
@@ -296,16 +296,40 @@
                                 <Region HBox.hgrow="ALWAYS"/>
                                 <Label fx:id="lblSubtotalCarrito" text="RD$ 0.00" styleClass="ventasResumenValor"/>
                             </HBox>
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="ITBIS (18%)" styleClass="ventasResumenLabel"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="lblItbisCarrito" text="RD$ 0.00" styleClass="ventasResumenValor"/>
+                            </HBox>
                             <Separator styleClass="ventasSeparador"/>
                             <HBox alignment="CENTER_LEFT">
                                 <Label text="TOTAL" styleClass="ventasTotalLabel"/>
                                 <Region HBox.hgrow="ALWAYS"/>
                                 <Label fx:id="lblTotalCarrito" text="RD$ 0.00" styleClass="ventasTotalValor"/>
                             </HBox>
-                            <Button text="💳  PROCESAR PAGO" onAction="#procesarPago" maxWidth="Infinity" styleClass="ventasBtnFinalizar"/>
+                            <Separator styleClass="ventasSeparador"/>
+                            <VBox styleClass="ventasMetodoPago" spacing="6">
+                                <Label text="Método de pago" styleClass="ventasResumenLabel"/>
+                                <HBox spacing="8">
+                                    <ToggleButton fx:id="btnEfectivoPOS" text="💵 Efectivo" toggleGroup="$grupoPago" selected="true" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" styleClass="ventasMetodoBtn"/>
+                                    <ToggleButton fx:id="btnTarjetaPOS" text="💳 Tarjeta" toggleGroup="$grupoPago" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" styleClass="ventasMetodoBtn"/>
+                                    <ToggleButton fx:id="btnTransferenciaPOS" text="🏦 Transf." toggleGroup="$grupoPago" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" styleClass="ventasMetodoBtn"/>
+                                </HBox>
+                            </VBox>
+                            <HBox fx:id="panelEfectivoPOS" alignment="CENTER_LEFT" spacing="10" managed="true" visible="true">
+                                <Label text="Recibido:" styleClass="ventasResumenLabel"/>
+                                <TextField fx:id="txtMontoPOS" promptText="0.00" prefWidth="120" styleClass="ventasInputMonto"/>
+                                <Label text="Cambio:" styleClass="ventasResumenLabel"/>
+                                <Label fx:id="lblCambioPOS" text="RD$ 0.00" styleClass="ventasCambioValor"/>
+                            </HBox>
+                            <Button fx:id="btnCobrarPOS" text="💳  COBRAR RD$ 0.00" onAction="#cobrarPOS" maxWidth="Infinity" styleClass="ventasBtnFinalizar"/>
                             <HBox spacing="8">
                                 <Button text="↻ Vaciar" onAction="#vaciarCarrito" HBox.hgrow="ALWAYS" styleClass="ventasBtnSecundario"/>
-                                <Button text="Ir a pago →" onAction="#irAPago" HBox.hgrow="ALWAYS" styleClass="ventasBtnIrPago"/>
+                                <Button text="🧾 Facturar" onAction="#generarFacturaDirecta" HBox.hgrow="ALWAYS" styleClass="ventasBtnIrPago"/>
+                                <Button text="📄 Imprimir" onAction="#imprimirTicket" HBox.hgrow="ALWAYS" styleClass="ventasBtnSecundario"/>
+                            </HBox>
+                            <HBox spacing="8">
+                                <Button text="✖ Cancelar venta" onAction="#cancelarVenta" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="ventasBtnCancelar"/>
                             </HBox>
                         </VBox>
                     </VBox>
@@ -328,7 +352,6 @@
                     <Button text="✎ Editar orden" styleClass="actionOrange"/>
                     <Button text="✖ Cancelar orden" styleClass="actionRed"/>
                     <Button text="✔ Enviar a cocina" styleClass="actionBlue"/>
-                    <Button text="Continuar a pago" onAction="#procesarPago" styleClass="actionGreen"/>
                 </HBox>
 
                 <HBox spacing="16">
@@ -384,7 +407,7 @@
                                 <Region HBox.hgrow="ALWAYS"/>
                             </HBox>
 
-                            <TableView prefHeight="360">
+                            <TableView prefHeight="360" VBox.vgrow="ALWAYS">
 
                                 <columns>
 
@@ -498,7 +521,7 @@
                             </GridPane>
 
                             <Button text="Ir a pago"
-                                    onAction="#procesarPago"
+                                    onAction="#cobrarPOS"
                                     prefHeight="46"
                                     styleClass="actionGreen"/>
 
@@ -524,7 +547,7 @@
                     <Button text="↻ Actualizar" onAction="#actualizarPagoView" styleClass="actionNeutral"/>
                     <Button text="✖ Cancelar pago" onAction="#cancelarPagoView" styleClass="actionRed"/>
                     <Button text="🧾 Facturar" onAction="#generarFacturaDirecta" styleClass="actionBlue"/>
-                    <Button text="✔ Confirmar pago" onAction="#procesarPago" styleClass="actionGreen"/>
+                    <Button text="✔ Confirmar pago" onAction="#cobrarPOS" styleClass="actionGreen"/>
 
                 </HBox>
 
@@ -568,7 +591,7 @@
                                 <Button text="🖨 Imprimir pre cuenta" styleClass="actionNeutral"/>
                             </HBox>
 
-                            <TableView prefHeight="340">
+                            <TableView prefHeight="340" VBox.vgrow="ALWAYS">
 
                                 <columns>
 
@@ -691,7 +714,7 @@
                             <Label text="Acciones rápidas" styleClass="cardTitle"/>
 
                             <Button text="✔ Confirmar pago"
-                                    onAction="#procesarPago"
+                                    onAction="#cobrarPOS"
                                     prefHeight="46"
                                     styleClass="actionGreen"/>
 
@@ -811,7 +834,7 @@
                                 <Button text="🧾 Cargar venta" styleClass="actionBlue"/>
                             </HBox>
 
-                            <TableView prefHeight="340">
+                            <TableView prefHeight="340" VBox.vgrow="ALWAYS">
 
                                 <columns>
 
@@ -1018,7 +1041,7 @@
 
                         </HBox>
 
-                        <TableView prefHeight="500">
+                        <TableView prefHeight="500" VBox.vgrow="ALWAYS">
 
                             <columns>
 
@@ -1095,10 +1118,10 @@
                         <VBox spacing="12"
                               styleClass="cardPanel">
 
-                            <Label text="Productos"
-                                   styleClass="cardTitle"/>
+                        <Label text="Productos"
+                               styleClass="cardTitle"/>
 
-                            <TableView prefHeight="220">
+                            <TableView prefHeight="220" VBox.vgrow="ALWAYS">
 
                                 <columns>
 
@@ -1218,7 +1241,7 @@
 
                         </HBox>
 
-                        <TableView prefHeight="500">
+                        <TableView prefHeight="500" VBox.vgrow="ALWAYS">
 
                             <columns>
 
@@ -1461,7 +1484,7 @@
 
                         </GridPane>
 
-                        <TableView prefHeight="280">
+                        <TableView prefHeight="280" VBox.vgrow="ALWAYS">
 
                             <columns>
 
@@ -1544,10 +1567,10 @@
                         <VBox spacing="12"
                               styleClass="cardPanel">
 
-                            <Label text="Consumo actual"
-                                   styleClass="cardTitle"/>
+                        <Label text="Consumo actual"
+                               styleClass="cardTitle"/>
 
-                            <TableView prefHeight="220">
+                            <TableView prefHeight="220" VBox.vgrow="ALWAYS">
 
                                 <columns>
 
@@ -1668,7 +1691,7 @@
 
                         </HBox>
 
-                        <TableView prefHeight="520">
+                        <TableView prefHeight="520" VBox.vgrow="ALWAYS">
 
                             <columns>
 
@@ -1756,10 +1779,10 @@
                         <VBox spacing="12"
                               styleClass="cardPanel">
 
-                            <Label text="Productos vendidos"
-                                   styleClass="cardTitle"/>
+                        <Label text="Productos vendidos"
+                               styleClass="cardTitle"/>
 
-                            <TableView prefHeight="220">
+                            <TableView prefHeight="220" VBox.vgrow="ALWAYS">
 
                                 <columns>
 
@@ -1879,7 +1902,7 @@
 
                         </HBox>
 
-                        <TableView prefHeight="520">
+                        <TableView prefHeight="520" VBox.vgrow="ALWAYS">
 
                             <columns>
 

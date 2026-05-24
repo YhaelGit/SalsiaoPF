@@ -1,4 +1,4 @@
-﻿package org.example.salsiaopf.controller;
+package org.example.salsiaopf.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
