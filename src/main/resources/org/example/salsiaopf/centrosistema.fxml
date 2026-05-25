@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
@@ -92,8 +95,7 @@
             <Button fx:id="btnNavInventario" text="📦  Inventario" onAction="#abrirInventario" styleClass="sideButton"/>
             <Button fx:id="btnNavEmpleados" text="👤  Empleados" onAction="#abrirEmpleados" styleClass="sideButton"/>
             <Button fx:id="btnNavMantenimiento" text="🛠  Mantenimiento" onAction="#abrirMantenimiento" styleClass="sideButton"/>
-            <Button fx:id="btnNavReportes" text="📊  Reportes" onAction="#abrirReportes" styleClass="sideButton"/>
-            <Button fx:id="btnNavConfiguracion" text="⚙  Configuración" onAction="#abrirConfiguracion" styleClass="sideButton"/>
+
 
             <Region VBox.vgrow="ALWAYS"/>
 
@@ -124,40 +126,41 @@
                 <HBox spacing="16">
                     <VBox styleClass="metricCard" HBox.hgrow="ALWAYS">
                         <Label text="Ventas del día" styleClass="metricTitleGreen"/>
-                        <Label text="RD$ 18,750.00" styleClass="metricValue"/>
-                        <Label text="12 ventas" styleClass="metricSub"/>
-                        <Label text="↑ 15% vs. ayer" styleClass="metricPositive"/>
+                        <Label fx:id="lblVentasHoy" text="RD$ 0.00" styleClass="metricValue"/>
+                        <Label fx:id="lblCantVentasHoy" text="0 ventas" styleClass="metricSub"/>
+                        <Label text="Últimos 7 días abajo" styleClass="metricPositive"/>
                     </VBox>
 
                     <VBox styleClass="metricCard" HBox.hgrow="ALWAYS">
                         <Label text="Compras pendientes" styleClass="metricTitleBlue"/>
-                        <Label text="5" styleClass="metricValue"/>
+                        <Label fx:id="lblComprasPendientes" text="0" styleClass="metricValue"/>
                         <Label text="Órdenes" styleClass="metricSub"/>
-                        <Label text="RD$ 28,450.00" styleClass="metricSub"/>
+                        <Label fx:id="lblTotalComprasPendientes" text="RD$ 0.00" styleClass="metricSub"/>
                     </VBox>
 
                     <VBox styleClass="metricCard" HBox.hgrow="ALWAYS">
                         <Label text="Reservas hoy" styleClass="metricTitlePurple"/>
-                        <Label text="8" styleClass="metricValue"/>
-                        <Label text="Reservas" styleClass="metricSub"/>
-                        <Label text="Próxima: 04:30 PM" styleClass="metricSub"/>
+                        <Label text="—" styleClass="metricValue"/>
+                        <Label text="En desarrollo" styleClass="metricSub"/>
+                        <Label text="" styleClass="metricSub"/>
                     </VBox>
 
                     <VBox styleClass="metricCard" HBox.hgrow="ALWAYS">
                         <Label text="Clientes registrados" styleClass="metricTitleOrange"/>
-                        <Label text="237" styleClass="metricValue"/>
+                        <Label fx:id="lblClientesRegistrados" text="0" styleClass="metricValue"/>
                         <Label text="Clientes" styleClass="metricSub"/>
-                        <Label text="+12 este mes" styleClass="metricOrange"/>
+                        <Label text="" styleClass="metricOrange"/>
                     </VBox>
                 </HBox>
 
                 <HBox spacing="16">
                     <VBox styleClass="panelLarge" HBox.hgrow="ALWAYS">
                         <Label text="Ventas de los últimos 7 días" styleClass="sectionTitle"/>
-                        <Pane prefHeight="230" styleClass="chartPlaceholder">
-                            <Label text="Gráfico de ventas" layoutX="260" layoutY="100" styleClass="placeholderText"/>
-                        </Pane>
-                        <Label text="Total semana: RD$ 112,350.00" styleClass="sectionFooter"/>
+                        <BarChart fx:id="chartVentasSemana" prefHeight="230" animated="false" legendVisible="false">
+                            <xAxis><CategoryAxis side="BOTTOM" label="Día"/></xAxis>
+                            <yAxis><NumberAxis side="LEFT" label="RD$"/></yAxis>
+                        </BarChart>
+                        <Label fx:id="lblTotalSemana" text="Total semana: RD$ 0.00" styleClass="sectionFooter"/>
                     </VBox>
 
                     <VBox styleClass="panelSide" prefWidth="520">
@@ -171,14 +174,7 @@
                 </HBox>
 
                 <HBox spacing="16">
-                    <VBox styleClass="panelSmall" HBox.hgrow="ALWAYS">
-                        <Label text="Productos más vendidos" styleClass="sectionTitle"/>
-                        <Label text="1   Chicharrón de Pollo        45 unidades"/>
-                        <Label text="2   Mofongo Especial          38 unidades"/>
-                        <Label text="3   Jugo Natural              32 unidades"/>
-                        <Label text="4   Tostones                  28 unidades"/>
-                        <Label text="5   Hamburguesa Salsiao       25 unidades"/>
-                    </VBox>
+
 
                     <VBox styleClass="panelSmall" HBox.hgrow="ALWAYS">
                         <Label text="Resumen de inventario" styleClass="sectionTitle"/>
@@ -224,11 +220,7 @@
                                     GridPane.rowIndex="1"
                                     GridPane.columnIndex="1"/>
 
-                            <Button text="📊 Reporte ventas"
-                                    onAction="#irReporteVentas"
-                                    styleClass="quickAccessButton"
-                                    GridPane.rowIndex="1"
-                                    GridPane.columnIndex="2"/>
+
 
                         </GridPane>
                     </VBox>

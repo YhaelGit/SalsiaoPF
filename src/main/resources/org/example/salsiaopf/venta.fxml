@@ -1,2059 +1,406 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.salsiaopf.controller.VentaController"
-            styleClass="appRoot">
+<VBox styleClass="appRoot" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.salsiaopf.controller.VentaController">
+  <HBox VBox.vgrow="ALWAYS">
+    <!-- Sidebar -->
+    <VBox styleClass="sideBar" spacing="8" minWidth="240" maxWidth="240">
+      <VBox spacing="6">
+        <Text text="SALSIAO" styleClass="brandTitle"/>
+        <Text text="Modulo Ventas" styleClass="brandSubtitle"/>
+      </VBox>
+      <Separator style="-fx-background: rgba(255,255,255,0.1); -fx-padding: 8 0;"/>
+      <VBox spacing="6">
+        <Button fx:id="btnDashboard" text="📊  Dashboard" styleClass="sideButtonActive" onAction="#mostrarDashboard"/>
+        <Button fx:id="btnNuevaVenta" text="🛒  Nueva Venta" styleClass="sideButton" onAction="#mostrarVenta"/>
+        <Button fx:id="btnHistorial" text="📋  Historial" styleClass="sideButton" onAction="#mostrarHistorial"/>
+        <Button fx:id="btnCaja" text="💰  Caja / Cierre" styleClass="sideButton" onAction="#mostrarCaja"/>
+        <Button fx:id="btnPedidos" text="📦  Pedidos" styleClass="sideButton" onAction="#mostrarPedidos"/>
+      </VBox>
+      <Region VBox.vgrow="ALWAYS"/>
+      <Button fx:id="btnLimpiar" text="🧹  Limpiar" styleClass="sideButton" onAction="#limpiar"/>
+      <Separator style="-fx-background: rgba(255,255,255,0.1);"/>
+      <Button text="🔙  Volver al Sistema" styleClass="sideButtonExit" onAction="#volverMenu" maxWidth="Infinity"/>
+    </VBox>
 
-    <fx:define>
-        <ToggleGroup fx:id="grupoPago"/>
-    </fx:define>
+    <!-- Content -->
+    <StackPane fx:id="contentPanel" HBox.hgrow="ALWAYS" styleClass="contentArea">
 
-    <top>
-        <HBox styleClass="topBar" alignment="CENTER_LEFT" spacing="18">
-            <ImageView fx:id="logoImage"
-                       fitWidth="82"
-                       fitHeight="82"
-                       preserveRatio="true"/>
-
-            <VBox>
-                <Label text="Salsiao" styleClass="brandTitle"/>
-                <Label text="Gestión de Ventas" styleClass="brandSubtitle"/>
+      <!-- DASHBOARD -->
+      <ScrollPane fx:id="scrollDashboard" styleClass="contentScroll" fitToWidth="true" visible="false" managed="false">
+        <VBox spacing="20" styleClass="content">
+          <VBox spacing="6">
+            <Text text="Panel de Ventas" styleClass="pageTitle"/>
+            <Text text="Resumen del dia y actividad reciente" styleClass="pageSubtitle"/>
+          </VBox>
+          <HBox spacing="16">
+            <VBox fx:id="cardVentasHoy" styleClass="cardPanel" HBox.hgrow="ALWAYS" spacing="6">
+              <Text text="💰 Ventas Hoy" styleClass="cardTitle"/>
+              <Label fx:id="lblVentasHoy" style="-fx-font-size:28px; -fx-font-weight:bold; -fx-text-fill:#1f2937;" text="RD$ 0"/>
+              <Label fx:id="lblCantVentasHoy" style="-fx-text-fill:#6b7280;" text="0 transacciones"/>
             </VBox>
-
-            <Region HBox.hgrow="ALWAYS"/>
-
-            <Button text="☰ Volver" onAction="#volverMenu" styleClass="topButton"/>
-
-            <HBox alignment="CENTER" spacing="10">
-                <HBox alignment="CENTER" spacing="6" styleClass="topInfoCard">
-                    <Label text="📅" styleClass="topIcon"/>
-                    <Label fx:id="lblFechaActual" text="--/--/----" styleClass="topInfoText"/>
-                </HBox>
-
-                <HBox alignment="CENTER" spacing="6" styleClass="topInfoCard">
-                    <Label text="🕒" styleClass="topIcon"/>
-                    <Label fx:id="lblHoraActual" text="--:-- --" styleClass="topInfoText"/>
-                </HBox>
-
-                <Button fx:id="btnNotificaciones"
-                        text="🔔 0"
-                        onAction="#mostrarNotificaciones"
-                        styleClass="notificationModernButton"/>
-
-                <HBox alignment="CENTER" spacing="8" styleClass="userInfoCard">
-                    <Label text="👤" styleClass="topIcon"/>
-                    <VBox spacing="0">
-                        <Label text="Admin" styleClass="userNameTop"/>
-                        <Label text="Administrador" styleClass="userRoleTop"/>
-                    </VBox>
-                </HBox>
-            </HBox>
-        </HBox>
-    </top>
-
-    <left>
-        <VBox styleClass="sideBar" spacing="12">
-            <Label text="VENTAS" styleClass="sideTitle"/>
-
-            <Button fx:id="btnControlVenta" text="🍔  Menú digital" onAction="#mostrarControlVenta" styleClass="sideButtonActive"/>
-            <Button fx:id="btnOrdenActual" text="🧺  Orden actual" onAction="#mostrarOrdenActual" styleClass="sideButton"/>
-            <Button fx:id="btnPago" text="💳  Pago" onAction="#mostrarPago" styleClass="sideButton"/>
-            <Button fx:id="btnFacturacion" text="🧾  Facturación electrónica" onAction="#mostrarFacturacion" styleClass="sideButton"/>
-            <Button fx:id="btnPedidosPendientes" text="⏱  Pedidos pendientes" onAction="#mostrarPedidosPendientes" styleClass="sideButton"/>
-            <Button fx:id="btnDelivery" text="🏍  Delivery" onAction="#mostrarDelivery" styleClass="sideButton"/>
-            <Button fx:id="btnMesas" text="🍽  Mesas y consumos" onAction="#mostrarMesas" styleClass="sideButton"/>
-            <Button fx:id="btnProductos" text="🍽  Productos" onAction="#mostrarProductos" styleClass="sideButton"/>
-            <Button fx:id="btnCaja" text="💰  Control de caja" onAction="#mostrarCaja" styleClass="sideButton"/>
-            <Button fx:id="btnHistorialVentas" text="↺  Historial de ventas" onAction="#mostrarHistorialVentas" styleClass="sideButton"/>
-            <Region VBox.vgrow="ALWAYS"/>
-
-            <VBox styleClass="userCard">
-                <Label text="Venta"
-                       styleClass="userCardName"/>
-
-                <Label text="Gestión de la venta."
-                       wrapText="true"
-                       styleClass="userCardRole"/>
+            <VBox fx:id="cardProductos" styleClass="cardPanel" HBox.hgrow="ALWAYS" spacing="6">
+              <Text text="🍔 Productos" styleClass="cardTitle"/>
+              <Label fx:id="lblTotalProductos" style="-fx-font-size:28px; -fx-font-weight:bold; -fx-text-fill:#1f2937;" text="0"/>
+              <Text text="En el catalogo" style="-fx-text-fill:#6b7280;"/>
             </VBox>
-            <Button text="↪  Salir" onAction="#salirSistema" styleClass="sideButtonExit"/>
+            <VBox fx:id="cardTipoVenta" styleClass="cardPanel" HBox.hgrow="ALWAYS" spacing="6">
+              <Text text="📊 Venta Mas Usada" styleClass="cardTitle"/>
+              <Label fx:id="lblTipoVentaFrecuente" style="-fx-font-size:28px; -fx-font-weight:bold; -fx-text-fill:#1f2937;" text="Mostrador"/>
+            </VBox>
+          </HBox>
+          <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+            <Text text="Ventas Recientes" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+            <TableView fx:id="tablaVentasRecientes" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="colFactura" text="Factura" prefWidth="150"/>
+                <TableColumn fx:id="colFecha" text="Fecha" prefWidth="170"/>
+                <TableColumn fx:id="colCliente" text="Cliente" prefWidth="160"/>
+                <TableColumn fx:id="colTipo" text="Tipo" prefWidth="110"/>
+                <TableColumn fx:id="colMetodo" text="Pago" prefWidth="110"/>
+                <TableColumn fx:id="colTotal" text="Total" prefWidth="120"/>
+              </columns>
+            </TableView>
+          </VBox>
         </VBox>
-    </left>
+      </ScrollPane>
 
-    <center>
-        <StackPane fx:id="contenedorVentas" styleClass="contentArea">
+      <!-- POS / NUEVA VENTA -->
+      <ScrollPane fx:id="scrollVenta" styleClass="contentScroll" fitToWidth="true" fitToHeight="true" visible="true" managed="true">
+        <HBox spacing="16" styleClass="content" HBox.hgrow="ALWAYS">
+          <VBox spacing="12" HBox.hgrow="ALWAYS" minWidth="450">
+            <Text text="🛒 Nuevo Pedido" style="-fx-font-size:22px; -fx-font-weight:bold;"/>
+            <TextField fx:id="txtBuscar" promptText="🔍 Buscar producto..." styleClass="posSearchBox"/>
+            <FlowPane fx:id="panelCategorias" styleClass="posCategoryPanel"/>
+            <ScrollPane styleClass="posProductScroll" fitToWidth="true" VBox.vgrow="ALWAYS">
+              <FlowPane fx:id="panelProductos" styleClass="posProductGrid" hgap="14" vgap="14" />
+            </ScrollPane>
+          </VBox>
+          <VBox spacing="12" minWidth="340" maxWidth="380" styleClass="posCartPanel">
+            <HBox spacing="8" alignment="CENTER_LEFT">
+              <Text text="🧾 Pedido" styleClass="posCartTitle"/>
+              <Region HBox.hgrow="ALWAYS"/>
+              <Label fx:id="lblCartCount" text="0" styleClass="posCartCount"/>
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+              <Text text="Tipo:" style="-fx-font-weight:bold;"/>
+              <ComboBox fx:id="cmbTipoVenta" style="-fx-background-radius:6;"/>
+              <Text text="Cliente:" style="-fx-font-weight:bold;"/>
+              <ComboBox fx:id="cmbCliente" style="-fx-background-radius:6;" maxWidth="180" promptText="Seleccionar..."/>
+              <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <Separator/>
+            <ScrollPane styleClass="contentScroll" fitToWidth="true" VBox.vgrow="ALWAYS">
+              <ListView fx:id="listCart" style="-fx-background-color:transparent; -fx-border-color:transparent;"/>
+            </ScrollPane>
+            <Separator/>
+            <GridPane hgap="10" vgap="6" minWidth="0">
+              <columnConstraints>
+                <ColumnConstraints minWidth="120" halignment="LEFT"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="RIGHT"/>
+              </columnConstraints>
+              <Text text="Subtotal:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight:bold;"/>
+              <Label fx:id="lblSubtotal" text="RD$ 0.00" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+              <Text text="ITBIS (18%):" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-text-fill:#6b7280;"/>
+              <Label fx:id="lblITBIS" text="RD$ 0.00" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-text-fill:#6b7280;"/>
+              <Text text="Descuento:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-text-fill:#6b7280;"/>
+              <HBox spacing="4" GridPane.rowIndex="2" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                <Text text="RD$" style="-fx-text-fill:#6b7280;"/>
+                <TextField fx:id="txtDescuento" text="0" prefWidth="80" style="-fx-alignment:center-right;"/>
+              </HBox>
+              <Text text="Delivery:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-text-fill:#6b7280;"/>
+              <HBox spacing="4" GridPane.rowIndex="3" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                <Text text="RD$" style="-fx-text-fill:#6b7280;"/>
+                <TextField fx:id="txtDelivery" text="0" prefWidth="80" style="-fx-alignment:center-right;"/>
+              </HBox>
+              <Separator GridPane.rowIndex="4" GridPane.columnSpan="2"/>
+              <Text text="TOTAL:" GridPane.rowIndex="5" GridPane.columnIndex="0" style="-fx-font-size:20px; -fx-font-weight:bold; -fx-text-fill:#1f2937;"/>
+              <Label fx:id="lblTotal" text="RD$ 0.00" GridPane.rowIndex="5" GridPane.columnIndex="1" style="-fx-font-size:22px; -fx-font-weight:900; -fx-text-fill:#059669;"/>
+            </GridPane>
+            <Button fx:id="btnCheckout" text="✅  Procesar Pago" styleClass="posCheckoutBtn" maxWidth="Infinity" onAction="#procesarPago"/>
+          </VBox>
+        </HBox>
+      </ScrollPane>
 
-            <VBox fx:id="viewProductos" styleClass="content" spacing="16">
+      <!-- HISTORIAL -->
+      <ScrollPane fx:id="scrollHistorial" styleClass="contentScroll" fitToWidth="true" visible="false" managed="false">
+        <VBox spacing="20" styleClass="content">
+          <VBox spacing="6">
+            <Text text="📋 Historial de Ventas" styleClass="pageTitle"/>
+            <Text text="Todas las transacciones registradas" styleClass="pageSubtitle"/>
+          </VBox>
+          <HBox spacing="12">
+            <DatePicker fx:id="dpDesde" promptText="Desde" style="-fx-background-radius:6;"/>
+            <DatePicker fx:id="dpHasta" promptText="Hasta" style="-fx-background-radius:6;"/>
+            <Button text="🔍 Filtrar" styleClass="topButton" onAction="#filtrarHistorial"/>
+            <Button text="🔄 Limpiar Filtros" styleClass="topButton" onAction="#limpiarFiltrosHistorial"/>
+          </HBox>
+          <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tablaHistorial" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="colHFactura" text="Factura" prefWidth="150"/>
+                <TableColumn fx:id="colHFecha" text="Fecha" prefWidth="170"/>
+                <TableColumn fx:id="colHCliente" text="Cliente" prefWidth="160"/>
+                <TableColumn fx:id="colHTipo" text="Tipo" prefWidth="100"/>
+                <TableColumn fx:id="colHMetodo" text="Pago" prefWidth="110"/>
+                <TableColumn fx:id="colHTotal" text="Total" prefWidth="120"/>
+              </columns>
+            </TableView>
+          </VBox>
+        </VBox>
+      </ScrollPane>
 
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Productos" styleClass="pageTitle"/>
-                        <Label text="Administra los productos vendidos, precios, categorías, recetas y disponibilidad." styleClass="pageSubtitle"/>
-                    </VBox>
+      <!-- CAJA / CIERRE DE CAJA -->
+      <ScrollPane fx:id="scrollCaja" styleClass="contentScroll" fitToWidth="true" visible="false" managed="false">
+        <VBox spacing="20" styleClass="content">
+          <VBox spacing="6">
+            <Text text="💰 Caja / Cierre de Caja" styleClass="pageTitle"/>
+            <Text text="Control de ingresos del dia" styleClass="pageSubtitle"/>
+          </VBox>
 
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="+ Nuevo producto" styleClass="actionBlue"/>
-                    <Button text="✎ Editar" styleClass="actionOrange"/>
-                    <Button text="🗑 Eliminar" styleClass="actionRed"/>
-                    <Button text="💾 Guardar" styleClass="actionGreen"/>
-                    <Button text="↻ Limpiar" styleClass="actionNeutral"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-                        <Label text="Datos del producto" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-                            <Label text="ID Producto:" minWidth="130" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtIdProducto" editable="false" promptText="Automático" prefWidth="260"
-                                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                            <Label text="Categoría:" minWidth="130" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbCategoriaProducto" promptText="Categoría" prefWidth="250"
-                                      GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                            <Label text="Nombre:" minWidth="130" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtNombreProducto" promptText="Nombre del producto" prefWidth="260"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                            <Label text="Precio venta:" minWidth="130" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtPrecioProducto" promptText="0.00" prefWidth="250"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                            <Label text="Costo estimado:" minWidth="130" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtCostoProducto" editable="false" promptText="Calculado por receta" prefWidth="260"
-                                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            <Label text="Tiempo prep.:" minWidth="130" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                            <TextField fx:id="txtTiempoPreparacion" promptText="Minutos" prefWidth="250"
-                                       GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-                            <Label text="Estado:" minWidth="130" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <ComboBox fx:id="cmbEstadoProducto" promptText="Disponible" prefWidth="260"
-                                      GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                            <Label text="Tipo:" minWidth="130" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                            <ComboBox fx:id="cmbTipoProducto" promptText="Plato / Bebida / Combo" prefWidth="250"
-                                      GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-
-                            <Label text="Descripción:" minWidth="130" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextArea fx:id="txtDescripcionProducto" promptText="Descripción del producto..."
-                                      prefRowCount="3" prefWidth="260"
-                                      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-
-                            <Label text="Imagen:" minWidth="130" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
-                            <HBox spacing="8" GridPane.rowIndex="4" GridPane.columnIndex="3">
-                                <TextField fx:id="txtImagenProducto" promptText="Ruta de imagen" prefWidth="180"/>
-                                <Button text="📁" styleClass="actionNeutral"/>
-                            </HBox>
-                        </GridPane>
-                    </VBox>
-
-                    <VBox spacing="16" prefWidth="390">
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Resumen" styleClass="cardTitle"/>
-
-                            <HBox>
-                                <Label text="Productos activos:"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label text="0"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label text="No disponibles:"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label text="0"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label text="Costo promedio:"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label text="RD$ 0.00"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label text="Margen estimado:"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label text="0%"/>
-                            </HBox>
-                        </VBox>
-
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Acciones rápidas" styleClass="cardTitle"/>
-
-                            <Button text="+ Agregar ingrediente a receta" styleClass="actionBlue" prefHeight="42"/>
-                            <Button text="📦 Ver ingredientes usados" styleClass="actionNeutral" prefHeight="42"/>
-                            <Button text="✔ Marcar disponible" styleClass="actionGreen" prefHeight="42"/>
-                            <Button text="✖ Marcar no disponible" styleClass="actionRed" prefHeight="42"/>
-                        </VBox>
-                    </VBox>
-
-                </HBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Receta del producto" styleClass="cardTitle"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <ComboBox promptText="Ingrediente" prefWidth="240"/>
-                        <TextField promptText="Cantidad" prefWidth="120"/>
-                        <ComboBox promptText="Unidad" prefWidth="120"/>
-                        <Button text="+ Agregar" styleClass="actionBlue"/>
-                    </HBox>
-
-                    <TableView fx:id="tablaRecetaProducto" prefHeight="170" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="ID" prefWidth="80"/>
-                            <TableColumn text="Ingrediente" prefWidth="280"/>
-                            <TableColumn text="Cantidad" prefWidth="130"/>
-                            <TableColumn text="Unidad" prefWidth="120"/>
-                            <TableColumn text="Costo unidad" prefWidth="150"/>
-                            <TableColumn text="Costo total" prefWidth="150"/>
-                            <TableColumn text="Acciones" prefWidth="160"/>
-                        </columns>
-                    </TableView>
-                </VBox>
-
-                <VBox styleClass="cardPanel" spacing="12">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label text="Listado de productos" styleClass="cardTitle"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <ComboBox promptText="Categoría" prefWidth="180"/>
-                        <ComboBox promptText="Estado" prefWidth="160"/>
-                        <TextField promptText="Buscar producto..." prefWidth="240"/>
-                        <Button text="🔍" styleClass="actionNeutral"/>
-                    </HBox>
-
-                    <TableView fx:id="tablaProductos" prefHeight="300" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn text="ID Producto" prefWidth="130"/>
-                            <TableColumn text="Nombre" prefWidth="260"/>
-                            <TableColumn text="Categoría" prefWidth="180"/>
-                            <TableColumn text="Tipo" prefWidth="130"/>
-                            <TableColumn text="Precio" prefWidth="130"/>
-                            <TableColumn text="Costo" prefWidth="130"/>
-                            <TableColumn text="Margen" prefWidth="120"/>
-                            <TableColumn text="Estado" prefWidth="140"/>
-                            <TableColumn text="Tiempo prep." prefWidth="140"/>
-                            <TableColumn text="Acciones" prefWidth="160"/>
-                        </columns>
-                    </TableView>
-                </VBox>
-
+          <!-- Estado caja indicator -->
+          <HBox spacing="16">
+            <VBox styleClass="cardPanel" HBox.hgrow="ALWAYS" spacing="8">
+              <Text text="Estado de Caja" styleClass="cardTitle"/>
+              <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label fx:id="lblEstadoCaja" text="🔴 Cerrada" style="-fx-font-size:20px; -fx-font-weight:bold;"/>
+                <Label fx:id="lblCajaUsuario" text="" style="-fx-text-fill:#6b7280;"/>
+              </HBox>
             </VBox>
-
-            <!-- MENÚ DIGITAL — Control de venta premium -->
-            <VBox fx:id="viewControlVenta" styleClass="ventasMenuRoot" spacing="0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-
-                <HBox spacing="0" VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308">
-
-                    <!-- Categorías -->
-                    <VBox styleClass="ventasSideCategorias" prefWidth="210" minWidth="190">
-                        <Label text="SALSIAO" styleClass="ventasBrandMini"/>
-                        <Label text="MENÚ" styleClass="ventasSideTitle"/>
-                        <ScrollPane fitToWidth="true" styleClass="ventasScrollCat" VBox.vgrow="ALWAYS">
-                            <VBox fx:id="panelCategorias" spacing="6"/>
-                        </ScrollPane>
-                    </VBox>
-
-                    <!-- Grid de productos -->
-                    <VBox styleClass="ventasCentro" spacing="14" HBox.hgrow="ALWAYS">
-                        <HBox styleClass="ventasHeaderBar" alignment="CENTER_LEFT" spacing="16">
-                            <VBox spacing="4">
-                                <Label fx:id="lblCategoriaActiva" text="Todos los productos" styleClass="ventasTituloSeccion"/>
-                                <Label text="Menú digital · Venta rápida" styleClass="ventasSubtitulo"/>
-                            </VBox>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <TextField fx:id="txtBuscarMenu" promptText="🔍  Buscar producto..." styleClass="ventasBuscar" prefWidth="280"/>
-                        </HBox>
-                        <ScrollPane fx:id="scrollMenuProductos" fitToWidth="true" styleClass="ventasScrollProductos" VBox.vgrow="ALWAYS">
-                            <FlowPane fx:id="gridProductos" hgap="18" vgap="18" styleClass="ventasFlowGrid"/>
-                        </ScrollPane>
-                    </VBox>
-
-                    <!-- Carrito lateral -->
-                    <VBox styleClass="ventasCarritoPanel" prefWidth="400" minWidth="340">
-                        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="ventasCarritoHeader">
-                            <Label text="🛒" styleClass="ventasCarritoIcon"/>
-                            <VBox spacing="2">
-                                <Label text="Orden actual" styleClass="ventasCarritoTitulo"/>
-                                <Label fx:id="lblContadorItems" text="0 productos" styleClass="ventasCarritoSub"/>
-                            </VBox>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="lblTotalCarritoHeader" text="RD$ 0" styleClass="ventasTotalBadge"/>
-                        </HBox>
-                        <ScrollPane fx:id="scrollCarrito" fitToWidth="true" styleClass="ventasScrollCarrito" VBox.vgrow="ALWAYS">
-                            <VBox fx:id="panelItemsCarrito" spacing="10"/>
-                        </ScrollPane>
-                        <VBox styleClass="ventasCarritoFooter" spacing="10">
-                            <HBox alignment="CENTER_LEFT">
-                                <Label text="Subtotal" styleClass="ventasResumenLabel"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label fx:id="lblSubtotalCarrito" text="RD$ 0.00" styleClass="ventasResumenValor"/>
-                            </HBox>
-                            <HBox alignment="CENTER_LEFT">
-                                <Label text="ITBIS (18%)" styleClass="ventasResumenLabel"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label fx:id="lblItbisCarrito" text="RD$ 0.00" styleClass="ventasResumenValor"/>
-                            </HBox>
-                            <Separator styleClass="ventasSeparador"/>
-                            <HBox alignment="CENTER_LEFT">
-                                <Label text="TOTAL" styleClass="ventasTotalLabel"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Label fx:id="lblTotalCarrito" text="RD$ 0.00" styleClass="ventasTotalValor"/>
-                            </HBox>
-                            <Separator styleClass="ventasSeparador"/>
-                            <VBox styleClass="ventasMetodoPago" spacing="6">
-                                <Label text="Método de pago" styleClass="ventasResumenLabel"/>
-                                <HBox spacing="8">
-                                    <ToggleButton fx:id="btnEfectivoPOS" text="💵 Efectivo" toggleGroup="$grupoPago" selected="true" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" styleClass="ventasMetodoBtn"/>
-                                    <ToggleButton fx:id="btnTarjetaPOS" text="💳 Tarjeta" toggleGroup="$grupoPago" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" styleClass="ventasMetodoBtn"/>
-                                    <ToggleButton fx:id="btnTransferenciaPOS" text="🏦 Transf." toggleGroup="$grupoPago" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" styleClass="ventasMetodoBtn"/>
-                                </HBox>
-                            </VBox>
-                            <HBox fx:id="panelEfectivoPOS" alignment="CENTER_LEFT" spacing="10" managed="true" visible="true">
-                                <Label text="Recibido:" styleClass="ventasResumenLabel"/>
-                                <TextField fx:id="txtMontoPOS" promptText="0.00" prefWidth="120" styleClass="ventasInputMonto"/>
-                                <Label text="Cambio:" styleClass="ventasResumenLabel"/>
-                                <Label fx:id="lblCambioPOS" text="RD$ 0.00" styleClass="ventasCambioValor"/>
-                            </HBox>
-                            <Button fx:id="btnCobrarPOS" text="💳  COBRAR RD$ 0.00" onAction="#cobrarPOS" maxWidth="Infinity" styleClass="ventasBtnFinalizar"/>
-                            <HBox spacing="8">
-                                <Button text="↻ Vaciar" onAction="#vaciarCarrito" HBox.hgrow="ALWAYS" styleClass="ventasBtnSecundario"/>
-                                <Button text="🧾 Facturar" onAction="#generarFacturaDirecta" HBox.hgrow="ALWAYS" styleClass="ventasBtnIrPago"/>
-                                <Button text="📄 Imprimir" onAction="#imprimirTicket" HBox.hgrow="ALWAYS" styleClass="ventasBtnSecundario"/>
-                            </HBox>
-                            <HBox spacing="8">
-                                <Button text="✖ Cancelar venta" onAction="#cancelarVenta" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="ventasBtnCancelar"/>
-                            </HBox>
-                        </VBox>
-                    </VBox>
-
-                </HBox>
-
+            <VBox styleClass="cardPanel" HBox.hgrow="ALWAYS" spacing="8">
+              <Text text="Apertura" styleClass="cardTitle"/>
+              <Label fx:id="lblCajaApertura" text="--:--" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
             </VBox>
-
-            <VBox fx:id="viewOrdenActual" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <VBox>
-                        <Label text="Orden actual" styleClass="pageTitle"/>
-                        <Label text="Administra y controla la orden activa antes del pago." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
-                    <Button text="✎ Editar orden" styleClass="actionOrange"/>
-                    <Button text="✖ Cancelar orden" styleClass="actionRed"/>
-                    <Button text="✔ Enviar a cocina" styleClass="actionBlue"/>
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <!-- PANEL IZQUIERDO -->
-                    <VBox styleClass="cardPanel" spacing="14" HBox.hgrow="ALWAYS">
-
-                        <Label text="Información de la orden" styleClass="cardTitle"/>
-
-                        <GridPane hgap="18" vgap="14">
-
-                            <columnConstraints>
-                                <ColumnConstraints minWidth="120" prefWidth="120"/>
-                                <ColumnConstraints minWidth="260" prefWidth="260"/>
-                                <ColumnConstraints minWidth="120" prefWidth="120"/>
-                                <ColumnConstraints minWidth="260" prefWidth="260"/>
-                            </columnConstraints>
-
-                            <Label text="Orden:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField text="ORD-00125"
-                                       editable="false"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="1"/>
-
-                            <Label text="Cliente:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                            <TextField promptText="Cliente seleccionado"
-                                       editable="false"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="3"/>
-
-                            <Label text="Mesa:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <ComboBox promptText="Mesa opcional"
-                                      GridPane.rowIndex="1"
-                                      GridPane.columnIndex="1"/>
-
-                            <Label text="Tipo:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                            <ComboBox promptText="Salón / Delivery / Para llevar"
-                                      GridPane.rowIndex="1"
-                                      GridPane.columnIndex="3"/>
-
-                            <Label text="Atiende:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField text="Admin"
-                                       editable="false"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="1"/>
-
-                        </GridPane>
-
-                        <VBox spacing="10">
-
-                            <HBox alignment="CENTER_LEFT">
-                                <Label text="Detalle de productos" styleClass="cardTitle"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                            </HBox>
-
-                            <TableView prefHeight="360" VBox.vgrow="ALWAYS">
-
-                                <columns>
-
-                                    <TableColumn text="Producto" prefWidth="240"/>
-                                    <TableColumn text="Cant." prefWidth="80"/>
-                                    <TableColumn text="Precio" prefWidth="110"/>
-                                    <TableColumn text="Subtotal" prefWidth="120"/>
-                                    <TableColumn text="Estado" prefWidth="130"/>
-                                </columns>
-
-                            </TableView>
-
-                        </VBox>
-
-                    </VBox>
-
-                    <!-- PANEL DERECHO -->
-                    <VBox spacing="16" prefWidth="380">
-
-                        <!-- RESUMEN -->
-                        <VBox styleClass="cardPanel" spacing="14">
-
-                            <Label text="Resumen de la orden" styleClass="cardTitle"/>
-
-                            <HBox spacing="12">
-
-                                <VBox styleClass="miniCardGreen" prefWidth="150">
-                                    <Label text="Productos"/>
-                                    <Label text="8" styleClass="metricValueSmall"/>
-                                </VBox>
-
-                                <VBox styleClass="miniCardBlue" prefWidth="150">
-                                    <Label text="Personas"/>
-                                    <Label text="4" styleClass="metricValueSmall"/>
-                                </VBox>
-
-                            </HBox>
-
-                            <HBox spacing="12">
-
-                                <VBox styleClass="miniCardOrange" prefWidth="150">
-                                    <Label text="Preparados"/>
-                                    <Label text="5" styleClass="metricValueSmall"/>
-                                </VBox>
-
-                                <VBox styleClass="miniCardRed" prefWidth="150">
-                                    <Label text="Pendientes"/>
-                                    <Label text="3" styleClass="metricValueSmall"/>
-                                </VBox>
-
-                            </HBox>
-
-                        </VBox>
-
-                        <!-- OBSERVACIONES -->
-                        <VBox styleClass="cardPanel" spacing="12">
-
-                            <Label text="Notas y observaciones" styleClass="cardTitle"/>
-
-                            <TextArea prefHeight="180"
-                                      wrapText="true"
-                                      promptText="Indicaciones especiales para cocina o delivery..."/>
-
-                            <Button text="Guardar observaciones" styleClass="actionGreen"/>
-
-                        </VBox>
-
-                        <!-- TOTALES -->
-                        <VBox styleClass="cardPanel" spacing="12">
-
-                            <Label text="Totales" styleClass="cardTitle"/>
-
-                            <GridPane hgap="14" vgap="12">
-
-                                <Label text="Subtotal:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 2,850.00"
-                                       styleClass="metricSub"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="1"/>
-
-                                <Label text="ITBIS:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 513.00"
-                                       styleClass="metricSub"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="1"/>
-
-                                <Label text="Descuento:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField promptText="0.00"
-                                           prefWidth="120"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Total:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 3,363.00"
-                                       styleClass="metricValueSmall"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                            <Button text="Ir a pago"
-                                    onAction="#cobrarPOS"
-                                    prefHeight="46"
-                                    styleClass="actionGreen"/>
-
-                        </VBox>
-
-                    </VBox>
-
-                </HBox>
-
+            <VBox styleClass="cardPanel" HBox.hgrow="ALWAYS" spacing="8">
+              <Text text="Monto Inicial" styleClass="cardTitle"/>
+              <Label fx:id="lblCajaMontoInicial" text="RD$ 0.00" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
             </VBox>
-
-            <VBox fx:id="viewPago" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-
-                    <VBox>
-                        <Label text="Pago" styleClass="pageTitle"/>
-                        <Label text="Procesa el cobro y confirma la venta." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="↻ Actualizar" onAction="#actualizarPagoView" styleClass="actionNeutral"/>
-                    <Button text="✖ Cancelar pago" onAction="#cancelarPagoView" styleClass="actionRed"/>
-                    <Button text="🧾 Facturar" onAction="#generarFacturaDirecta" styleClass="actionBlue"/>
-                    <Button text="✔ Confirmar pago" onAction="#cobrarPOS" styleClass="actionGreen"/>
-
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <!-- PANEL IZQUIERDO -->
-                    <VBox spacing="16" HBox.hgrow="ALWAYS">
-
-                        <!-- RESUMEN -->
-                        <VBox styleClass="cardPanel" spacing="14">
-
-                            <Label text="Resumen de la orden" styleClass="cardTitle"/>
-
-                            <GridPane hgap="18" vgap="12">
-
-                                <Label text="Orden:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                                <TextField text="ORD-000125" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                                <Label text="Cliente:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                                <TextField text="Juan Pérez García" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-
-                                <Label text="Mesa:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                                <TextField text="Mesa 05" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                                <Label text="Tipo venta:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                                <TextField text="Salón" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                                <Label text="Cajero:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                                <TextField text="Admin" editable="false" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- PRODUCTOS -->
-                        <VBox styleClass="cardPanel" spacing="12">
-
-                            <HBox alignment="CENTER_LEFT">
-                                <Label text="Productos de la orden" styleClass="cardTitle"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Button text="🖨 Imprimir pre cuenta" styleClass="actionNeutral"/>
-                            </HBox>
-
-                            <TableView prefHeight="340" VBox.vgrow="ALWAYS">
-
-                                <columns>
-
-                                    <TableColumn text="Producto" prefWidth="260"/>
-                                    <TableColumn text="Cant." prefWidth="80"/>
-                                    <TableColumn text="Precio" prefWidth="120"/>
-                                    <TableColumn text="Subtotal" prefWidth="140"/>
-
-                                </columns>
-
-                            </TableView>
-
-                        </VBox>
-
-                    </VBox>
-
-                    <!-- PANEL DERECHO -->
-                    <VBox spacing="16" prefWidth="420">
-
-                        <!-- METODOS -->
-                        <VBox styleClass="cardPanel" spacing="12">
-                            <Label text="Método de pago" styleClass="cardTitle"/>
-
-                            <GridPane hgap="10" vgap="10">
-                                <Button text="💵 Efectivo" styleClass="paymentOptionActive" prefWidth="150" prefHeight="48"
-                                        GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-
-                                <Button text="💳 Tarjeta" styleClass="paymentOption" prefWidth="150" prefHeight="48"
-                                        GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-                                <Button text="🏦 Transferencia" styleClass="paymentOption" prefWidth="150" prefHeight="48"
-                                        GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-
-                                <Button text="🔀 Pago mixto" styleClass="paymentOption" prefWidth="150" prefHeight="48"
-                                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                            </GridPane>
-                        </VBox>
-
-                        <!-- MONTOS -->
-                        <VBox styleClass="cardPanel" spacing="14">
-
-                            <Label text="Montos" styleClass="cardTitle"/>
-
-                            <GridPane hgap="14" vgap="12">
-
-                                <Label text="Subtotal:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 2,850.00"
-                                       styleClass="metricSub"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="1"/>
-
-                                <Label text="ITBIS:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 513.00"
-                                       styleClass="metricSub"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="1"/>
-
-                                <Label text="Descuento:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 0.00"
-                                       styleClass="metricSub"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="1"/>
-
-                                <Label text="TOTAL:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label fx:id="lblTotalPago"
-                                       text="RD$ 0.00"
-                                       styleClass="metricValueSmall"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- COBRO -->
-                        <VBox styleClass="cardPanel" spacing="14">
-
-                            <Label text="Cobro" styleClass="cardTitle"/>
-
-                            <GridPane hgap="14" vgap="14">
-
-                                <Label text="Monto recibido:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField fx:id="txtMontoRecibido"
-                                           promptText="0.00"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Cambio:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label fx:id="lblCambio"
-                                       text="RD$ 0.00"
-                                       styleClass="metricValueSmall"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- ACCIONES -->
-                        <VBox styleClass="cardPanel" spacing="12">
-
-                            <Label text="Acciones rápidas" styleClass="cardTitle"/>
-
-                            <Button text="✔ Confirmar pago"
-                                    onAction="#cobrarPOS"
-                                    prefHeight="46"
-                                    styleClass="actionGreen"/>
-
-                            <Button text="🧾 Generar factura"
-                                    onAction="#generarFacturaDirecta"
-                                    prefHeight="42"
-                                    styleClass="actionBlue"/>
-
-                            <Button text="📄 Imprimir ticket"
-                                    onAction="#imprimirTicket"
-                                    prefHeight="42"
-                                    styleClass="actionOrange"/>
-
-                            <Button text="✖ Cancelar venta"
-                                    onAction="#cancelarVenta"
-                                    prefHeight="42"
-                                    styleClass="actionRed"/>
-
-                        </VBox>
-
-                    </VBox>
-
-                </HBox>
-
+          </HBox>
+
+          <!-- Totales -->
+          <HBox spacing="16">
+            <VBox styleClass="cajaCardEfectivo" HBox.hgrow="ALWAYS" spacing="2" alignment="CENTER_LEFT" prefWidth="0">
+              <Text text="💵 Efectivo" style="-fx-font-size:13px; -fx-fill:#fff; -fx-font-weight:bold;"/>
+              <Separator style="-fx-background:rgba(255,255,255,0.2); -fx-pref-height:1;"/>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Declarado:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaEfectivo" text="RD$ 0" style="-fx-font-size:18px; -fx-font-weight:bold; -fx-text-fill:#fff;"/>
+              </HBox>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Esperado:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaEfectivoEsp" text="RD$ 0" style="-fx-font-size:13px; -fx-text-fill:rgba(255,255,255,0.8);"/>
+              </HBox>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Diff:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaEfectivoDiff" text="RD$ 0" style="-fx-font-size:12px; -fx-font-weight:bold;"/>
+              </HBox>
             </VBox>
-
-            <VBox fx:id="viewFacturacion" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-
-                    <VBox>
-                        <Label text="Facturación electrónica" styleClass="pageTitle"/>
-                        <Label text="Genera y controla comprobantes fiscales y facturas electrónicas." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
-                    <Button text="📤 Enviar email" styleClass="actionBlue"/>
-                    <Button text="🖨 Imprimir" styleClass="actionOrange"/>
-                    <Button text="✔ Confirmar factura" styleClass="actionGreen"/>
-
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <!-- PANEL IZQUIERDO -->
-                    <VBox spacing="16" HBox.hgrow="ALWAYS">
-
-                        <!-- DATOS FACTURA -->
-                        <VBox styleClass="cardPanel" spacing="14">
-
-                            <Label text="Datos de la factura" styleClass="cardTitle"/>
-
-                            <GridPane hgap="14" vgap="12">
-
-                                <Label text="Factura:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="FAC-000125"
-                                           editable="false"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="NCF:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField promptText="B0100000001"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Cliente:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Juan Pérez García"
-                                           editable="false"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="RNC / Cédula:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField promptText="000000000"
-                                           GridPane.rowIndex="3"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Tipo comprobante:"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="0"/>
-
-                                <ComboBox prefWidth="260"
-                                          promptText="Consumidor final"
-                                          GridPane.rowIndex="4"
-                                          GridPane.columnIndex="1"/>
-
-                                <Label text="Fecha:"
-                                       GridPane.rowIndex="5"
-                                       GridPane.columnIndex="0"/>
-
-                                <DatePicker GridPane.rowIndex="5"
-                                            GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- DETALLE -->
-                        <VBox styleClass="cardPanel" spacing="12">
-
-                            <HBox alignment="CENTER_LEFT">
-                                <Label text="Detalle facturado" styleClass="cardTitle"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Button text="🧾 Cargar venta" styleClass="actionBlue"/>
-                            </HBox>
-
-                            <TableView prefHeight="340" VBox.vgrow="ALWAYS">
-
-                                <columns>
-
-                                    <TableColumn text="Producto" prefWidth="260"/>
-                                    <TableColumn text="Cant." prefWidth="80"/>
-                                    <TableColumn text="Precio" prefWidth="120"/>
-                                    <TableColumn text="ITBIS" prefWidth="100"/>
-                                    <TableColumn text="Subtotal" prefWidth="140"/>
-
-                                </columns>
-
-                            </TableView>
-
-                        </VBox>
-
-                    </VBox>
-
-                    <!-- PANEL DERECHO -->
-                    <VBox spacing="16" prefWidth="420">
-
-                        <!-- RESUMEN -->
-                        <VBox styleClass="cardPanel" spacing="14">
-
-                            <Label text="Resumen fiscal" styleClass="cardTitle"/>
-
-                            <GridPane hgap="14" vgap="12">
-
-                                <Label text="Subtotal:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 2,850.00"
-                                       styleClass="metricSub"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="1"/>
-
-                                <Label text="ITBIS:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 513.00"
-                                       styleClass="metricSub"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="1"/>
-
-                                <Label text="Descuento:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 0.00"
-                                       styleClass="metricSub"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="1"/>
-
-                                <Label text="TOTAL:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 3,363.00"
-                                       styleClass="metricValueSmall"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- ESTADO -->
-                        <VBox styleClass="cardPanel" spacing="12">
-
-                            <Label text="Estado de facturación" styleClass="cardTitle"/>
-
-                            <HBox spacing="12">
-
-                                <VBox styleClass="miniCardGreen" prefWidth="150">
-                                    <Label text="Facturadas"/>
-                                    <Label text="152" styleClass="metricValueSmall"/>
-                                </VBox>
-
-                                <VBox styleClass="miniCardBlue" prefWidth="150">
-                                    <Label text="Pendientes"/>
-                                    <Label text="8" styleClass="metricValueSmall"/>
-                                </VBox>
-
-                            </HBox>
-
-                            <HBox spacing="12">
-
-                                <VBox styleClass="miniCardOrange" prefWidth="150">
-                                    <Label text="Enviadas"/>
-                                    <Label text="147" styleClass="metricValueSmall"/>
-                                </VBox>
-
-                                <VBox styleClass="miniCardRed" prefWidth="150">
-                                    <Label text="Errores"/>
-                                    <Label text="2" styleClass="metricValueSmall"/>
-                                </VBox>
-
-                            </HBox>
-
-                        </VBox>
-
-                        <!-- ACCIONES -->
-                        <VBox styleClass="cardPanel" spacing="12">
-
-                            <Label text="Acciones rápidas" styleClass="cardTitle"/>
-
-                            <Button text="✔ Confirmar factura"
-                                    prefHeight="46"
-                                    styleClass="actionGreen"/>
-
-                            <Button text="📤 Enviar por correo"
-                                    prefHeight="42"
-                                    styleClass="actionBlue"/>
-
-                            <Button text="🖨 Imprimir factura"
-                                    prefHeight="42"
-                                    styleClass="actionOrange"/>
-
-                            <Button text="✖ Anular factura"
-                                    prefHeight="42"
-                                    styleClass="actionRed"/>
-
-                        </VBox>
-
-                    </VBox>
-
-                </HBox>
-
+            <VBox styleClass="cajaCardTarjeta" HBox.hgrow="ALWAYS" spacing="2" alignment="CENTER_LEFT" prefWidth="0">
+              <Text text="💳 Tarjeta" style="-fx-font-size:13px; -fx-fill:#fff; -fx-font-weight:bold;"/>
+              <Separator style="-fx-background:rgba(255,255,255,0.2); -fx-pref-height:1;"/>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Declarado:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaTarjeta" text="RD$ 0" style="-fx-font-size:18px; -fx-font-weight:bold; -fx-text-fill:#fff;"/>
+              </HBox>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Esperado:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaTarjetaEsp" text="RD$ 0" style="-fx-font-size:13px; -fx-text-fill:rgba(255,255,255,0.8);"/>
+              </HBox>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Diff:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaTarjetaDiff" text="RD$ 0" style="-fx-font-size:12px; -fx-font-weight:bold;"/>
+              </HBox>
             </VBox>
-
-            <VBox fx:id="viewPedidosPendientes" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-
-                    <VBox>
-                        <Label text="Pedidos pendientes" styleClass="pageTitle"/>
-                        <Label text="Controla los pedidos en preparación y entrega." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
-                    <Button text="📤 Enviar cocina" styleClass="actionBlue"/>
-                    <Button text="✔ Marcar listo" styleClass="actionGreen"/>
-                    <Button text="✖ Cancelar pedido" styleClass="actionRed"/>
-
-                </HBox>
-
-                <!-- RESUMEN -->
-                <HBox spacing="16">
-
-                    <VBox styleClass="miniCardOrange" prefWidth="220" prefHeight="110">
-                        <Label text="Pendientes"/>
-                        <Label text="12" styleClass="metricValueSmall"/>
-                        <Label text="Pedidos esperando"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardBlue" prefWidth="220" prefHeight="110">
-                        <Label text="En cocina"/>
-                        <Label text="8" styleClass="metricValueSmall"/>
-                        <Label text="Preparándose"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardGreen" prefWidth="220" prefHeight="110">
-                        <Label text="Listos"/>
-                        <Label text="5" styleClass="metricValueSmall"/>
-                        <Label text="Esperando entrega"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardRed" prefWidth="220" prefHeight="110">
-                        <Label text="Retrasados"/>
-                        <Label text="2" styleClass="metricValueSmall"/>
-                        <Label text="Más de 30 min"/>
-                    </VBox>
-
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <!-- TABLA PRINCIPAL -->
-                    <VBox spacing="12"
-                          styleClass="cardPanel"
-                          HBox.hgrow="ALWAYS">
-
-                        <HBox alignment="CENTER_LEFT">
-
-                            <Label text="Lista de pedidos"
-                                   styleClass="cardTitle"/>
-
-                            <Region HBox.hgrow="ALWAYS"/>
-
-                            <ComboBox promptText="Estado"
-                                      prefWidth="150"/>
-
-                            <ComboBox promptText="Tipo"
-                                      prefWidth="150"/>
-
-                            <TextField promptText="Buscar pedido..."
-                                       prefWidth="240"/>
-
-                            <Button text="🔍"
-                                    styleClass="actionNeutral"/>
-
-                        </HBox>
-
-                        <TableView prefHeight="500" VBox.vgrow="ALWAYS">
-
-                            <columns>
-
-                                <TableColumn text="Pedido" prefWidth="120"/>
-                                <TableColumn text="Cliente" prefWidth="220"/>
-                                <TableColumn text="Mesa / Delivery" prefWidth="180"/>
-                                <TableColumn text="Tipo" prefWidth="120"/>
-                                <TableColumn text="Hora" prefWidth="120"/>
-                                <TableColumn text="Estado" prefWidth="140"/>
-                                <TableColumn text="Tiempo espera" prefWidth="150"/>
-                                <TableColumn text="Total" prefWidth="140"/>
-                                <TableColumn text="Acciones" prefWidth="180"/>
-
-                            </columns>
-
-                        </TableView>
-
-                    </VBox>
-
-                    <!-- PANEL DERECHO -->
-                    <VBox spacing="16"
-                          prefWidth="420">
-
-                        <!-- DETALLE -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Detalle del pedido"
-                                   styleClass="cardTitle"/>
-
-                            <GridPane hgap="12" vgap="10">
-
-                                <Label text="Pedido:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="PED-00025"
-                                           editable="false"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Cliente:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Juan Pérez"
-                                           editable="false"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Estado:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <ComboBox prefWidth="220"
-                                          promptText="En cocina"
-                                          GridPane.rowIndex="2"
-                                          GridPane.columnIndex="1"/>
-
-                                <Label text="Tiempo:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="18 minutos"
-                                           editable="false"
-                                           GridPane.rowIndex="3"
-                                           GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- PRODUCTOS -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                        <Label text="Productos"
-                               styleClass="cardTitle"/>
-
-                            <TableView prefHeight="220" VBox.vgrow="ALWAYS">
-
-                                <columns>
-
-                                    <TableColumn text="Producto" prefWidth="200"/>
-                                    <TableColumn text="Cant." prefWidth="70"/>
-                                    <TableColumn text="Estado" prefWidth="120"/>
-
-                                </columns>
-
-                            </TableView>
-
-                        </VBox>
-
-                        <!-- ACCIONES -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Acciones rápidas"
-                                   styleClass="cardTitle"/>
-
-                            <Button text="✔ Marcar listo"
-                                    prefHeight="42"
-                                    styleClass="actionGreen"/>
-
-                            <Button text="📤 Enviar a delivery"
-                                    prefHeight="42"
-                                    styleClass="actionBlue"/>
-
-                            <Button text="🖨 Imprimir ticket"
-                                    prefHeight="42"
-                                    styleClass="actionOrange"/>
-
-                            <Button text="✖ Cancelar pedido"
-                                    prefHeight="42"
-                                    styleClass="actionRed"/>
-
-                        </VBox>
-
-                    </VBox>
-
-                </HBox>
-
+            <VBox styleClass="cajaCardTransferencia" HBox.hgrow="ALWAYS" spacing="2" alignment="CENTER_LEFT" prefWidth="0">
+              <Text text="🏦 Transferencia" style="-fx-font-size:13px; -fx-fill:#fff; -fx-font-weight:bold;"/>
+              <Separator style="-fx-background:rgba(255,255,255,0.2); -fx-pref-height:1;"/>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Declarado:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaTransferencia" text="RD$ 0" style="-fx-font-size:18px; -fx-font-weight:bold; -fx-text-fill:#fff;"/>
+              </HBox>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Esperado:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaTransferenciaEsp" text="RD$ 0" style="-fx-font-size:13px; -fx-text-fill:rgba(255,255,255,0.8);"/>
+              </HBox>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Diff:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaTransferenciaDiff" text="RD$ 0" style="-fx-font-size:12px; -fx-font-weight:bold;"/>
+              </HBox>
             </VBox>
-
-            <VBox fx:id="viewDelivery" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-
-                    <VBox>
-                        <Label text="Delivery" styleClass="pageTitle"/>
-                        <Label text="Gestiona entregas, motoristas y pedidos a domicilio." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
-                    <Button text="🏍 Asignar motorista" styleClass="actionBlue"/>
-                    <Button text="✔ Marcar entregado" styleClass="actionGreen"/>
-                    <Button text="✖ Cancelar envío" styleClass="actionRed"/>
-
-                </HBox>
-
-                <!-- RESUMEN -->
-                <HBox spacing="16">
-
-                    <VBox styleClass="miniCardBlue" prefWidth="220" prefHeight="110">
-                        <Label text="En preparación"/>
-                        <Label text="6" styleClass="metricValueSmall"/>
-                        <Label text="Pedidos pendientes"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardOrange" prefWidth="220" prefHeight="110">
-                        <Label text="En ruta"/>
-                        <Label text="9" styleClass="metricValueSmall"/>
-                        <Label text="Motoristas activos"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardGreen" prefWidth="220" prefHeight="110">
-                        <Label text="Entregados"/>
-                        <Label text="24" styleClass="metricValueSmall"/>
-                        <Label text="Hoy"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardRed" prefWidth="220" prefHeight="110">
-                        <Label text="Retrasos"/>
-                        <Label text="2" styleClass="metricValueSmall"/>
-                        <Label text="Más de 45 min"/>
-                    </VBox>
-
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <!-- TABLA PRINCIPAL -->
-                    <VBox spacing="12"
-                          styleClass="cardPanel"
-                          HBox.hgrow="ALWAYS">
-
-                        <HBox alignment="CENTER_LEFT">
-
-                            <Label text="Pedidos delivery"
-                                   styleClass="cardTitle"/>
-
-                            <Region HBox.hgrow="ALWAYS"/>
-
-                            <ComboBox promptText="Estado"
-                                      prefWidth="150"/>
-
-                            <ComboBox promptText="Motorista"
-                                      prefWidth="180"/>
-
-                            <TextField promptText="Buscar pedido..."
-                                       prefWidth="240"/>
-
-                            <Button text="🔍"
-                                    styleClass="actionNeutral"/>
-
-                        </HBox>
-
-                        <TableView prefHeight="500" VBox.vgrow="ALWAYS">
-
-                            <columns>
-
-                                <TableColumn text="Pedido" prefWidth="120"/>
-                                <TableColumn text="Cliente" prefWidth="220"/>
-                                <TableColumn text="Dirección" prefWidth="320"/>
-                                <TableColumn text="Motorista" prefWidth="180"/>
-                                <TableColumn text="Estado" prefWidth="140"/>
-                                <TableColumn text="Hora salida" prefWidth="140"/>
-                                <TableColumn text="Tiempo" prefWidth="120"/>
-                                <TableColumn text="Total" prefWidth="140"/>
-                                <TableColumn text="Acciones" prefWidth="180"/>
-
-                            </columns>
-
-                        </TableView>
-
-                    </VBox>
-
-                    <!-- PANEL DERECHO -->
-                    <VBox spacing="16"
-                          prefWidth="420">
-
-                        <!-- DETALLE -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Detalle de entrega"
-                                   styleClass="cardTitle"/>
-
-                            <GridPane hgap="12" vgap="10">
-
-                                <Label text="Pedido:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="PED-00045"
-                                           editable="false"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Cliente:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="María López"
-                                           editable="false"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Teléfono:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="809-555-0000"
-                                           editable="false"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Motorista:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <ComboBox prefWidth="220"
-                                          promptText="Seleccionar"
-                                          GridPane.rowIndex="3"
-                                          GridPane.columnIndex="1"/>
-
-                                <Label text="Estado:"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="0"/>
-
-                                <ComboBox prefWidth="220"
-                                          promptText="En ruta"
-                                          GridPane.rowIndex="4"
-                                          GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- MAPA / DIRECCION -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Dirección de entrega"
-                                   styleClass="cardTitle"/>
-
-                            <TextArea prefHeight="120"
-                                      wrapText="true"
-                                      editable="false"
-                                      text="Calle Principal #25, Santiago, República Dominicana"/>
-
-                            <Button text="📍 Ver ubicación"
-                                    styleClass="actionBlue"/>
-
-                        </VBox>
-
-                        <!-- ACCIONES -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Acciones rápidas"
-                                   styleClass="cardTitle"/>
-
-                            <Button text="🏍 Asignar motorista"
-                                    prefHeight="42"
-                                    styleClass="actionBlue"/>
-
-                            <Button text="✔ Marcar entregado"
-                                    prefHeight="42"
-                                    styleClass="actionGreen"/>
-
-                            <Button text="📞 Llamar cliente"
-                                    prefHeight="42"
-                                    styleClass="actionOrange"/>
-
-                            <Button text="✖ Cancelar envío"
-                                    prefHeight="42"
-                                    styleClass="actionRed"/>
-
-                        </VBox>
-
-                    </VBox>
-
-                </HBox>
-
+            <VBox styleClass="cajaCardTotal" HBox.hgrow="ALWAYS" spacing="2" alignment="CENTER_LEFT" prefWidth="0">
+              <Text text="📊 Totales" style="-fx-font-size:13px; -fx-fill:#fff; -fx-font-weight:bold;"/>
+              <Separator style="-fx-background:rgba(255,255,255,0.2); -fx-pref-height:1;"/>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Declarado:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaTotalGeneral" text="RD$ 0" style="-fx-font-size:18px; -fx-font-weight:bold; -fx-text-fill:#fff;"/>
+              </HBox>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Esperado:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaTotalGeneralEsp" text="RD$ 0" style="-fx-font-size:13px; -fx-text-fill:rgba(255,255,255,0.8);"/>
+              </HBox>
+              <HBox spacing="4" alignment="CENTER_LEFT">
+                <Text text="Diff:" style="-fx-font-size:10px; -fx-fill:rgba(255,255,255,0.6);"/>
+                <Label fx:id="lblCajaDiferencia" text="RD$ 0" style="-fx-font-size:14px; -fx-font-weight:bold;"/>
+              </HBox>
             </VBox>
-
-            <VBox fx:id="viewMesas" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-
-                    <VBox>
-                        <Label text="Mesas y consumos" styleClass="pageTitle"/>
-                        <Label text="Controla mesas, estados y consumos del salón." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
-                    <Button text="➕ Abrir mesa" styleClass="actionBlue"/>
-                    <Button text="🔀 Transferir mesa" styleClass="actionOrange"/>
-                    <Button text="✔ Cerrar mesa" styleClass="actionGreen"/>
-
-                </HBox>
-
-                <!-- RESUMEN -->
-                <HBox spacing="16">
-
-                    <VBox styleClass="miniCardGreen" prefWidth="220" prefHeight="110">
-                        <Label text="Mesas libres"/>
-                        <Label text="12" styleClass="metricValueSmall"/>
-                        <Label text="Disponibles"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardRed" prefWidth="220" prefHeight="110">
-                        <Label text="Mesas ocupadas"/>
-                        <Label text="8" styleClass="metricValueSmall"/>
-                        <Label text="Con consumo"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardBlue" prefWidth="220" prefHeight="110">
-                        <Label text="Reservadas"/>
-                        <Label text="3" styleClass="metricValueSmall"/>
-                        <Label text="Pendientes"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardOrange" prefWidth="220" prefHeight="110">
-                        <Label text="Total consumo"/>
-                        <Label text="RD$ 24K" styleClass="metricValueSmall"/>
-                        <Label text="En mesas"/>
-                    </VBox>
-
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <!-- MESAS -->
-                    <VBox spacing="12"
-                          styleClass="cardPanel"
-                          HBox.hgrow="ALWAYS">
-
-                        <HBox alignment="CENTER_LEFT">
-
-                            <Label text="Mapa de mesas"
-                                   styleClass="cardTitle"/>
-
-                            <Region HBox.hgrow="ALWAYS"/>
-
-                            <ComboBox promptText="Zona"
-                                      prefWidth="160"/>
-
-                            <Button text="↻"
-                                    styleClass="actionNeutral"/>
-
-                        </HBox>
-
-                        <GridPane hgap="18" vgap="18">
-
-                            <Button text="Mesa 01&#10;Libre"
-                                    styleClass="mesaLibre"
-                                    GridPane.rowIndex="0"
-                                    GridPane.columnIndex="0"/>
-
-                            <Button text="Mesa 02&#10;Ocupada"
-                                    styleClass="mesaOcupada"
-                                    GridPane.rowIndex="0"
-                                    GridPane.columnIndex="1"/>
-
-                            <Button text="Mesa 03&#10;Reservada"
-                                    styleClass="mesaReservada"
-                                    GridPane.rowIndex="0"
-                                    GridPane.columnIndex="2"/>
-
-                            <Button text="Mesa 04&#10;Libre"
-                                    styleClass="mesaLibre"
-                                    GridPane.rowIndex="0"
-                                    GridPane.columnIndex="3"/>
-
-                            <Button text="Mesa 05&#10;Ocupada"
-                                    styleClass="mesaOcupada"
-                                    GridPane.rowIndex="1"
-                                    GridPane.columnIndex="0"/>
-
-                            <Button text="Mesa 06&#10;Libre"
-                                    styleClass="mesaLibre"
-                                    GridPane.rowIndex="1"
-                                    GridPane.columnIndex="1"/>
-
-                            <Button text="Mesa 07&#10;Ocupada"
-                                    styleClass="mesaOcupada"
-                                    GridPane.rowIndex="1"
-                                    GridPane.columnIndex="2"/>
-
-                            <Button text="Mesa 08&#10;Reservada"
-                                    styleClass="mesaReservada"
-                                    GridPane.rowIndex="1"
-                                    GridPane.columnIndex="3"/>
-
-                        </GridPane>
-
-                        <TableView prefHeight="280" VBox.vgrow="ALWAYS">
-
-                            <columns>
-
-                                <TableColumn text="Mesa" prefWidth="120"/>
-                                <TableColumn text="Estado" prefWidth="140"/>
-                                <TableColumn text="Personas" prefWidth="120"/>
-                                <TableColumn text="Hora apertura" prefWidth="160"/>
-                                <TableColumn text="Consumo" prefWidth="160"/>
-                                <TableColumn text="Mesero" prefWidth="180"/>
-                                <TableColumn text="Acciones" prefWidth="180"/>
-
-                            </columns>
-
-                        </TableView>
-
-                    </VBox>
-
-                    <!-- PANEL DERECHO -->
-                    <VBox spacing="16"
-                          prefWidth="420">
-
-                        <!-- DETALLE -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Detalle de mesa"
-                                   styleClass="cardTitle"/>
-
-                            <GridPane hgap="12" vgap="10">
-
-                                <Label text="Mesa:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Mesa 05"
-                                           editable="false"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Estado:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <ComboBox prefWidth="220"
-                                          promptText="Ocupada"
-                                          GridPane.rowIndex="1"
-                                          GridPane.columnIndex="1"/>
-
-                                <Label text="Personas:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <Spinner prefWidth="140"
-                                         GridPane.rowIndex="2"
-                                         GridPane.columnIndex="1"/>
-
-                                <Label text="Mesero:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <ComboBox prefWidth="220"
-                                          promptText="Seleccionar"
-                                          GridPane.rowIndex="3"
-                                          GridPane.columnIndex="1"/>
-
-                                <Label text="Consumo:"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 3,250.00"
-                                       styleClass="metricValueSmall"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- PRODUCTOS -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                        <Label text="Consumo actual"
-                               styleClass="cardTitle"/>
-
-                            <TableView prefHeight="220" VBox.vgrow="ALWAYS">
-
-                                <columns>
-
-                                    <TableColumn text="Producto" prefWidth="200"/>
-                                    <TableColumn text="Cant." prefWidth="70"/>
-                                    <TableColumn text="Subtotal" prefWidth="120"/>
-
-                                </columns>
-
-                            </TableView>
-
-                        </VBox>
-
-                        <!-- ACCIONES -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Acciones rápidas"
-                                   styleClass="cardTitle"/>
-
-                            <Button text="➕ Agregar productos"
-                                    prefHeight="42"
-                                    styleClass="actionBlue"/>
-
-                            <Button text="🔀 Transferir mesa"
-                                    prefHeight="42"
-                                    styleClass="actionOrange"/>
-
-                            <Button text="✔ Cerrar mesa"
-                                    prefHeight="42"
-                                    styleClass="actionGreen"/>
-
-                            <Button text="✖ Cancelar consumo"
-                                    prefHeight="42"
-                                    styleClass="actionRed"/>
-
-                        </VBox>
-
-                    </VBox>
-
-                </HBox>
-
-            </VBox>
-            <VBox fx:id="viewHistorialVentas" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-
-                    <VBox>
-                        <Label text="Historial de ventas" styleClass="pageTitle"/>
-                        <Label text="Consulta todas las ventas realizadas y sus detalles." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="📄 Exportar" styleClass="actionBlue"/>
-                    <Button text="🖨 Imprimir" styleClass="actionOrange"/>
-                    <Button text="↻ Actualizar" styleClass="actionNeutral"/>
-
-                </HBox>
-
-                <!-- RESUMEN -->
-                <HBox spacing="16">
-
-                    <VBox styleClass="miniCardGreen" prefWidth="220" prefHeight="110">
-                        <Label text="Ventas hoy"/>
-                        <Label text="125" styleClass="metricValueSmall"/>
-                        <Label text="RD$ 185,000"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardBlue" prefWidth="220" prefHeight="110">
-                        <Label text="Facturadas"/>
-                        <Label text="118" styleClass="metricValueSmall"/>
-                        <Label text="Completadas"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardOrange" prefWidth="220" prefHeight="110">
-                        <Label text="Pendientes"/>
-                        <Label text="7" styleClass="metricValueSmall"/>
-                        <Label text="Por cerrar"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardRed" prefWidth="220" prefHeight="110">
-                        <Label text="Canceladas"/>
-                        <Label text="3" styleClass="metricValueSmall"/>
-                        <Label text="Anuladas"/>
-                    </VBox>
-
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <!-- TABLA PRINCIPAL -->
-                    <VBox spacing="12"
-                          styleClass="cardPanel"
-                          HBox.hgrow="ALWAYS">
-
-                        <HBox alignment="CENTER_LEFT">
-
-                            <Label text="Listado de ventas"
-                                   styleClass="cardTitle"/>
-
-                            <Region HBox.hgrow="ALWAYS"/>
-
-                            <DatePicker promptText="Desde"/>
-                            <DatePicker promptText="Hasta"/>
-
-                            <ComboBox promptText="Estado"
-                                      prefWidth="160"/>
-
-                            <ComboBox promptText="Tipo venta"
-                                      prefWidth="180"/>
-
-                            <TextField promptText="Buscar venta..."
-                                       prefWidth="240"/>
-
-                            <Button text="🔍"
-                                    styleClass="actionNeutral"/>
-
-                        </HBox>
-
-                        <TableView prefHeight="520" VBox.vgrow="ALWAYS">
-
-                            <columns>
-
-                                <TableColumn text="Factura" prefWidth="130"/>
-                                <TableColumn text="Pedido" prefWidth="120"/>
-                                <TableColumn text="Cliente" prefWidth="240"/>
-                                <TableColumn text="Tipo" prefWidth="130"/>
-                                <TableColumn text="Mesa" prefWidth="110"/>
-                                <TableColumn text="Fecha" prefWidth="140"/>
-                                <TableColumn text="Hora" prefWidth="120"/>
-                                <TableColumn text="Estado" prefWidth="130"/>
-                                <TableColumn text="Total" prefWidth="160"/>
-                                <TableColumn text="Cajero" prefWidth="160"/>
-                                <TableColumn text="Acciones" prefWidth="180"/>
-
-                            </columns>
-
-                        </TableView>
-
-                    </VBox>
-
-                    <!-- PANEL DERECHO -->
-                    <VBox spacing="16"
-                          prefWidth="420">
-
-                        <!-- DETALLE -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Detalle de venta"
-                                   styleClass="cardTitle"/>
-
-                            <GridPane hgap="12" vgap="10">
-
-                                <Label text="Factura:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="FAC-000125"
-                                           editable="false"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Cliente:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Juan Pérez"
-                                           editable="false"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Método pago:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Tarjeta"
-                                           editable="false"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Estado:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Facturada"
-                                           editable="false"
-                                           GridPane.rowIndex="3"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Total:"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 3,250.00"
-                                       styleClass="metricValueSmall"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- PRODUCTOS -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                        <Label text="Productos vendidos"
-                               styleClass="cardTitle"/>
-
-                            <TableView prefHeight="220" VBox.vgrow="ALWAYS">
-
-                                <columns>
-
-                                    <TableColumn text="Producto" prefWidth="220"/>
-                                    <TableColumn text="Cant." prefWidth="70"/>
-                                    <TableColumn text="Subtotal" prefWidth="120"/>
-
-                                </columns>
-
-                            </TableView>
-
-                        </VBox>
-
-                        <!-- ACCIONES -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Acciones rápidas"
-                                   styleClass="cardTitle"/>
-
-                            <Button text="🧾 Ver factura"
-                                    prefHeight="42"
-                                    styleClass="actionBlue"/>
-
-                            <Button text="🖨 Reimprimir"
-                                    prefHeight="42"
-                                    styleClass="actionOrange"/>
-
-                            <Button text="📄 Exportar PDF"
-                                    prefHeight="42"
-                                    styleClass="actionGreen"/>
-
-                            <Button text="✖ Anular venta"
-                                    prefHeight="42"
-                                    styleClass="actionRed"/>
-
-                        </VBox>
-
-                    </VBox>
-
-                </HBox>
-
-            </VBox>
-
-            <VBox fx:id="viewCaja" styleClass="content" spacing="16">
-
-                <HBox alignment="CENTER_LEFT" spacing="12">
-
-                    <VBox>
-                        <Label text="Control de caja" styleClass="pageTitle"/>
-                        <Label text="Administra apertura, movimientos y cierre de caja." styleClass="pageSubtitle"/>
-                    </VBox>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Button text="🟢 Abrir caja" styleClass="actionGreen"/>
-                    <Button text="💵 Registrar movimiento" styleClass="actionBlue"/>
-                    <Button text="📄 Generar arqueo" styleClass="actionOrange"/>
-                    <Button text="🔴 Cerrar caja" styleClass="actionRed"/>
-
-                </HBox>
-
-                <!-- RESUMEN -->
-                <HBox spacing="16">
-
-                    <VBox styleClass="miniCardGreen" prefWidth="220" prefHeight="110">
-                        <Label text="Caja actual"/>
-                        <Label text="RD$ 85,250" styleClass="metricValueSmall"/>
-                        <Label text="Disponible"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardBlue" prefWidth="220" prefHeight="110">
-                        <Label text="Ventas hoy"/>
-                        <Label text="125" styleClass="metricValueSmall"/>
-                        <Label text="Facturadas"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardOrange" prefWidth="220" prefHeight="110">
-                        <Label text="Movimientos"/>
-                        <Label text="18" styleClass="metricValueSmall"/>
-                        <Label text="Entradas / salidas"/>
-                    </VBox>
-
-                    <VBox styleClass="miniCardRed" prefWidth="220" prefHeight="110">
-                        <Label text="Diferencia"/>
-                        <Label text="RD$ 0.00" styleClass="metricValueSmall"/>
-                        <Label text="Cuadre actual"/>
-                    </VBox>
-
-                </HBox>
-
-                <HBox spacing="16">
-
-                    <!-- TABLA -->
-                    <VBox spacing="12"
-                          styleClass="cardPanel"
-                          HBox.hgrow="ALWAYS">
-
-                        <HBox alignment="CENTER_LEFT">
-
-                            <Label text="Movimientos de caja"
-                                   styleClass="cardTitle"/>
-
-                            <Region HBox.hgrow="ALWAYS"/>
-
-                            <DatePicker promptText="Desde"/>
-                            <DatePicker promptText="Hasta"/>
-
-                            <ComboBox promptText="Tipo movimiento"
-                                      prefWidth="190"/>
-
-                            <TextField promptText="Buscar movimiento..."
-                                       prefWidth="240"/>
-
-                            <Button text="🔍"
-                                    styleClass="actionNeutral"/>
-
-                        </HBox>
-
-                        <TableView prefHeight="520" VBox.vgrow="ALWAYS">
-
-                            <columns>
-
-                                <TableColumn text="Movimiento" prefWidth="140"/>
-                                <TableColumn text="Tipo" prefWidth="160"/>
-                                <TableColumn text="Descripción" prefWidth="320"/>
-                                <TableColumn text="Entrada" prefWidth="150"/>
-                                <TableColumn text="Salida" prefWidth="150"/>
-                                <TableColumn text="Balance" prefWidth="160"/>
-                                <TableColumn text="Fecha" prefWidth="140"/>
-                                <TableColumn text="Usuario" prefWidth="160"/>
-                                <TableColumn text="Acciones" prefWidth="170"/>
-
-                            </columns>
-
-                        </TableView>
-
-                    </VBox>
-
-                    <!-- PANEL DERECHO -->
-                    <VBox spacing="16"
-                          prefWidth="420">
-
-                        <!-- DETALLE -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Detalle de caja"
-                                   styleClass="cardTitle"/>
-
-                            <GridPane hgap="12" vgap="10">
-
-                                <Label text="Caja:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Caja Principal"
-                                           editable="false"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Estado:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Abierta"
-                                           editable="false"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Usuario:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="Admin"
-                                           editable="false"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Hora apertura:"
-                                       GridPane.rowIndex="3"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField text="08:00 AM"
-                                           editable="false"
-                                           GridPane.rowIndex="3"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Balance:"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 85,250.00"
-                                       styleClass="metricValueSmall"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- ARQUEO -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Arqueo rápido"
-                                   styleClass="cardTitle"/>
-
-                            <GridPane hgap="12" vgap="10">
-
-                                <Label text="Sistema:"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 85,250.00"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="1"/>
-
-                                <Label text="Contado:"
-                                       GridPane.rowIndex="1"
-                                       GridPane.columnIndex="0"/>
-
-                                <TextField promptText="0.00"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"/>
-
-                                <Label text="Diferencia:"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-
-                                <Label text="RD$ 0.00"
-                                       styleClass="metricValueSmall"
-                                       GridPane.rowIndex="2"
-                                       GridPane.columnIndex="1"/>
-
-                            </GridPane>
-
-                        </VBox>
-
-                        <!-- ACCIONES -->
-                        <VBox spacing="12"
-                              styleClass="cardPanel">
-
-                            <Label text="Acciones rápidas"
-                                   styleClass="cardTitle"/>
-
-                            <Button text="🟢 Abrir caja"
-                                    prefHeight="42"
-                                    styleClass="actionGreen"/>
-
-                            <Button text="💵 Registrar ingreso"
-                                    prefHeight="42"
-                                    styleClass="actionBlue"/>
-
-                            <Button text="📄 Generar arqueo"
-                                    prefHeight="42"
-                                    styleClass="actionOrange"/>
-
-                            <Button text="🔴 Cerrar caja"
-                                    prefHeight="42"
-                                    styleClass="actionRed"/>
-
-                        </VBox>
-
-                    </VBox>
-
-                </HBox>
-
-            </VBox>
-
-        </StackPane>
-    </center>
-
-</BorderPane>
+          </HBox>
+
+          <!-- Form / Actions -->
+          <VBox styleClass="cardPanel" spacing="12">
+            <Text text="Opciones de Caja" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+            <GridPane hgap="12" vgap="8">
+              <columnConstraints>
+                <ColumnConstraints minWidth="140" halignment="LEFT"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="LEFT"/>
+              </columnConstraints>
+              <Text text="Monto Inicial:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+              <TextField fx:id="txtCajaMontoInicial" text="0" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="200" promptText="RD$ 0.00"/>
+              <Text text="Total Efectivo:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+              <TextField fx:id="txtCajaEfectivo" text="0" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="200" promptText="RD$ 0.00"/>
+              <Text text="Total Tarjeta:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+              <TextField fx:id="txtCajaTarjeta" text="0" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="200" promptText="RD$ 0.00"/>
+              <Text text="Total Transferencia:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+              <TextField fx:id="txtCajaTransferencia" text="0" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="200" promptText="RD$ 0.00"/>
+              <Text text="Diferencia:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-weight:bold; -fx-text-fill:#059669;"/>
+              <Label fx:id="lblCajaDiffForm" text="RD$ 0.00" GridPane.rowIndex="4" GridPane.columnIndex="1" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+            </GridPane>
+            <HBox spacing="12">
+              <Button fx:id="btnAbrirCaja" text="🔓 Abrir Caja" styleClass="cajaBtnAbrir" onAction="#abrirCaja"/>
+              <Button fx:id="btnCerrarCaja" text="🔒 Cerrar Caja" styleClass="cajaBtnCerrar" onAction="#cerrarCaja"/>
+              <Button text="📄 Ver Resumen" styleClass="topButton" onAction="#verResumenCaja"/>
+              <Button text="📤 Exportar" styleClass="topButton" onAction="#exportarCaja"/>
+              <Button text="🔄 Limpiar" styleClass="topButton" onAction="#limpiarCamposCaja"/>
+            </HBox>
+          </VBox>
+
+          <!-- Historial de cierres -->
+          <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+            <Text text="Historial de Cierres" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+            <TableView fx:id="tablaCierres" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="colCFechaApertura" text="Apertura" prefWidth="160"/>
+                <TableColumn fx:id="colCFechaCierre" text="Cierre" prefWidth="160"/>
+                <TableColumn fx:id="colCUsuario" text="Usuario" prefWidth="120"/>
+                <TableColumn fx:id="colCInicial" text="Inicial" prefWidth="100"/>
+                <TableColumn fx:id="colCEfectivo" text="Efectivo" prefWidth="100"/>
+                <TableColumn fx:id="colCTarjeta" text="Tarjeta" prefWidth="100"/>
+                <TableColumn fx:id="colCTransferencia" text="Transf." prefWidth="100"/>
+                <TableColumn fx:id="colCTotal" text="Total" prefWidth="110"/>
+                <TableColumn fx:id="colCDiferencia" text="Diff." prefWidth="100"/>
+              </columns>
+            </TableView>
+          </VBox>
+        </VBox>
+      </ScrollPane>
+
+      <!-- PEDIDOS PENDIENTES -->
+      <ScrollPane fx:id="scrollPedidos" styleClass="contentScroll" fitToWidth="true" visible="false" managed="false">
+        <VBox spacing="20" styleClass="content">
+          <VBox spacing="6">
+            <Text text="📦 Pedidos Pendientes" styleClass="pageTitle"/>
+            <Text text="Control de pedidos activos" styleClass="pageSubtitle"/>
+          </VBox>
+
+          <!-- Filtros -->
+          <HBox spacing="12" alignment="CENTER_LEFT">
+            <ComboBox fx:id="cmbFiltroCliente" prefWidth="240" promptText="Seleccionar cliente..." style="-fx-background-radius:6;"/>
+            <ComboBox fx:id="cmbFiltroEstado" prefWidth="160" promptText="Filtrar por estado..." style="-fx-background-radius:6;"/>
+            <TextField fx:id="txtBuscarPedido" promptText="🔍 Buscar factura o items..." prefWidth="200" styleClass="posSearchBox"/>
+            <Button text="🔍 Filtrar" styleClass="topButton" onAction="#filtrarPedidos"/>
+            <Button text="🔄 Limpiar" styleClass="topButton" onAction="#limpiarFiltrosPedidos"/>
+          </HBox>
+
+          <!-- Tabla de pedidos -->
+          <VBox styleClass="cardPanel" spacing="12" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tablaPedidos" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="colPId" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="colPFactura" text="Factura" prefWidth="150"/>
+                <TableColumn fx:id="colPCliente" text="Cliente" prefWidth="160"/>
+                <TableColumn fx:id="colPItems" text="Items" prefWidth="200"/>
+                <TableColumn fx:id="colPTotal" text="Total" prefWidth="110"/>
+                <TableColumn fx:id="colPEstado" text="Estado" prefWidth="120"/>
+                <TableColumn fx:id="colPFecha" text="Fecha" prefWidth="150"/>
+                <TableColumn fx:id="colPTipo" text="Tipo" prefWidth="100"/>
+              </columns>
+            </TableView>
+          </VBox>
+
+          <!-- Panel de detalle y acciones -->
+          <VBox fx:id="panelDetallePedido" visible="false" managed="false" styleClass="pedidoDetallePanel" spacing="12">
+            <Text text="Detalle del Pedido" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+            <HBox spacing="20">
+              <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label fx:id="lblDetalleFactura" text="Factura: --" style="-fx-font-weight:bold;"/>
+                <Label fx:id="lblDetalleCliente" text="Cliente: --"/>
+                <Label fx:id="lblDetalleItems" text="Items: --" wrapText="true"/>
+                <Label fx:id="lblDetalleFecha" text="Fecha: --"/>
+              </VBox>
+              <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label fx:id="lblDetalleTotal" text="Total: RD$ 0.00" style="-fx-font-weight:bold; -fx-font-size:16px;"/>
+                <Label fx:id="lblDetalleTipo" text="Tipo: --"/>
+                <Label fx:id="lblDetallePago" text="Pago: --"/>
+                <Label fx:id="lblDetalleObservaciones" text="Obs: --" wrapText="true"/>
+              </VBox>
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+              <Text text="Cliente:" style="-fx-font-weight:bold;"/>
+              <ComboBox fx:id="cmbPedidoCliente" prefWidth="250" promptText="Asignar cliente..."/>
+              <Button text="✅ Asignar" styleClass="topButton" onAction="#asignarClientePedido"/>
+            </HBox>
+            <Separator/>
+            <HBox spacing="12">
+              <Button fx:id="btnCambiarEstado" text="🔄 Cambiar Estado" styleClass="pedidoBtnEstado" onAction="#cambiarEstadoPedido"/>
+              <Button fx:id="btnCobrarPedido" text="💰 Cobrar" styleClass="posCheckoutBtn" onAction="#cobrarPedido"/>
+              <Button fx:id="btnCancelarPedido" text="❌ Cancelar" styleClass="pedidoBtnCancelar" onAction="#cancelarPedido"/>
+            </HBox>
+          </VBox>
+        </VBox>
+      </ScrollPane>
+
+      <!-- PAYMENT OVERLAY -->
+      <StackPane fx:id="pagoOverlay" visible="false" managed="false" styleClass="posOverlay">
+        <VBox spacing="16" styleClass="posOverlayCard">
+          <Text text="💳 Procesar Pago" style="-fx-font-size:20px; -fx-font-weight:bold; -fx-text-fill:#1f2937;"/>
+          <Separator/>
+
+          <VBox fx:id="panelClienteInfo" spacing="4" visible="false" managed="false" style="-fx-background-color:#f0f4ff; -fx-background-radius:10; -fx-padding:12;">
+            <Label fx:id="lblPagoClienteNombre" style="-fx-font-weight:bold; -fx-font-size:14px; -fx-text-fill:#1a1a2e;"/>
+            <Label fx:id="lblPagoClienteTelefono" style="-fx-font-size:12px; -fx-text-fill:#495057;"/>
+            <Label fx:id="lblPagoClienteEmail" style="-fx-font-size:12px; -fx-text-fill:#495057;"/>
+            <Label fx:id="lblPagoClienteDireccion" style="-fx-font-size:12px; -fx-text-fill:#495057;"/>
+          </VBox>
+
+          <GridPane hgap="10" vgap="8" minWidth="0">
+            <columnConstraints>
+              <ColumnConstraints minWidth="120" halignment="LEFT"/>
+              <ColumnConstraints hgrow="ALWAYS" halignment="RIGHT"/>
+            </columnConstraints>
+            <Text text="Total a Pagar:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight:bold;"/>
+            <Label fx:id="lblPagoTotal" text="RD$ 0.00" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-font-size:22px; -fx-font-weight:bold; -fx-text-fill:#059669;"/>
+            <Text text="Cliente:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbPagoCliente" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="Infinity" promptText="Seleccionar cliente..."/>
+            <Text text="Metodo de Pago:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbMetodoPago" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="Infinity"/>
+            <Text text="Monto Recibido:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtMontoRecibido" text="0" GridPane.rowIndex="3" GridPane.columnIndex="1" promptText="RD$ 0.00" style="-fx-alignment:center-right;"/>
+            <Text text="Devuelta:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <Label fx:id="lblDevuelta" text="RD$ 0.00" GridPane.rowIndex="4" GridPane.columnIndex="1" style="-fx-text-fill:#059669; -fx-font-weight:bold;"/>
+            <Text text="Email Cliente:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtEmailCliente" GridPane.rowIndex="5" GridPane.columnIndex="1" promptText="cliente@ejemplo.com"/>
+            <Text text="Observaciones:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtObservaciones" GridPane.rowIndex="6" GridPane.columnIndex="1" promptText="Opcional"/>
+          </GridPane>
+          <HBox spacing="12" alignment="CENTER">
+            <Button text="❌ Cancelar" styleClass="topButton" onAction="#cancelarPago"/>
+            <Button fx:id="btnConfirmarPago" text="✅  Confirmar Pago" styleClass="posConfirmBtn" onAction="#confirmarPago"/>
+          </HBox>
+        </VBox>
+      </StackPane>
+    </StackPane>
+  </HBox>
+</VBox>

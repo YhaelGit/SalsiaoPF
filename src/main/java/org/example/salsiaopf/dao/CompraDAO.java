@@ -263,15 +263,50 @@ public class CompraDAO {
     }
 
     public static int guardarPago(int fkIdOrden, LocalDate fecha, double monto, String metodo) {
-        String sql = "INSERT INTO tbl_PAGO_COMPRA (fk_ID_factura_compra, Fecha, Monto_pago, Estado, Metodo_pago) VALUES (?, ?, ?, 'Pagado', ?)";
-        try (Connection conn = ConexionBD.conectar();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        Object[] orden = obtenerOrden(fkIdOrden);
+        if (orden == null) return -1;
+        String estadoActual = (String) orden[6];
+        if (!"Recibida".equals(estadoActual)) return -1;
+        int idProveedor = (int) orden[2];
+        double totalOrden = (double) orden[7];
+
+        try (Connection conn = ConexionBD.conectar()) {
             if (conn == null) return -1;
-            ps.setInt(1, fkIdOrden);
-            ps.setDate(2, Date.valueOf(fecha));
-            ps.setDouble(3, monto);
-            ps.setString(4, metodo);
-            return ps.executeUpdate();
+
+            int nextNum;
+            try (Statement st = conn.createStatement();
+                 ResultSet rs = st.executeQuery("SELECT ISNULL(MAX(No_Factura), 0) + 1 FROM tbl_FACTURA_COMPRA")) {
+                nextNum = rs.next() ? rs.getInt(1) : 1;
+            }
+
+            int facturaId;
+            String sqlFact = "INSERT INTO tbl_FACTURA_COMPRA (fk_ID_proveedor, No_Factura, Fecha, ITBIS, Total) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement ps = conn.prepareStatement(sqlFact, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setInt(1, idProveedor);
+                ps.setInt(2, nextNum);
+                ps.setDate(3, Date.valueOf(fecha));
+                ps.setDouble(4, 0.0);
+                ps.setDouble(5, totalOrden);
+                ps.executeUpdate();
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (!rs.next()) return -1;
+                    facturaId = rs.getInt(1);
+                }
+            }
+
+            String sqlPago = "INSERT INTO tbl_PAGO_COMPRA (fk_ID_factura_compra, Fecha, Monto_pago, Estado, Metodo_pago) VALUES (?, ?, ?, 'Pagado', ?)";
+            try (PreparedStatement ps = conn.prepareStatement(sqlPago)) {
+                ps.setInt(1, facturaId);
+                ps.setDate(2, Date.valueOf(fecha));
+                ps.setDouble(3, monto);
+                ps.setString(4, metodo);
+                if (ps.executeUpdate() <= 0) return -1;
+            }
+
+            try (PreparedStatement pu = conn.prepareStatement("UPDATE tbl_ORDEN_COMPRA SET Estado = 'Pagada' WHERE ID_orden = ?")) {
+                pu.setInt(1, fkIdOrden);
+                return pu.executeUpdate() > 0 ? 1 : -1;
+            }
         } catch (SQLException e) {
             System.out.println("[CompraDAO] Error guardando pago: " + e.getMessage());
             return -1;

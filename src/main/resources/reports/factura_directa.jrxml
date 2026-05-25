@@ -20,6 +20,8 @@
     <parameter name="CLIENT_EMAIL" class="java.lang.String"/>
     <parameter name="SUBTOTAL" class="java.math.BigDecimal"/>
     <parameter name="ITBIS" class="java.math.BigDecimal"/>
+    <parameter name="DESCUENTO" class="java.math.BigDecimal"/>
+    <parameter name="DELIVERY" class="java.math.BigDecimal"/>
     <parameter name="TOTAL" class="java.math.BigDecimal"/>
     <parameter name="METODO_PAGO" class="java.lang.String"/>
     <parameter name="MONTO_RECIBIDO" class="java.math.BigDecimal"/>
@@ -31,220 +33,244 @@
     <field name="subtotal" class="java.math.BigDecimal"/>
 
     <title>
-        <band height="130">
+        <band height="145">
+            <!-- Header background -->
             <rectangle radius="0">
-                <reportElement mode="Opaque" x="0" y="0" width="515" height="100"
-                              backcolor="#1A1A2E"/>
+                <reportElement mode="Opaque" x="0" y="0" width="515" height="110"
+                              backcolor="#2C3E50"/>
                 <graphicElement>
                     <pen lineWidth="0.0"/>
                 </graphicElement>
             </rectangle>
+
+            <!-- Brand -->
             <staticText>
-                <reportElement x="30" y="12" width="455" height="34"/>
+                <reportElement x="30" y="14" width="455" height="34"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="26" isBold="true"/>
+                    <font fontName="SansSerif" size="28" isBold="true"/>
                 </textElement>
                 <text><![CDATA[SALSIAO RD]]></text>
             </staticText>
             <staticText>
-                <reportElement x="30" y="50" width="455" height="20"/>
+                <reportElement x="30" y="52" width="455" height="18"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="14"/>
+                    <font fontName="SansSerif" size="12"/>
                 </textElement>
-                <text><![CDATA[Fast Food Â· Factura de Venta]]></text>
+                <text><![CDATA[Factura de Venta]]></text>
             </staticText>
+
+            <!-- Accent line -->
             <line>
-                <reportElement x="30" y="74" width="455" height="1"
-                              forecolor="#E94560"/>
+                <reportElement x="150" y="74" width="215" height="1"
+                              forecolor="#E67E22"/>
                 <graphicElement>
                     <pen lineWidth="2.0"/>
                 </graphicElement>
             </line>
+
+            <!-- Company info -->
             <staticText>
-                <reportElement x="30" y="80" width="455" height="16"/>
+                <reportElement x="30" y="82" width="455" height="16"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="9" isItalic="true"/>
+                    <font fontName="SansSerif" size="8"/>
                 </textElement>
-                <text><![CDATA[www.salsiao.com Â· contacto@salsiao.com Â· Tel: (809) 555-1234 Â· RNC: 1-31-12345-6]]></text>
+                <text><![CDATA[www.salsiao.com | contacto@salsiao.com | Tel: (809) 555-1234 | RNC: 1-31-12345-6]]></text>
             </staticText>
+
+            <!-- Invoice ID / Date strip -->
             <rectangle radius="4">
-                <reportElement mode="Opaque" x="0" y="104" width="515" height="24"
-                              backcolor="#0F3460"/>
+                <reportElement mode="Opaque" x="0" y="112" width="515" height="30"
+                              backcolor="#34495E"/>
                 <graphicElement>
                     <pen lineWidth="0.0"/>
                 </graphicElement>
             </rectangle>
             <textField isBlankWhenNull="true">
-                <reportElement x="20" y="106" width="235" height="20"/>
+                <reportElement x="20" y="116" width="235" height="22"/>
                 <textElement verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="10" isBold="true"/>
+                    <font fontName="SansSerif" size="11" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA["Factura: " + $P{INVOICE_NUM}]]></textFieldExpression>
+                <textFieldExpression><![CDATA["FACTURA: " + $P{INVOICE_NUM}]]></textFieldExpression>
             </textField>
             <textField isBlankWhenNull="true">
-                <reportElement x="280" y="106" width="215" height="20"/>
+                <reportElement x="280" y="116" width="215" height="22"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="10" isBold="true"/>
+                    <font fontName="SansSerif" size="11" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA["Fecha: " + $P{INVOICE_DATE}]]></textFieldExpression>
+                <textFieldExpression><![CDATA["FECHA: " + $P{INVOICE_DATE}]]></textFieldExpression>
             </textField>
         </band>
     </title>
 
     <pageHeader>
-        <band height="86">
+        <band height="95">
+            <!-- Client info card -->
             <rectangle radius="4">
-                <reportElement mode="Opaque" x="0" y="4" width="515" height="80"
+                <reportElement mode="Opaque" x="0" y="6" width="515" height="84"
                               backcolor="#F8F9FA"/>
                 <graphicElement>
                     <pen lineWidth="0.5" lineColor="#DEE2E6"/>
                 </graphicElement>
             </rectangle>
+
+            <!-- Left column: name, phone, address -->
             <staticText>
-                <reportElement x="16" y="12" width="80" height="16"/>
+                <reportElement x="16" y="16" width="70" height="16"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="9" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Cliente:]]></text>
             </staticText>
             <textField isBlankWhenNull="true">
-                <reportElement x="96" y="12" width="190" height="16"/>
+                <reportElement x="90" y="16" width="180" height="16"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{CLIENT_NAME}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{CLIENT_NAME} == null || $P{CLIENT_NAME}.isEmpty() ? "Consumidor Final" : $P{CLIENT_NAME}]]></textFieldExpression>
             </textField>
+
             <staticText>
-                <reportElement x="16" y="32" width="80" height="16"/>
+                <reportElement x="16" y="36" width="70" height="16"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="9" isBold="true"/>
                 </textElement>
-                <text><![CDATA[TelÃ©fono:]]></text>
+                <text><![CDATA[Telefono:]]></text>
             </staticText>
             <textField isBlankWhenNull="true">
-                <reportElement x="96" y="32" width="190" height="16"/>
+                <reportElement x="90" y="36" width="180" height="16"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{CLIENT_PHONE}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{CLIENT_PHONE} == null ? "" : $P{CLIENT_PHONE}]]></textFieldExpression>
             </textField>
+
             <staticText>
-                <reportElement x="16" y="52" width="80" height="16"/>
+                <reportElement x="16" y="56" width="70" height="16"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="9" isBold="true"/>
                 </textElement>
-                <text><![CDATA[DirecciÃ³n:]]></text>
+                <text><![CDATA[Direccion:]]></text>
             </staticText>
             <textField isBlankWhenNull="true">
-                <reportElement x="96" y="52" width="190" height="16"/>
+                <reportElement x="90" y="56" width="180" height="16"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{CLIENT_ADDRESS}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{CLIENT_ADDRESS} == null ? "" : $P{CLIENT_ADDRESS}]]></textFieldExpression>
             </textField>
+
+            <!-- Right column: email -->
             <staticText>
-                <reportElement x="310" y="12" width="80" height="16"/>
+                <reportElement x="300" y="16" width="70" height="16"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="9" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Email:]]></text>
             </staticText>
             <textField isBlankWhenNull="true">
-                <reportElement x="390" y="12" width="110" height="16"/>
+                <reportElement x="370" y="16" width="130" height="16"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{CLIENT_EMAIL}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{CLIENT_EMAIL} == null ? "" : $P{CLIENT_EMAIL}]]></textFieldExpression>
             </textField>
         </band>
     </pageHeader>
 
     <columnHeader>
-        <band height="26">
+        <band height="28">
             <rectangle radius="0">
-                <reportElement mode="Opaque" x="0" y="0" width="515" height="26"
-                              backcolor="#1A1A2E"/>
+                <reportElement mode="Opaque" x="0" y="0" width="515" height="28"
+                              backcolor="#34495E"/>
                 <graphicElement>
                     <pen lineWidth="0.0"/>
                 </graphicElement>
             </rectangle>
             <staticText>
-                <reportElement x="10" y="3" width="190" height="20"/>
+                <reportElement x="12" y="4" width="200" height="20"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Producto]]></text>
             </staticText>
             <staticText>
-                <reportElement x="210" y="3" width="55" height="20"/>
+                <reportElement x="220" y="4" width="45" height="20"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Cant.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="270" y="3" width="90" height="20"/>
+                <reportElement x="270" y="4" width="85" height="20"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Precio]]></text>
             </staticText>
             <staticText>
-                <reportElement x="360" y="3" width="70" height="20"/>
+                <reportElement x="355" y="4" width="70" height="20"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[ITBIS]]></text>
             </staticText>
             <staticText>
-                <reportElement x="430" y="3" width="75" height="20"/>
+                <reportElement x="425" y="4" width="80" height="20"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Subtotal]]></text>
             </staticText>
+            <!-- Accent line under column header -->
+            <line>
+                <reportElement x="12" y="26" width="491" height="1"
+                              forecolor="#E67E22"/>
+                <graphicElement>
+                    <pen lineWidth="1.5"/>
+                </graphicElement>
+            </line>
         </band>
     </columnHeader>
 
     <detail>
-        <band height="24" splitType="Immediate">
+        <band height="26" splitType="Immediate">
             <textField isBlankWhenNull="true">
-                <reportElement x="10" y="0" width="190" height="24"/>
+                <reportElement x="12" y="1" width="200" height="24"/>
                 <textElement verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="10"/>
+                    <font fontName="SansSerif" size="9"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{nombre_producto}]]></textFieldExpression>
             </textField>
             <textField isBlankWhenNull="true">
-                <reportElement x="210" y="0" width="55" height="24"/>
+                <reportElement x="220" y="1" width="45" height="24"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[String.valueOf($F{cantidad})]]></textFieldExpression>
             </textField>
             <textField isBlankWhenNull="true">
-                <reportElement x="270" y="0" width="90" height="24"/>
+                <reportElement x="270" y="1" width="85" height="24"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="10"/>
+                    <font fontName="SansSerif" size="9"/>
                 </textElement>
                 <textFieldExpression><![CDATA["RD$ " + String.format("%,.2f", $F{precio_unitario}.doubleValue())]]></textFieldExpression>
             </textField>
             <textField isBlankWhenNull="true">
-                <reportElement x="360" y="0" width="70" height="24"/>
+                <reportElement x="355" y="1" width="70" height="24"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="10"/>
+                    <font fontName="SansSerif" size="9"/>
                 </textElement>
                 <textFieldExpression><![CDATA["RD$ " + String.format("%,.2f", $F{subtotal}.doubleValue() * 0.18)]]></textFieldExpression>
             </textField>
             <textField isBlankWhenNull="true">
-                <reportElement x="430" y="0" width="75" height="24"/>
+                <reportElement x="425" y="1" width="80" height="24"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="10"/>
+                    <font fontName="SansSerif" size="9" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA["RD$ " + String.format("%,.2f", $F{subtotal}.doubleValue())]]></textFieldExpression>
             </textField>
             <line>
-                <reportElement x="10" y="23" width="495" height="1"
+                <reportElement x="12" y="24" width="491" height="1"
                               forecolor="#E9ECEF"/>
                 <graphicElement>
                     <pen lineWidth="0.5"/>
@@ -254,97 +280,169 @@
     </detail>
 
     <summary>
-        <band height="200">
+        <band height="250">
+            <!-- Totals panel -->
             <rectangle radius="4">
-                <reportElement mode="Opaque" x="260" y="10" width="255" height="100"
-                              backcolor="#F8F9FA"/>
+                <reportElement mode="Opaque" x="250" y="10" width="265" height="130"
+                              backcolor="#FDF2E9"/>
                 <graphicElement>
-                    <pen lineWidth="0.5" lineColor="#DEE2E6"/>
+                    <pen lineWidth="0.5" lineColor="#E67E22"/>
                 </graphicElement>
             </rectangle>
-            <line>
-                <reportElement x="270" y="10" width="235" height="1"
-                              forecolor="#DEE2E6"/>
-                <graphicElement>
-                    <pen lineWidth="0.5"/>
-                </graphicElement>
-            </line>
+
+            <!-- Subtotal -->
             <staticText>
-                <reportElement x="270" y="18" width="100" height="18"/>
+                <reportElement x="260" y="18" width="100" height="20"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10"/>
                 </textElement>
                 <text><![CDATA[Subtotal:]]></text>
             </staticText>
             <textField isBlankWhenNull="true">
-                <reportElement x="370" y="18" width="135" height="18"/>
+                <reportElement x="360" y="18" width="145" height="20"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA["RD$ " + String.format("%,.2f", $P{SUBTOTAL}.doubleValue())]]></textFieldExpression>
             </textField>
+
+            <!-- ITBIS -->
             <staticText>
-                <reportElement x="270" y="38" width="100" height="18"/>
+                <reportElement x="260" y="40" width="100" height="20"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10"/>
                 </textElement>
                 <text><![CDATA[ITBIS (18%):]]></text>
             </staticText>
             <textField isBlankWhenNull="true">
-                <reportElement x="370" y="38" width="135" height="18"/>
+                <reportElement x="360" y="40" width="145" height="20"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA["RD$ " + String.format("%,.2f", $P{ITBIS}.doubleValue())]]></textFieldExpression>
             </textField>
+
+            <!-- Descuento -->
+            <staticText>
+                <reportElement x="260" y="62" width="100" height="20"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10"/>
+                </textElement>
+                <text><![CDATA[Descuento:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="62" width="145" height="20"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["- RD$ " + String.format("%,.2f", $P{DESCUENTO}.doubleValue())]]></textFieldExpression>
+            </textField>
+
+            <!-- Delivery -->
+            <staticText>
+                <reportElement x="260" y="84" width="100" height="20"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10"/>
+                </textElement>
+                <text><![CDATA[Delivery:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="84" width="145" height="20"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["+ RD$ " + String.format("%,.2f", $P{DELIVERY}.doubleValue())]]></textFieldExpression>
+            </textField>
+
+            <!-- Separator -->
             <line>
-                <reportElement x="270" y="60" width="235" height="1"
-                              forecolor="#1A1A2E"/>
+                <reportElement x="260" y="106" width="245" height="1"
+                              forecolor="#E67E22"/>
                 <graphicElement>
-                    <pen lineWidth="1.0"/>
+                    <pen lineWidth="1.5"/>
                 </graphicElement>
             </line>
+
+            <!-- TOTAL -->
             <staticText>
-                <reportElement x="270" y="66" width="100" height="24"/>
+                <reportElement x="260" y="112" width="100" height="26"/>
                 <textElement verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="14" isBold="true"/>
+                    <font fontName="SansSerif" size="16" isBold="true"/>
                 </textElement>
                 <text><![CDATA[TOTAL:]]></text>
             </staticText>
             <textField isBlankWhenNull="true">
-                <reportElement x="370" y="66" width="135" height="24"/>
+                <reportElement x="360" y="112" width="145" height="26"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA["RD$ " + String.format("%,.2f", $P{TOTAL}.doubleValue())]]></textFieldExpression>
             </textField>
+
+            <!-- Payment method -->
             <staticText>
-                <reportElement x="270" y="96" width="100" height="16"/>
+                <reportElement x="20" y="18" width="110" height="18"/>
                 <textElement verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="9"/>
+                    <font fontName="SansSerif" size="10" isBold="true"/>
                 </textElement>
-                <text><![CDATA[MÃ©todo de pago:]]></text>
+                <text><![CDATA[Metodo de pago:]]></text>
             </staticText>
             <textField isBlankWhenNull="true">
-                <reportElement x="370" y="96" width="135" height="16"/>
-                <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="9" isBold="true"/>
+                <reportElement x="135" y="18" width="100" height="18"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{METODO_PAGO} != null ? $P{METODO_PAGO} : ""]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{METODO_PAGO} != null ? $P{METODO_PAGO} : "Efectivo"]]></textFieldExpression>
             </textField>
+
+            <!-- Monto recibido -->
+            <staticText>
+                <reportElement x="20" y="42" width="110" height="18"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Monto recibido:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="135" y="42" width="100" height="18"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{MONTO_RECIBIDO} == null ? "RD$ 0.00" : "RD$ " + String.format("%,.2f", $P{MONTO_RECIBIDO}.doubleValue())]]></textFieldExpression>
+            </textField>
+
+            <!-- Devuelta -->
+            <staticText>
+                <reportElement x="20" y="66" width="110" height="18"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Devuelta:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="135" y="66" width="100" height="18"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{DEVUELTA} == null ? "RD$ 0.00" : "RD$ " + String.format("%,.2f", $P{DEVUELTA}.doubleValue())]]></textFieldExpression>
+            </textField>
+
+            <!-- Footer separator -->
             <line>
-                <reportElement x="30" y="170" width="455" height="1"
-                              forecolor="#E94560"/>
+                <reportElement x="20" y="200" width="475" height="1"
+                              forecolor="#34495E"/>
                 <graphicElement>
                     <pen lineWidth="1.0"/>
                 </graphicElement>
             </line>
+
+            <!-- Thank you -->
             <staticText>
-                <reportElement x="30" y="176" width="455" height="18"/>
+                <reportElement x="20" y="208" width="475" height="20"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="10" isItalic="true"/>
+                    <font fontName="SansSerif" size="11" isItalic="true"/>
                 </textElement>
-                <text><![CDATA[Â¡Gracias por su compra! â€” Salsiao Fast Food Â· RepÃºblica Dominicana]]></text>
+                <text><![CDATA[Gracias por su compra! - Salsiao RD - Republica Dominicana]]></text>
             </staticText>
         </band>
     </summary>

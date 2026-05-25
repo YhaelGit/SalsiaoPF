@@ -2,82 +2,61 @@ package org.example.salsiaopf.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.animation.*;
-import javafx.application.Platform;
-import javafx.scene.Node;
-import javafx.util.Duration;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import org.example.salsiaopf.dao.VentaDAO;
 import org.example.salsiaopf.util.Alertas;
 import org.example.salsiaopf.util.ControllerUtil;
 import org.example.salsiaopf.util.Navegacion;
 import org.example.salsiaopf.util.RoleGuard;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import org.example.salsiaopf.util.SessionManager;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.text.NumberFormat;
 
 public class CentroSistemaController {
 
-    @FXML private ImageView logoImage;
-    @FXML private Label lblFechaActual;
-    @FXML private Label lblHoraActual;
-    @FXML private Button btnNotificaciones;
-    @FXML private Label lblUsuarioTop;
-    @FXML private Label lblRolTop;
-    @FXML private Label lblBienvenida;
-    @FXML private Label lblUsuarioCard;
-    @FXML private Label lblRolCard;
-    @FXML private Button btnNavVentas;
-    @FXML private Button btnNavCompras;
-    @FXML private Button btnNavClientes;
-    @FXML private Button btnNavInventario;
-    @FXML private Button btnNavEmpleados;
-    @FXML private Button btnNavMantenimiento;
-    @FXML private Button btnNavReportes;
-    @FXML private Button btnNavConfiguracion;
+    @FXML private javafx.scene.image.ImageView logoImage;
+    @FXML private Label lblFechaActual, lblHoraActual, lblUsuarioTop, lblRolTop, lblBienvenida, lblUsuarioCard, lblRolCard;
+    @FXML private Button btnNotificaciones, btnNavVentas, btnNavCompras, btnNavClientes, btnNavInventario, btnNavEmpleados, btnNavMantenimiento;
+
+    @FXML private BarChart<String, Number> chartVentasSemana;
+    @FXML private Label lblVentasHoy, lblCantVentasHoy, lblTotalSemana;
+
+    @FXML private Label lblComprasPendientes, lblTotalComprasPendientes, lblClientesRegistrados;
+
+    private final NumberFormat fmt = NumberFormat.getCurrencyInstance(new Locale("es", "DO"));
 
     @FXML
     private void initialize() {
+        fmt.setMaximumFractionDigits(2);
+        fmt.setMinimumFractionDigits(2);
         cargarLogo();
         iniciarReloj();
-        actualizarNotificaciones();
         mostrarDatosSesion();
         aplicarPermisosModulos();
         animarEntrada();
+        cargarDashboard();
     }
-
-    private int cantidadNotificaciones = 3;
 
     private void cargarLogo() {
         ControllerUtil.cargarLogo(logoImage);
-    }
-
-    private void cambiarEscena(String archivoFXML, String titulo, ActionEvent event) {
-        Navegacion.cambiarEscena(event, archivoFXML, titulo);
     }
 
     private void iniciarReloj() {
         ControllerUtil.iniciarReloj(lblFechaActual, lblHoraActual);
     }
 
-    private void actualizarNotificaciones() {
-        btnNotificaciones.setText("🔔 " + cantidadNotificaciones);
-    }
-
     private void mostrarDatosSesion() {
         var usuario = SessionManager.getInstance().getUsuarioActivo();
         if (usuario == null) return;
-
         String nombre = usuario.getNombre();
         String rol = usuario.getRol();
-
         if (lblUsuarioTop != null) lblUsuarioTop.setText(nombre);
         if (lblRolTop != null) lblRolTop.setText(rol);
         if (lblBienvenida != null) lblBienvenida.setText("Bienvenido, " + nombre + " 👋");
@@ -92,10 +71,6 @@ public class CentroSistemaController {
         configurarBotonModulo(btnNavInventario, "inventario");
         configurarBotonModulo(btnNavEmpleados, "empleados");
         configurarBotonModulo(btnNavMantenimiento, "mantenimiento");
-        configurarBotonModulo(btnNavReportes, "reportes");
-        if (btnNavConfiguracion != null) {
-            configurarBotonModulo(btnNavConfiguracion, "mantenimiento");
-        }
     }
 
     private void animarEntrada() {
@@ -104,29 +79,48 @@ public class CentroSistemaController {
 
     private void configurarBotonModulo(Button boton, String modulo) {
         if (boton == null) return;
-
         boolean permitido = RoleGuard.tienePermiso(modulo);
         boton.setDisable(!permitido);
-
         if (!permitido) {
-            if (!boton.getStyleClass().contains("sideButtonDenied")) {
-                boton.getStyleClass().add("sideButtonDenied");
-            }
+            if (!boton.getStyleClass().contains("sideButtonDenied")) boton.getStyleClass().add("sideButtonDenied");
             boton.setTooltip(new javafx.scene.control.Tooltip("Acceso denegado para tu rol"));
         }
     }
 
-    @FXML
-    private void mostrarNotificaciones() {
-        Alertas.informacion("Notificaciones",
-                "Tienes " + cantidadNotificaciones + " notificaciones pendientes.\n"
-                + "Panel de notificaciones próximamente disponible.");
+    private void cargarDashboard() {
+        double totalHoy = VentaDAO.obtenerTotalVentasHoy();
+        int cantHoy = VentaDAO.obtenerCantidadVentasHoy();
+        if (lblVentasHoy != null) lblVentasHoy.setText(fmt.format(totalHoy));
+        if (lblCantVentasHoy != null) lblCantVentasHoy.setText(cantHoy + " ventas");
+
+        int clientes = VentaDAO.obtenerCantidadClientes();
+        if (lblClientesRegistrados != null) lblClientesRegistrados.setText(String.valueOf(clientes));
+
+        var ventasSemana = VentaDAO.obtenerVentasPorSemana();
+        double totalSemana = 0;
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        DateTimeFormatter diaFmt = DateTimeFormatter.ofPattern("EEE", new Locale("es", "DO"));
+        for (var e : ventasSemana.entrySet()) {
+            String label = e.getKey().format(diaFmt);
+            series.getData().add(new XYChart.Data<>(label, e.getValue()));
+            totalSemana += e.getValue();
+        }
+        if (chartVentasSemana != null) {
+            chartVentasSemana.getData().clear();
+            chartVentasSemana.getData().add(series);
+        }
+        if (lblTotalSemana != null) lblTotalSemana.setText("Total semana: " + fmt.format(totalSemana));
+
+
     }
 
     @FXML
-    private void irPanelNotificaciones(ActionEvent event) {
-        mostrarNotificaciones();
+    private void mostrarNotificaciones() {
+        Alertas.informacion("Notificaciones", "Panel de notificaciones próximamente disponible.");
     }
+
+    @FXML
+    private void irPanelNotificaciones(ActionEvent event) { mostrarNotificaciones(); }
 
     @FXML
     private void irPanelInventario(ActionEvent event) {
@@ -136,9 +130,8 @@ public class CentroSistemaController {
 
     @FXML
     private void mostrarGeneral(ActionEvent event) {
-        Alertas.informacion("Panel General",
-                "Bienvenido al panel general de Salsiao.\n"
-                + "Selecciona un módulo en el menú lateral para comenzar.");
+        cargarDashboard();
+        Alertas.informacion("Panel General", "Datos actualizados.");
     }
 
     @FXML
@@ -169,14 +162,6 @@ public class CentroSistemaController {
     private void irNuevaReserva(ActionEvent event) {
         if (!RoleGuard.permitir("clientes")) return;
         Navegacion.abrirClientes(event);
-    }
-
-    @FXML
-    private void irReporteVentas(ActionEvent event) {
-        if (!RoleGuard.permitir("reportes")) return;
-        Alertas.informacion("Reportes de ventas",
-                "Módulo de reportes en desarrollo.\n"
-                + "Próximamente: reportes gráficos, exportación a Excel y PDF.");
     }
 
     @FXML
@@ -216,24 +201,8 @@ public class CentroSistemaController {
     }
 
     @FXML
-    private void abrirReportes(ActionEvent event) {
-        if (!RoleGuard.permitir("reportes")) return;
-        Alertas.informacion("Reportes",
-                "Módulo de reportes en desarrollo.\n"
-                + "Próximamente: reportes de ventas, compras, inventario y más.");
-    }
-
-    @FXML
-    private void abrirConfiguracion(ActionEvent event) {
-        Alertas.informacion("Configuración",
-                "Módulo de configuración en desarrollo.\n"
-                + "Próximamente: ajustes del sistema, preferencias y personalización.");
-    }
-
-    @FXML
     private void actualizarDashboard() {
-        actualizarNotificaciones();
-        mostrarDatosSesion();
+        cargarDashboard();
         Alertas.exito("Dashboard", "Panel actualizado correctamente.");
     }
 

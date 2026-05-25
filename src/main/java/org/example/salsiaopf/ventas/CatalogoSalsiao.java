@@ -24,6 +24,7 @@ public final class CatalogoSalsiao {
             "Pollo / Alitas",
             "Picaderas",
             "Papas y extras",
+            "Combos",
             "Bebidas",
             "Postres"
     );
@@ -83,6 +84,13 @@ public final class CatalogoSalsiao {
         agregar("beb-5", "Batida Mango", "Tropical, mango fresco.", "Bebidas", "🥤", 240);
         agregar("beb-6", "Batida Oreo", "Batida Oreo indulgente.", "Bebidas", "🥤", 180);
 
+        // Combos
+        agregar("com-1", "Combo Hamburguesa + Papas + Refresco", "Hamburguesa clásica, papas y refresco.", "Combos", "🍱", 720);
+        agregar("com-2", "Combo Hotdog + Papas + Refresco", "Hotdog XL, papas y refresco.", "Combos", "🍱", 590);
+        agregar("com-3", "Combo Pizza + Refresco", "Pizza personal + refresco.", "Combos", "🍱", 580);
+        agregar("com-4", "Combo Alitas 12 + Papas + Refresco", "Alitas 12 piezas, papas y refresco.", "Combos", "🍱", 1250);
+        agregar("com-5", "Combo Familiar (2 hamburguesas + papas + 4 refrescos)", "Para toda la familia.", "Combos", "🍱", 1650);
+
         // Postres
         agregar("pos-1", "Brownie", "Brownie de chocolate caliente.", "Postres", "🍰", 180);
         agregar("pos-2", "Cheesecake", "Cheesecake cremoso.", "Postres", "🍰", 250);
@@ -111,6 +119,7 @@ public final class CatalogoSalsiao {
             case "Pollo / Alitas" -> new String[]{"#ad2102", "#fa541c"};
             case "Picaderas" -> new String[]{"#d4a017", "#fadb14"};
             case "Papas y extras" -> new String[]{"#b37b0d", "#faad14"};
+            case "Combos" -> new String[]{"#e91e63", "#f06292"};
             case "Bebidas" -> new String[]{"#006d77", "#48cae4"};
             case "Postres" -> new String[]{"#7b2cbf", "#c77dff"};
             default -> new String[]{"#1e3a5f", "#3b82f6"};

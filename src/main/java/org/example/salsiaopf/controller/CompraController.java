@@ -56,6 +56,7 @@ public class CompraController {
     @FXML private Label lblRecPendientes, lblRecRecibidas, lblRecPendientesPago;
     private final ObservableList<RecepcionRow> recepcionList = FXCollections.observableArrayList();
     private int idOrdenSeleccionada = -1;
+    private boolean alertaPagadaActiva = false;
 
     @FXML
     private void initialize() {
@@ -82,7 +83,26 @@ public class CompraController {
         });
 
         cmbOrdenRecepcion.getSelectionModel().selectedItemProperty().addListener((obs, old, sel) -> {
-            if (sel != null) cargarDetalleOrdenRecepcion(sel.id);
+            if (sel != null) {
+                Object[] ord = CompraDAO.obtenerOrden(sel.id);
+                if (ord != null && "Pagada".equals(ord[6])) {
+                    if (!alertaPagadaActiva) {
+                        alertaPagadaActiva = true;
+                        idOrdenSeleccionada = -1;
+                        txtRecCodigo.setText((String) ord[1]);
+                        txtRecProveedor.setText((String) ord[3]);
+                        txtRecFecha.setText(ord[4] != null ? ord[4].toString() : "");
+                        txtRecEstado.setText((String) ord[6]);
+                        txtRecTotal.setText(String.format("RD$ %,.2f", (double) ord[7]));
+                        txtRecNotas.setText((String) ord[5]);
+                        txtPagoMonto.clear(); datePago.setValue(null);
+                        Alertas.informacion("Orden Pagada", "Esta orden ya fue pagada.");
+                        javafx.application.Platform.runLater(() -> alertaPagadaActiva = false);
+                    }
+                    return;
+                }
+                cargarDetalleOrdenRecepcion(sel.id);
+            }
         });
 
         Platform.runLater(() -> mostrarOrdenCompra());
@@ -421,7 +441,14 @@ public class CompraController {
             String est = (String) o[4];
             double tot = (double) o[5];
             recepcionList.add(new RecepcionRow(id, cod, prov, fecha, tot, est));
-            if ("Pendiente".equals(est)) { pend++; cmbOrdenRecepcion.getItems().add(new ItemCombo(id, cod + " - " + prov + " - " + fecha, "")); }
+            String estadoIcono = switch (est) {
+                case "Pagada" -> "✅";
+                case "Recibida" -> "📥";
+                case "Pendiente" -> "⏳";
+                default -> "";
+            };
+            cmbOrdenRecepcion.getItems().add(new ItemCombo(id, estadoIcono + " " + cod + " - " + prov + " - " + fecha, ""));
+            if ("Pendiente".equals(est)) pend++;
             else if ("Recibida".equals(est)) rec++;
         }
         lblRecPendientes.setText(String.valueOf(pend));
@@ -441,6 +468,7 @@ public class CompraController {
         txtRecNotas.setText((String) ord[5]);
         txtPagoMonto.setText(String.format("%.2f", (double) ord[7]));
         datePago.setValue(LocalDate.now());
+
     }
 
     @FXML
@@ -458,6 +486,13 @@ public class CompraController {
     @FXML
     private void procesarPago() {
         if (idOrdenSeleccionada <= 0) { Alertas.advertencia("Pago", "Seleccione una orden primero."); return; }
+        Object[] ordenActual = CompraDAO.obtenerOrden(idOrdenSeleccionada);
+        if (ordenActual != null && "Pagada".equals(ordenActual[6])) {
+            Alertas.error("Pago", "Esta orden ya fue pagada.");
+            idOrdenSeleccionada = -1;
+            txtPagoMonto.clear(); datePago.setValue(null);
+            return;
+        }
         String montoStr = txtPagoMonto.getText().trim();
         if (montoStr.isEmpty()) { Alertas.advertencia("Pago", "Ingrese el monto a pagar."); return; }
         double monto;
